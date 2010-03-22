@@ -1,0 +1,3 @@
+CITATION file, ?CITATION
+semiparametric effect size model
+documentation
