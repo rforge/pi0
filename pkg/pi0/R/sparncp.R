@@ -20,7 +20,8 @@ sparncp.parncp=function(obj1, obj2, ...)
     if(!all.equal(parfit$data, nparfit$data)) stop("the two objects are based on different data")
 
 #    obj=function(propar) propar*marginal.dt(parfit)(parfit$data$tstat)+(1-propar)*marginal.dt(nparfit)(nparfit$data$tstat) ## this uses mixture density for different df's
-    obj=function(propar) sum( log(propar*pmax(fitted(parfit),0)+(1-propar)*pmax(0,fitted(nparfit)) ))
+    fitted.parfit=fitted(parfit); fitted.nparfit=fitted(nparfit)
+    obj=function(propar) sum( log(propar*pmax(fitted.parfit,0)+(1-propar)*pmax(0,fitted.parfit) ))
     propar.fit=optimize(obj, c(0,1),  maximum =TRUE)
     propar=propar.fit$maximum
     ll=propar.fit$objective
