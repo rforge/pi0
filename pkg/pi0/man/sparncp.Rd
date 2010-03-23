@@ -1,7 +1,7 @@
 \name{sparncp}
 \alias{sparncp}
 \alias{sparncp.parncp}
-\alias{sparncp.narncp}
+\alias{sparncp.nparncp}
 \alias{sparncp.numeric}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ 
