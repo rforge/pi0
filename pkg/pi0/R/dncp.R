@@ -6,7 +6,7 @@ dncp.parncp=function(obj, ...)
     ans
 }
 
-dncp.nparncp=function(obj, ...)
+dncp.nparncp=function(obj, ...) {
     d.ncp = function(xx) {
         xx = outer(xx, obj$all.mus, "-")
         xx = sweep(xx, 2, obj$all.sigs, "/")
