@@ -1,6 +1,7 @@
 \name{sparncp}
 \alias{sparncp}
 \alias{sparncp.parncp}
+\alias{sparncp.narncp}
 \alias{sparncp.numeric}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ 
@@ -11,24 +12,21 @@ Semiparametric density estimation for noncentrality parameters using the combina
 based on fits from both \code{\link{parncp}} and \code{\link{nparncp}}.
 }
 \usage{
-sparncp(obj, ...)
-\method{sparncp}{parncp}(parfit, nparfit, ...)
-\method{sparncp}{numeric}(tstat, df, ...)
+sparncp(obj1, obj2, ...)
+\method{sparncp}{parncp}(obj1, obj2, ...)
+\method{sparncp}{nparncp}(obj1, obj2, ...)
+\method{sparncp}{numeric}(obj1, obj2, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{obj}{ an object of class \code{parfit} or a numeric vector of t-statistics}
-  \item{parfit}{ an object of class \code{parfit} }
-  \item{nparfit}{ an object of class \code{nparfit} }
-  \item{tstat}{a numeric vector of t-statistics}
-  \item{df}{a numeric vector of degrees of freedom}
+  \item{obj1, obj2}{ Case 1: \code{obj1} and \code{obj2} are of class \code{\link{parncp}} and \code{\link{nparncp}} respectively; 
+  or vice versa; Case 2: \code{obj1} is a numeric vector of t-statistics and \code{obj2} is a vector degrees of freedom}
   \item{\dots}{ other arguments passed to \code{\link{dtn.mix}}, most notably the \code{approximation} argument. }
 }
 \details{
 This is a two-component mixture of a parametric fit from \code{\link{parncp}} and a nonparametric fit from \code{\link{nparncp}}, 
-with mixing proportion rho. If \code{tstat} and \code{df} are supplied, calls to each of \code{\link{parncp}} and \code{\link{nparncp}}
-are made and their results are used in combination
-
+with mixing proportion rho. If \code{obj1} and \code{obj2} are t-statistics and degrees of freedom respectively, calls to each of \code{\link{parncp}} and \code{\link{nparncp}}
+are made and their results are used in combination.
 }
 \value{ a list with class \code{c('sparncp','ncpest')}:
         \item{pi0}{estimated proportion of true nulls}

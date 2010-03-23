@@ -1,7 +1,21 @@
-sparncp=function(obj,...) UseMethod('sparncp')
+sparncp=function(obj1, obj2, ...) UseMethod('sparncp')
 
-sparncp.parncp=function(parfit, nparfit, ...)
-{
+sparncp.nparncp=function(obj1, obj2,...)
+{   tmp=obj1;
+    obj1=obj2;
+    obj2=tmp
+    NextMethod('sparncp')
+}
+
+sparncp.numeric=function(obj1, obj2, ...)
+{   tstat=obj1; df=obj2
+    obj1=parncp(tstat,df, zeromean=FALSE, ...)
+    obj2=nparncp(tstat,df, ...)
+    NextMethod('sparncp')
+}
+
+sparncp.parncp=function(obj1, obj2, ...)
+{   parfit=obj1; nparfit=obj2
     if(!inherits(nparfit,'nparncp')) stop("second argument should be an 'nparncp' object")
     if(!all.equal(parfit$data, nparfit$data)) stop("the two objects are based on different data")
 
@@ -21,13 +35,6 @@ sparncp.parncp=function(parfit, nparfit, ...)
              )
     class(ans)=c('sparncp','ncpest')
     ans
-}
-
-sparncp.numeric=function(tstat, df, ...)
-{
-    parfit=parncp(tstat,df, zeromean=FALSE, ...)
-    nparfit=nparncp(tstat,df, ...)
-    sparncp(parfit, nparfit,...)
 }
 
 fitted.sparncp=fitted.values.sparncp=function(object, ...)
