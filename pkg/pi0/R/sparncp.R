@@ -1,7 +1,8 @@
-sparncp=function(obj,...) Usemethod('sparncp')
+sparncp=function(obj,...) UseMethod('sparncp')
 
 sparncp.parncp=function(parfit, nparfit, ...)
-{   if(!inherits(nparfit,'nparncp')) stop("second argument should be an 'nparncp' object")
+{
+    if(!inherits(nparfit,'nparncp')) stop("second argument should be an 'nparncp' object")
     if(!all.equal(parfit$data, nparfit$data)) stop("the two objects are based on different data")
 
 #    obj=function(propar) propar*marginal.dt(parfit)(parfit$data$tstat)+(1-propar)*marginal.dt(nparfit)(nparfit$data$tstat) ## this uses mixture density for different df's

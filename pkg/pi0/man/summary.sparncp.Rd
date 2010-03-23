@@ -15,7 +15,7 @@ effective number of parameters (\code{enp}).
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object,x}{ an object of class \code{sparncp}
+  \item{object,x}{ an object of class \code{sparncp}}
   \item{\dots}{ currently not used }
 }
 \details{

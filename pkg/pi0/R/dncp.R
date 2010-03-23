@@ -11,7 +11,7 @@ dncp.nparncp=function(obj, ...) {
         xx = outer(xx, obj$all.mus, "-")
         xx = sweep(xx, 2, obj$all.sigs, "/")
         d = sweep(dnorm(xx), 2, obj$all.sigs, "/")
-        drop(d %*% ob$beta)
+        drop(d %*% obj$beta)
     }
     d.ncp
 }

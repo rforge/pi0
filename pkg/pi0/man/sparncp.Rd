@@ -1,0 +1,57 @@
+\name{sparncp}
+\alias{sparncp}
+\alias{sparncp.parncp}
+\alias{sparncp.numeric}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{ 
+Semiparametric density estimation for noncentrality parameters
+}
+\description{
+Semiparametric density estimation for noncentrality parameters using the combination method of Olkin and Spiegelman (1987), 
+based on fits from both \code{\link{parncp}} and \code{\link{nparncp}}.
+}
+\usage{
+sparncp(obj, ...)
+\method{sparncp}{parncp}(parfit, nparfit, ...)
+\method{sparncp}{numeric}(tstat, df, ...)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{obj}{ an object of class \code{parfit} or a numeric vector of t-statistics}
+  \item{parfit}{ an object of class \code{parfit} }
+  \item{nparfit}{ an object of class \code{nparfit} }
+  \item{tstat}{a numeric vector of t-statistics}
+  \item{df}{a numeric vector of degrees of freedom}
+  \item{\dots}{ other arguments passed to \code{\link{dtn.mix}}, most notably the \code{approximation} argument. }
+}
+\details{
+This is a two-component mixture of a parametric fit from \code{\link{parncp}} and a nonparametric fit from \code{\link{nparncp}}, 
+with mixing proportion rho. If \code{tstat} and \code{df} are supplied, calls to each of \code{\link{parncp}} and \code{\link{nparncp}}
+are made and their results are used in combination
+
+}
+\value{ a list with class \code{c('sparncp','ncpest')}:
+        \item{pi0}{estimated proportion of true nulls}
+        \item{mu.ncp}{mean of ncp}
+        \item{sd.ncp}{SD of ncp}
+        \item{logLik}{an object of class \code{logLik}. The associated \code{df} is the estimated effective number of parameters (enp). The log likelihood is also penalized likelihood. See also \code{\link{logLik.ncpest}} and \code{\link{AIC}}.}
+        \item{enp}{estimated ENP}
+        \item{par}{estimated mixing proportion \code{rho}}
+        \item{gradiant}{analytic gradiant at the estimate (not implemented) }
+        \item{hessian}{analytic hessian at the estimate (not implemented) }
+        \item{parfit}{ the fitted \code{\link{parncp}} object}
+        \item{nparfit}{the fitted \code{\link{nparncp}} object}
+}
+\references{ 
+I. Olkin and C. H. Spiegelman.  1987. A Semiparametric Approach to Density Estimation. Journal of the American Statistical Association. 82,399,858-865
+}
+\author{ Long Qu \email{longor@iastate.edu}}
+\note{ 
+}
+\seealso{ \code{\link{parncp}}, \code{\link{nparncp}}}
+\examples{
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ models }
+\keyword{ smooth }% __ONLY ONE__ keyword per line

@@ -9,7 +9,7 @@ marginal.dt.parncp=function(obj,  ...)
 
     function(x){    # discrete mixure of many distinct df's
         dftab=table(obj$data$df)
-        prop=dftabl/sum(dftab)
+        prop=dftab/sum(dftab)
         sums=numeric(length(x))
         for(i in seq(along=dftab) ) sums=sums+prop[i]*single.df.ans(x, dftab[i])
         sums
@@ -32,11 +32,11 @@ marginal.dt.nparncp=function(obj,  ...)
         sums
     }
     df.unique=sort(unique(obj$data$df))
-    if(length(df.unique=1)) return(function(x)single.df.ans(x, obj$data$df[1]))
+    if(length(df.unique)==1) return(function(x)single.df.ans(x, obj$data$df[1]))
 
     function(x){    # discrete mixure of many distinct df's
         dftab=table(obj$data$df)
-        prop=dftabl/sum(dftab)
+        prop=dftab/sum(dftab)
         sums=numeric(length(x))
         for(i in seq(along=dftab) ) sums=sums+prop[i]*single.df.ans(x, dftab[i])
         sums
