@@ -25,7 +25,7 @@ sparncp.parncp=function(obj1, obj2, ...)
     propar.fit=optimize(obj, c(0,1),  maximum =TRUE)
     propar=propar.fit$maximum
     ll=propar.fit$objective
-    attr(ll,'df')=ifelse(propar==1 || propar==0, 0,1)+propar*parfit$enp+(1-propar)*nparfit$enp
+    attr(ll,'df')=ifelse(propar>1-1e-5 || propar<1e-5, 0,1)+propar*parfit$enp+(1-propar)*nparfit$enp
 
     ans=list(pi0=propar*parfit$pi0+(1-propar)*nparfit$pi0,
              mu.ncp=propar*parfit$mu.ncp+(1-propar)*nparfit$mu.ncp,
