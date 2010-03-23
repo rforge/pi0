@@ -12,7 +12,7 @@ These functions return the density function of noncentrality parameters, from \c
 dncp(obj, ...)
 \method{dncp}{parncp}(obj, ...)
 \method{dncp}{nparncp}(obj, ...)
-%\method{dncp}{sparncp}(obj, ...)
+\method{dncp}{sparncp}(obj, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,7 +36,7 @@ dncp(obj, ...)
 %
 % ~Make other sections like Warning with \section{Warning }{....} ~
 }
-\seealso{ \code{\link{parncp}}. \code{\link{nparncp}} %,\code{\link{sparncp}}
+\seealso{ \code{\link{parncp}}. \code{\link{nparncp}} ,\code{\link{sparncp}}
 }
 \examples{
 %##---- Should be DIRECTLY executable !! ----

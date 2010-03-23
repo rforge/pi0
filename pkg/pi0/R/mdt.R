@@ -1,27 +1,27 @@
-mdt=function(obj, ...) UseMethod('mdt') ## marginal density of t
+marginal.dt=function(obj,  ...) UseMethod('marginal.dt') ## marginal density of t
 
-mdt.parncp=function(obj, ...)
+marginal.dt.parncp=function(obj,  ...)
 {
+
     single.df.ans=function(x, df) obj$pi0*dt(x, df )+(1-obj$pi0)*dtn.mix(x, df,obj$mu.ncp, obj$sd.ncp, ...)
     df.unique=sort(unique(obj$data$df))
     if(length(df.unique)==1) return(function(x)single.df.ans(x,obj$data$df[1]))
 
-    
-    ans=function(x){    # discrete mixure of many distinct df's
+    function(x){    # discrete mixure of many distinct df's
         dftab=table(obj$data$df)
         prop=dftabl/sum(dftab)
         sums=numeric(length(x))
         for(i in seq(along=dftab) ) sums=sums+prop[i]*single.df.ans(x, dftab[i])
         sums
     }
-    ans
 }
 
-mdt.nparncp=function(obj, ...)
+marginal.dt.nparncp=function(obj,  ...)
 {
+
     single.df.ans=function(x,df)
     {   sums=obj$pi0*dt(x, df)
-        for(k in 1:length(obj$beta) {
+        for(k in 1:length(obj$beta)) {
             tmp=dtn.mix(x,df, obj$all.mus[k], obj$all.sigs[k],...)
             if(any(tmp<0) || any(is.na(tmp))) {
                 warning("Noncentral density unreliable. I switched to exact density function")
@@ -34,16 +34,16 @@ mdt.nparncp=function(obj, ...)
     df.unique=sort(unique(obj$data$df))
     if(length(df.unique=1)) return(function(x)single.df.ans(x, obj$data$df[1]))
 
-    ans=function(x){    # discrete mixure of many distinct df's
+    function(x){    # discrete mixure of many distinct df's
         dftab=table(obj$data$df)
         prop=dftabl/sum(dftab)
         sums=numeric(length(x))
         for(i in seq(along=dftab) ) sums=sums+prop[i]*single.df.ans(x, dftab[i])
         sums
     }
-    ans
 }
 
-#mdt.sparncp=function(obj, ...){ ## to be implemented
-#    
-#}
+marginal.dt.sparncp=function(obj, ...){ ## to be implemented
+    ans=function(x) obj$par*marginal.dt(obj$parfit,...)(x) + (1-obj$par)*marginal.dt(obj$nparfit,...)(x)
+    ans
+}

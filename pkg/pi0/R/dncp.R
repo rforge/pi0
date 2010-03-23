@@ -16,4 +16,9 @@ dncp.nparncp=function(obj, ...) {
     d.ncp
 }
 
-#dncp.sparncp=function(obj,...) dncp.nparncp(obj,...)
+dncp.sparncp=function(obj,...) 
+{
+    d.ncp=function(x) obj$par*dncp(obj$parfit)(x) + (1-obj$par)*dncp(obj$nparfit)(x)
+    d.ncp
+}
+
