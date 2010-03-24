@@ -21,11 +21,11 @@ sparncp.parncp=function(obj1, obj2, ...)
 
 #    obj=function(propar) propar*marginal.dt(parfit)(parfit$data$tstat)+(1-propar)*marginal.dt(nparfit)(nparfit$data$tstat) ## this uses mixture density for different df's
     fitted.parfit=fitted(parfit); fitted.nparfit=fitted(nparfit)
-    obj=function(propar) sum( log(propar*pmax(fitted.parfit,0)+(1-propar)*pmax(0,fitted.parfit) ))
-    propar.fit=optimize(obj, c(0,1),  maximum =TRUE)
-    propar=propar.fit$maximum
+    obj=function(propar) sum( log(propar*pmax(fitted.parfit,0)+(1-propar)*pmax(0,fitted.nparfit) ))
+    propar.fit=optimize(obj, c(0,1),  maximum =TRUE,tol=5e-4)
+    propar=round(propar.fit$maximum,3)
     ll=propar.fit$objective
-    attr(ll,'df')=ifelse(propar>1-1e-5 || propar<1e-5, 0,1)+propar*parfit$enp+(1-propar)*nparfit$enp
+    attr(ll,'df')=ifelse(propar==1 || propar==0, 0,1)+propar*parfit$enp+(1-propar)*nparfit$enp
 
     ans=list(pi0=propar*parfit$pi0+(1-propar)*nparfit$pi0,
              mu.ncp=propar*parfit$mu.ncp+(1-propar)*nparfit$mu.ncp,
