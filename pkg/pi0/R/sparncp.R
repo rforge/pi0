@@ -4,14 +4,14 @@ sparncp.nparncp=function(obj1, obj2,...)
 {   tmp=obj1;
     obj1=obj2;
     obj2=tmp
-    NextMethod('sparncp')
+    sparncp.parncp(obj1, obj2, ...)
 }
 
 sparncp.numeric=function(obj1, obj2, ...)
 {   tstat=obj1; df=obj2
     obj1=parncp(tstat,df, zeromean=FALSE, ...)
     obj2=nparncp(tstat,df, ...)
-    NextMethod('sparncp')
+    sparncp.parncp(obj1, obj2, ...)
 }
 
 sparncp.parncp=function(obj1, obj2, ...)
@@ -47,6 +47,7 @@ print.sparncp=function(x,...)
     cat('pi0=',x$pi0, fill=TRUE)
     cat('mu.ncp=', x$mu.ncp, fill=TRUE)
     cat('sd.ncp=', x$sd.ncp, fill=TRUE)
+    cat("rho=", x$par, fill=TRUE)
     cat("enp=", x$enp, fill=TRUE)
 #    cat("lambda=", x$lambda, fill=TRUE)
     invisible(x)
