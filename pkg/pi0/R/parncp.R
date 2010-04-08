@@ -23,7 +23,9 @@ parncp.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
             pi0=parms[1]; mu.ncp=parms[2]; sd.ncp=parms[3]; scale.fact=sqrt(1+sd.ncp*sd.ncp)
             Lik=pi0*dt.null+(1-pi0)*dtn.mix(tstat,df,mu.ncp,sd.ncp,FALSE,approximation)
 #            Lik=pi0*dt.null+(1-pi0)*dt.int(tstat/scale.fact,df,mu.ncp/scale.fact)/scale.fact  
-            -sum(log(Lik))
+            ans=-sum(log(Lik))
+            if(!is.finite(ans)){ ans=-sum(log(pi0*dt.null+(1-pi0)*dtn.mix(tstat,df,mu.ncp,sd.ncp,FALSE,approximation='none')))  }
+            ans
         }
         
     deriv.non0mean=function(parms) {
