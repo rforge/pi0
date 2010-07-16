@@ -184,6 +184,11 @@ vcov.hisemit=function(object,...)
     object$fit$asym.vcov
 }
 
+NIC=function(obj,...)
+{
+    AIC(obj,...)
+}
+
 confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.ncp','r','coef','pi0','f'),level=.95,... )
 {
     parm=match.arg(parm)
@@ -276,3 +281,4 @@ confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.
     }
 
 }
+

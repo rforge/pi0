@@ -360,10 +360,12 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
 
         J=hess.nLogLik.pen(parms.new)
         K=attr(deriv.nLogLik.pen(parms.new,TRUE),'K')
-        J.Inv=try(symmpart(solve(J)), silent=TRUE)
+        J.Inv=try(solve(J), silent=TRUE)
         if(class(J.Inv)=='try-error'){
             warning(paste("final Hessian is not positive definite. The smallest eigen value is", tail(eigen(J,TRUE,TRUE)$val,1)))
             J.Inv=symmpart(as(solve(nearPD(J)$mat),'sparseMatrix'))
+        }else{
+            J.Inv=sympart(J.Inv)
         }
         cov.parms=symmpart(J.Inv%*%K%*%J.Inv)
         ans=list(lfdr=lfdr.final,
