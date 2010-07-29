@@ -1,25 +1,25 @@
-sparncp=function(obj1, obj2, ...) UseMethod('sparncp')
+sparncpF=function(obj1, obj2, ...) UseMethod('sparncpF')
 
-sparncp.nparncp=function(obj1, obj2,...)
+sparncpF.nparncpF=function(obj1, obj2,...)
 {   tmp=obj1;
     obj1=obj2;
     obj2=tmp
-    sparncp.parncp(obj1, obj2, ...)
+    sparncpF.parncpF(obj1, obj2, ...)
 }
 
-sparncp.numeric=function(obj1, obj2, ...)
-{   tstat=obj1; df=obj2
-    obj1=parncp(tstat,df, zeromean=FALSE, ...)
-    obj2=nparncp(tstat,df, ...)
-    sparncp.parncp(obj1, obj2, ...)
+sparncpF.numeric=function(obj1, obj2, ...)
+{   Fstat=obj1; df1=obj2
+    obj1=parncpF(Fstat,df1, central=FALSE, ...)
+    obj2=nparncpF(Fstat,df1, ...)
+    sparncpF.parncpF(obj1, obj2, ...)
 }
 
-sparncp.parncp=function(obj1, obj2, ...)
+sparncpF.parncpF=function(obj1, obj2, ...)
 {   parfit=obj1; nparfit=obj2
-    if(!inherits(nparfit,'nparncp')) stop("second argument should be an 'nparncp' object")
+    if(!inherits(nparfit,'nparncpF')) stop("second argument should be an 'nparncpF' object")
     if(!all.equal(parfit$data, nparfit$data)) stop("the two objects are based on different data")
 
-#    obj=function(propar) propar*marginal.dt(parfit)(parfit$data$tstat)+(1-propar)*marginal.dt(nparfit)(nparfit$data$tstat) ## this uses mixture density for different df's
+#    obj=function(propar) propar*marginal.df(parfit)(parfit$data$Fstat)+(1-propar)*marginal.df(nparfit)(nparfit$data$Fstat) ## this uses mixture density for different df's
     fitted.parfit=fitted(parfit); fitted.nparfit=fitted(nparfit)
     obj=function(propar) sum( log(propar*pmax(fitted.parfit,0)+(1-propar)*pmax(0,fitted.nparfit) ))
     propar.fit=optimize(obj, c(0,1),  maximum =TRUE,tol=5e-4)
@@ -34,15 +34,15 @@ sparncp.parncp=function(obj1, obj2, ...)
              gradient=NULL,      hessian=NULL,      ## TO BE ADDED LATER
              parfit=parfit, nparfit=nparfit
              )
-    class(ans)=c('sparncp','ncpest')
+    class(ans)=c('sparncpF','ncpest')
     ans
 }
 
-fitted.sparncp=fitted.values.sparncp=function(object, ...)
+fitted.sparncpF=fitted.values.sparncpF=function(object, ...)
 {
     object$par * fitted(object$parfit) + (1-object$par)*fitted(object$nparfit)
 }
-print.sparncp=function(x,...)
+print.sparncpF=function(x,...)
 {
     cat('pi0=',x$pi0, fill=TRUE)
     cat('mu.ncp=', x$mu.ncp, fill=TRUE)
@@ -52,35 +52,35 @@ print.sparncp=function(x,...)
 #    cat("lambda=", x$lambda, fill=TRUE)
     invisible(x)
 }
-summary.sparncp=function(object,...)
+summary.sparncpF=function(object,...)
 {
-    print.sparncp(object,...)
+    print.sparncpF(object,...)
 }
-plot.sparncp=function(x,...)
+plot.sparncpF=function(x,...)
 {
     x11(width=8, height=4)
     op=par(mfrow=c(1,2))
-    hist(x$parfit$data$tstat, pr=TRUE, br=min(c(max(c(20, length(x$parfit$data$tstat)/100)), 200)), xlab='t',main='t-statistics')
-    ord=order(x$parfit$data$tstat)
-    lines(x$parfit$data$tstat[ord], fitted(x)[ord], col='red', lwd=2)
+    hist(x$parfit$data$Fstat, pr=TRUE, br=min(c(max(c(20, length(x$parfit$data$Fstat)/100)), 200)), xlab='t',main='t-statistics')
+    ord=order(x$parfit$data$Fstat)
+    lines(x$parfit$data$Fstat[ord], fitted(x)[ord], col='red', lwd=2)
     d.ncp=function(d) dncp(x)(d)
-    curve(d.ncp, quantile(x$parfit$data$tstat,.001), quantile(x$parfit$data$tstat,.999), 500, 
+    curve(d.ncp, quantile(x$parfit$data$Fstat,.001), quantile(x$parfit$data$Fstat,.999), 500, 
         xlab='delta', ylab='density',main='noncentrality parameters')
     abline(v=c(0, x$mu.ncp), lty=1:2)
     par(op)
     invisible(x)
 }
 
-#sparncp.numeric=function(tstat, df, parfit, ...)
+#sparncpF.numeric=function(Fstat, df, parfit, ...)
 #{
 #    method='SQP'
 #    if (method=='SQP') {
-#        sparncp.sqp(tstat, df, parfit, ...)
+#        sparncpF.sqp(Fstat, df, parfit, ...)
 #    }
 #}
 
-#sparncp.sqp = function (tstat, df, parfit=parncp(tstat,df,zeromean=F), penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,15,length=17), starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'),
-#                        K=100, bounds=quantile(tstat,c(.01,.99)), solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
+#sparncpF.sqp = function (Fstat, df, parfit=parncpF(Fstat,df,zeromean=F), penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,15,length=17), starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'),
+#                        K=100, bounds=quantile(Fstat,c(.01,.99)), solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 #{
 ##   source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dtn.mix.R")
 #    solver=match.arg(solver)
@@ -93,20 +93,20 @@ plot.sparncp=function(x,...)
 #    if (length(bounds)==1) bounds=c(-abs(bounds), abs(bounds))
 #    if (diff(bounds)[1]<=0) bounds=bounds[2:1]
 #
-#    G=max(c(length(tstat),length(df)))
+#    G=max(c(length(Fstat),length(df)))
 #    mus=seq(bounds[1], bounds[2], length=K)
 #    sigs=rep(diff(bounds)[1]/(K-1), K)
 #
 #    IC=toupper(IC); IC=match.arg(IC)
 #    IC.fact=switch(IC, AIC=2, BIC=log(G), CAIC=log(G)+2, HQIC=2*log(log(G)))
 #
-#    h0.i=dt(tstat,df) 
+#    h0.i=df(Fstat,df) 
 #    b.i=matrix(0,G,K)
 #    for(k in 1:K){
-#        b.i[,k]=dtn.mix(tstat,df,mus[k], sigs[k],...)
+#        b.i[,k]=dtn.mix(Fstat,df,mus[k], sigs[k],...)
 #        if(any(b.i[,k]<0) || any(is.na(b.i[,k]))) {
 #            warning("Noncentral density unreliable. I switched to exact density function")
-#            b.i[,k]=dtn.mix(tstat,df,mus[k], sigs[k],approximation='none')
+#            b.i[,k]=dtn.mix(Fstat,df,mus[k], sigs[k],approximation='none')
 #        }
 #    }
 #    if(approx.hess==1) {
@@ -341,10 +341,10 @@ plot.sparncp=function(x,...)
 #             gradiant=grad.NPLL(sqp.fit[i.final,]), hessian=hess.NPLL(sqp.fit[i.final,]),
 #
 #             beta=beta.final, IC=IC, 
-#             all.mus=mus, all.sigs=sigs, data=list(tstat=tstat, df=df), i.final=i.final, all.pi0s=pi0s,
+#             all.mus=mus, all.sigs=sigs, data=list(Fstat=Fstat, df=df), i.final=i.final, all.pi0s=pi0s,
 #             all.enps=enps, all.thetas=sqp.fit, all.nics=nics, all.nic.sd=nic.sd, all.lambdas=lambdas)
-#    class(ans)=c('sparncp','ncpest')
-#    if(plotit) plot.sparncp(ans)
+#    class(ans)=c('sparncpF','ncpest')
+#    if(plotit) plot.sparncpF(ans)
 #    ans
 #}
 
@@ -360,19 +360,19 @@ plot.sparncp=function(x,...)
 #{
 #    object$par
 #}
-#fitted.sparncp=fitted.values.sparncp=function(object, ...)
+#fitted.sparncpF=fitted.values.sparncpF=function(object, ...)
 #{
 #    
-#    nonnull.mat=matrix(NA_real_, length(object$data$tstat), length(object$all.mus))
-#    for(k in 1:length(object$all.mus)) nonnull.mat[,k]=dtn.mix(object$data$tstat, object$data$df, object$all.mus[k],object$all.sigs[k],FALSE,...)
-#    object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*drop(nonnull.mat%*%object$beta)
+#    nonnull.mat=matrix(NA_real_, length(object$data$Fstat), length(object$all.mus))
+#    for(k in 1:length(object$all.mus)) nonnull.mat[,k]=dtn.mix(object$data$Fstat, object$data$df, object$all.mus[k],object$all.sigs[k],FALSE,...)
+#    object$pi0*df(object$data$Fstat, object$data$df)+(1-object$pi0)*drop(nonnull.mat%*%object$beta)
 #}
 
-#summary.sparncp=function(object,...)
+#summary.sparncpF=function(object,...)
 #{
-#    print.sparncp(object,...)
+#    print.sparncpF(object,...)
 #}
-#print.sparncp=function(x,...)
+#print.sparncpF=function(x,...)
 #{
 #    cat('pi0=',x$pi0, fill=TRUE)
 #    cat('mu.ncp=', x$mu.ncp, fill=TRUE)
@@ -381,7 +381,7 @@ plot.sparncp=function(x,...)
 #    cat("lambda=", x$lambda, fill=TRUE)
 #    invisible(x)
 #}
-#plot.sparncp=function(x,...)
+#plot.sparncpF=function(x,...)
 #{
 #    x11(width=7,heigh=7)
 #    op=par(mfrow=c(2,2))
@@ -410,7 +410,7 @@ plot.sparncp=function(x,...)
 #        d=sweep(dnorm(xx),2,x$all.sigs,'/')
 #        drop(d%*%x$beta)
 #    }
-#    curve(d.ncp, min(x$data$tstat),max(x$data$tstat),100,col=4,lwd=2, xlab='delta',ylab='density')
+#    curve(d.ncp, min(x$data$Fstat),max(x$data$Fstat),100,col=4,lwd=2, xlab='delta',ylab='density')
 ##    detach(x)
 #    rug(x$all.mus)
 #    par(op)
@@ -418,16 +418,16 @@ plot.sparncp=function(x,...)
 #}
 
 if(FALSE) {
-(pfit=parncp(tstat,df,FALSE))
-npfit.mean=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=TRUE)
-npfit.0=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=0)
-npfit.75=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.75)
-npfit.80=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.80)
-npfit.85=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.85)
-npfit.90=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.90)
-npfit.95=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.95)
+(pfit=parncpF(Fstat,df,FALSE))
+npfit.mean=sparncpF(Fstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=TRUE)
+npfit.0=sparncpF(Fstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=0)
+npfit.75=sparncpF(Fstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.75)
+npfit.80=sparncpF(Fstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.80)
+npfit.85=sparncpF(Fstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.85)
+npfit.90=sparncpF(Fstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.90)
+npfit.95=sparncpF(Fstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.95)
 
-npfit.mean=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),penalty='2',verbose=FALSE,approx.hess=TRUE)
+npfit.mean=sparncpF(Fstat,df,starts=rep((1-pfit['pi0'])/K,K),penalty='2',verbose=FALSE,approx.hess=TRUE)
 
 ############ below is old code
     df=8
@@ -438,24 +438,24 @@ npfit.mean=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),penalty='2',verbose=
 #    ncps=rnorm(G1)
     ncps=rnorm(G1,3)    
 #    ncps=rnorm(G1,c(2,-2))
-    tstat=c(rt(G0,df),rt(G1,df,ncps))
+    Fstat=c(rt(G0,df),rt(G1,df,ncps))
 
-tstat.ord=order(tstat)
+Fstat.ord=order(Fstat)
 K=100
-mus=c(seq(min(tstat),max(tstat),length=K))
+mus=c(seq(min(Fstat),max(Fstat),length=K))
 #    mus=c(seq(-23,23,length=K))
 sigs=c(rep(mus[3]-mus[2], K))
 
 source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dtn.mix.R")
-h0.i=dt(tstat,df) #quantile(tstat,.05)),
+h0.i=df(Fstat,df) #quantile(Fstat,.05)),
 b.i=matrix(0,G,K)
 time0=proc.time()
 for(k in 1:K) {
-#           b.i[,i]=d(tstat,df,mus[k], sigs[k], approximation='saddlepoint', normalize='int') ## old
+#           b.i[,i]=d(Fstat,df,mus[k], sigs[k], approximation='saddlepoint', normalize='int') ## old
 ######### new
-#    b.i[,k]=dt(tstat/sigs[k],df,mus[k]/sigs[k])/sigs[k]
-#    b.i[,k]=dt.sad(tstat/sigs[k],df,mus[k]/sigs[k], normalize='approx')/sigs[k]
-    b.i[,k]=dt.lap(tstat/sigs[k],df,mus[k]/sigs[k])/sigs[k]
+#    b.i[,k]=df(Fstat/sigs[k],df,mus[k]/sigs[k])/sigs[k]
+#    b.i[,k]=dt.sad(Fstat/sigs[k],df,mus[k]/sigs[k], normalize='approx')/sigs[k]
+    b.i[,k]=dt.lap(Fstat/sigs[k],df,mus[k]/sigs[k])/sigs[k]
 }
 b.i=b.i-h0.i
 proc.time()-time0
@@ -647,9 +647,9 @@ x11();
 strt=rep(1/K,K); strt=strt/sum(strt)*.5
 #strt=runif(K); strt=strt/sum(strt)*.5
 sqp.fit=sqp(strt,1e-10)
-#curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(tstat),max(tstat),100,add=FALSE,col=1,lwd=1)
-hist(ncps,br=50, border=1, xlim=c(min(tstat)-6*sigs[1],max(tstat)+6*sigs[1]),pr=TRUE); rug(mus)
-#hist(tstat,pr=TRUE,br=50,sub=lambda); rug(mus)
+#curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(Fstat),max(Fstat),100,add=FALSE,col=1,lwd=1)
+hist(ncps,br=50, border=1, xlim=c(min(Fstat)-6*sigs[1],max(Fstat)+6*sigs[1]),pr=TRUE); rug(mus)
+#hist(Fstat,pr=TRUE,br=50,sub=lambda); rug(mus)
 
 
 nics=enps=nic.sd=pi0s=numeric(20)
@@ -662,11 +662,11 @@ for(i in rev(seq(along=nics))){
     nics[i]=sum(tmp)+enps[i]
     nic.sd[i]=sd(tmp)*sqrt(G)
     pi0s[i]=1-sum(sqp.fit)
-    hist(ncps,pr=TRUE,xlim=c(min(tstat),max(tstat)),br=40,sub=lambda,main=enps[i]); rug(mus); 
-    curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(tstat),max(tstat),100,add=TRUE,col=4,lwd=2)
+    hist(ncps,pr=TRUE,xlim=c(min(Fstat),max(Fstat)),br=40,sub=lambda,main=enps[i]); rug(mus); 
+    curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(Fstat),max(Fstat),100,add=TRUE,col=4,lwd=2)
 
-#    hist(tstat,pr=TRUE,br=150,sub=lambda,main=paste('pi0=',1-sum(sqp.fit))); rug(mus); 
-#    lines(tstat[tstat.ord],d.t(sqp.fit)[tstat.ord],col=2,lwd=2)
+#    hist(Fstat,pr=TRUE,br=150,sub=lambda,main=paste('pi0=',1-sum(sqp.fit))); rug(mus); 
+#    lines(Fstat[Fstat.ord],d.t(sqp.fit)[Fstat.ord],col=2,lwd=2)
 }
 plot(log10(lambdas), enps); 
 plot(log10(lambdas), pi0s); 
@@ -679,13 +679,13 @@ abline(v=log10(lambdas)[which.max(nics[nics<=nics[which.min(nics)]+nic.sd[which.
 lambda=lambdas[which.min(nics)]
 #lambda=(lambdas)[which.max(nics[nics<=nics[which.min(nics)]+nic.sd[which.min(nics)]])]
 sqp.fit=sqp(sqp.fit,1e-10, 1e10)
-hist(ncps,pr=TRUE,xlim=c(min(tstat),max(tstat)),br=40,sub=lambda,main=enp(sqp.fit)); rug(mus)
-#curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(tstat),max(tstat),100,add=TRUE,col=4,lwd=2)
-curve(d.ncp(x, sqp.fit/(sum(sqp.fit))), min(tstat),max(tstat),100,add=TRUE,col=4,lwd=2)
-#curve(dnorm(x,2), min(tstat),max(tstat),100,add=TRUE,col=1,lwd=1)
+hist(ncps,pr=TRUE,xlim=c(min(Fstat),max(Fstat)),br=40,sub=lambda,main=enp(sqp.fit)); rug(mus)
+#curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(Fstat),max(Fstat),100,add=TRUE,col=4,lwd=2)
+curve(d.ncp(x, sqp.fit/(sum(sqp.fit))), min(Fstat),max(Fstat),100,add=TRUE,col=4,lwd=2)
+#curve(dnorm(x,2), min(Fstat),max(Fstat),100,add=TRUE,col=1,lwd=1)
 
-hist(tstat,pr=TRUE,br=50,sub=lambda)
-lines(tstat[tstat.ord],d.t(sqp.fit)[tstat.ord],col=2,lwd=2)
+hist(Fstat,pr=TRUE,br=50,sub=lambda)
+lines(Fstat[Fstat.ord],d.t(sqp.fit)[Fstat.ord],col=2,lwd=2)
 
 
 }

@@ -1,14 +1,14 @@
-nparncp=function(tstat, df, ...)
+nparncpF=function(Fstat, df1,df2, ...)
 {
     method='SQP'
     if (method=='SQP') {
-        nparncp.sqp(tstat, df, ...)
+        nparncpF.sqp(Fstat, df1,df2, ...)
     }
 }
-nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'),
-                        K=100, bounds=quantile(tstat,c(.01,.99)), solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
+nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.deriv','sqrt.1st.deriv','3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,8,by=1), starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'),
+                        K=20, bounds=quantile(Fstat,c(.99)), solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 {
-#   source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dtn.mix.R")
+#   source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dFsnc.mix.R")
     solver=match.arg(solver)
     penalty=match.arg(penalty)
     solver.package=switch(solver, solve.QP='limSolve', ipop='kernlab', lsei='limSolve',LowRankQP='LowRankQP')
@@ -17,23 +17,46 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
     if (K<=0 || length(K)!=1) stop("K should be a positive integer")
     if (any(lambdas<0)) stop("lambdas should be a vector of positive numbers")
     lambdas=sort(lambdas)
-    if (length(bounds)==1) bounds=c(-abs(bounds), abs(bounds))
-    if (diff(bounds)[1]<=0) bounds=bounds[2:1]
+#    if (length(bounds)==1) bounds=c(-abs(bounds), abs(bounds))
+#    if (diff(bounds)[1]<=0) bounds=bounds[2:1]
+    bounds=abs(bounds[1])
 
-    G=max(c(length(tstat),length(df)))
-    mus=seq(bounds[1], bounds[2], length=K)
-    sigs=rep(diff(bounds)[1]/(K-1), K)
+    G=max(c(length(Fstat),length(df1),length(df2)))
+    mus=seq(0, bounds, length=K+2)
+    mus[1]=mus[2]/10
+    gam2s=numeric(K)
+    for(k in 1:K) gam2s[k]=optimize(function(g2)abs(g2*qchisq(.95,df1,mus[k]/g2-df1)-mus[k+2]),c(1e-3,mus[k]/df1))$min
+#                get.gam2=function(){
+#                  gam2s=numeric(K)
+#                  for(k in 1:K){
+#                    roots=polyroot(c(mus[2]^2,-4*mus[k],2*df1))
+#                    Re.rt=Re(roots); Im.rt=Im(roots)=c(0,0)
+#                    nroots=sum(Im.rt==0)
+#                    if(nroots==2){
+#                        good=Re.rt>0 & Re.rt<=mus[k]/df1
+#                        if(sum(good)==1){ gam2s[k]=Re.rt[good]; next}
+#                        if(sum(good)==2) browser()  ## this is unreasonable result
+#                    }else if(nroots==1){
+#                        Re.rt=Re.rt[Im.rt==0]
+#                        if( Re.rt>0 & Re.rt<=mus[k]/df1 ) {gam2s[k]=Re.rt; next}
+#                    }
+#                    cat(k, nroots, fill=T)
+#                    gam2s[k]=optimize(function(g2)abs(g2*qchisq(.95,df1,mus[k]/g2-df1)-mus[k+2]),c(1e-3,mus[k]/df1))$min
+#                  }
+#                  gam2s
+#                }
+#                gam2s=get.gam2()
 
     IC=toupper(IC); IC=match.arg(IC)
     IC.fact=switch(IC, AIC=2, BIC=log(G), CAIC=log(G)+2, HQIC=2*log(log(G)))
 
-    h0.i=dt(tstat,df) 
+    h0.i=df(Fstat,df1,df2) 
     b.i=matrix(0,G,K)
     for(k in 1:K){
-        b.i[,k]=dtn.mix(tstat,df,mus[k], sigs[k],...)
+        b.i[,k]=dFsnc.mix(Fstat,df1,df2,mus[k], gam2s[k],...)
         if(any(b.i[,k]<0) || any(is.na(b.i[,k]))) {
             warning("Noncentral density unreliable. I switched to exact density function")
-            b.i[,k]=dtn.mix(tstat,df,mus[k], sigs[k],approximation='none')
+            b.i[,k]=dFsnc.mix(Fstat,df1,df2,mus[k], gam2s[k],approximation='none')
         }
     }
     if(approx.hess==1) {
@@ -43,21 +66,17 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
     }
     b.i=b.i-h0.i
 
-    if(penalty=='1st.deriv'){
-#        Omega=diag(0,K,K)                   ### 1st order derivative
-#        for(j in 1:K) for(k in 1:j) {
-#                tmp=(mus[j]-mus[k])^2/(sigs[j]^2+sigs[k]^2); 
-#                Omega[j,k]=Omega[k,j]=(1-tmp)/sqrt(2*pi*(sigs[j]^2+sigs[k]^2)^3)*exp(-tmp/2)
-#        }
-            diffmu=outer(mus,mus,'-'); sumsig2=outer(sigs^2, sigs^2, '+')
-            Omega=exp(-diffmu^2/2/sumsig2)/sqrt(2*pi*sumsig2^5)*(sumsig2-diffmu^2)
-    }else if(penalty=='2nd.deriv'){
-            diffmu=outer(mus,mus,'-'); sumsig2=outer(sigs^2, sigs^2, '+')
-            Omega=exp(-diffmu^2/2/sumsig2)/sqrt(2*pi*sumsig2^9)*(3*sumsig2^2-6*sumsig2*diffmu^2+diffmu^4)
-    }else if(penalty=='3rd.deriv'){
-            diffmu=outer(mus,mus,'-'); sumsig2=outer(sigs^2, sigs^2, '+')
-            Omega=exp(-diffmu^2/2/sumsig2)/sqrt(2*pi*sumsig2^13)*(15*sumsig2^3-45*sumsig2^2*diffmu^2+15*sumsig2*diffmu^4-diffmu^6)
+
+    q.mu=outer(1:K, mus, function(k, u) dchisq(u/gam2s[k], df1, mus[k]/gam2s[k]-df1)/gam2s[k])
+    if(substr(penalty,1,4)=='sqrt') q.mu=sqrt(q.mu)
+    if(penalty=='1st.deriv' || penalty=='sqrt.1st.deriv') { ### actually differencing
+            diffmat=diag(1,K+2,K+1); diag(diffmat[-1,])=-1
+    }else if(penalty=='2nd.deriv' || penalty=='sqrt.2nd.deriv'){
+            diffmat=diag(1,K+2,K); diag(diffmat[-1,])=-2; diag(diffmat[-(1:2),])=1
+    }else if(penalty=='3rd.deriv' || penalty=='sqrt.3rd.deriv'){
+            diffmat=diag(1,K+2,K+1); diag(diffmat[-1,])=-3; diag(diffmat[-(1:2),])=3; diag(diffmat[-(1:3),])=-1
     }
+    Omega=tcrossprod(q.mu%*%diffmat)
 
     NPLL=function(thetas, take.sum=TRUE ){ ### depends on h0.i, b.i, lambda, Omega, G
         one_pi0=max(c(sum(thetas), 1e-6))
@@ -210,7 +229,7 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
     }
 
     if(missing(starts)) {
-        tmp=parncp(tstat,df,zeromean=FALSE)
+        tmp=parncpF(Fstat,df1,df2,central=FALSE)
         starts=rep(coef(tmp)['pi0']/K,K)
         if(sum(starts)>1-1e-6) starts=starts/sum(starts)*(1-1e-6)
     }
@@ -246,15 +265,15 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
     attr(ll, 'df')=enps[i.final]
     class(ll)='logLik'
 
-    ans=list(pi0=pi0s[i.final], mu.ncp=beta.final%*%mus, sd.ncp= sqrt(beta.final%*%(mus^2+sigs^2)-(beta.final%*%mus)^2), 
+    ans=list(pi0=pi0s[i.final], mu.ncp=beta.final%*%mus[1:K], sd.ncp= sqrt(beta.final%*%(mus[1:K]^2+2*gam2s^2*(2*mus[1:K]/gam2s-df1))-(beta.final%*%mus[1:K])^2), 
              logLik=ll, enp=enps[i.final], par=sqp.fit[i.final,],lambda=lambdas[i.final],
              gradiant=grad.NPLL(sqp.fit[i.final,]), hessian=hess.NPLL(sqp.fit[i.final,]),
 
              beta=beta.final, IC=IC, 
-             all.mus=mus, all.sigs=sigs, data=list(tstat=tstat, df=df), i.final=i.final, all.pi0s=pi0s,
+             all.mus=mus, all.gam2s=gam2s, data=list(Fstat=Fstat, df1=df1, df2=df2), i.final=i.final, all.pi0s=pi0s,
              all.enps=enps, all.thetas=sqp.fit, all.nics=nics, all.nic.sd=nic.sd, all.lambdas=lambdas)
-    class(ans)=c('nparncp','ncpest')
-    if(plotit) plot.nparncp(ans)
+    class(ans)=c('nparncpF','ncpest')
+    if(plotit) plot.nparncpF(ans)
     ans
 }
 
@@ -270,19 +289,19 @@ coef.ncpest=coefficients.ncpest=function(object,...)
 {
     object$par
 }
-fitted.nparncp=fitted.values.nparncp=function(object, ...)
+fitted.nparncpF=fitted.values.nparncpF=function(object, ...)
 {
     
-    nonnull.mat=matrix(NA_real_, length(object$data$tstat), length(object$all.mus))
-    for(k in 1:length(object$all.mus)) nonnull.mat[,k]=dtn.mix(object$data$tstat, object$data$df, object$all.mus[k],object$all.sigs[k],FALSE,...)
-    object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*drop(nonnull.mat%*%object$beta)
+    nonnull.mat=matrix(NA_real_, length(object$data$Fstat), length(object$all.mus)-2)
+    for(k in 1:length(object$all.gam2s)) nonnull.mat[,k]=dFsnc.mix(object$data$Fstat, object$data$df1,object$data$df2, object$all.mus[k],object$all.gam2s[k],FALSE,...)
+    object$pi0*df(object$data$Fstat, object$data$df1,object$data$df2)+(1-object$pi0)*drop(nonnull.mat%*%object$beta)
 }
 
-summary.nparncp=function(object,...)
+summary.nparncpF=function(object,...)
 {
-    print.nparncp(object,...)
+    print.nparncpF(object,...)
 }
-print.nparncp=function(x,...)
+print.nparncpF=function(x,...)
 {
     cat('pi0=',x$pi0, fill=TRUE)
     cat('mu.ncp=', x$mu.ncp, fill=TRUE)
@@ -291,7 +310,7 @@ print.nparncp=function(x,...)
     cat("lambda=", x$lambda, fill=TRUE)
     invisible(x)
 }
-plot.nparncp=function(x,...)
+plot.nparncpF=function(x,...)
 {
     x11(width=7,heigh=7)
     op=par(mfrow=c(2,2))
@@ -315,12 +334,11 @@ plot.nparncp=function(x,...)
 
     d.ncp=function(xx)        # p in the paper
     {   ## depends on mus, sigs
-        xx=outer(xx, x$all.mus, '-')
-        xx=sweep(xx, 2, x$all.sigs, '/')
-        d=sweep(dnorm(xx),2,x$all.sigs,'/')
-        drop(d%*%x$beta)
+        z=function(k, u) dchisq(u/x$all.gam2s[k], x$data$df1, x$all.mus[k]/x$all.gam2s[k]-x$data$df1)/x$all.gam2s[k]
+        qx=outer(1:(length(x$all.mus)-2), xx,  z)
+        drop(x$beta %*% qx)
     }
-    curve(d.ncp, min(x$data$tstat),max(x$data$tstat),100,col=4,lwd=2, xlab='delta',ylab='density')
+    curve(d.ncp, min(x$all.mus),max(x$all.mus),100,col=4,lwd=2, xlab='delta',ylab='density')
 #    detach(x)
     rug(x$all.mus)
     par(op)
@@ -328,16 +346,16 @@ plot.nparncp=function(x,...)
 }
 
 if(FALSE) {
-(pfit=parncp(tstat,df,FALSE))
-npfit.mean=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=TRUE)
-npfit.0=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=0)
-npfit.75=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.75)
-npfit.80=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.80)
-npfit.85=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.85)
-npfit.90=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.90)
-npfit.95=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.95)
+(pfit=parncp(Fstat,df1,df2,FALSE))
+npfit.mean=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=TRUE)
+npfit.0=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=0)
+npfit.75=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.75)
+npfit.80=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.80)
+npfit.85=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.85)
+npfit.90=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.90)
+npfit.95=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.95)
 
-npfit.mean=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),penalty='2',verbose=FALSE,approx.hess=TRUE)
+npfit.mean=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),penalty='2',verbose=FALSE,approx.hess=TRUE)
 
 ############ below is old code
     df=8
@@ -348,24 +366,24 @@ npfit.mean=nparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),penalty='2',verbose=
 #    ncps=rnorm(G1)
     ncps=rnorm(G1,3)    
 #    ncps=rnorm(G1,c(2,-2))
-    tstat=c(rt(G0,df),rt(G1,df,ncps))
+    Fstat=c(rt(G0,df1,df2),rt(G1,df1,df2,ncps))
 
-tstat.ord=order(tstat)
+Fstat.ord=order(Fstat)
 K=100
-mus=c(seq(min(tstat),max(tstat),length=K))
+mus=c(seq(min(Fstat),max(Fstat),length=K))
 #    mus=c(seq(-23,23,length=K))
 sigs=c(rep(mus[3]-mus[2], K))
 
-source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dtn.mix.R")
-h0.i=dt(tstat,df) #quantile(tstat,.05)),
+source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dFsnc.mix.R")
+h0.i=df(Fstat,df1,df2) #quantile(Fstat,.05)),
 b.i=matrix(0,G,K)
 time0=proc.time()
 for(k in 1:K) {
-#           b.i[,i]=d(tstat,df,mus[k], sigs[k], approximation='saddlepoint', normalize='int') ## old
+#           b.i[,i]=d(Fstat,df1,df2,mus[k], sigs[k], approximation='saddlepoint', normalize='int') ## old
 ######### new
-#    b.i[,k]=dt(tstat/sigs[k],df,mus[k]/sigs[k])/sigs[k]
-#    b.i[,k]=dt.sad(tstat/sigs[k],df,mus[k]/sigs[k], normalize='approx')/sigs[k]
-    b.i[,k]=dt.lap(tstat/sigs[k],df,mus[k]/sigs[k])/sigs[k]
+#    b.i[,k]=df(Fstat/sigs[k],df1,df2,mus[k]/sigs[k])/sigs[k]
+#    b.i[,k]=dt.sad(Fstat/sigs[k],df1,df2,mus[k]/sigs[k], normalize='approx')/sigs[k]
+    b.i[,k]=dt.lap(Fstat/sigs[k],df1,df2,mus[k]/sigs[k])/sigs[k]
 }
 b.i=b.i-h0.i
 proc.time()-time0
@@ -557,9 +575,9 @@ x11();
 strt=rep(1/K,K); strt=strt/sum(strt)*.5
 #strt=runif(K); strt=strt/sum(strt)*.5
 sqp.fit=sqp(strt,1e-10)
-#curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(tstat),max(tstat),100,add=FALSE,col=1,lwd=1)
-hist(ncps,br=50, border=1, xlim=c(min(tstat)-6*sigs[1],max(tstat)+6*sigs[1]),pr=TRUE); rug(mus)
-#hist(tstat,pr=TRUE,br=50,sub=lambda); rug(mus)
+#curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(Fstat),max(Fstat),100,add=FALSE,col=1,lwd=1)
+hist(ncps,br=50, border=1, xlim=c(min(Fstat)-6*sigs[1],max(Fstat)+6*sigs[1]),pr=TRUE); rug(mus)
+#hist(Fstat,pr=TRUE,br=50,sub=lambda); rug(mus)
 
 
 nics=enps=nic.sd=pi0s=numeric(20)
@@ -572,11 +590,11 @@ for(i in rev(seq(along=nics))){
     nics[i]=sum(tmp)+enps[i]
     nic.sd[i]=sd(tmp)*sqrt(G)
     pi0s[i]=1-sum(sqp.fit)
-    hist(ncps,pr=TRUE,xlim=c(min(tstat),max(tstat)),br=40,sub=lambda,main=enps[i]); rug(mus); 
-    curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(tstat),max(tstat),100,add=TRUE,col=4,lwd=2)
+    hist(ncps,pr=TRUE,xlim=c(min(Fstat),max(Fstat)),br=40,sub=lambda,main=enps[i]); rug(mus); 
+    curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(Fstat),max(Fstat),100,add=TRUE,col=4,lwd=2)
 
-#    hist(tstat,pr=TRUE,br=150,sub=lambda,main=paste('pi0=',1-sum(sqp.fit))); rug(mus); 
-#    lines(tstat[tstat.ord],d.t(sqp.fit)[tstat.ord],col=2,lwd=2)
+#    hist(Fstat,pr=TRUE,br=150,sub=lambda,main=paste('pi0=',1-sum(sqp.fit))); rug(mus); 
+#    lines(Fstat[Fstat.ord],d.t(sqp.fit)[Fstat.ord],col=2,lwd=2)
 }
 plot(log10(lambdas), enps); 
 plot(log10(lambdas), pi0s); 
@@ -589,13 +607,13 @@ abline(v=log10(lambdas)[which.max(nics[nics<=nics[which.min(nics)]+nic.sd[which.
 lambda=lambdas[which.min(nics)]
 #lambda=(lambdas)[which.max(nics[nics<=nics[which.min(nics)]+nic.sd[which.min(nics)]])]
 sqp.fit=sqp(sqp.fit,1e-10, 1e10)
-hist(ncps,pr=TRUE,xlim=c(min(tstat),max(tstat)),br=40,sub=lambda,main=enp(sqp.fit)); rug(mus)
-#curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(tstat),max(tstat),100,add=TRUE,col=4,lwd=2)
-curve(d.ncp(x, sqp.fit/(sum(sqp.fit))), min(tstat),max(tstat),100,add=TRUE,col=4,lwd=2)
-#curve(dnorm(x,2), min(tstat),max(tstat),100,add=TRUE,col=1,lwd=1)
+hist(ncps,pr=TRUE,xlim=c(min(Fstat),max(Fstat)),br=40,sub=lambda,main=enp(sqp.fit)); rug(mus)
+#curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(Fstat),max(Fstat),100,add=TRUE,col=4,lwd=2)
+curve(d.ncp(x, sqp.fit/(sum(sqp.fit))), min(Fstat),max(Fstat),100,add=TRUE,col=4,lwd=2)
+#curve(dnorm(x,2), min(Fstat),max(Fstat),100,add=TRUE,col=1,lwd=1)
 
-hist(tstat,pr=TRUE,br=50,sub=lambda)
-lines(tstat[tstat.ord],d.t(sqp.fit)[tstat.ord],col=2,lwd=2)
+hist(Fstat,pr=TRUE,br=50,sub=lambda)
+lines(Fstat[Fstat.ord],d.t(sqp.fit)[Fstat.ord],col=2,lwd=2)
 
 
 }
