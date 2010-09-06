@@ -17,7 +17,7 @@ function(y, permmat, r=1:ncol(as.matrix(y)), #test=F,
     all.ddelta.dw=abs(contrast.mat%*%y)^2/pmax(1e-8,distObj)/2
 
     for(r.i in seq(along=r)){
-        dz.dw=.C('mrppstats',all.ddelta.dw[,r.i],permmat,cpermmat,nrow(permmat),B,N,as.integer(wtmethod[1]),ans=double(B),PACKAGE='MRPP')$ans
+        dz.dw=.C('mrppstats',all.ddelta.dw[,r.i],permmat,cpermmat,nrow(permmat),B,N,as.integer(wtmethod[1]),ans=double(B),PACKAGE='MRPP',DUP=FALSE)$ans
         ans[r.i]=mean(dz.dw[1]-dz.dw>=-1e-8)
     }
     drop(ans)

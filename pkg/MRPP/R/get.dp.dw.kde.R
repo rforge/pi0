@@ -22,7 +22,7 @@ function(y, permmat, r=1:ncol(as.matrix(y)), test=FALSE,
     all.ddelta.dw=abs(contrast.mat%*%y)^2/pmax(1e-8,distObj)/2 ## avoiding division by zero
 
     for(r.i in seq(along=r)){
-        dz.dw=.C('mrppstats',all.ddelta.dw[,r.i],permmat,cpermmat,nrow(permmat),B,N,as.integer(wtmethod[1]),ans=double(B),PACKAGE='MRPP')$ans
+        dz.dw=.C('mrppstats',all.ddelta.dw[,r.i],permmat,cpermmat,nrow(permmat),B,N,as.integer(wtmethod[1]),ans=double(B),PACKAGE='MRPP',DUP=FALSE)$ans
         for(b.i in 1:length(b)){
             dd.dw=dz.dw[b[b.i]]-dz.dw
             ans[r.i, b[b.i]]=sum(weight[,b.i]*dd.dw)/length(b)
