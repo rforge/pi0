@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-back.search(y, permmat, verbose = TRUE, niter = Inf, importance = c("dp.dw", "p.dd.dw"), alpha.in, alpha.del = 0, stepwise = FALSE, ...)
+back.search(y, permmat, verbose = TRUE, niter = Inf, importance = c("dp.dw", "p.dd.dw"), alpha.in, alpha.del = 0, stepwise = FALSE, cpermmat,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -35,6 +35,9 @@ back.search(y, permmat, verbose = TRUE, niter = Inf, importance = c("dp.dw", "p.
 %%     ~~Describe \code{alpha.del} here~~
 }
   \item{stepwise}{
+%%     ~~Describe \code{stepwise} here~~
+}
+  \item{cpermmat}{
 %%     ~~Describe \code{stepwise} here~~
 }
   \item{\dots}{

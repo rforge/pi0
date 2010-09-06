@@ -1,6 +1,6 @@
-\name{bw.mse.f.asym}
+\name{bw.mse.pdf.asym}
 \Rdversion{1.1}
-\alias{bw.mse.f.asym}
+\alias{bw.mse.pdf.asym}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 %%  ~~function to do ... ~~
@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-bw.mse.f.asym(x, iter = FALSE, eps = 0.001, iter.max = 100, verbose = FALSE)
+bw.mse.pdf.asym=function(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

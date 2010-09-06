@@ -1,5 +1,5 @@
 get.dp.dw.kde <-
-function(y, permmat, r=1:ncol(as.matrix(y)), test=F, 
+function(y, permmat, r=1:ncol(as.matrix(y)), test=FALSE, 
                         distObj=dist(y), 
                         mrpp.stats=mrpp.test.dist(distObj,perm.mat=permmat,wtmethod=wtmethod[1])$all.stat,
                         bw=bw.mse.pdf.asym(mrpp.stats), cpermmat, wtmethod=integer(1),
