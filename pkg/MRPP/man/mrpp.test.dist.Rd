@@ -12,10 +12,10 @@ MRPP test
 2-sample MRPP test
 }
 \usage{
-mrpp.test.dist(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0)
-mrpp.test.formula(y, B, perm.mat)
-mrpp.test.matrix(y, ...)
-mrpp.test(y, ...)
+mrpp.test(y, \dots)
+\method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, \dots)
+\method{mrpp.test}{formula}(y, B, perm.mat, \dots)
+\method{mrpp.test}{matrix}(y, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
