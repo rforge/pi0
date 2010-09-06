@@ -3,10 +3,10 @@
 \alias{get.perm.mat}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Compute permutation matrix
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Compute permutation matrix based on design
 }
 \usage{
 get.perm.mat(trt, B = 100)
@@ -64,5 +64,5 @@ function(trt, B=100) ## trt needs have exactly 2 levels; other situations are no
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{utilities}
+\keyword{iteration}

@@ -3,10 +3,10 @@
 \alias{back.search}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Backward variable selection for MRPP
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Backward variable selection for MRPP
 }
 \usage{
 back.search(y, permmat, verbose = TRUE, niter = Inf, importance = c("dp.dw", "p.dd.dw"), alpha.in, alpha.del = 0, stepwise = FALSE, cpermmat,...)
@@ -115,5 +115,4 @@ function(y,permmat, verbose=TRUE, niter=Inf,
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ models }

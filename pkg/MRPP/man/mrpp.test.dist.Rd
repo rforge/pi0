@@ -6,10 +6,10 @@
 \alias{mrpp.test}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+MRPP test
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+2-sample MRPP test
 }
 \usage{
 mrpp.test.dist(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0)
@@ -90,5 +90,4 @@ function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat) ## this is C cod
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{htest}

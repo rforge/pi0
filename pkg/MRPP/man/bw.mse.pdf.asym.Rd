@@ -3,10 +3,10 @@
 \alias{bw.mse.pdf.asym}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Find asymptotically optimal bandwidth for KDE by minimizing MSE at the first data point
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Find asymptotically optimal bandwidth for KDE by minimizing MSE at the first data point
 }
 \usage{
 bw.mse.pdf.asym=function(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
@@ -81,5 +81,5 @@ function(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{distribution}
+\keyword{smooth}

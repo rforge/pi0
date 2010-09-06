@@ -3,10 +3,10 @@
 \alias{get.dp.dw.kde}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Compute variable importance measure of partial derivative of p-values w.r.t. weights
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Compute variable importance measure of partial derivative of p-values w.r.t. weights
 }
 \usage{
 get.dp.dw.kde(y, permmat, r = 1:ncol(as.matrix(y)), test = F, distObj = dist(y), mrpp.stats = mrpp.test.dist(distObj, perm.mat = permmat,wtmethod=wtmethod[1])$all.stat, bw = bw.mse.f.asym(mrpp.stats), cpermmat, , wtmethod=integer(1), min.wts = 1e-08)
@@ -109,5 +109,4 @@ function(y, permmat, r=1:ncol(as.matrix(y)), test=F,
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{models}

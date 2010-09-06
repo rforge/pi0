@@ -3,10 +3,10 @@
 \alias{get.p.dd.dw}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Compute variable importance measure by using partial derivative of distance function w.r.t. weights as the new distance function
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Compute variable importance measure by using partial derivative of distance function w.r.t. weights as the new distance function
 }
 \usage{
 get.p.dd.dw(y, permmat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cpermmat, wtmethod=integer(1))
@@ -89,5 +89,4 @@ function(y, permmat, r=1:ncol(as.matrix(y)), #test=F,
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{models}
