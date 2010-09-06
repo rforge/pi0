@@ -9,7 +9,7 @@ Find asymptotically optimal bandwidth for KDE by minimizing MSE at the first dat
 Find asymptotically optimal bandwidth for KDE by minimizing MSE at the first data point
 }
 \usage{
-bw.mse.pdf.asym=function(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
+bw.mse.pdf.asym(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

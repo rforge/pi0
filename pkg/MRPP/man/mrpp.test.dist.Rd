@@ -34,6 +34,9 @@ mrpp.test(y, ...)
   \item{wtmethod}{
 %%     ~~Describe \code{perm.mat} here~~
 }
+  \item{\dots}{
+%%     ~~Describe \code{perm.mat} here~~
+}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
