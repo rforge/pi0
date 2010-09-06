@@ -32,7 +32,7 @@
 //}
 
 	
-#include<stdio.h>
+//#include<stdio.h>
 
 inline double sumSubMat(double *x, int *idx, int n, int N)
 // Input:
@@ -57,13 +57,14 @@ inline double sumSubMat(double *x, int *idx, int n, int N)
 	ans*=2;
 	return ans;
 }
-void mrppstats(double *x, int *perm, int *permcomplement, int *n, int *B, int *N, double *ans)
+void mrppstats(double *x, int *perm, int *permcomplement, int *n, int *B, int *N, int *wtmethod,double *ans)
 // Input:
 //   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
 //   perm is perm idx mat for 1st group (*n x *B); 
 //   permcomplement is perm idx mat for 2nd group ((*N-*n) x *B); 
 //   *n is the number of rows in perm; *B is the number of cols in perm; 
 //   *N is the total sample size; 
+//   *wtmethod is the treatment group weight: 0=sample size-1; 1=sample size
 // Output: 
 //   *ans is a length *B space of mrpp statistics to be filled in
 {	int b;
@@ -74,6 +75,6 @@ void mrppstats(double *x, int *perm, int *permcomplement, int *n, int *B, int *N
 		
 //		printf("sum(d[perm,perm])=%f\tsum(d[-perm,-perm])=%f\n",tmp,tmp1);
 		
-   	    ans[b]=tmp/(*n-1)+tmp1/(*N-*n-1) ;
+   	    ans[b]=tmp/(*n-*wtmethod)+tmp1/(*N-*n-*wtmethod) ;
 	}
 }

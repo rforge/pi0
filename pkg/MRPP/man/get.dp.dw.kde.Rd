@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-get.dp.dw.kde(y, permmat, r = 1:ncol(as.matrix(y)), test = F, distObj = dist(y), mrpp.stats = mrpp.test.dist(distObj, perm.mat = permmat)$all.stat, bw = bw.mse.f.asym(mrpp.stats), cpermmat, min.wts = 1e-08)
+get.dp.dw.kde(y, permmat, r = 1:ncol(as.matrix(y)), test = F, distObj = dist(y), mrpp.stats = mrpp.test.dist(distObj, perm.mat = permmat,wtmethod=wtmethod[1])$all.stat, bw = bw.mse.f.asym(mrpp.stats), cpermmat, , wtmethod=integer(1), min.wts = 1e-08)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -35,6 +35,9 @@ get.dp.dw.kde(y, permmat, r = 1:ncol(as.matrix(y)), test = F, distObj = dist(y),
 %%     ~~Describe \code{bw} here~~
 }
   \item{cpermmat}{
+%%     ~~Describe \code{cpermmat} here~~
+}
+  \item{wtmethod}{
 %%     ~~Describe \code{cpermmat} here~~
 }
   \item{min.wts}{

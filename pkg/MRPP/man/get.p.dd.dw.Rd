@@ -9,7 +9,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-get.p.dd.dw(y, permmat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cpermmat)
+get.p.dd.dw(y, permmat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cpermmat, wtmethod=integer(1))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,6 +26,9 @@ get.p.dd.dw(y, permmat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cpermmat)
 %%     ~~Describe \code{distObj} here~~
 }
   \item{cpermmat}{
+%%     ~~Describe \code{cpermmat} here~~
+}
+  \item{wtmethod}{
 %%     ~~Describe \code{cpermmat} here~~
 }
 }
