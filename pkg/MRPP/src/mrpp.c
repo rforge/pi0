@@ -71,7 +71,7 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 // Output: 
 //   returns sum(as.matrix(x)[idx, idx])
 // Note:
-//   This is about 3% faster than sumSubMat when N=30 and B=5000. 
+//   This is about 3~5% faster than sumSubMat when N=30 and B=5000. 
 {
 	double ans=0.0;
 	register unsigned  int j, i, N2=(N<<1), base;
