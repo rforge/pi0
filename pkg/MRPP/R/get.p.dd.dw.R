@@ -1,7 +1,7 @@
 get.p.dd.dw <-
 function(y, permmat, r=1:ncol(as.matrix(y)), #test=F, 
                         distObj=dist(y), 
-                        cpermmat, wtmethod=integer(1),
+                        cpermmat, wtmethod=integer(1)
                     )      
 ## b=permutation index; r=dimension index; 
 {
