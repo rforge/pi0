@@ -34,7 +34,7 @@
 	
 //#include<stdio.h>
 
-inline double sumSubMat(double *x, int *idx, int n, int N)
+inline double sumSubMat( double *x,  int *idx,  int n,  int N)
 // Input:
 //   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
 //	 idx is a vector of sorted indices where sum of x is taken over;
@@ -44,20 +44,27 @@ inline double sumSubMat(double *x, int *idx, int n, int N)
 //   returns sum(as.matrix(x)[idx, idx])
 {
 	double ans=0.0;
-	int i,j,row,col;
+	register unsigned  int i,j,row,col, N2=(N<<1);
 
-	for(i=1; i<n; ++i){
+	for(i=n-1; i; --i){
 		for(j=0; j<i; ++j){
-			if(idx[i]>idx[j]) row=idx[i],col=idx[j];
-			else row=idx[j],col=idx[i];
-
-			ans+=x[ ((col-1)*N-((col*col-col)>>1)+row-col) -1];
+//			if(idx[i]>idx[j]) row=idx[i],col=idx[j]; 
+//			else (row=idx[j],col=idx[i]);
+//			ans+=x[ ((col-1)*N-((col*col-col)>>1)+row-col) -1];
+				// column head index (R) is ((col-1)*N-((col*col-col)>>1)+1
+				// row adjustment is  row-col-1
+				// C indexing adjustment is -1
+				// Note that >> has lower precedence than +/-
+			idx[i]>idx[j] ? (row=idx[i],col=idx[j]) : (row=idx[j],col=idx[i]);
+			ans+=x[ ((col*(N2-col-1))>>1)-N+row-1 ]; // equivalent! but faster?
 		}
 	}
 	ans*=2;
 	return ans;
 }
-void mrppstats(double *x, int *perm, int *permcomplement, int *n, int *B, int *N, int *wtmethod,double *ans)
+void mrppstats(double *x,  int *perm,  int *permcomplement, 
+				 int *n,  int *B,  int *N,  int *wtmethod,
+				double *ans)
 // Input:
 //   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
 //   perm is perm idx mat for 1st group (*n x *B); 
@@ -67,14 +74,16 @@ void mrppstats(double *x, int *perm, int *permcomplement, int *n, int *B, int *N
 //   *wtmethod is the treatment group weight: 0=sample size-1; 1=sample size
 // Output: 
 //   *ans is a length *B space of mrpp statistics to be filled in
-{	int b;
-	double tmp, tmp1;
+{	register unsigned int b;
+	double tmp1, tmp2, denom1, denom2;
+	denom1=1.0/(*n-*wtmethod); denom2=1.0/(*N-*n-*wtmethod) ;
 	for(b=0; b<*B; ++b) {
-		tmp=sumSubMat(x, perm+(b**n), *n, *N); 
-		tmp1=sumSubMat(x, permcomplement+(b*(*N-*n)), *N-*n, *N); 
+		tmp1=sumSubMat(x, perm+(b**n), *n, *N); 
+		tmp2=sumSubMat(x, permcomplement+(b*(*N-*n)), *N-*n, *N); 
 		
 //		printf("sum(d[perm,perm])=%f\tsum(d[-perm,-perm])=%f\n",tmp,tmp1);
 		
-   	    ans[b]=tmp/(*n-*wtmethod)+tmp1/(*N-*n-*wtmethod) ;
+//   	    ans[b]=tmp1/(*n-*wtmethod) +  tmp2/(*N-*n-*wtmethod) ;
+   	    ans[b]=tmp1*denom1 +  tmp2*denom2 ;
 	}
 }
