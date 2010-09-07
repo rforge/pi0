@@ -1,8 +1,8 @@
 back.search <-
 function(y,permmat, verbose=TRUE, niter=Inf, 
-                     importance=c('dp.dw','p.dd.dw'),
-                     alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
-                     alpha.del=0, stepwise=FALSE, cpermmat, ...)
+         importance=c('dp.dw','p.dd.dw'),
+         alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
+         alpha.del=0, stepwise=FALSE, cpermmat, ...)
 ## y is a data matrix, with col's being variables and rows being observations
 {
     if(!is.matrix(y))y=as.matrix(y)
@@ -15,15 +15,16 @@ function(y,permmat, verbose=TRUE, niter=Inf,
     idx=1:ncol(y)
     i=1
     repeat{
-        if(verbose) cat('iteration',i-1,'...')
-        time0=proc.time()[3]
+        if(verbose) {cat('iteration',i-1,'...')
+                    time0=proc.time()[3]}
         dist0=dist(y[,idx,drop=FALSE])
         mrpp.stats0=mrpp.test.dist(dist0,perm.mat=permmat,...)$all.stat
         imptnc=if(importance=='dp.dw') 
                     get.dp.dw.kde(y[,idx,drop=FALSE],permmat,distObj=dist0,mrpp.stats=mrpp.stats0, cpermmat=cpermmat,...) 
                else get.p.dd.dw(y[,idx,drop=FALSE],permmat,distObj=dist0,cpermmat=cpermmat,...)
-        ans[[i]]=list(iter=i-1, var.idx=idx[order(imptnc)], influence=sort(imptnc),
-                      p.value=mean(mrpp.stats0[1]>=mrpp.stats0),
+        var.rank=order(imptnc)
+        ans[[i]]=list(iter=i-1, var.idx=idx[var.rank], influence=imptnc[var.rank],
+                      p.value=mean(mrpp.stats0[1]>=mrpp.stats0-min(c(1e-8,.5/B))),
                       deleted.p.value=NA_real_)
         if(verbose) {
           if(alpha.del>0) {

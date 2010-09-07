@@ -1,9 +1,9 @@
 get.dp.dw.kde <-
 function(y, permmat, r=1:ncol(as.matrix(y)), test=FALSE, 
-                        distObj=dist(y), 
-                        mrpp.stats=mrpp.test.dist(distObj,perm.mat=permmat,wtmethod=wtmethod[1])$all.stat,
-                        bw=bw.mse.pdf.asym(mrpp.stats), cpermmat, wtmethod=integer(1),
-                        min.wts=1e-8)
+        distObj=dist(y), 
+        mrpp.stats=mrpp.test.dist(distObj,perm.mat=permmat,wtmethod=wtmethod[1])$all.stat,
+        bw=bw.mse.pdf.asym(mrpp.stats), cpermmat, wtmethod=integer(1),
+        min.wts=1e-8)
 ## y=N-by-p data matrix; b=permutation index for the 1st trt; r=dimension index; 
 {
     B=length(mrpp.stats)
