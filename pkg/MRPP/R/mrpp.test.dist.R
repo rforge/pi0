@@ -1,5 +1,5 @@
 mrpp.test.dist <-
-function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, ...) ## this is C code
+function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cperm.mat, ...) ## this is C code
 ## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
 {
     if(missing(y) || !inherits(y,'dist')) stop('dist object missing or incorrect')
@@ -11,7 +11,7 @@ function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, ...)
     }else dname=paste('"dist" object',deparse(substitute(y)), 
                              'and permutation matrix', deparse(substitute(perm.mat)))
     B=ncol(perm.mat)
-    cperm.mat=apply(perm.mat, 2, function(kk)(1:N)[-kk])
+    if(missing(cperm.mat)) cperm.mat=apply(perm.mat, 2, function(kk)(1:N)[-kk])
     stats=.C('mrppstats',y,perm.mat,cperm.mat,nrow(perm.mat),B,N,as.integer(wtmethod[1]), ans=double(B),
             PACKAGE='MRPP',DUP=FALSE)$ans
     ans=list(statistic=c("MRPP statistic"=stats[1]), all.statistics=stats, 
