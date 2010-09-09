@@ -1,6 +1,5 @@
-setwd()
-getwd()
-version
+if(FALSE){
+
 obj=function(par)-sum(log(abs(
     ((y-par[2])/(1-par[2])*beta(1,par[1]))^(1/(par[1]-1))
     /
@@ -70,4 +69,6 @@ lfdr2p=function(lfdr,pi0)
     fac=(which.min(decrease)+30)/50
     phat[unif.idx]=runif(n.fp1,fac*p.c,1)
     phat
+}
+
 }
