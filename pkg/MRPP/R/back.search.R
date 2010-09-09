@@ -10,6 +10,7 @@ function(y,permmat, verbose=TRUE, niter=Inf,
     if(missing(alpha.in)) alpha.in=if(importance=='dp.dw') 0 else 0.1
     N=nrow(y)
     if(missing(cpermmat)) cpermmat=apply(permmat,2,function(kk)(1:N)[-kk])
+    B=ncol(permmat)
 
     ans=vector('list')
     idx=1:ncol(y)
