@@ -13,7 +13,7 @@ MRPP test
 }
 \usage{
 mrpp.test(y, \dots)
-\method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, \dots)
+\method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, cperm.mat,\dots)
 \method{mrpp.test}{formula}(y, B, perm.mat, \dots)
 \method{mrpp.test}{matrix}(y, \dots)
 }
@@ -32,6 +32,9 @@ mrpp.test(y, \dots)
 %%     ~~Describe \code{perm.mat} here~~
 }
   \item{wtmethod}{
+%%     ~~Describe \code{perm.mat} here~~
+}
+  \item{cperm.mats}{
 %%     ~~Describe \code{perm.mat} here~~
 }
   \item{\dots}{
