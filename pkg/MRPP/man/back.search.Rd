@@ -1,6 +1,7 @@
 \name{back.search}
 \Rdversion{1.1}
 \alias{back.search}
+\alias{bsmrpp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Backward variable selection for MRPP
@@ -9,7 +10,12 @@ Backward variable selection for MRPP
 Backward variable selection for MRPP
 }
 \usage{
-back.search(y, permmat, verbose = TRUE, niter = Inf, importance = c("dp.dw", "p.dd.dw"), alpha.in, alpha.del = 0, stepwise = FALSE, cpermmat,...)
+back.search(y, permmat, verbose = TRUE, niter = Inf, 
+	    importance = c("dp.dw", "p.dd.dw"), 
+	    alpha.in, alpha.del = 0, stepwise = FALSE, cpermmat,...)
+bsmrpp(y,permmat, verbose=TRUE, niter=Inf, 
+         importance=c('dp.dw','p.dd.dw'),
+         alpha.in, alpha.del=0, stepwise=FALSE, cpermmat, Bperm=ncol(permmat), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,6 +44,9 @@ back.search(y, permmat, verbose = TRUE, niter = Inf, importance = c("dp.dw", "p.
 %%     ~~Describe \code{stepwise} here~~
 }
   \item{cpermmat}{
+%%     ~~Describe \code{stepwise} here~~
+}
+  \item{Bperm}{
 %%     ~~Describe \code{stepwise} here~~
 }
   \item{\dots}{
