@@ -15,7 +15,7 @@ function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, ...)
     stats=.C('mrppstats',y,perm.mat,cperm.mat,nrow(perm.mat),B,N,as.integer(wtmethod[1]), ans=double(B),
             PACKAGE='MRPP',DUP=FALSE)$ans
     ans=list(statistic=c("MRPP statistic"=stats[1]), all.statistics=stats, 
-             p.value=mean(stats[1]-stats>=-min(c(1e-8,.5/B)), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1]),
+             p.value=mean(stats[1]-stats>=-min(c(1e-8,.5/B))), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1]),
              data.name=dname, .Random.seed=attr(perm.mat,'.Random.seed'),
              method='2-sample MRPP test')
     class(ans)='htest'
