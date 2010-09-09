@@ -34,7 +34,7 @@ mrpp.test(y, \dots)
   \item{wtmethod}{
 %%     ~~Describe \code{perm.mat} here~~
 }
-  \item{cperm.mats}{
+  \item{cperm.mat}{
 %%     ~~Describe \code{perm.mat} here~~
 }
   \item{\dots}{
