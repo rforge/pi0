@@ -312,7 +312,7 @@ print.nparncpF=function(x,...)
 }
 plot.nparncpF=function(x,...)
 {
-    x11(width=7,heigh=7)
+#    x11(width=7,heigh=7)
     op=par(mfrow=c(2,2))
 #    attach(x)
     n.lambda=length(x$all.lambdas)

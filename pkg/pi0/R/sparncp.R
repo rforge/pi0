@@ -58,7 +58,7 @@ summary.sparncp=function(object,...)
 }
 plot.sparncp=function(x,...)
 {
-    x11(width=8, height=4)
+#    x11(width=8, height=4)
     op=par(mfrow=c(1,2))
     hist(x$parfit$data$tstat, pr=TRUE, br=min(c(max(c(20, length(x$parfit$data$tstat)/100)), 200)), xlab='t',main='t-statistics')
     ord=order(x$parfit$data$tstat)

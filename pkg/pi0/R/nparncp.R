@@ -158,7 +158,7 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
                         tmpTransform=solve(tcrossprod(Amat),Amat)
                         Hmat=crossprod(tmpTransform, Dmat%*%tmpTransform)
                         tmpAns=LowRankQP(Vmat=Hmat,dvec=Hmat%*%bvec-crossprod(tmpTransform,dvec),
-                                        Amat=matrix(0,0,K+1),bvec=numeric(0),uvec=rep(1e6,K+1),method='LU')
+                                        Amat=matrix(0,0,K+1),bvec=numeric(0),uvec=rep(1e6,K+1),method='LU',niter=2000)
                         drop(tmpTransform%*%(bvec+tmpAns$alpha))
                    }
             thetas.new=thetas+qp.sol
@@ -293,7 +293,7 @@ print.nparncp=function(x,...)
 }
 plot.nparncp=function(x,...)
 {
-    x11(width=7,heigh=7)
+#    x11(width=7,heigh=7)
     op=par(mfrow=c(2,2))
 #    attach(x)
     n.lambda=length(x$all.lambdas)

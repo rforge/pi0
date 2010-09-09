@@ -192,7 +192,7 @@ print.parncpF=function(x,...)
 }
 plot.parncpF=function(x,...)
 {
-    x11(width=8, height=4)
+#    x11(width=8, height=4)
     op=par(mfrow=c(1,2))
     hist(x$data$Fstat, pr=TRUE, br=min(c(max(c(20, length(x$data$Fstat)/100)), 200)), xlab='F',main='F-statistics')
     ord=order(x$data$Fstat)
