@@ -121,7 +121,8 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
         repeat{
             thetas=pmax(thetas,0)
             dvec=-grad.NPLL(thetas)    ## negative gradiant
-            fnscale=10^floor(max(log10(abs(dvec))))
+#            fnscale=10^floor(max(log10(abs(dvec))))  # this seems causing problems for Megan's data
+            fnscale=10^min(c(floor(max(log10(abs(dvec)))),0))
             dvec=dvec/fnscale
         #    tmp=drop(1/((1-sum(betas))*F0+F1%*%betas))*(F1-F0)
             Dmat=hess.NPLL(thetas, approx=approx.hess>0)/fnscale
