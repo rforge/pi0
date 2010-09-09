@@ -6,6 +6,7 @@ Date: 2010-03-23
 Author: Long Qu <longor@iastate.edu>, Dan Nettleton <dnett@iastate.edu>, Jack Dekkers <jdekkers@iastate.edu>
 Maintainer: Long Qu <longor@iastate.edu>
 Depends: R (>= 2.5.1), limSolve, Matrix, rgl, scatterplot3d, qvalue, Iso(>= 0.0-5), quadprog, kernlab, monoProc
+Suggests: multtest
 Enhances: stats, LowRankQP
 Description: This package implements method(s) to (approximately unbiasedly) estimate the proportion of true null hypotheses, i.e., the pi0, when a very large number of hypotheses are simultaneously tested, especially for the purpose of (local) false discovery rate control for microarray data. 
 License: GPL version 2 or newer

@@ -163,7 +163,7 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
                    }
             thetas.new=thetas+qp.sol
             repeat{
-                if(all(C.fctn(thetas.new)>=0-1e-10) )break  #&& crossprod(Amat,thetas.new)>=bvec
+                if(all(C.fctn(thetas.new)>=0-1e-6) )break  #&& crossprod(Amat,thetas.new)>=bvec
                 thetas.new=(thetas+thetas.new)/2
                 if(verbose) cat("halving due to constraints",fill=TRUE)
             }
