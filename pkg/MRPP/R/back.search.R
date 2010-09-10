@@ -29,14 +29,15 @@ function(y,permmat, verbose=TRUE, niter=Inf,
                       deleted.p.value=NA_real_)
         if(alpha.del>0) {
             dist.del=dist(y[,-idx,drop=FALSE])
-            ans[[i]]$deleted.p.value=mrpp.test.dist(dist.del, perm.mat=permmat)$p.value
+            if(all(!is.na(dist.del)))
+                ans[[i]]$deleted.p.value=mrpp.test.dist(dist.del, perm.mat=permmat)$p.value
         }
         if(verbose) {
           cat('\b\b\b:\t',length(idx),'genes left; mrpp.p =',ans[[i]]$p.value,';', 
                         'deleted.mrpp.p =',ans[[i]]$deleted.p.value,
                         ';', proc.time()[3]-time0,'seconds passed;',fill=TRUE)
         }
-        if(all(imptnc<alpha.in) || i-1>=niter || isTRUE(ans[[i]]$deleted.p.value<alpha.del)) return(ans)
+        if(all(imptnc<alpha.in) || i-1>=niter || isTRUE(ans[[i]]$deleted.p.value<=alpha.del)) return(ans)
         i=i+1
         if(stepwise) idx=idx[imptnc<max(imptnc)] else idx=idx[imptnc<alpha.in]
         if(length(idx)==0) {warning('not converged'); return(ans)}

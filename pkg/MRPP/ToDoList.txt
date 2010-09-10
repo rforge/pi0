@@ -1,0 +1,1 @@
+allowing some NA's in the distance matrix;
