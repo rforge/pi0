@@ -298,9 +298,10 @@ plot.nparncp=function(x,...)
     op=par(mfrow=c(2,2))
 #    attach(x)
     n.lambda=length(x$all.lambdas)
-    i.1se=tail(which(x$all.nics<=x$all.nics[x$i.final]+x$all.nic.sd[x$i.final] & 1:n.lambda>=x$i.final),1) ## one se rule
+    i.2se=which(x$all.nics<=x$all.nics[x$i.final]+x$all.nic.sd[x$i.final]*2)
+    if(length(i.2se)==0) i.2se=x$i.final+c(-1,1)
     plot(log10(x$all.lambdas), (x$all.nics), 
-        ylim=range(c(x$all.nics+x$all.nic.sd, x$all.nics-x$all.nic.sd)[c(1:min(i.1se,x$i.final+1,n.lambda),n.lambda+1:min(i.1se,x$i.final+1,n.lambda))]), 
+        ylim=range(c(x$all.nics+x$all.nic.sd, x$all.nics-x$all.nic.sd)[c(i.2se,n.lambda+i.2se)]), 
         xlab='log10(lambda)', ylab='NIC')
     for(i in 1:n.lambda) lines(rep(log10(x$all.lambdas)[i],2), x$all.nics[i]+c(-1,1)*x$all.nic.sd[i], lwd=3)
     abline(v=log10(x$all.lambdas[x$i.final]), col=2);
@@ -309,7 +310,8 @@ plot.nparncp=function(x,...)
 
 #    plot(log10(x$all.lambdas), x$all.enps); abline(v=log10(x$all.lambdas[c(x$i.final,i.1se)]), xlab='log10(lambda)', ylab='ENP', lty=1:2)
 #    plot(log10(x$all.lambdas), x$all.pi0s); abline(v=log10(x$all.lambdas[c(x$i.final,i.1se)]), xlab='log10(lambda)', ylab='pi0', lty=1:2)
-    plot(log10(x$all.lambdas), x$all.enps,xlab='log10(lambda)',ylab='effective # parameters'); 
+    plot(log10(x$all.lambdas), x$all.enps,xlab='log10(lambda)',ylab='effective # parameters',
+        ylim=c(0,max(x$all.enps[i.2se]))); 
         abline(v=log10(x$all.lambdas[c(x$i.final)]), xlab='log10(lambda)', ylab='ENP', lty=1)
     plot(log10(x$all.lambdas), x$all.pi0s, xlab='log10(lambda)', ylab='pi0'); 
         abline(v=log10(x$all.lambdas[c(x$i.final)]), xlab='log10(lambda)', ylab='pi0', lty=1)
@@ -321,7 +323,7 @@ plot.nparncp=function(x,...)
         d=sweep(dnorm(xx),2,x$all.sigs,'/')
         drop(d%*%x$beta)
     }
-    curve(d.ncp, min(x$data$tstat),max(x$data$tstat),100,col=4,lwd=2, xlab='delta',ylab='density')
+    curve(d.ncp, min(x$data$tstat,x$all.mus),max(x$data$tstat,x$all.mus),100,col=4,lwd=2, xlab='delta',ylab='density')
 #    detach(x)
     rug(x$all.mus)
     par(op)
