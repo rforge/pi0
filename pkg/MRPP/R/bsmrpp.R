@@ -17,8 +17,9 @@ function(y,permmat, verbose=TRUE, niter=Inf,
         lastperm=permmat[,1]=permmat[,b]; lastcperm=cpermmat[,1]=cpermmat[,b]
         permmat[,b]=perm1;  cpermmat[,b]=cperm1
 
-        selected.pvals[b]=tail(back.search(y,permmat, FALSE, niter, importance, 
-                          alpha.in, alpha.del, stepwise, cpermmat,...),1)[[1]]$p.value
+        selected.pvals[b]={tmp=tail(back.search(y,permmat, FALSE, niter, importance, 
+                              alpha.in, alpha.del, stepwise, cpermmat,...),1)[[1]]$p.value;
+                           if(length(tmp)>0) tmp else 1}
     }
     bsfit$raw.p.value=selected.pvals[1]
     bsfit$p.value=NULL
