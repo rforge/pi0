@@ -27,11 +27,11 @@ function(y,permmat, verbose=TRUE, niter=Inf,
         ans[[i]]=list(iter=i-1, var.idx=idx[var.rank], influence=imptnc[var.rank],
                       p.value=mean(mrpp.stats0[1]>=mrpp.stats0-min(c(1e-8,.5/B))),
                       deleted.p.value=NA_real_)
-        if(verbose) {
-          if(alpha.del>0) {
+        if(alpha.del>0) {
             dist.del=dist(y[,-idx,drop=FALSE])
             ans[[i]]$deleted.p.value=mrpp.test.dist(dist.del, perm.mat=permmat)$p.value
-          }
+        }
+        if(verbose) {
           cat('\b\b\b:\t',length(idx),'genes left; mrpp.p =',ans[[i]]$p.value,';', 
                         'deleted.mrpp.p =',ans[[i]]$deleted.p.value,
                         ';', proc.time()[3]-time0,'seconds passed;',fill=TRUE)
