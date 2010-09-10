@@ -43,7 +43,7 @@ function(y,permmat, verbose=TRUE, niter=Inf,
         if(length(idx)==0) {
             warning('not converged'); 
             ans[[i]]=list(iter=i-1, var.idx=numeric(0), influence=numeric(0),
-                      p.value=numeric(0),
+                      p.value=1,
                       deleted.p.value=ans[[1]]$p.value)
             return(ans)}
     }

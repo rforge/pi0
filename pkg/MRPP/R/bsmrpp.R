@@ -8,7 +8,7 @@ function(y,permmat, verbose=TRUE, niter=Inf,
     if(missing(cpermmat)) cpermmat=apply(permmat,2,function(kk)(1:N)[-kk])
     selected.pvals=numeric(Bperm)
     bsfit=tail(back.search(y,permmat, FALSE, niter, importance, alpha.in, alpha.del, stepwise, cpermmat,...),1)[[1]]
-    selected.pvals[1]=bsfit$p.value
+    selected.pvals[1]=if(length(bsfit$p.value)>0) bsfit$p.value else 1
     lastperm=perm1=permmat[,1]; lastcperm=cperm1=cpermmat[,1]
     for(b in 2:Bperm) {
         if(verbose) cat("iteration:",b-1," out of",Bperm,"\t\t\r")
