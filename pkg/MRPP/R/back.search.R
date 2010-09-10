@@ -40,7 +40,12 @@ function(y,permmat, verbose=TRUE, niter=Inf,
         if(all(imptnc<alpha.in) || i-1>=niter || isTRUE(ans[[i]]$deleted.p.value<=alpha.del)) return(ans)
         i=i+1
         if(stepwise) idx=idx[imptnc<max(imptnc)] else idx=idx[imptnc<alpha.in]
-        if(length(idx)==0) {warning('not converged'); return(ans)}
+        if(length(idx)==0) {
+            warning('not converged'); 
+            ans[[i]]=list(iter=i-1, var.idx=numeric(0), influence=numeric(0),
+                      p.value=numeric(0),
+                      deleted.p.value=ans[[1]]$p.value)
+            return(ans)}
     }
 }
 
