@@ -10,20 +10,20 @@ Backward variable selection for MRPP
 Backward variable selection for MRPP
 }
 \usage{
-back.search(y, permmat, verbose = TRUE, niter = Inf, 
+back.search(y, perm.mat, verbose = TRUE, niter = Inf, 
 	    importance = c("dp.dw", "p.dd.dw"), 
-	    alpha.in, alpha.del = 0, stepwise = FALSE, cpermmat,...)
-bsmrpp(y,permmat, verbose=TRUE, niter=Inf, 
+	    alpha.in, alpha.del = 0, stepwise = FALSE, cperm.mat,...)
+bsmrpp(y,perm.mat, verbose=TRUE, niter=Inf, 
          importance=c('dp.dw','p.dd.dw'),
-         alpha.in, alpha.del=0, stepwise=FALSE, cpermmat, Bperm=ncol(permmat), ...)
+         alpha.in, alpha.del=0, stepwise=FALSE, cperm.mat, Bperm=ncol(perm.mat), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{y}{
 %%     ~~Describe \code{y} here~~
 }
-  \item{permmat}{
-%%     ~~Describe \code{permmat} here~~
+  \item{perm.mat}{
+%%     ~~Describe \code{perm.mat} here~~
 }
   \item{verbose}{
 %%     ~~Describe \code{verbose} here~~
@@ -43,7 +43,7 @@ bsmrpp(y,permmat, verbose=TRUE, niter=Inf,
   \item{stepwise}{
 %%     ~~Describe \code{stepwise} here~~
 }
-  \item{cpermmat}{
+  \item{cperm.mat}{
 %%     ~~Describe \code{stepwise} here~~
 }
   \item{Bperm}{
@@ -84,7 +84,7 @@ bsmrpp(y,permmat, verbose=TRUE, niter=Inf,
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function(y,permmat, verbose=TRUE, niter=Inf, 
+function(y,perm.mat, verbose=TRUE, niter=Inf, 
                      importance=c('dp.dw','p.dd.dw'),
                      alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
                      alpha.del=0, stepwise=FALSE, ...)
@@ -99,16 +99,16 @@ function(y,permmat, verbose=TRUE, niter=Inf,
         if(verbose) cat('iteration',i-1,'...')
         time0=proc.time()[3]
         dist0=as.matrix(dist(y[,idx,drop=FALSE]))
-        mrpp.stats0=apply(permmat,2,get.mrpp.stat,dist.mat=dist0)
-        imptnc=if(importance=='dp.dw') get.dp.dw.kde(y[,idx,drop=FALSE],permmat,dist.mat=dist0,mrpp.stats=mrpp.stats0, ...) 
-               else get.p.dd.dw(y[,idx,drop=FALSE],permmat,dist.mat=dist0,...)
+        mrpp.stats0=apply(perm.mat,2,get.mrpp.stat,dist.mat=dist0)
+        imptnc=if(importance=='dp.dw') get.dp.dw.kde(y[,idx,drop=FALSE],perm.mat,dist.mat=dist0,mrpp.stats=mrpp.stats0, ...) 
+               else get.p.dd.dw(y[,idx,drop=FALSE],perm.mat,dist.mat=dist0,...)
         ans[[i]]=list(iter=i-1, var.idx=idx[order(imptnc)], influence=sort(imptnc),
                       p.value=mean(mrpp.stats0[1]>=mrpp.stats0),
                       deleted.p.value=NA_real_)
         if(verbose) {
           if(alpha.del>0) {
             dist.del=as.matrix(dist(y[,-idx,drop=FALSE]))
-            mrpp.stats.del=apply(permmat,2,get.mrpp.stat,dist.mat=dist.del)
+            mrpp.stats.del=apply(perm.mat,2,get.mrpp.stat,dist.mat=dist.del)
             ans[[i]]$deleted.p.value=mean(mrpp.stats.del[1]>=mrpp.stats.del)
           }
           cat('\b\b\b:\t',length(idx),'genes left; mrpp.p =',ans[[i]]$p.value,';', 

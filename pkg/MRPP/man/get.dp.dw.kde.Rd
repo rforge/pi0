@@ -9,18 +9,18 @@ Compute variable importance measure of partial derivative of p-values w.r.t. wei
 Compute variable importance measure of partial derivative of p-values w.r.t. weights
 }
 \usage{
-get.dp.dw.kde(y, permmat, r = 1:ncol(as.matrix(y)), test = FALSE, distObj = dist(y), 
-	mrpp.stats = mrpp.test.dist(distObj, perm.mat = permmat,
+get.dp.dw.kde(y, perm.mat, r = 1:ncol(as.matrix(y)), test = FALSE, distObj = dist(y), 
+	mrpp.stats = mrpp.test.dist(distObj, perm.mat = perm.mat,
 	wtmethod=wtmethod[1])$all.stat, bw = bw.mse.pdf.asym(mrpp.stats), 
-	cpermmat, wtmethod=integer(1), min.wts = 1e-08)
+	cperm.mat, wtmethod=integer(1), min.wts = 1e-08)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{y}{
 %%     ~~Describe \code{y} here~~
 }
-  \item{permmat}{
-%%     ~~Describe \code{permmat} here~~
+  \item{perm.mat}{
+%%     ~~Describe \code{perm.mat} here~~
 }
   \item{r}{
 %%     ~~Describe \code{r} here~~
@@ -37,11 +37,11 @@ get.dp.dw.kde(y, permmat, r = 1:ncol(as.matrix(y)), test = FALSE, distObj = dist
   \item{bw}{
 %%     ~~Describe \code{bw} here~~
 }
-  \item{cpermmat}{
-%%     ~~Describe \code{cpermmat} here~~
+  \item{cperm.mat}{
+%%     ~~Describe \code{cperm.mat} here~~
 }
   \item{wtmethod}{
-%%     ~~Describe \code{cpermmat} here~~
+%%     ~~Describe \code{cperm.mat} here~~
 }
   \item{min.wts}{
 %%     ~~Describe \code{min.wts} here~~

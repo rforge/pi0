@@ -9,15 +9,15 @@ Compute variable importance measure by using partial derivative of distance func
 Compute variable importance measure by using partial derivative of distance function w.r.t. weights as the new distance function
 }
 \usage{
-get.p.dd.dw(y, permmat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cpermmat, wtmethod=integer(1))
+get.p.dd.dw(y, perm.mat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cperm.mat, wtmethod=integer(1))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{y}{
 %%     ~~Describe \code{y} here~~
 }
-  \item{permmat}{
-%%     ~~Describe \code{permmat} here~~
+  \item{perm.mat}{
+%%     ~~Describe \code{perm.mat} here~~
 }
   \item{r}{
 %%     ~~Describe \code{r} here~~
@@ -25,11 +25,11 @@ get.p.dd.dw(y, permmat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cpermmat, w
   \item{distObj}{
 %%     ~~Describe \code{distObj} here~~
 }
-  \item{cpermmat}{
-%%     ~~Describe \code{cpermmat} here~~
+  \item{cperm.mat}{
+%%     ~~Describe \code{cperm.mat} here~~
 }
   \item{wtmethod}{
-%%     ~~Describe \code{cpermmat} here~~
+%%     ~~Describe \code{cperm.mat} here~~
 }
 }
 \details{
@@ -63,25 +63,25 @@ get.p.dd.dw(y, permmat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cpermmat, w
 ##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function(y, permmat, r=1:ncol(as.matrix(y)), #test=F, 
+function(y, perm.mat, r=1:ncol(as.matrix(y)), #test=F, 
                         distObj=dist(y), 
-                        cpermmat
+                        cperm.mat
                     )      
 ## b=permutation index; r=dimension index; 
 {
-    B=ncol(permmat)
+    B=ncol(perm.mat)
 #    b=if(test) 1:B else 1
 #    ans=matrix(NA_real_, length(r), length(b))
     ans=numeric(length(r))
     N=as.integer(nrow(y))
-    if(missing(cpermmat)) cpermmat=apply(permmat,2,function(kk)(1:N)[-kk])
+    if(missing(cperm.mat)) cperm.mat=apply(perm.mat,2,function(kk)(1:N)[-kk])
 
     contrast.mat=matrix(0,choose(N,2),N); k=1
     for(i in 1:(N-1))for(j in (i+1):N){contrast.mat[k,i]=1;contrast.mat[k,j]=-1;k=k+1}
     all.ddelta.dw=abs(contrast.mat\%*\%y)^2/pmax(1e-8,distObj)/2
 
     for(r.i in seq(along=r)){
-        dz.dw=.C('mrppstats',all.ddelta.dw[,r.i],permmat,cpermmat,nrow(permmat),B,N,ans=double(B))$ans
+        dz.dw=.C('mrppstats',all.ddelta.dw[,r.i],perm.mat,cperm.mat,nrow(perm.mat),B,N,ans=double(B))$ans
         ans[r.i]=mean(dz.dw[1]-dz.dw>=-1e-8)
     }
     drop(ans)
