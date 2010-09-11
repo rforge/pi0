@@ -1,24 +1,24 @@
 bsmrpp<-
-function(y,permmat, verbose=TRUE, niter=Inf, 
+function(y,perm.mat, verbose=TRUE, niter=Inf, 
          importance=c('dp.dw','p.dd.dw'),
          alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
-         alpha.del=0, stepwise=FALSE, cpermmat, Bperm=ncol(permmat), ...)
+         alpha.del=0, stepwise=FALSE, cperm.mat, Bperm=ncol(perm.mat), ...)
 {   if(!is.matrix(y)) y=as.matrix(y)
     N=nrow(y)
-    if(missing(cpermmat)) cpermmat=apply(permmat,2,function(kk)(1:N)[-kk])
+    if(missing(cperm.mat)) cperm.mat=apply(perm.mat,2,function(kk)(1:N)[-kk])
     selected.pvals=numeric(Bperm)
-    bsfit=tail(back.search(y,permmat, FALSE, niter, importance, alpha.in, alpha.del, stepwise, cpermmat,...),1)[[1]]
+    bsfit=tail(back.search(y,perm.mat, FALSE, niter, importance, alpha.in, alpha.del, stepwise, cperm.mat,...),1)[[1]]
     selected.pvals[1]=if(length(bsfit$p.value)>0) bsfit$p.value else 1
-    lastperm=perm1=permmat[,1]; lastcperm=cperm1=cpermmat[,1]
+    lastperm=perm1=perm.mat[,1]; lastcperm=cperm1=cperm.mat[,1]
     for(b in 2:Bperm) {
         if(verbose) cat("iteration:",b-1," out of",Bperm,"\t\t\r")
 
-        permmat[,b-1]=lastperm; cpermmat[,b-1]=lastcperm
-        lastperm=permmat[,1]=permmat[,b]; lastcperm=cpermmat[,1]=cpermmat[,b]
-        permmat[,b]=perm1;  cpermmat[,b]=cperm1
+        perm.mat[,b-1]=lastperm; cperm.mat[,b-1]=lastcperm
+        lastperm=perm.mat[,1]=perm.mat[,b]; lastcperm=cperm.mat[,1]=cperm.mat[,b]
+        perm.mat[,b]=perm1;  cperm.mat[,b]=cperm1
 
-        selected.pvals[b]={tmp=tail(back.search(y,permmat, FALSE, niter, importance, 
-                              alpha.in, alpha.del, stepwise, cpermmat,...),1)[[1]]$p.value;
+        selected.pvals[b]={tmp=tail(back.search(y,perm.mat, FALSE, niter, importance, 
+                              alpha.in, alpha.del, stepwise, cperm.mat,...),1)[[1]]$p.value;
                            if(length(tmp)>0) tmp else 1}
     }
     bsfit$raw.p.value=selected.pvals[1]

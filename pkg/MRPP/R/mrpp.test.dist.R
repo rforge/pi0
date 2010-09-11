@@ -27,15 +27,18 @@ function(y, ...) {
     if(deparse(substitute(y))=='y'){
         mrpp.test.dist(as.dist(y),...)
     }else{
-        assign(deparse(substitute(y)),y)
-        eval(substitute(mrpp.test.dist(as.dist(yyy),...), list(yyy=substitute(y))))
+#        assign(deparse(substitute(y)),y)
+        args=list(...)
+        args[['y']]=substitute(y)
+        do.call('mrpp.test.dist',args=args,quote=TRUE,envir=parent.frame(n=2))
+        eval(substitute(mrpp.test.dist(as.dist(yyy),...), list(yyy=substitute(y))),envir=parent.frame(n=2))
     }
 }
 
 mrpp.test.formula <-
-function(y,B, perm.mat, ...) ## not implemented
+function(y,B, perm.mat, ...) 
 {
-
+    .NotYetImplemented()
 }
 
 mrpp.test <-
