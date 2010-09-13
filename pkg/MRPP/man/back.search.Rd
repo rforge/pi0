@@ -22,40 +22,40 @@ bsmrpp(y,perm.mat, verbose=TRUE, niter=Inf,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{y}{
-%%     ~~Describe \code{y} here~~
+	Numeric data matrix, with columns being variables and rows being observations.
 }
   \item{perm.mat}{
-%%     ~~Describe \code{perm.mat} here~~
+	A permutation of indices of the first treatment group. Each column represent a permutation.
 }
   \item{verbose}{
-%%     ~~Describe \code{verbose} here~~
+	Logical or numeric scalar. Print messages every \code{verbose} iteration. \code{TRUE} is treated as 1. If \code{FALSE}, no messages are printed.
 }
   \item{niter}{
-%%     ~~Describe \code{niter} here~~
+	Maximum number of iterations. 
 }
   \item{importance}{
-%%     ~~Describe \code{importance} here~~
+	Either \code{'dp.dw'} or \code{'p.dd.dw'}. The importance measure. \code{'dp.dw'} means the derivative of approximate p-value with respect to weights. \code{'p.dd.dw'} means the permutation p-value using the derivative of Euclidean distance with respect to weights as the new distance measure. 
 }
   \item{alpha.in}{
-%%     ~~Describe \code{alpha.in} here~~
+	Desired minimally allowable level of importance for selected variables. 
 }
   \item{alpha.del}{
-%%     ~~Describe \code{alpha.del} here~~
+	Desired minimally allowable MRPP p-value for excluded variables. 
 }
   \item{stepwise}{
-%%     ~~Describe \code{stepwise} here~~
+	Logical. If \code{TRUE}, then only the variables with least importance are removed. Otherwise, all variables with importance less than \code{alpha.in} are removed.
 }
   \item{size.in}{
-%%     ~~Describe \code{stepwise} here~~
+	Minimally allowable number of selected variables. 
 }
   \item{cperm.mat}{
-%%     ~~Describe \code{stepwise} here~~
+	Similar to \code{perm.mat}, except that this is the permutation indices matrix for the second treatment group. 
 }
   \item{Bperm}{
-%%     ~~Describe \code{stepwise} here~~
+	Number of outer permutations. 
 }
   \item{\dots}{
-%%     ~~Describe \code{\dots} here~~
+	Additional arguments passed to \code{mrpp.test.dist}, \code{get.dp.dw.kde} or \code{get.p.dd.dw}.
 }
 }
 \details{
@@ -67,12 +67,24 @@ bsmrpp(y,perm.mat, verbose=TRUE, niter=Inf,
 %%  \item{comp1 }{Description of 'comp1'}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
+\code{back.search} returns a list, each element corresponding to results in each iteration. Each element is a list by itself, with elements
+\item{iter}{Iteration index;}
+\item{var.idx}{Variable index, in the order of variable importance;}
+\item{influence}{Sorted ariable importance;}
+\item{p.value}{MRPP p-value for selected variables;}
+\item{deleted.p.value}{MRPP p-value for excluded variables.}
+
+\code{bsmrpp} returns the last element of the result from \code{back.search}, except that
+\item{raw.p.value}{replaces the original p-value from \code{back.search};}
+\item{adj.p.value}{the actual p-value (adjusted) computed by nesting variable selection in permutations;}
+\item{permuted.p.values}{a vector of raw.p.values, one for each outer permutation.}
 }
 \references{
-%% ~put references to the literature/web site here ~
+Long Qu, Dan Nettleton, and Jack C. M. Dekkers. RELATIVE VARIABLE IMPORTANCE AND BACKWARD VARIABLE SELECTION FOR THE MULTIRESPONSE
+PERMUTATION PROCEDURE, WITH APPLICATIONS TO HIGH DIMENSIONAL GENOMIC DATA. (submitted)
 }
 \author{
-%%  ~~who you are~~
+Long Qu
 }
 \note{
 %%  ~~further notes~~
