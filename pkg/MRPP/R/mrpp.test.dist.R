@@ -22,13 +22,13 @@ function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cper
     ans
 }
 
-mrpp.test.matrix <-
+
+mrpp.test.default <-
 function(y, ...) {
-    ans=mrpp.test.dist(as.dist(y),...)
-        args=list(...)
-        args[['y']]=substitute(y)
-        do.call('mrpp.test.dist',args=args,quote=TRUE,envir=parent.frame(n=2))
-        eval(substitute(mrpp.test.dist(as.dist(yyy),...), list(yyy=substitute(y))),envir=parent.frame(n=2))
+    ans=mrpp.test.dist(dist(y),...)
+    repl.text=paste("dist(", deparse(substitute(y)), ")",sep='')
+    ans$data.name=gsub("dist(y)", repl.text, ans$data.name, fix=TRUE)
+    ans
 }
 
 mrpp.test.formula <-

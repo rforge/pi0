@@ -1,7 +1,7 @@
 \name{mrpp.test.dist}
 \Rdversion{1.1}
 \alias{mrpp.test.dist}
-\alias{mrpp.test.matrix}
+\alias{mrpp.test.default}
 \alias{mrpp.test.formula}
 \alias{mrpp.test}
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -15,7 +15,7 @@ MRPP test
 mrpp.test(y, \dots)
 \method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, cperm.mat,\dots)
 \method{mrpp.test}{formula}(y, B, perm.mat, \dots)
-\method{mrpp.test}{matrix}(y, \dots)
+\method{mrpp.test}{default}(y, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
