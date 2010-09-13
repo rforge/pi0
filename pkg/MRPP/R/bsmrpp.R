@@ -28,5 +28,6 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
     bsfit$raw.p.value=selected.pvals[1]
     bsfit$p.value=NULL
     bsfit$adj.p.value=mean(selected.pvals[1]-selected.pvals>=-min(c(1e-8,.5/Bperm)))
+    bsfit$permuted.p.values=selected.pvals
     bsfit
 }

@@ -56,7 +56,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
         if( all(imptnc<=alpha.in) || i-1>=niter || 
 #            isTRUE(ans[[i]]$deleted.p.value<=alpha.del) ||
             isTRUE(next.deleted.p<=alpha.del) ||
-            isTRUE(R-sum(imptnc>imptnc.threshold)<size.in) ) return(ans)
+            isTRUE(R-length(xcl)<size.in) ) return(ans)
         i=i+1
 #        if(stepwise) idx=idx[imptnc<max(imptnc)] else idx=idx[imptnc<alpha.in]
 #        if(length(idx)==0) {
