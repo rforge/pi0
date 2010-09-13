@@ -4,33 +4,34 @@
 \alias{MRPP}
 \docType{package}
 \title{
-What the package does (short line)
-~~ package title ~~
+Multiresponse permutation procedure and its variable importance and selection. 
 }
 \description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+Implements multiresponse permutation procedure (MRPP), variable importance measure for MRPP, and backward variable selection procedures for the MRPP, applicable to high dimensional data. 
 }
 \details{
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-93\cr
+Version: \tab 1.0-94\cr
 Date: \tab 2010-09-13\cr
-License: \tab What license is it under?\cr
+License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
 }
-~~ An overview of how to use the package, including the most important ~~
-~~ functions ~~
+\item{\code{mrpp.test}} {The MRPP, a permutation test applicable to high dimensional data.}
+\item{\code{get.dp.dw.kde}} {Variable importance measure: approximate derivative of p-values to weights.}
+\item{\code{get.p.dd.dw}} {Variable importance measure: permutation p-value using the derivative of Euclidean distance with respect to weights as the distance measure.}
+\item{\code{back.search}} {Backward variable selection for the MRPP.}
+\item{\code{bsmrpp}} {Backward variable selection nested within outer permutations.}
 }
 \author{
-Who wrote it
+Long Qu
 
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+Maintainer: Long Qu <longor@iastate.edu>
 }
 \references{
-~~ Literature or other references for background information ~~
+Long Qu, Dan Nettleton, and Jack C. M. Dekkers. RELATIVE VARIABLE IMPORTANCE AND BACKWARD VARIABLE SELECTION FOR THE MULTIRESPONSE
+PERMUTATION PROCEDURE, WITH APPLICATIONS TO HIGH DIMENSIONAL GENOMIC DATA. (submitted)
 }
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
 %~~ the R documentation directory ~~

@@ -4,10 +4,10 @@
 \alias{bsmrpp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Backward variable selection for MRPP
+Backward variable selection for the MRPP
 }
 \description{
-Backward variable selection for MRPP
+\code{back.search} performs backward variable selection for the MRPP. \code{bsmrpp} nests the backward variable selection within an outer layer of permutations to assess its significance. 
 }
 \usage{
 back.search(y, perm.mat, verbose = TRUE, niter = Inf, 
