@@ -15,9 +15,11 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
     ans=vector('list')
     R=ncol(y)
     idx=1:R  # inclusion set
+    xcl=inteter(0)
     i=1
     imptnc.threshold=Inf
     imptnc=rep(-Inf, R)
+    next.deleted.p=NA_real_
     repeat{
         if(verbose) {cat('iteration',i-1,'...')
                     time0=proc.time()[3]}
@@ -29,20 +31,22 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
             return(ans)
         }
         dist0=dist(y[,idx,drop=FALSE])
-        mrpp.stats0=mrpp.test.dist(dist0,perm.mat=perm.mat,...)$all.stat
+        mrpp.stats0=mrpp.test.dist(dist0,perm.mat=perm.mat,cperm.mat=cperm.mat,...)$all.stat
         imptnc=if(importance=='dp.dw') 
                     get.dp.dw.kde(y[,idx,drop=FALSE],perm.mat,distObj=dist0,mrpp.stats=mrpp.stats0, cperm.mat=cperm.mat,...) 
                else get.p.dd.dw(y[,idx,drop=FALSE],perm.mat,distObj=dist0,cperm.mat=cperm.mat,...)
         var.rank=order(imptnc)
         ans[[i]]=list(iter=i-1, var.idx=idx[var.rank], influence=imptnc[var.rank],
                       p.value=mean(mrpp.stats0[1]>=mrpp.stats0-min(c(1e-8,.5/B))),
-                      deleted.p.value=NA_real_)
+                      deleted.p.value=next.deleted.p)
         imptnc.threshold=if(stepwise) max(imptnc) else alpha.in
 #        idx=idx[imptnc<max(imptnc)] else idx=idx[imptnc<alpha.in]
-        if(alpha.del>0) {
-            dist.del=dist(y[,-idx,drop=FALSE])
-            if(all(!is.na(dist.del)))
-                ans[[i]]$deleted.p.value=mrpp.test.dist(dist.del, perm.mat=perm.mat)$p.value
+        if(alpha.del>=0) {
+            xcl=c(xcl, idx[imptnc>=imptnc.threshold])
+            dist.del=dist(y[,xcl,drop=FALSE])
+            if(all(!is.na(dist.del)) && length(xcl)>0)
+#                ans[[i]]$deleted.p.value=mrpp.test.dist(dist.del, perm.mat=perm.mat)$p.value
+                next.deleted.p=mrpp.test.dist(dist.del, perm.mat=perm.mat,cperm.mat=cperm.mat)$p.value
         }
         if(verbose) {
           cat('\b\b\b:\t',length(idx),'genes left; mrpp.p =',ans[[i]]$p.value,';', 
@@ -50,7 +54,8 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
                         ';', proc.time()[3]-time0,'seconds passed;',fill=TRUE)
         }
         if( all(imptnc<=alpha.in) || i-1>=niter || 
-            isTRUE(ans[[i]]$deleted.p.value<=alpha.del) ||
+#            isTRUE(ans[[i]]$deleted.p.value<=alpha.del) ||
+            isTRUE(next.deleted.p<=alpha.del) ||
             isTRUE(R-sum(imptnc>imptnc.threshold)<size.in) ) return(ans)
         i=i+1
 #        if(stepwise) idx=idx[imptnc<max(imptnc)] else idx=idx[imptnc<alpha.in]
