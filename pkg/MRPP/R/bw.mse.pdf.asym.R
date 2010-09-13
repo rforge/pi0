@@ -11,7 +11,7 @@ bw.mse.pdf.asym=function(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
             ddf.1=approx(ddf$x.grid[[1]],ddf$est,xout=x[1])$y
             bw=(f.1/ddf.1/ddf.1*Rkern/length(x))^.2
             if(!iter || abs(bw-bw0)<eps || n.iter>=iter.max) return(bw)
-            if(verbose)cat(bw,fill=TRUE)
+            if(verbose && isTRUE(n.iter%%verbose==0))cat(bw,fill=TRUE)
             bw0=bw
             n.iter=n.iter+1
         }

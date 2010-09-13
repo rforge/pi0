@@ -21,7 +21,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
     imptnc=rep(-Inf, R)
     next.deleted.p=NA_real_
     repeat{
-        if(verbose) {cat('iteration',i-1,'...')
+        if(verbose && isTRUE(i%%verbose==0)) {cat('iteration',i-1,'...')
                     time0=proc.time()[3]}
         idx=idx[imptnc<imptnc.threshold]
         if(length(idx)==0){
@@ -48,7 +48,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
 #                ans[[i]]$deleted.p.value=mrpp.test.dist(dist.del, perm.mat=perm.mat)$p.value
                 next.deleted.p=mrpp.test.dist(dist.del, perm.mat=perm.mat,cperm.mat=cperm.mat)$p.value
         }
-        if(verbose) {
+        if(verbose && isTRUE(i%%verbose==0)) {
           cat('\b\b\b:\t',length(idx),'genes left; mrpp.p =',ans[[i]]$p.value,';', 
                         'deleted.mrpp.p =',ans[[i]]$deleted.p.value,
                         ';', proc.time()[3]-time0,'seconds passed;',fill=TRUE)

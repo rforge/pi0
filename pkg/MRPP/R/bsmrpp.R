@@ -14,7 +14,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
     selected.pvals[1]=if(length(bsfit$p.value)>0) bsfit$p.value else 1
     lastperm=perm1=perm.mat[,1]; lastcperm=cperm1=cperm.mat[,1]
     for(b in 2:Bperm) {
-        if(verbose) cat("iteration:",b-1," out of",Bperm,"\t\t\r")
+        if(verbose && isTRUE(b%%verbose==0)) cat("iteration:",b-1," out of",Bperm,"\t\t\r")
 
         perm.mat[,b-1]=lastperm; cperm.mat[,b-1]=lastcperm
         lastperm=perm.mat[,1]=perm.mat[,b]; lastcperm=cperm.mat[,1]=cperm.mat[,b]
