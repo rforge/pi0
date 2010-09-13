@@ -15,7 +15,7 @@ More about what it does (maybe more than one line)
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-86\cr
+Version: \tab 1.0-87\cr
 Date: \tab 2010-09-13\cr
 License: \tab What license is it under?\cr
 LazyLoad: \tab yes\cr

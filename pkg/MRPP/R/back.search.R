@@ -15,7 +15,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
     ans=vector('list')
     R=ncol(y)
     idx=1:R  # inclusion set
-    xcl=inteter(0)
+    xcl=integer(0)
     i=1
     imptnc.threshold=Inf
     imptnc=rep(-Inf, R)
