@@ -7,7 +7,9 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
     N=nrow(y)
     if(missing(cperm.mat)) cperm.mat=apply(perm.mat,2,function(kk)(1:N)[-kk])
     selected.pvals=numeric(Bperm)
-    bsfit=tail(back.search(y,perm.mat, FALSE, niter, importance, alpha.in, alpha.del, stepwise, cperm.mat,...),1)[[1]]
+    bsfit=tail(back.search(y=y,perm.mat=perm.mat, verbose=FALSE, niter=niter, importance=importance, 
+            alpha.in=alpha.in, alpha.del=alpha.del, stepwise=stepwise, size.in=size.in, 
+            cperm.mat=cperm.mat,...),1)[[1]]
     selected.pvals[1]=if(length(bsfit$p.value)>0) bsfit$p.value else 1
     lastperm=perm1=perm.mat[,1]; lastcperm=cperm1=cperm.mat[,1]
     for(b in 2:Bperm) {
@@ -17,8 +19,9 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
         lastperm=perm.mat[,1]=perm.mat[,b]; lastcperm=cperm.mat[,1]=cperm.mat[,b]
         perm.mat[,b]=perm1;  cperm.mat[,b]=cperm1
 
-        selected.pvals[b]={tmp=tail(back.search(y,perm.mat, FALSE, niter, importance, 
-                              alpha.in, alpha.del, stepwise, size.in, cperm.mat,...),1)[[1]]$p.value;
+        selected.pvals[b]={tmp=tail(back.search(y=y,perm.mat=perm.mat, verbose=FALSE, niter=niter, 
+                        importance=importance, alpha.in=alpha.in, alpha.del=alpha.del, 
+                        stepwise=stepwise, size.in=size.in, cperm.mat=cperm.mat,...),1)[[1]]$p.value;
                            if(length(tmp)>0) tmp else 1}
     }
     bsfit$raw.p.value=selected.pvals[1]
