@@ -21,7 +21,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
     repeat{
         if(verbose) {cat('iteration',i-1,'...')
                     time0=proc.time()[3]}
-        idx=imptnc<=imptnc.threshold
+        idx=idx[imptnc<=imptnc.threshold]
 
         dist0=dist(y[,idx,drop=FALSE])
         mrpp.stats0=mrpp.test.dist(dist0,perm.mat=perm.mat,...)$all.stat

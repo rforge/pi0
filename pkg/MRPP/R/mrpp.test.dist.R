@@ -24,15 +24,11 @@ function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cper
 
 mrpp.test.matrix <-
 function(y, ...) {
-    if(deparse(substitute(y))=='y'){
-        mrpp.test.dist(as.dist(y),...)
-    }else{
-#        assign(deparse(substitute(y)),y)
+    ans=mrpp.test.dist(as.dist(y),...)
         args=list(...)
         args[['y']]=substitute(y)
         do.call('mrpp.test.dist',args=args,quote=TRUE,envir=parent.frame(n=2))
         eval(substitute(mrpp.test.dist(as.dist(yyy),...), list(yyy=substitute(y))),envir=parent.frame(n=2))
-    }
 }
 
 mrpp.test.formula <-
