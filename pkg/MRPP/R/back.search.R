@@ -22,7 +22,12 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
         if(verbose) {cat('iteration',i-1,'...')
                     time0=proc.time()[3]}
         idx=idx[imptnc<=imptnc.threshold]
-
+        if(length(idx)==0){
+            ans[[i]]=list(iter=i-1,var.idx=integer(0), influence=numeric(0), 
+                        p.value=numeric(0),deleted.p.value=ans[[1]]$p.value)
+            if(verbose)message('no variables left in the inclusion set')
+            return(ans)
+        }
         dist0=dist(y[,idx,drop=FALSE])
         mrpp.stats0=mrpp.test.dist(dist0,perm.mat=perm.mat,...)$all.stat
         imptnc=if(importance=='dp.dw') 
