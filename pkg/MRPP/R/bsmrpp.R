@@ -6,6 +6,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
 {   if(!is.matrix(y)) y=as.matrix(y)
     N=nrow(y)
     if(missing(cperm.mat)) cperm.mat=apply(perm.mat,2,function(kk)(1:N)[-kk])
+    if(missing(alpha.in)) alpha.in=if(importance=='dp.dw') 0 else 0.1
     selected.pvals=numeric(Bperm)
     bsfit=tail(back.search(y=y,perm.mat=perm.mat, verbose=FALSE, niter=niter, importance=importance, 
             alpha.in=alpha.in, alpha.del=alpha.del, stepwise=stepwise, size.in=size.in, 
