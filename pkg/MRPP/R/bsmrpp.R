@@ -2,7 +2,7 @@ bsmrpp<-
 function(y,perm.mat, verbose=TRUE, niter=Inf, 
          importance=c('dp.dw','p.dd.dw'),
          alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
-         alpha.del=0, stepwise=FALSE, cperm.mat, Bperm=ncol(perm.mat), ...)
+         alpha.del=0, stepwise=FALSE, size.in=1L, cperm.mat, Bperm=ncol(perm.mat), ...)
 {   if(!is.matrix(y)) y=as.matrix(y)
     N=nrow(y)
     if(missing(cperm.mat)) cperm.mat=apply(perm.mat,2,function(kk)(1:N)[-kk])
@@ -18,7 +18,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
         perm.mat[,b]=perm1;  cperm.mat[,b]=cperm1
 
         selected.pvals[b]={tmp=tail(back.search(y,perm.mat, FALSE, niter, importance, 
-                              alpha.in, alpha.del, stepwise, cperm.mat,...),1)[[1]]$p.value;
+                              alpha.in, alpha.del, stepwise, size.in, cperm.mat,...),1)[[1]]$p.value;
                            if(length(tmp)>0) tmp else 1}
     }
     bsfit$raw.p.value=selected.pvals[1]

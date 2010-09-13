@@ -12,10 +12,12 @@ Backward variable selection for MRPP
 \usage{
 back.search(y, perm.mat, verbose = TRUE, niter = Inf, 
 	    importance = c("dp.dw", "p.dd.dw"), 
-	    alpha.in, alpha.del = 0, stepwise = FALSE, cperm.mat,...)
+	    alpha.in, alpha.del = 0, stepwise = FALSE, 
+	    size.in=0L, cperm.mat,...)
 bsmrpp(y,perm.mat, verbose=TRUE, niter=Inf, 
          importance=c('dp.dw','p.dd.dw'),
-         alpha.in, alpha.del=0, stepwise=FALSE, cperm.mat, Bperm=ncol(perm.mat), ...)
+         alpha.in, alpha.del=0, stepwise=FALSE, 
+	 size.in=1L, cperm.mat, Bperm=ncol(perm.mat), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,6 +43,9 @@ bsmrpp(y,perm.mat, verbose=TRUE, niter=Inf,
 %%     ~~Describe \code{alpha.del} here~~
 }
   \item{stepwise}{
+%%     ~~Describe \code{stepwise} here~~
+}
+  \item{size.in}{
 %%     ~~Describe \code{stepwise} here~~
 }
   \item{cperm.mat}{
