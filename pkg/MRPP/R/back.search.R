@@ -21,7 +21,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
     repeat{
         if(verbose) {cat('iteration',i-1,'...')
                     time0=proc.time()[3]}
-        idx=idx[imptnc<=imptnc.threshold]
+        idx=idx[imptnc<imptnc.threshold]
         if(length(idx)==0){
             ans[[i]]=list(iter=i-1,var.idx=integer(0), influence=numeric(0), 
                         p.value=numeric(0),deleted.p.value=ans[[1]]$p.value)
