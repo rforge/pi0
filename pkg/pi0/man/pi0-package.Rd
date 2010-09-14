@@ -26,6 +26,7 @@ License: \tab GPL version 2 or newer\cr
 \item{\code{\link{lastbin}}}{Estimate p-value density at 1 based on a histogram. }
 \item{\code{\link{parncpt}}}{Parametrically estimate the distribution of noncentrality parameters. }
 \item{\code{\link{nparncpt}}}{Nonparametrically estimate the distribution of noncentrality parameters. }
+\item{\code{\link{sparncpt}}}{Semiparametrically estimate the distribution of noncentrality parameters. }
 }
 }
 \author{
