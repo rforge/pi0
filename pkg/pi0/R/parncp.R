@@ -1,5 +1,8 @@
 parncpt=function(tstat, df, zeromean=TRUE,  ...)
 {   stopifnot(all(df>0))
+    if(!zeromean && any(is.infinite(df)) && !all(is.infinite(df)) ) {
+        df[is.infinite(df)]=500
+    }
      method=c('L-BFGS-B')
 #     method=match.arg(method)
     if       (method=='EM') {
@@ -36,21 +39,27 @@ parncpt.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
 
         der.pi0=sum( (dt.alt-dt.null) / f )  ## correct
 
-        df.half=df/2; t2=tstat*tstat; t2vs2=t2+df*s2
-        logK2=df.half*log(df.half)-.5*log(pi/2)-lgamma(df.half)
-        logC=logK2-(df.half+.5)*log(t2/s2+df)- df.half*mu.ncp*mu.ncp/t2vs2
-#        integral.xv1=.C('intTruncNormVec',n=as.integer(G),r=rep(as.integer(df+1),length=G), mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
-#                                    sd=rep(as.double(1),length=G), lower=numeric(G), upper=rep(Inf,length=G), ans=numeric(G),NAOK=TRUE)$ans
-        integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
-                                    sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
-        
-        der.mu=-sum((1-pi0)/f/s2*(tstat*exp(logC)/sqrt(t2vs2)*integral.xv1-mu.ncp*dt.alt))    ## correct
+        if(all(is.infinite(df))){
+            z.std=(tstat-mu.ncp)/scale.fact
+            der.mu=-(1-pi0)*sum( dt.alt*z.std/scale.fact / f)
+            der.scale=(1-pi0)*sum( dt.alt*(1-z.std*z.std)/scale.fact / f)
+        }else{ df[is.infinite(df)]=500
+            df.half=df/2; t2=tstat*tstat; t2vs2=t2+df*s2
+            logK2=df.half*log(df.half)-.5*log(pi/2)-lgamma(df.half)
+            logC=logK2-(df.half+.5)*log(t2/s2+df)- df.half*mu.ncp*mu.ncp/t2vs2
+    #        integral.xv1=.C('intTruncNormVec',n=as.integer(G),r=rep(as.integer(df+1),length=G), mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
+    #                                    sd=rep(as.double(1),length=G), lower=numeric(G), upper=rep(Inf,length=G), ans=numeric(G),NAOK=TRUE)$ans
+            integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+            
+            der.mu=-sum((1-pi0)/f/s2*(tstat*exp(logC)/sqrt(t2vs2)*integral.xv1-mu.ncp*dt.alt))    ## correct
 
-        der.scale=-sum((1-pi0)/f        /s2/scale.fact/t2vs2*(#*dhs.ds)
-            dt.alt*(s2*df*(t2-s2)+mu.ncp*mu.ncp*t2vs2)-exp(logC)*mu.ncp*tstat*(t2vs2+df*s2)/sqrt(t2vs2)*integral.xv1)
-        )
+            der.scale=-sum((1-pi0)/f        /s2/scale.fact/t2vs2*(#*dhs.ds)
+                dt.alt*(s2*df*(t2-s2)+mu.ncp*mu.ncp*t2vs2)-exp(logC)*mu.ncp*tstat*(t2vs2+df*s2)/sqrt(t2vs2)*integral.xv1)
+            )
+        }
         der.sd=sd.ncp/scale.fact*der.scale
-        c(der.pi0,der.mu,der.sd)
+        c(pi0=der.pi0, mu.ncp=der.mu, sd.ncp=der.sd)
     }
     if(missing(starts)) {
         default.grids=list(lower=c(1e-3, -2, 1e-3), upper=c(1-1e-3, 2, 2), ngrid=c(5,5,5))
@@ -95,18 +104,24 @@ parncpt.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
 
         der.pi0=sum( (dt.alt-dt.null) / f )  ## correct
 
-        df.half=df/2; t2=tstat*tstat; t2vs2=t2+df*s2
-        logK2=df.half*log(df.half)-.5*log(pi/2)-lgamma(df.half)
-        logC=logK2-(df.half+.5)*log(t2/s2+df)- df.half*mu.ncp*mu.ncp/t2vs2
-#        integral.xv1=.C('intTruncNormVec',n=as.integer(G),r=rep(as.integer(df+1),length=G), mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
-#                                    sd=rep(as.double(1),length=G), lower=numeric(G), upper=rep(Inf,length=G), ans=numeric(G),NAOK=TRUE)$ans
-        integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
-                                    sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
-#        der.mu=-sum((1-pi0)/f/s2*(tstat*exp(logC)/sqrt(t2vs2)*integral.xv1-mu.ncp*dt.alt))    ## correct
+        if(all(is.infinite(df))){
+            z.std=(tstat-mu.ncp)/scale.fact
+#            der.mu=-(1-pi0)*sum( dt.alt*z.std/scale.fact / f)
+            der.scale=(1-pi0)*sum( dt.alt*(1-z.std*z.std)/scale.fact / f)
+        }else{ df[is.infinite(df)]=500
+            df.half=df/2; t2=tstat*tstat; t2vs2=t2+df*s2
+            logK2=df.half*log(df.half)-.5*log(pi/2)-lgamma(df.half)
+            logC=logK2-(df.half+.5)*log(t2/s2+df)- df.half*mu.ncp*mu.ncp/t2vs2
+    #        integral.xv1=.C('intTruncNormVec',n=as.integer(G),r=rep(as.integer(df+1),length=G), mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
+    #                                    sd=rep(as.double(1),length=G), lower=numeric(G), upper=rep(Inf,length=G), ans=numeric(G),NAOK=TRUE)$ans
+            integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+    #        der.mu=-sum((1-pi0)/f/s2*(tstat*exp(logC)/sqrt(t2vs2)*integral.xv1-mu.ncp*dt.alt))    ## correct
 
-        der.scale=-sum((1-pi0)/f        /s2/scale.fact/t2vs2*(#*dhs.ds)
-            dt.alt*(s2*df*(t2-s2)+mu.ncp*mu.ncp*t2vs2)-exp(logC)*mu.ncp*tstat*(t2vs2+df*s2)/sqrt(t2vs2)*integral.xv1)
-        )
+            der.scale=-sum((1-pi0)/f        /s2/scale.fact/t2vs2*(#*dhs.ds)
+                dt.alt*(s2*df*(t2-s2)+mu.ncp*mu.ncp*t2vs2)-exp(logC)*mu.ncp*tstat*(t2vs2+df*s2)/sqrt(t2vs2)*integral.xv1)
+            )
+        }
         der.sd=sd.ncp/scale.fact*der.scale
         c(der.pi0, der.sd)
     }

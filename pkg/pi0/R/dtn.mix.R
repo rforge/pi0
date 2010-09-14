@@ -1,6 +1,8 @@
 dtn.mix=function(t,df,mu.ncp, sd.ncp, log=FALSE, approximation=c('int2','saddlepoint','laplace','none'),...)
 {
     approximation=match.arg(approximation)
+    if(all(is.infinite(df))) return( dnorm(t, mu.ncp, sqrt(1+sd.ncp*sd.ncp), log=log) )
+    df[is.infinite(df)]=500
     if(approximation=='none'){
         scale.fact=sqrt(1+sd.ncp*sd.ncp)
         ncp=mu.ncp/scale.fact

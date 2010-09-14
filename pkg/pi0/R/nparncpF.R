@@ -279,7 +279,7 @@ nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.de
 
 vcov.ncpest=function(object,...)
 {
-    object$hessian
+    solve(object$hessian)
 }
 logLik.ncpest=function(object,...)
 {

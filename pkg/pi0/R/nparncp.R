@@ -1,5 +1,8 @@
 nparncpt=function(tstat, df, ...)
 {
+    if(any(is.infinite(df)) && !all(is.infinite(df)) ) {
+        df[is.infinite(df)]=500
+    }
     method='SQP'
     if (method=='SQP') {
         nparncpt.sqp(tstat, df, ...)
@@ -174,7 +177,7 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
                 if(npll.new<=npll.last) break
                 if(all(thetas==thetas.new)) break
                 thetas.new=(thetas+thetas.new)/2
-                if(verbose) cat("halving due to increase in objective",fill=TRUE)
+                if(verbose) cat("halving due to increase in objective: new=",npll.new, '\told=',npll.last, fill=TRUE)
                 nhalving=nhalving+1
                 if(nhalving>50) {warning("step-halving limite reached"); break}
             }
@@ -261,7 +264,7 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
 
 vcov.ncpest=function(object,...)
 {
-    object$hessian
+    sovle(object$hessian)
 }
 logLik.ncpest=function(object,...)
 {
