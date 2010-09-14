@@ -11,7 +11,7 @@ parncpF=function(Fstat, df1, df2, central=TRUE, method=c('L-BFGS-B',"Nelder-Mead
     }else if (method=='L-BFGS-B') {
         if(central) parncpF.lbfgsb.central(Fstat,df1,df2,...) else parncpF.lbfgsb.noncentral(Fstat,df1,df2,...)
     }else if (method%in%c("Nelder-Mead", "BFGS", "CG", "SANN")) {
-        if(central) parncpF.s.central(Fstat,df1,df2,method=method,,...) else parncpF.unconstrained.noncentral(Fstat,df1,df2,method=method,,...)
+        if(central) parncpF.unconstrained.central(Fstat,df1,df2,method=method,,...) else parncpF.unconstrained.noncentral(Fstat,df1,df2,method=method,,...)
     }
 }
 

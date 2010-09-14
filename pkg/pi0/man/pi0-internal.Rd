@@ -15,6 +15,36 @@
 \alias{extrp.pi0.slope.gam2}
 \alias{extrp.pi0.rate.gam2}
 \alias{extrp.pi0.both.gam2}
+\alias{dFsnc.mix}
+\alias{dncp.nparncpF}
+\alias{dncp.parncpF}
+\alias{dncp.sparncpF}
+\alias{fitted.nparncpF}
+\alias{fitted.parncpF}
+\alias{fitted.sparncpF}
+\alias{fitted.values.nparncpF}
+\alias{fitted.values.parncpF}
+\alias{fitted.values.sparncpF}
+\alias{nparncpF}
+\alias{nparncpF.sqp}
+\alias{parncpF}
+\alias{parncpF.lbfgsb.central}
+\alias{parncpF.lbfgsb.noncentral}
+\alias{parncpF.unconstrained.central}
+\alias{parncpF.unconstrained.noncentral}
+\alias{plot.nparncpF}
+\alias{plot.parncpF}
+\alias{plot.sparncpF}
+\alias{print.nparncpF}
+\alias{print.parncpF}
+\alias{print.sparncpF}
+\alias{sparncpF}
+\alias{sparncpF.nparncpF}
+\alias{sparncpF.numeric}
+\alias{sparncpF.parncpF}
+\alias{summary.nparncpF}
+\alias{summary.parncpF}
+\alias{summary.sparncpF}
 
 \title{internal functions not to be used by users directly}
 \description{
