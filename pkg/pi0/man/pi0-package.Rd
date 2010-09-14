@@ -12,8 +12,8 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.1-96\cr
-Date: \tab 2010-09-13\cr
+Version: \tab 1.1-98\cr
+Date: \tab 2010-09-14\cr
 License: \tab GPL version 2 or newer\cr
 }
 \itemize{
@@ -24,8 +24,8 @@ License: \tab GPL version 2 or newer\cr
 \item{\code{\link{combn2R}}}{ Generating a sample of combinations by choosing m1 out of n1 and m2 out of n2 simultaneously.}
 \item{\code{\link{matrix.t.test}}}{Apply a t-test to each row or column of a matrix. }
 \item{\code{\link{lastbin}}}{Estimate p-value density at 1 based on a histogram. }
-\item{\code{\link{parncp}}}{Parametrically estimate the distribution of noncentrality parameters. }
-\item{\code{\link{nparncp}}}{Nonparametrically estimate the distribution of noncentrality parameters. }
+\item{\code{\link{parncpt}}}{Parametrically estimate the distribution of noncentrality parameters. }
+\item{\code{\link{nparncpt}}}{Nonparametrically estimate the distribution of noncentrality parameters. }
 }
 }
 \author{

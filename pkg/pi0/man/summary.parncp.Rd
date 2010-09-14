@@ -1,22 +1,22 @@
-\name{summary.parncp}
+\name{summary.parncpt}
 \Rdversion{1.1}
-\alias{summary.parncp}
-\alias{print.parncp}
+\alias{summary.parncpt}
+\alias{print.parncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
         Print summary for an object of class parncp
 }
 \description{
-        Print summary for an object of class \code{parncp}. This includes the estimated proportion of true null hypotheses (\code{pi0}),
+        Print summary for an object of class \code{parncpt}. This includes the estimated proportion of true null hypotheses (\code{pi0}),
 estimated mean of noncentrality parameters (\code{sd.ncp}), estimated standard deviation of noncentrality parameters (\code{sd.ncp}).
 }
 \usage{
-\method{summary}{parncp}(object,...)
-\method{print}{parncp}(x,...)
+\method{summary}{parncpt}(object,...)
+\method{print}{parncpt}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object,x}{ an object of class \code{parncp}
+  \item{object,x}{ an object of class \code{parncpt}
 %%     ~~Describe \code{object} here~~
 }
   \item{\dots}{ currently not used
@@ -45,7 +45,7 @@ estimated mean of noncentrality parameters (\code{sd.ncp}), estimated standard d
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncp}}, \code{\link{nparncp}}, \code{\link{sparncp}}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{

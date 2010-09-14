@@ -1,8 +1,8 @@
-\name{plot.nparncp}
+\name{plot.nparncpt}
 \Rdversion{1.1}
-\alias{plot.nparncp}
+\alias{plot.nparncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{plot an object of class nparncp, i.e., nonparametric estiamte of noncentrality parameters
+\title{plot an object of class nparncpt, i.e., nonparametric estiamte of noncentrality parameters
 %%  ~~function to do ... ~~
 }
 \description{Plot the Network information criterion (NIC), effective number of parameters (ENP), and estimated proportion (pi0) of true null hypothesis
@@ -10,11 +10,11 @@ for different choice of tuning parameters; also plot the estimated density of no
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-\method{plot}{nparncp}(x, ...)
+\method{plot}{nparncpt}(x, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{an object of class \code{nparncp}
+  \item{x}{an object of class \code{nparncpt}
 %%     ~~Describe \code{x} here~~
 }
   \item{\dots}{currently not used. 
@@ -43,7 +43,7 @@ for different choice of tuning parameters; also plot the estimated density of no
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{nparncp}}
+\seealso{\code{\link{nparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{

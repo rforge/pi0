@@ -1,12 +1,12 @@
 dncp=function(obj, ...) UseMethod("dncp")
 
-dncp.parncp=function(obj, ...)
+dncp.parncpt=function(obj, ...)
 {
     ans=function(x)dnorm(x,obj$mu.ncp,obj$sd.ncp)
     ans
 }
 
-dncp.nparncp=function(obj, ...) {
+dncp.nparncpt=function(obj, ...) {
     d.ncp = function(xx) {
         xx = outer(xx, obj$all.mus, "-")
         xx = sweep(xx, 2, obj$all.sigs, "/")
@@ -16,7 +16,7 @@ dncp.nparncp=function(obj, ...) {
     d.ncp
 }
 
-dncp.sparncp=function(obj,...) 
+dncp.sparncpt=function(obj,...) 
 {
     d.ncp=function(x) obj$par*dncp(obj$parfit)(x) + (1-obj$par)*dncp(obj$nparfit)(x)
     d.ncp

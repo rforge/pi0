@@ -1,23 +1,23 @@
-\name{summary.nparncp}
+\name{summary.nparncpt}
 \Rdversion{1.1}
-\alias{summary.nparncp}
-\alias{print.nparncp}
+\alias{summary.nparncpt}
+\alias{print.nparncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
         Print summary for an object of class nparncp
 }
 \description{
-        Print summary for an object of class \code{nparncp}. This includes the estimated proportion of true null hypotheses (\code{pi0}),
+        Print summary for an object of class \code{nparncpt}. This includes the estimated proportion of true null hypotheses (\code{pi0}),
 estimated mean of noncentrality parameters (\code{sd.ncp}), estimated standard deviation of noncentrality parameters (\code{sd.ncp}), 
 the estimated effective number of parameters (\code{enp}), and the tuning parameter (\code{lambda}) that controls the amount of smoothing. 
 }
 \usage{
-\method{summary}{nparncp}(object, ...)
-\method{print}{nparncp}(x, ...)
+\method{summary}{nparncpt}(object, ...)
+\method{print}{nparncpt}(x, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object,x}{ an object of class \code{nparncp}
+  \item{object,x}{ an object of class \code{nparncpt}
 %%     ~~Describe \code{object} here~~
 }
   \item{\dots}{ currently not used
@@ -46,7 +46,7 @@ the estimated effective number of parameters (\code{enp}), and the tuning parame
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncp}}, \code{\link{nparncp}}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -57,7 +57,7 @@ the estimated effective number of parameters (\code{enp}), and the tuning parame
 %## The function is currently defined as
 %function(object,...)
 %{
-%    print.nparncp(object,...)
+%    print.nparncpt(object,...)
 %  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

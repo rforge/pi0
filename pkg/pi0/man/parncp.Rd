@@ -1,8 +1,8 @@
-\name{parncp}
+\name{parncpt}
 \Rdversion{1.1}
-\alias{parncp}
-\alias{parncp.bfgs.0mean}
-\alias{parncp.bfgs.non0mean}
+\alias{parncpt}
+\alias{parncpt.bfgs.0mean}
+\alias{parncpt.bfgs.non0mean}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Parametric estimation of noncentrality parameters
 %%  ~~function to do ... ~~
@@ -11,9 +11,9 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-parncp(tstat, df, zeromean = TRUE, ...)
-parncp.bfgs.0mean(tstat, df, starts, grids, approximation = "int2", ...)
-parncp.bfgs.non0mean(tstat, df, starts, grids, approximation = "int2", ...)
+parncpt(tstat, df, zeromean = TRUE, ...)
+parncpt.bfgs.0mean(tstat, df, starts, grids, approximation = "int2", ...)
+parncpt.bfgs.non0mean(tstat, df, starts, grids, approximation = "int2", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -43,13 +43,13 @@ parncp.bfgs.non0mean(tstat, df, starts, grids, approximation = "int2", ...)
 }
 
 }
-\details{\code{parncp} calls either \code{parncp.bfgs.0mean} or \code{parncp.bfgs.non0mean}, depending whether \code{zeromean} is \code{TRUE} or \code{FALSE}. 
-Both \code{parncp.bfgs.0mean} and \code{parncp.bfgs.non0mean} use the 'L-BFGS-B' algorithm by calling \code{\link{optim}}. All gradiants are analytical, but the Hessian is only numerical approximation. 
+\details{\code{parncpt} calls either \code{parncpt.bfgs.0mean} or \code{parncpt.bfgs.non0mean}, depending whether \code{zeromean} is \code{TRUE} or \code{FALSE}. 
+Both \code{parncpt.bfgs.0mean} and \code{parncpt.bfgs.non0mean} use the 'L-BFGS-B' algorithm by calling \code{\link{optim}}. All gradiants are analytical, but the Hessian is only numerical approximation. 
 The first parmater is always \code{pi0}, i.e., the proportion of true null hypotheses; the last parameter is always the standard deviation of noncentrality parameters; 
-for \code{parncp.bfgs.non0mean} the middle parameter is the mean of noncentrality parameters, whereas for \code{parncp.bfgs.0mean} the mean is set to 0 a priori. 
+for \code{parncpt.bfgs.non0mean} the middle parameter is the mean of noncentrality parameters, whereas for \code{parncpt.bfgs.0mean} the mean is set to 0 a priori. 
 %%  ~~ If necessary, more details than the description above ~~
 }
-\value{a list with \code{class} attribute being \code{c('parncp', 'ncpest')}. 
+\value{a list with \code{class} attribute being \code{c('parncpt', 'ncpest')}. 
         \item{pi0}{proportion of true nulls}
         \item{mu.ncp}{mean of ncp}
         \item{sd.ncp}{SD of ncp}
@@ -79,7 +79,7 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{nparncp}}
+\seealso{\code{\link{nparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -94,12 +94,12 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 %#     method=match.arg(method)
 %    if       (method=='EM') {
 %        stop("EM algorithm not implemented")
-%#        parncp.em(tstat,df,zeromean,...)
+%#        parncpt.em(tstat,df,zeromean,...)
 %    }else if (method=='NR') {
 %        stop("Newton-Raphson algorithm not implemented")
-%#        parncp.nr(tstat,df,zeromean,...)
+%#        parncpt.nr(tstat,df,zeromean,...)
 %    }else if (method=='L-BFGS-B') {
-%        if(zeromean) parncp.bfgs.0mean(tstat,df,...) else parncp.bfgs.non0mean(tstat,df,...)
+%        if(zeromean) parncpt.bfgs.0mean(tstat,df,...) else parncpt.bfgs.non0mean(tstat,df,...)
 %    }
 %  }
 }

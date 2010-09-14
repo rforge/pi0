@@ -1,8 +1,8 @@
 \name{marginal.dt}
 \alias{marginal.dt}
-\alias{marginal.dt.parncp}
-\alias{marginal.dt.nparncp}
-\alias{marginal.dt.sparncp}
+\alias{marginal.dt.parncpt}
+\alias{marginal.dt.nparncpt}
+\alias{marginal.dt.sparncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Estimated arginal density of t-statistics
 }
@@ -11,13 +11,13 @@
 }
 \usage{
 marginal.dt(obj,...)
-\method{marginal.dt}{parncp}(obj,...)
-\method{marginal.dt}{nparncp}(obj, ...)
-\method{marginal.dt}{sparncp}(obj, ...)
+\method{marginal.dt}{parncpt}(obj,...)
+\method{marginal.dt}{nparncpt}(obj, ...)
+\method{marginal.dt}{sparncpt}(obj, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{obj}{ an object of \code{ncpest} (\code{\link{nparncp}} or \code{\link{parncp}} }
+  \item{obj}{ an object of \code{ncpest} (\code{\link{nparncpt}} or \code{\link{parncpt}} }
 %  \item{observed}{logical; if \code{TRUE}, then densities at observed \code{obj$data$tstat} are evaluated. }
   \item{\dots}{ Other argument passed to \code{\link{dtn.mix}}, most notably, the \code{approximaiton} argument }
 }
@@ -35,7 +35,7 @@ with mixing proportion based on that of \code{obj$data$df}.
 }
 \note{ 
 }
-\seealso{ \code{\link{parncp}}. \code{\link{nparncp}} ,\code{\link{sparncp}}
+\seealso{ \code{\link{parncpt}}. \code{\link{nparncpt}} ,\code{\link{sparncpt}}
 }
 \examples{
 }

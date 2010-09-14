@@ -44,7 +44,7 @@
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncp}}, \code{\link{nparncp}}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{

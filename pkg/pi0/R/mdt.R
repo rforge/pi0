@@ -1,6 +1,6 @@
 marginal.dt=function(obj,  ...) UseMethod('marginal.dt') ## marginal density of t
 
-marginal.dt.parncp=function(obj,  ...)
+marginal.dt.parncpt=function(obj,  ...)
 {
 
     single.df.ans=function(x, df) obj$pi0*dt(x, df )+(1-obj$pi0)*dtn.mix(x, df,obj$mu.ncp, obj$sd.ncp, ...)
@@ -16,7 +16,7 @@ marginal.dt.parncp=function(obj,  ...)
     }
 }
 
-marginal.dt.nparncp=function(obj,  ...)
+marginal.dt.nparncpt=function(obj,  ...)
 {
 
     single.df.ans=function(x,df)
@@ -43,7 +43,7 @@ marginal.dt.nparncp=function(obj,  ...)
     }
 }
 
-marginal.dt.sparncp=function(obj, ...){ ## to be implemented
+marginal.dt.sparncpt=function(obj, ...){ ## to be implemented
     ans=function(x) obj$par*marginal.dt(obj$parfit,...)(x) + (1-obj$par)*marginal.dt(obj$nparfit,...)(x)
     ans
 }

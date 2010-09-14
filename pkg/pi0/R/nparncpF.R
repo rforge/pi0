@@ -346,7 +346,7 @@ plot.nparncpF=function(x,...)
 }
 
 if(FALSE) {
-(pfit=parncp(Fstat,df1,df2,FALSE))
+(pfit=parncpF(Fstat,df1,df2,FALSE))
 npfit.mean=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=TRUE)
 npfit.0=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=0)
 npfit.75=nparncpF(Fstat,df1,df2,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.75)

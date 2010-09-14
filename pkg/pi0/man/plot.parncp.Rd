@@ -1,19 +1,19 @@
-\name{plot.parncp}
+\name{plot.parncpt}
 \Rdversion{1.1}
-\alias{plot.parncp}
+\alias{plot.parncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{plot an object of class parncp, i.e., parametric estiamte of noncentrality parameters
+\title{plot an object of class parncpt, i.e., parametric estiamte of noncentrality parameters
 %%  ~~function to do ... ~~
 }
 \description{Plot the histogram of observed t-statistics together with its fitted density estimate; also plotted is the estimated density of noncentrality parameters.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-\method{plot}{parncp}(x,...)
+\method{plot}{parncpt}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{an object of class \code{parncp}
+  \item{x}{an object of class \code{parncpt}
 %%     ~~Describe \code{x} here~~
 }
   \item{\dots}{ currently not used
@@ -42,7 +42,7 @@
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncp}}, \code{\link{nparncp}}, \code{\link{sparncp}}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -57,7 +57,7 @@
 %    op=par(mfrow=c(1,2))
 %    hist(obj$data$tstat, pr=TRUE, br=min(c(max(c(20, length(obj$data$tstat)/100)), 200)), xlab='t',main='t-statistics')
 %    ord=order(obj$data$tstat)
-%    lines(obj$data$tstat[ord], fitted.parncp(x)[ord], col='red', lwd=3)
+%    lines(obj$data$tstat[ord], fitted.parncpt(x)[ord], col='red', lwd=3)
 %    curve(dnorm(x, obj$mu.ncp, obj$sd.ncp), min(obj$data$tstat), max(obj$data$tstat), 500, xlab='delta', ylab='density',main='noncentrality parameters')
 %    abline(v=c(0, obj$mu.ncp), lty=1:2)
 %    par(op)

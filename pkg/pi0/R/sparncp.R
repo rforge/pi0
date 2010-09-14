@@ -1,22 +1,22 @@
-sparncp=function(obj1, obj2, ...) UseMethod('sparncp')
+sparncpt=function(obj1, obj2, ...) UseMethod('sparncp')
 
-sparncp.nparncp=function(obj1, obj2,...)
+sparncpt.nparncpt=function(obj1, obj2,...)
 {   tmp=obj1;
     obj1=obj2;
     obj2=tmp
-    sparncp.parncp(obj1, obj2, ...)
+    sparncpt.parncpt(obj1, obj2, ...)
 }
 
-sparncp.numeric=function(obj1, obj2, ...)
+sparncpt.numeric=function(obj1, obj2, ...)
 {   tstat=obj1; df=obj2
-    obj1=parncp(tstat,df, zeromean=FALSE, ...)
-    obj2=nparncp(tstat,df, ...)
-    sparncp.parncp(obj1, obj2, ...)
+    obj1=parncpt(tstat,df, zeromean=FALSE, ...)
+    obj2=nparncpt(tstat,df, ...)
+    sparncpt.parncpt(obj1, obj2, ...)
 }
 
-sparncp.parncp=function(obj1, obj2, ...)
+sparncpt.parncpt=function(obj1, obj2, ...)
 {   parfit=obj1; nparfit=obj2
-    if(!inherits(nparfit,'nparncp')) stop("second argument should be an 'nparncp' object")
+    if(!inherits(nparfit,'nparncpt')) stop("second argument should be an 'nparncp' object")
     if(!all.equal(parfit$data, nparfit$data)) stop("the two objects are based on different data")
 
 #    obj=function(propar) propar*marginal.dt(parfit)(parfit$data$tstat)+(1-propar)*marginal.dt(nparfit)(nparfit$data$tstat) ## this uses mixture density for different df's
@@ -34,15 +34,15 @@ sparncp.parncp=function(obj1, obj2, ...)
              gradient=NULL,      hessian=NULL,      ## TO BE ADDED LATER
              parfit=parfit, nparfit=nparfit
              )
-    class(ans)=c('sparncp','ncpest')
+    class(ans)=c('sparncpt','ncpest')
     ans
 }
 
-fitted.sparncp=fitted.values.sparncp=function(object, ...)
+fitted.sparncpt=fitted.values.sparncpt=function(object, ...)
 {
     object$par * fitted(object$parfit) + (1-object$par)*fitted(object$nparfit)
 }
-print.sparncp=function(x,...)
+print.sparncpt=function(x,...)
 {
     cat('pi0=',x$pi0, fill=TRUE)
     cat('mu.ncp=', x$mu.ncp, fill=TRUE)
@@ -52,11 +52,11 @@ print.sparncp=function(x,...)
 #    cat("lambda=", x$lambda, fill=TRUE)
     invisible(x)
 }
-summary.sparncp=function(object,...)
+summary.sparncpt=function(object,...)
 {
-    print.sparncp(object,...)
+    print.sparncpt(object,...)
 }
-plot.sparncp=function(x,...)
+plot.sparncpt=function(x,...)
 {
 #    x11(width=8, height=4)
     op=par(mfrow=c(1,2))
@@ -418,7 +418,7 @@ plot.sparncp=function(x,...)
 #}
 
 if(FALSE) {
-(pfit=parncp(tstat,df,FALSE))
+(pfit=parncpt(tstat,df,FALSE))
 npfit.mean=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=TRUE)
 npfit.0=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,approx.hess=0)
 npfit.75=sparncp(tstat,df,starts=rep((1-pfit['pi0'])/K,K),verbose=FALSE,plotit=FALSE,approx.hess=.75)

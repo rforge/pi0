@@ -1,20 +1,20 @@
-parncp=function(tstat, df, zeromean=TRUE,  ...)
+parncpt=function(tstat, df, zeromean=TRUE,  ...)
 {   stopifnot(all(df>0))
      method=c('L-BFGS-B')
 #     method=match.arg(method)
     if       (method=='EM') {
         stop("EM algorithm not implemented")
-#        parncp.em(tstat,df,zeromean,...)
+#        parncpt.em(tstat,df,zeromean,...)
     }else if (method=='NR') {
         stop("Newton-Raphson algorithm not implemented")
-#        parncp.nr(tstat,df,zeromean,...)
+#        parncpt.nr(tstat,df,zeromean,...)
     }else if (method=='L-BFGS-B') {
-        if(zeromean) parncp.bfgs.0mean(tstat,df,...) else parncp.bfgs.non0mean(tstat,df,...)
+        if(zeromean) parncpt.bfgs.0mean(tstat,df,...) else parncpt.bfgs.non0mean(tstat,df,...)
     }
 }
 
 
-parncp.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
+parncpt.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
 {
     G=max(c(length(tstat),length(df)))
 
@@ -73,11 +73,11 @@ parncp.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
     ans=list(pi0=optimFit$par[1], mu.ncp=optimFit$par[2], sd.ncp=optimFit$par[3], data=list(tstat=tstat, df=df), 
              logLik=ll, enp=3, par=optimFit$par,
              obj=obj, gradiant=deriv.non0mean(optimFit$par), hessian=optimFit$hessian)
-    class(ans)=c('parncp','ncpest')
+    class(ans)=c('parncpt','ncpest')
     ans
 }
 
-parncp.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
+parncpt.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
 {
     G=max(c(length(tstat),length(df)))
 
@@ -131,7 +131,7 @@ parncp.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
     ans=list(pi0=optimFit$par[1], mu.ncp=0, sd.ncp=optimFit$par[2], data=list(tstat=tstat, df=df), 
              logLik=ll, enp=2, par=optimFit$par,
              obj=obj, gradiant=deriv.0mean(optimFit$par), hessian=optimFit$hessian)
-    class(ans)=c('parncp','ncpest')
+    class(ans)=c('parncpt','ncpest')
     ans
 }
 
@@ -148,28 +148,28 @@ parncp.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
 #{
 #    obj$par
 #}
-fitted.parncp=fitted.values.parncp=function(object, ...)
+fitted.parncpt=fitted.values.parncp=function(object, ...)
 {
     object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*dtn.mix(object$data$tstat, object$data$df,object$mu.ncp,object$sd.ncp,FALSE,...)
 }
-summary.parncp=function(object,...)
+summary.parncpt=function(object,...)
 {
     cat("pi0 (proportion of null hypotheses) =", object$pi0, fill=TRUE)
     cat("mu.ncp (mean of noncentrality parameters) =", object$mu.ncp, fill=TRUE)
     cat("sd.ncp (SD of noncentrality parameters) =", object$sd.ncp, fill=TRUE)
     invisible(object)
 }
-print.parncp=function(x,...)
+print.parncpt=function(x,...)
 {
     summary.parncp(x,...)
 }
-plot.parncp=function(x,...)
+plot.parncpt=function(x,...)
 {
 #    x11(width=8, height=4)
     op=par(mfrow=c(1,2))
     hist(x$data$tstat, pr=TRUE, br=min(c(max(c(20, length(x$data$tstat)/100)), 200)), xlab='t',main='t-statistics')
     ord=order(x$data$tstat)
-    lines(x$data$tstat[ord], fitted.parncp(x)[ord], col='red', lwd=2)
+    lines(x$data$tstat[ord], fitted.parncpt(x)[ord], col='red', lwd=2)
     d.ncp=function(d) dnorm(d, x$mu.ncp, x$sd.ncp)
     curve(d.ncp, min(x$data$tstat), max(x$data$tstat), 500, xlab='delta', ylab='density',main='noncentrality parameters')
     abline(v=c(0, x$mu.ncp), lty=1:2)

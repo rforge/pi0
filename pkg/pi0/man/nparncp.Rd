@@ -1,7 +1,7 @@
-\name{nparncp}
+\name{nparncpt}
 \Rdversion{1.1}
-\alias{nparncp}
-\alias{nparncp.sqp}
+\alias{nparncpt}
+\alias{nparncpt.sqp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Nonparametric estimation of noncentrality parameters
 %%  ~~function to do ... ~~
@@ -10,8 +10,8 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-nparncp(tstat, df, ...)
-nparncp.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), 
+nparncpt(tstat, df, ...)
+nparncpt.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), 
         starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'), K=100, bounds=quantile(tstat,c(.01,.99)), 
         solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 }
@@ -30,7 +30,7 @@ nparncp.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=1
   \item{lambdas}{numeric vector of smoothness tuning parameter \code{lambda} to be tried. The one that minimizes NIC will be chosen. 
 %%     ~~Describe \code{lambdas} here~~
 }
-  \item{starts}{ optional numeric vector of starting values. If missing, \code{parncp} will be called with \code{zeromean} set to \code{FALSE} 
+  \item{starts}{ optional numeric vector of starting values. If missing, \code{parncpt} will be called with \code{zeromean} set to \code{FALSE} 
   to get an initial esimate of \code{pi0}. And the starting values (\code{theta}) will be set all equal to each other and sum to \code{1-pi0}. 
   Note that this is the starting value for the largest \code{lambdas} only. For smaller \code{lambdas}, the estimates from larger \code{lambdas}
   will be used as starting values (warm start). 
@@ -50,7 +50,7 @@ nparncp.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=1
   \item{solver}{character. The name of the function for solving quadratic programming problems. Note that \code{ipop} and \code{kernlab} are not very reliable. \code{solve.QP} is faster but \code{lsei} is more stable. 
 %%     ~~Describe \code{solver} here~~
 }
-  \item{plotit}{logical; indicating if \code{\link{plot.nparncp}} should be called after estimation. This is always recommended before accepting the results. 
+  \item{plotit}{logical; indicating if \code{\link{plot.nparncpt}} should be called after estimation. This is always recommended before accepting the results. 
 %%     ~~Describe \code{plotit} here~~
 }
   \item{verbose}{logical; if \code{TRUE}, extensive messages will be printed. 
@@ -69,11 +69,11 @@ nparncp.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=1
 %%     ~~Describe \code{\dots} here~~
 }
 }
-\details{ \code{nparncp} is a wrapper for \code{nparncp.sqp}, the latter of which uses a sequential quadratic programming algorithm to find the mixing proportions
+\details{ \code{nparncpt} is a wrapper for \code{nparncpt.sqp}, the latter of which uses a sequential quadratic programming algorithm to find the mixing proportions
 of the basis Gaussian density functions.
 %%  ~~ If necessary, more details than the description above ~~
 }
-\value{ A list with class attribute \code{c("nparncp", "ncpest")}
+\value{ A list with class attribute \code{c("nparncpt", "ncpest")}
         \item{pi0}{estimated proportion of true nulls}
         \item{mu.ncp}{mean of ncp}
         \item{sd.ncp}{SD of ncp}
@@ -114,7 +114,7 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncp}}
+\seealso{\code{\link{parncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
@@ -127,7 +127,7 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 %{
 %    method='SQP'
 %    if (method=='SQP') {
-%        nparncp.sqp(tstat, df, ...)
+%        nparncpt.sqp(tstat, df, ...)
 %    }
 %  }
 }

@@ -1,8 +1,8 @@
 \name{dncp}
 \alias{dncp}
-\alias{dncp.parncp}
-\alias{dncp.nparncp}
-\alias{dncp.sparncp}
+\alias{dncp.parncpt}
+\alias{dncp.nparncpt}
+\alias{dncp.sparncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Density of noncentrality parameters}
 \description{
@@ -10,9 +10,9 @@ These functions return the density function of noncentrality parameters, from \c
 }
 \usage{
 dncp(obj, ...)
-\method{dncp}{parncp}(obj, ...)
-\method{dncp}{nparncp}(obj, ...)
-\method{dncp}{sparncp}(obj, ...)
+\method{dncp}{parncpt}(obj, ...)
+\method{dncp}{nparncpt}(obj, ...)
+\method{dncp}{sparncpt}(obj, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,7 +36,7 @@ dncp(obj, ...)
 %
 % ~Make other sections like Warning with \section{Warning }{....} ~
 }
-\seealso{ \code{\link{parncp}}. \code{\link{nparncp}} ,\code{\link{sparncp}}
+\seealso{ \code{\link{parncpt}}. \code{\link{nparncpt}} ,\code{\link{sparncpt}}
 }
 \examples{
 %##---- Should be DIRECTLY executable !! ----

@@ -1,11 +1,11 @@
-nparncp=function(tstat, df, ...)
+nparncpt=function(tstat, df, ...)
 {
     method='SQP'
     if (method=='SQP') {
         nparncp.sqp(tstat, df, ...)
     }
 }
-nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'),
+nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'),
                         K=100, bounds=quantile(tstat,c(.01,.99)), solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 {
 #   source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dtn.mix.R")
@@ -211,7 +211,7 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
     }
 
     if(missing(starts)) {
-        tmp=parncp(tstat,df,zeromean=FALSE)
+        tmp=parncpt(tstat,df,zeromean=FALSE)
         starts=rep(coef(tmp)['pi0']/K,K)
         if(sum(starts)>1-1e-6) starts=starts/sum(starts)*(1-1e-6)
     }
@@ -254,8 +254,8 @@ nparncp.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'
              beta=beta.final, IC=IC, 
              all.mus=mus, all.sigs=sigs, data=list(tstat=tstat, df=df), i.final=i.final, all.pi0s=pi0s,
              all.enps=enps, all.thetas=sqp.fit, all.nics=nics, all.nic.sd=nic.sd, all.lambdas=lambdas)
-    class(ans)=c('nparncp','ncpest')
-    if(plotit) plot.nparncp(ans)
+    class(ans)=c('nparncpt','ncpest')
+    if(plotit) plot.nparncpt(ans)
     ans
 }
 
@@ -271,7 +271,7 @@ coef.ncpest=coefficients.ncpest=function(object,...)
 {
     object$par
 }
-fitted.nparncp=fitted.values.nparncp=function(object, ...)
+fitted.nparncpt=fitted.values.nparncp=function(object, ...)
 {
     
     nonnull.mat=matrix(NA_real_, length(object$data$tstat), length(object$all.mus))
@@ -279,11 +279,11 @@ fitted.nparncp=fitted.values.nparncp=function(object, ...)
     object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*drop(nonnull.mat%*%object$beta)
 }
 
-summary.nparncp=function(object,...)
+summary.nparncpt=function(object,...)
 {
     print.nparncp(object,...)
 }
-print.nparncp=function(x,...)
+print.nparncpt=function(x,...)
 {
     cat('pi0=',x$pi0, fill=TRUE)
     cat('mu.ncp=', x$mu.ncp, fill=TRUE)
@@ -292,7 +292,7 @@ print.nparncp=function(x,...)
     cat("lambda=", x$lambda, fill=TRUE)
     invisible(x)
 }
-plot.nparncp=function(x,...)
+plot.nparncpt=function(x,...)
 {
 #    x11(width=7,heigh=7)
     op=par(mfrow=c(2,2))

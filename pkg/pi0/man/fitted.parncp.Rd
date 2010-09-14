@@ -1,21 +1,21 @@
-\name{fitted.parncp}
+\name{fitted.parncpt}
 \Rdversion{1.1}
-\alias{fitted.parncp}
-\alias{fitted.values.parncp}
+\alias{fitted.parncpt}
+\alias{fitted.values.parncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Density evaluated at observed t-statistics for parncp class
+\title{Density evaluated at observed t-statistics for parncpt class
 %%  ~~function to do ... ~~
 }
-\description{Density evaluated at observed t-statistics for \code{parncp} class
+\description{Density evaluated at observed t-statistics for \code{parncpt} class
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-\method{fitted}{parncp}(object, ...)
-\method{fitted.values}{parncp}(object, ...)
+\method{fitted}{parncpt}(object, ...)
+\method{fitted.values}{parncpt}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{object of class \code{parncp}
+  \item{object}{object of class \code{parncpt}
 %%     ~~Describe \code{object} here~~
 }
   \item{\dots}{other arguments passed to \code{dtn.mix}
@@ -44,7 +44,7 @@
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{fitted.nparncp}}, \code{\link{parncp}}, \code{\link{nparncp}}, \code{\link{sparncp}}
+\seealso{\code{\link{fitted.nparncpt}}, \code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
