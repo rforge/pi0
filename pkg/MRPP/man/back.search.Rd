@@ -37,7 +37,7 @@ bsmrpp(y,perm.mat, verbose=TRUE, niter=Inf,
 	Either \code{'dp.dw'} or \code{'p.dd.dw'}. The importance measure. \code{'dp.dw'} means the derivative of approximate p-value with respect to weights. \code{'p.dd.dw'} means the permutation p-value using the derivative of Euclidean distance with respect to weights as the new distance measure. 
 }
   \item{alpha.in}{
-	Desired minimally allowable level of importance for selected variables. 
+	Desired minimally allowable level of importance for selected variables. By default, this is set to 0 if \code{importance='dp.dw'}; and 0.1 if \code{importance='p.dd.dw'}.
 }
   \item{alpha.del}{
 	Desired minimally allowable MRPP p-value for excluded variables. 
@@ -86,58 +86,16 @@ PERMUTATION PROCEDURE, WITH APPLICATIONS TO HIGH DIMENSIONAL GENOMIC DATA. (subm
 \author{
 Long Qu
 }
-\note{
-%%  ~~further notes~~
-}
+%\note{
+%%%  ~~further notes~~
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{mrpp.test}}, \code{\link{get.p.dd.dw}}, \code{\link{get.dp.dw.kde}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function(y,perm.mat, verbose=TRUE, niter=Inf, 
-                     importance=c('dp.dw','p.dd.dw'),
-                     alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
-                     alpha.del=0, stepwise=FALSE, ...)
-## y is a data matrix, with col's being variables and rows being observations
-{
-    ans=vector('list')
-    importance=match.arg(importance)
-    if(missing(alpha.in)) alpha.in=if(importance=='dp.dw') 0 else 0.1
-    idx=1:ncol(y)
-    i=1
-    repeat{
-        if(verbose) cat('iteration',i-1,'...')
-        time0=proc.time()[3]
-        dist0=as.matrix(dist(y[,idx,drop=FALSE]))
-        mrpp.stats0=apply(perm.mat,2,get.mrpp.stat,dist.mat=dist0)
-        imptnc=if(importance=='dp.dw') get.dp.dw.kde(y[,idx,drop=FALSE],perm.mat,dist.mat=dist0,mrpp.stats=mrpp.stats0, ...) 
-               else get.p.dd.dw(y[,idx,drop=FALSE],perm.mat,dist.mat=dist0,...)
-        ans[[i]]=list(iter=i-1, var.idx=idx[order(imptnc)], influence=sort(imptnc),
-                      p.value=mean(mrpp.stats0[1]>=mrpp.stats0),
-                      deleted.p.value=NA_real_)
-        if(verbose) {
-          if(alpha.del>0) {
-            dist.del=as.matrix(dist(y[,-idx,drop=FALSE]))
-            mrpp.stats.del=apply(perm.mat,2,get.mrpp.stat,dist.mat=dist.del)
-            ans[[i]]$deleted.p.value=mean(mrpp.stats.del[1]>=mrpp.stats.del)
-          }
-          cat('\b\b\b:\t',length(idx),'genes left; mrpp.p =',ans[[i]]$p.value,';', 
-                        'deleted.mrpp.p =',ans[[i]]$deleted.p.value,
-                        ';', proc.time()[3]-time0,'seconds passed;',fill=TRUE)
-        }
-        if(all(imptnc<alpha.in) || i-1>=niter || isTRUE(ans[[i]]$deleted.p.value<alpha.del)) return(ans)
-        i=i+1
-        if(stepwise) idx=idx[imptnc<max(imptnc)] else idx=idx[imptnc<alpha.in]
-        if(length(idx)==0) {warning('not converged'); return(ans)}
-    }
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

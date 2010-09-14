@@ -9,7 +9,7 @@ Compute variable importance measure by using partial derivative of distance func
 Compute variable importance measure by using partial derivative of distance function w.r.t. weights as the new distance function
 }
 \usage{
-get.p.dd.dw(y, perm.mat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cperm.mat, wtmethod=integer(1))
+get.p.dd.dw(y, perm.mat, r = 1:ncol(as.matrix(y)),  cperm.mat, wtmethod=integer(1))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -21,9 +21,6 @@ get.p.dd.dw(y, perm.mat, r = 1:ncol(as.matrix(y)), distObj = dist(y), cperm.mat,
 }
   \item{r}{
 %%     ~~Describe \code{r} here~~
-}
-  \item{distObj}{
-%%     ~~Describe \code{distObj} here~~
 }
   \item{cperm.mat}{
 %%     ~~Describe \code{cperm.mat} here~~
