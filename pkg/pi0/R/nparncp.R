@@ -14,7 +14,8 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
 #   source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dtn.mix.R")
     solver=match.arg(solver)
     penalty=match.arg(penalty)
-    solver.package=switch(solver, solve.QP='limSolve', ipop='kernlab', lsei='limSolve',LowRankQP='LowRankQP')
+    solver.package=switch(solver, solve.QP='limSolve', ipop='kernlab', lsei='limSolve',LowRankQP='pi0'#'LowRankQP'
+    )
     require(solver.package, character.only=TRUE)
     require(Matrix)
     if (K<=0 || length(K)!=1) stop("K should be a positive integer")
