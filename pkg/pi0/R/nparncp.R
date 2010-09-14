@@ -2,7 +2,7 @@ nparncpt=function(tstat, df, ...)
 {
     method='SQP'
     if (method=='SQP') {
-        nparncp.sqp(tstat, df, ...)
+        nparncpt.sqp(tstat, df, ...)
     }
 }
 nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'),
@@ -271,7 +271,7 @@ coef.ncpest=coefficients.ncpest=function(object,...)
 {
     object$par
 }
-fitted.nparncpt=fitted.values.nparncp=function(object, ...)
+fitted.nparncpt=fitted.values.nparncpt=function(object, ...)
 {
     
     nonnull.mat=matrix(NA_real_, length(object$data$tstat), length(object$all.mus))
@@ -281,7 +281,7 @@ fitted.nparncpt=fitted.values.nparncp=function(object, ...)
 
 summary.nparncpt=function(object,...)
 {
-    print.nparncp(object,...)
+    print.nparncpt(object,...)
 }
 print.nparncpt=function(x,...)
 {

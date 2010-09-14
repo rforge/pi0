@@ -148,7 +148,7 @@ parncpt.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
 #{
 #    obj$par
 #}
-fitted.parncpt=fitted.values.parncp=function(object, ...)
+fitted.parncpt=fitted.values.parncpt=function(object, ...)
 {
     object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*dtn.mix(object$data$tstat, object$data$df,object$mu.ncp,object$sd.ncp,FALSE,...)
 }
@@ -161,7 +161,7 @@ summary.parncpt=function(object,...)
 }
 print.parncpt=function(x,...)
 {
-    summary.parncp(x,...)
+    summary.parncpt(x,...)
 }
 plot.parncpt=function(x,...)
 {
