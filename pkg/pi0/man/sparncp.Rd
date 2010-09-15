@@ -42,14 +42,26 @@ are made and their results are used in combination.
 }
 \references{ 
 I. Olkin and C. H. Spiegelman.  1987. A Semiparametric Approach to Density Estimation. Journal of the American Statistical Association. 82,399,858-865
+
 Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{ Long Qu \email{longor@iastate.edu}}
 %\note{ 
 %}
-\seealso{ \code{\link{parncpt}}, \code{\link{nparncpt}}}
-%\examples{
-%}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, 
+\code{\link{fitted.sparncpt}}, \code{\link{plot.sparncpt}}, \code{\link{summary.sparncpt}},
+\code{\link{coef.ncpest}}, \code{\link{logLik.ncpest}}, \code{\link{vcov.ncpest}},
+\code{\link{AIC}}, \code{\link{dncp}}
+}
+\examples{
+\dontrun{
+data(simulatedTstat)
+(npfit=nparncpt(tstat=simulatedTstat, df=8, lambdas=10^seq(-2,8,length=20)))
+(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE))
+(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE))
+(spfit=sparncpt(npfit,pfit))
+}
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }

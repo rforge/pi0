@@ -49,7 +49,9 @@ dtn.mix(t, df, mu.ncp, sd.ncp, log = FALSE, approximation = c("int2", "saddlepoi
 }
 \references{
 Broda, Simon and Paolella, Marc S. 2007. Saddlepoint approximations for the doubly noncentral t distribution, Computational Statistics & Data Analysis, 51,6, 2907-2918.
+
 Young, G.A. and Smith R.L. 2005. Essentials of statistical inference. Cambridge University Press. Cambridge, UK. 
+
 Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{Long Qu \email{longor@iastate.edu}

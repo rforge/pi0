@@ -78,11 +78,20 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{nparncpt}}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\seealso{\code{\link{sparncpt}}, \code{\link{nparncpt}}, 
+\code{\link{fitted.parncpt}}, \code{\link{plot.parncpt}}, \code{\link{summary.parncpt}},
+\code{\link{coef.ncpest}}, \code{\link{logLik.ncpest}}, \code{\link{vcov.ncpest}},
+\code{\link{AIC}}, \code{\link{dncp}}
 }
-%\examples{
-%}
+\examples{
+\dontrun{
+data(simulatedTstat)
+(npfit=nparncpt(tstat=simulatedTstat, df=8, lambdas=10^seq(-2,8,length=20)))
+(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE))
+(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE))
+(spfit=sparncpt(npfit,pfit))
+}
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }

@@ -46,7 +46,7 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{

@@ -115,6 +115,12 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
     Amat=grad.C(numeric(K)) ## this is the A matrix for quadprog::solve.QP, i.e., t(A)%*%theta>=theta0 linear constraints
                             ## for limSolve::lsei, this is t(G)
 
+    adjust.pi0=function(thetas){
+        betas=thetas/sum(thetas)
+        obj=function(pi0)NPLL((1-pi0)*betas)
+        pi0=optimize(obj,interval=c(1e-3,1-1e-3))$minimum
+        (1-pi0)*betas
+    }
 
     sqp=function(thetas, conv.f=1e-10, verbose=FALSE, maxiter=1e3) { ## thetas is a starting value
         ## not a general solver; instead, designed for this problem per se
@@ -123,10 +129,10 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
         npll.last=Inf
         niter=1
         repeat{
-            thetas=pmax(thetas,0)
+            thetas=pmax(thetas,0)      ### this is the code that works before
             dvec=-grad.NPLL(thetas)    ## negative gradiant
-#            fnscale=10^floor(max(log10(abs(dvec))))  # this seems causing problems for Megan's data
-            fnscale=10^min(c(floor(max(log10(abs(dvec)))),0))
+            fnscale=10^floor(max(log10(abs(dvec))))  # this seems causing problems for Megan's data
+#            fnscale=10^min(c(floor(max(log10(abs(dvec)))),0))
             dvec=dvec/fnscale
         #    tmp=drop(1/((1-sum(betas))*F0+F1%*%betas))*(F1-F0)
             Dmat=hess.NPLL(thetas, approx=approx.hess>0)/fnscale
@@ -172,19 +178,29 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
                 thetas.new=(thetas+thetas.new)/2
                 if(verbose) cat("halving due to constraints",fill=TRUE)
             }
+
+######### halving section for NPLL
             nhalving=1
             repeat{
-                npll.new=NPLL(thetas.new)
+                npll.new=NPLL(pmax(thetas.new,0))
                 if(npll.new<=npll.last) break
                 if(all(thetas==thetas.new)) break
                 thetas.new=(thetas+thetas.new)/2
                 if(verbose) cat("halving due to increase in objective: new=",npll.new, '\told=',npll.last, fill=TRUE)
                 nhalving=nhalving+1
-                if(nhalving>50) {warning("step-halving limite reached"); break}
+                if(nhalving>50) {warning("step-halving limit reached"); break}
             }
+######### end halving
+######### ADDED   
+#            browser()
+            thetas.new=adjust.pi0(pmax(thetas.new,0))
+            npll.new=NPLL(thetas.new)
+######### END AND
+
             thetas=thetas.new
             if(verbose)cat('npll.new=', npll.new, '\tpi0=',1-sum(thetas), '\tmin.theta=', min(thetas), '\tfnscale=', fnscale, fill=TRUE)
-            if(npll.last-npll.new<conv.f*fnscale) break
+#            if(npll.last-npll.new<conv.f*fnscale) break
+            if(npll.last-npll.new<conv.f) break
             niter=niter+1
             if(niter>maxiter){warning("maximum iteration reached; results from last iteration returned"); break}
             npll.last=npll.new
@@ -193,7 +209,7 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
          return(pmax(thetas,0))
     }
 
-    enp=function(thetas, eps=1e-6)  ## effective number of parameters, ## depends on hess.NPLL, grad.NPLL
+    enp=function(thetas, eps=min(1e-6,sum(thetas)/K*1e-2))  ## effective number of parameters, ## depends on hess.NPLL, grad.NPLL
     {
         nonzero.idx=which(thetas>eps)
 
@@ -210,8 +226,12 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
             hess=t(Jacobian)%*%hess%*%Jacobian
             Kmat=t(Jacobian)%*%Kmat%*%Jacobian
         }
-
-        return(max(c(0, sum(diag(solve(nearPD(hess)$mat, Kmat))))))
+        eigvals=eigen((hess+t(hess))/2, symmetric=TRUE, only.values=TRUE)$val
+        if(tail(eigvals,1)<1e-6){
+            max(c(0, sum(diag(solve(nearPD(hess)$mat, Kmat)))))
+        }else{
+            max(c(0, sum(diag(solve(hess, Kmat)))))
+        }
     }
 
     if(missing(starts)) {
@@ -226,7 +246,9 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
     for(i in n.lambda:1) {
         lambda=lambdas[i]
         sqp.fit[i,]=sqp(if(i==n.lambda) starts else sqp.fit[i+1,], conv.f=1e-6, verbose=verbose)
+#        sqp.fit[i,]=sqp(if(i==n.lambda) starts else find.starts(theta2beta(sqp.fit[i+1,])), conv.f=1e-6, verbose=verbose)
         enps[i]=enp(sqp.fit[i,])
+#        browser()
         tmp=NPLL(sqp.fit[i,],FALSE)
         nics[i]=2*(sum(tmp))+IC.fact*enps[i]
         nic.sd[i]=sd(tmp)*sqrt(G)
@@ -245,6 +267,8 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
     i.final=which.min(nics); # i.1se=tail(which(nics<=nics[i.final]+nic.sd[i.final] & 1:n.lambda>=i.final),1) # one se rule
     lambda.final=lambdas[i.final]
     beta.final=sqp.fit[i.final,]/sum(sqp.fit[i.final,])
+    if((i.final==1 || i.final==length(lambdas))&& length(lambdas)>1) 
+        warning('Final lambda occurs at the boundary')
 
 
     ll=-NPLL(sqp.fit[i.final,])

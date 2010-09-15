@@ -1,4 +1,4 @@
-sparncpt=function(obj1, obj2, ...) UseMethod('sparncp')
+sparncpt=function(obj1, obj2, ...) UseMethod('sparncpt')
 
 sparncpt.nparncpt=function(obj1, obj2,...)
 {   tmp=obj1;

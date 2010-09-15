@@ -113,11 +113,20 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncpt}}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\seealso{\code{\link{parncpt}}, \code{\link{sparncpt}}, 
+\code{\link{fitted.nparncpt}}, \code{\link{plot.nparncpt}}, \code{\link{summary.nparncpt}},
+\code{\link{coef.ncpest}}, \code{\link{logLik.ncpest}}, \code{\link{vcov.ncpest}},
+\code{\link{AIC}}, \code{\link{dncp}}
 }
-%\examples{
-%}
+\examples{
+\dontrun{
+data(simulatedTstat)
+(npfit=nparncpt(tstat=simulatedTstat, df=8, lambdas=10^seq(-2,8,length=20)))
+(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE))
+(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE))
+(spfit=sparncpt(npfit,pfit))
+}
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }
