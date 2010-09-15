@@ -3,7 +3,6 @@
 \alias{plot.parncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{plot an object of class parncpt, i.e., parametric estiamte of noncentrality parameters
-%%  ~~function to do ... ~~
 }
 \description{Plot the histogram of observed t-statistics together with its fitted density estimate; also plotted is the estimated density of noncentrality parameters.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -31,39 +30,22 @@
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{
-%%  ~~further notes~~
-}
-
+%\note{
+%%%  ~~further notes~~
+%}
+%
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(x)
-%{
-%    x11(width=8, height=4)
-%    op=par(mfrow=c(1,2))
-%    hist(obj$data$tstat, pr=TRUE, br=min(c(max(c(20, length(obj$data$tstat)/100)), 200)), xlab='t',main='t-statistics')
-%    ord=order(obj$data$tstat)
-%    lines(obj$data$tstat[ord], fitted.parncpt(x)[ord], col='red', lwd=3)
-%    curve(dnorm(x, obj$mu.ncp, obj$sd.ncp), min(obj$data$tstat), max(obj$data$tstat), 500, xlab='delta', ylab='density',main='noncentrality parameters')
-%    abline(v=c(0, obj$mu.ncp), lty=1:2)
-%    par(op)
-%    invisible(x)
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ hplot }

@@ -14,49 +14,46 @@ agjack.pi0(subtobj,mean.n=mean,pointpair=FALSE, trunc=TRUE,tol=1e-5)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{subtobj}{              }
-  \item{mean.n}{              }
-  \item{pointpair}{              }
-  \item{trunc}{              }
-  \item{tol}{              }
+  \item{subtobj}{      A subt object        }
+  \item{mean.n}{      mean function        }
+  \item{pointpair}{logical}
+  \item{trunc}{logical, indicating if results are truncated. }
+  \item{tol}{A small tolerance number. }
 }
-\details{
-
-
-
-
-
-}
+%\details{
+%
+%
+%
+%
+%
+%}
 \value{
-%  \item{}{              }
-%  \item{}{              }
-%  \item{}{              }
-  
+A numeric scalar  
 }
-\references{
-
-
-}
+%\references{
+%
+%
+%}
 \author{ Long Qu [\email{longor@iastate.edu}] }
-\note{
-
-
-}
-\seealso{ 
-
-
-}
-\examples{
-\dontrun{
-
-
-}
-
-
-
-}
+%\note{
+%
+%
+%}
+%\seealso{ 
+%
+%
+%}
+%\examples{
+%\dontrun{
+%
+%
+%}
+%
+%
+%
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{univar  }
-%\keyword{  }
+\keyword{model  }
+\keyword{nonparametric  }
 %\keyword{  }

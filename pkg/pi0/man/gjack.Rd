@@ -14,45 +14,45 @@ gjack(theta1, theta2, R)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{theta1}{              }
-  \item{theta2}{              }
-  \item{R}{              }
+  \item{theta1}{Numeric              }
+  \item{theta2}{     Numeric         }
+  \item{R}{         Numeric     }
 }
 \details{
-
+Computes \code{(theta1-R*theta2)/(1-R)}
 
 
 
 
 }
-\value{
+\value{Numeric
 %  \item{}{              }
 %  \item{}{              }
 %  \item{}{              }
   
 }
-\references{
-
-
-}
+%\references{
+%
+%
+%}
 \author{ Long Qu [\email{longor@iastate.edu}] }
-\note{
-
-
-}
-\seealso{ 
-
-
-}
-\examples{
-\dontrun{
-
-
-}
-
-
-
-}
+%\note{
+%
+%
+%}
+%\seealso{ 
+%
+%
+%}
+%\examples{
+%\dontrun{
+%
+%
+%}
+%
+%
+%
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{univar  }

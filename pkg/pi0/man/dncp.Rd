@@ -19,34 +19,36 @@ dncp(obj, ...)
   \item{obj}{ an object from \code{ncpest}, from which noncentrality parameter density to be extracted }
   \item{\dots}{ currently not used }
 }
-\details{
-%  ~~ If necessary, more details than the description above ~~
-}
+%\details{
+%%  ~~ If necessary, more details than the description above ~~
+%}
 \value{
         A function of one argument
 }
 \references{ 
-%~put references to the literature/web site here ~ 
+Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
+
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{ Long Qu \email{longor@iastate.edu}
 %~~who you are~~ 
 }
-\note{ 
-%~~further notes~~ 
-%
-% ~Make other sections like Warning with \section{Warning }{....} ~
-}
+%\note{ 
+%%~~further notes~~ 
+%%
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+%}
 \seealso{ \code{\link{parncpt}}. \code{\link{nparncpt}} ,\code{\link{sparncpt}}
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(obj, ...) UseMethod("dncp")
-}
+%\examples{
+%%##---- Should be DIRECTLY executable !! ----
+%%##-- ==>  Define data, use random,
+%%##--	or do  help(data=index)  for the standard data sets.
+%%
+%%## The function is currently defined as
+%%function(obj, ...) UseMethod("dncp")
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ univar }
+\keyword{ nonparametric }
 \keyword{ distribution }% __ONLY ONE__ keyword per line

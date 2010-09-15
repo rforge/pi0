@@ -3,7 +3,6 @@
 \alias{dtn.mix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Density of noncental t-normal mixture
-%%  ~~function to do ... ~~
 }
 \description{Density of noncentral t-distribution, with nencentrality parameter (NCP) being normally distributed. This is a scaled noncentral t-density. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -51,12 +50,12 @@ dtn.mix(t, df, mu.ncp, sd.ncp, log = FALSE, approximation = c("int2", "saddlepoi
 \references{
 Broda, Simon and Paolella, Marc S. 2007. Saddlepoint approximations for the doubly noncentral t distribution, Computational Statistics & Data Analysis, 51,6, 2907-2918.
 Young, G.A. and Smith R.L. 2005. Essentials of statistical inference. Cambridge University Press. Cambridge, UK. 
-%% ~put references to the literature/web site here ~
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{
+\note{For normal-normal mixture, set \code{df=Inf}. 
 %%  ~~further notes~~
 }
 
@@ -65,65 +64,8 @@ Young, G.A. and Smith R.L. 2005. Essentials of statistical inference. Cambridge 
 \seealso{\code{\link{dt.sad}}, \code{\link{dt.int2}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(t,df,mu.ncp, sd.ncp, log=FALSE, approximation=c('int2','saddlepoint','laplace','none'),...)
-%{
-%    approximation=match.arg(approximation)
-%    if(approximation=='none'){
-%        scale.fact=sqrt(1+sd.ncp*sd.ncp)
-%        ncp=mu.ncp/scale.fact
-%        return( if(log){
-%                    dt(t/scale.fact, df, ncp, log=TRUE)-log(scale.fact)
-%                }else{
-%                    dt(t/scale.fact, df, ncp)/(scale.fact)
-%                }
-%        )
-%    }else if (approximation=='int2'){
-%        scale.fact=sqrt(1+sd.ncp*sd.ncp)
-%        ncp=mu.ncp/scale.fact
-%        return( if(log){
-%                    dt.int2(t/scale.fact, df, ncp, log=TRUE,...)-log(scale.fact)
-%                }else{
-%                    dt.int2(t/scale.fact, df, ncp,...)/(scale.fact)
-%                }
-%        )
-%    }else if (approximation=='saddlepoint'){
-%        scale.fact=sqrt(1+sd.ncp*sd.ncp)
-%        ncp=mu.ncp/scale.fact
-%        return( if(log){
-%                    dt.sad(t/scale.fact, df, ncp, log=TRUE,...)-log(scale.fact)
-%                }else{
-%                    dt.sad(t/scale.fact, df, ncp,...)/(scale.fact)
-%                }
-%        )
-%    }else if (approximation=='laplace'){
-%        denom=(1+sd.ncp*sd.ncp)*df+t*t
-%        u0=mu.ncp*t*sqrt(df+t*t)/denom
-%        g0sq=(df+t*t)*(1+sd.ncp*sd.ncp)/denom
-%        g0=sqrt(g0sq)
-%        x0=(sqrt(4*g0sq*df+u0*u0)+u0)/2
-%
-%        exponent=-mu.ncp*mu.ncp*df/2/denom + df*log(x0) -(x0-u0)*(x0-u0)/2/g0sq
-%
-%        norm.prob=pnorm(0, x0, x0*g0/sqrt(g0sq*df+x0*x0), lower=FALSE, log=TRUE)
-%        norm.prob0=pnorm(0,g0*sqrt(df),g0/sqrt(2),lower=FALSE,log=TRUE)
-%
-%
-%        ans=(exponent
-%            +log(x0)+df/2-df/2*log(df+t*t)
-%            -lbeta(df/2,.5)
-%            -.5*log(.5)-.5*log((1+sd.ncp*sd.ncp)*df+t*t)-.5*log(g0sq*df+x0*x0)
-%            +norm.prob - norm.prob0
-%        )
-%        return (    if(log) ans else exp(ans)   )
-%    }
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 %\keyword{ univar }

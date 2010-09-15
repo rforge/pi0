@@ -30,15 +30,17 @@ with mixing proportion based on that of \code{obj$data$df}.
  A function of one argument, i.e., the marginal density function. 
 }
 \references{ 
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+
 }
 \author{ Long Qu \email{longor@iastate.edu}
 }
-\note{ 
-}
+%\note{ 
+%}
 \seealso{ \code{\link{parncpt}}. \code{\link{nparncpt}} ,\code{\link{sparncpt}}
 }
-\examples{
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ univar }

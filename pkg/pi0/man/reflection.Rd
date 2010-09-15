@@ -24,11 +24,11 @@ See examples.
 }
 \value{ the new function
 }
-\references{ }
+%\references{ }
 \author{ Long Qu \email{longor@iastate.edu}}
-\note{
-}
-\seealso{  }
+%\note{
+%}
+%\seealso{  }
 \examples{
 ## reflect function is currently defined as
     function(x,...) ifelse(x>0, f(x,...), f(-x,...))/2

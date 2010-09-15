@@ -16,8 +16,8 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
     penalty=match.arg(penalty)
     solver.package=switch(solver, solve.QP='limSolve', ipop='kernlab', lsei='limSolve',LowRankQP='pi0'#'LowRankQP'
     )
-    require(solver.package, character.only=TRUE)
-    require(Matrix)
+    library(solver.package, character.only=TRUE)
+    library(Matrix)
     if (K<=0 || length(K)!=1) stop("K should be a positive integer")
     if (any(lambdas<0)) stop("lambdas should be a vector of positive numbers")
     lambdas=sort(lambdas)

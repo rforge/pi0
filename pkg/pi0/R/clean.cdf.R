@@ -17,10 +17,10 @@ save.cdf=function(path=getwd())
         save(list='.pi0cdfp',envir=globalenv(),
             file=file.path(dirname(path),basename(path),'.pi0cdfp.RData')
             )
-        return(invisible(0))
+        return(invisible(TRUE))
     }else {
         warning(".pi0cdfp does not exist in the Global Environment!")
-        return(invisible(1))
+        return(invisible(FALSE))
     }
 }
 

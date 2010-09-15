@@ -2,10 +2,10 @@
 \alias{    histf1     }
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ 
- histf1
+ Histogram estimator of p-value density evaluated at 1
 }
 \description{
-histf1
+ Histogram estimator of p-value density evaluated at 1
 }
 \usage{
 histf1(p,max.bins=20,bin.method=c("max","nmse","bootstrap","Sturges","Scott","FD"),
@@ -14,52 +14,56 @@ histf1(p,max.bins=20,bin.method=c("max","nmse","bootstrap","Sturges","Scott","FD
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{p}{              }
-  \item{max.bins}{              }
-  \item{bin.method}{              }
-  \item{discrete}{              }
-  \item{seq.perm}{              }
-  \item{nboots}{              }
-  \item{plotit}{              }
-  \item{perm.n}{              }
-  \item{perm.h}{              }
-  \item{...}{              }
+  \item{p}{Vector of p-values              }
+  \item{max.bins}{           maximum number of bins   }
+  \item{bin.method}{              binning method}
+  \item{discrete}{Whether p-values are discrete}
+  \item{seq.perm}{Whether p-values come from sequential permutation tests}
+  \item{nboots}{bootstrap sample size}
+  \item{plotit}{Whether to plot the histogram}
+  \item{perm.n}{\code{n} for sequential permutation tests}
+  \item{perm.h}{\code{h} for sequential permutation tests}
+  \item{...}{Other arguments passed to \code{hist}}
 }
-\details{
-
-
-
-
-
-}
-\value{
+%\details{
+%
+%
+%
+%
+%
+%}
+\value{Numeric scalar
 %  \item{}{              }
 %  \item{}{              }
 %  \item{}{              }
   
 }
 \references{
+Nettleton, Hwang, Caldo, Wise. 2006. Estimating the number of true null hypotheses from a histogram of $p$ values. Journal of Agricultural, Biological, and Environmental Statistics. 11. 337-356.
 
+Bancroft and Nettleton. 2009. Estimation of False Discovery Rate Using Permutation P-values with Different Discrete Null Distributions. Iowa State University Department of Statistics Preprint Series, #2009-05.
+
+Bancroft and Nettleton. 2009. Computationally Efficient Estimation of False Discovery Rate Using Sequential Permutation P-values. Iowa State University Department of Statistics Preprint Series, #2009-04.
 
 }
 \author{ Long Qu [\email{longor@iastate.edu}] }
-\note{
-
-
-}
-\seealso{ 
-
-
-}
-\examples{
-\dontrun{
-
-
-}
-
-
-
-}
+%\note{
+%
+%
+%}
+%\seealso{ 
+%
+%
+%}
+%\examples{
+%\dontrun{
+%
+%
+%}
+%
+%
+%
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{univar  }

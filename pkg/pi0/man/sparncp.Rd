@@ -42,13 +42,14 @@ are made and their results are used in combination.
 }
 \references{ 
 I. Olkin and C. H. Spiegelman.  1987. A Semiparametric Approach to Density Estimation. Journal of the American Statistical Association. 82,399,858-865
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{ Long Qu \email{longor@iastate.edu}}
-\note{ 
-}
+%\note{ 
+%}
 \seealso{ \code{\link{parncpt}}, \code{\link{nparncpt}}}
-\examples{
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }

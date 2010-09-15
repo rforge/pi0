@@ -21,14 +21,14 @@ pdf.dist(f1, f2, method = c("Hellinger", "abdif"))
 \value{
         a numeric scalar which is the computed distance, or \code{NA_real_} if any problem occurs. 
 }
-\references{
-}
+%\references{
+%}
 \author{Long Qu \email{longor@iastate.edu}}
-\note{
-
-
-}
-\seealso{  }
+%\note{
+%
+%
+%}
+%\seealso{  }
 \examples{
 # Hellinger distance betwee standard normal and log-normal
 pdf.dist(dnorm, dlnorm, 'Hell') # 0.5981035

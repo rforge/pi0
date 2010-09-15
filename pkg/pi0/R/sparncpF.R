@@ -532,7 +532,7 @@ grad.C=function(thetas){  ## grad.C^TRUE thetas + C >=0
 Amat=grad.C(numeric(K))
     
 sqp=function(thetas, conv.f=1e-10, fnscale, verbose=TRUE) {
-require(quadprog)
+library(quadprog)
   npll.last=Inf
   repeat{
 

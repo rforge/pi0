@@ -24,9 +24,9 @@ the estimated effective number of parameters (\code{enp}), and the tuning parame
 %%     ~~Describe \code{\dots} here~~
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+%\details{
+%%%  ~~ If necessary, more details than the description above ~~
+%}
 \value{ the \code{\link{invisible}} \code{object} itself
 %%  ~Describe the value returned
 %%  If it is a LIST, use
@@ -35,31 +35,22 @@ the estimated effective number of parameters (\code{enp}), and the tuning parame
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{ Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{
-%%  ~~further notes~~
-}
+%\note{
+%%%  ~~further notes~~
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(object,...)
-%{
-%    print.nparncpt(object,...)
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }

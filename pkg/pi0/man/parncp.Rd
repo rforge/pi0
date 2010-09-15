@@ -4,8 +4,7 @@
 \alias{parncpt.bfgs.0mean}
 \alias{parncpt.bfgs.non0mean}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Parametric estimation of noncentrality parameters
-%%  ~~function to do ... ~~
+\title{Parametric estimation of noncentrality parameter distribution
 }
 \description{Assuming normality of noncentrality parameters, the MLE of its standard deviation (and possibly mean also) is estimated from observed t-statistics
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -73,7 +72,7 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{
+\note{\code{df} could be \code{Inf} for z-tests.
 %%  ~~further notes~~
 }
 
@@ -82,27 +81,8 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 \seealso{\code{\link{nparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(tstat, df, zeromean=TRUE,  ...)
-%{   stopifnot(all(df>0))
-%     method=c('L-BFGS-B')
-%#     method=match.arg(method)
-%    if       (method=='EM') {
-%        stop("EM algorithm not implemented")
-%#        parncpt.em(tstat,df,zeromean,...)
-%    }else if (method=='NR') {
-%        stop("Newton-Raphson algorithm not implemented")
-%#        parncpt.nr(tstat,df,zeromean,...)
-%    }else if (method=='L-BFGS-B') {
-%        if(zeromean) parncpt.bfgs.0mean(tstat,df,...) else parncpt.bfgs.non0mean(tstat,df,...)
-%    }
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }

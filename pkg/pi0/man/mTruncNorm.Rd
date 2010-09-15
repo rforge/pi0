@@ -4,7 +4,6 @@
 \alias{mTruncNorm.int2}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Moments of truncated normal distribution and the integral in the noncentral t-distribution
-%%  ~~function to do ... ~~
 }
 \description{Compute the moments of truncated normal distribution and the integral that appears in the noncentral t-distribution
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -57,53 +56,23 @@ If \code{r} is not an integer, the nearest \code{ndiv} nonnegative integer \code
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+%\references{
+%%% ~put references to the literature/web site here ~
+%}
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{
-%%  ~~further notes~~
-}
+%\note{
+%%%  ~~further notes~~
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{dt}}, \code{\link{pt}}, \code{\link{dt.int2}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(r=1, mu=0, sd=1, lower=-Inf, upper=Inf, approximation=c('int2','laplace', 'numerical'),integral.only=FALSE,...)
-%{   ## return E(X^r|lower<X<upper), where X~Normal(mu, sd), integral.only=FALSE (default); 
-%    ## return int_lower^upper X^r exp(-0.5*(X-mu)^2/sd^2) dx, if integral.only=TRUE
-%    if(any(lower>upper)) stop("boundary inconsistent")
-%    approximation=match.arg(approximation)
-%    if(integral.only) fact=1 else fact=1 /  (pnorm(upper,mu,sd)-pnorm(lower,mu,sd))/sqrt(2*pi)/sd 
-%
-%    fact *
-%    if(approximation=='laplace'){
-%        x0=(sqrt(mu*mu+4*sd*sd*r)+mu)/2
-%        x0^r*exp(-(x0-mu)*(x0-mu)/2/sd/sd)*
-%            sqrt(2*pi/(r/x0/x0+1/sd/sd))*
-%            (pnorm(upper,x0,1/sqrt(r/x0+1/sd/sd))- pnorm(lower,x0,1/sqrt(r/x0+1/sd/sd))) 
-%    }else if (approximation=='int2') {
-%        mTruncNorm.int2(r,mu,sd,lower,upper,...)
-%    }else if (approximation=='numerical') {
-%        obj=function(x,r,mu,sd)x^r*exp(-(x-mu)*(x-mu)/2/sd/sd) ## not working for negative values
-%        n=max(c(length(r), length(mu), length(sd), length(lower), length(upper)))
-%         mu=rep(as.double(mu), length=n); sd=rep(as.double(sd),length=n); 
-%        lower=rep(as.double(lower), length=n);     upper=rep(as.double(upper),length=n)
-%       ans=numeric(n)
-%        for(i in 1:n) ans[i]=integrate(obj, lower[i], upper[1],r=r[i],mu=mu[i],sd=sd[i])$value  
-%        ans
-%    }
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ univar }

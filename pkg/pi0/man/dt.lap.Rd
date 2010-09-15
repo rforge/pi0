@@ -3,7 +3,6 @@
 \alias{dt.lap}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{laplacian approximation to noncentral t-distribution
-%%  ~~function to do ... ~~
 }
 \description{laplacian approximation to noncentral t-distribution
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -34,9 +33,9 @@ dt.lap(x, df, ncp = 0, log = FALSE, normalize = c("central", "integral", "none")
 %%     ~~Describe \code{\dots} here~~
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+%\details{
+%%%  ~~ If necessary, more details than the description above ~~
+%}
 \value{numeric vector of densities
 %%  ~Describe the value returned
 %%  If it is a LIST, use
@@ -51,43 +50,17 @@ Young, G.A. and Smith R.L. 2005. Essentials of statistical inference. Cambridge 
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{
-%%  ~~further notes~~
-}
+%\note{
+%%%  ~~further notes~~
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{dt.int2}}, \code{\link{dt.sad}}, \code{\link{dt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(x, df, ncp=0, log=FALSE, normalize=c('central', 'integral','none'),...)
-%{
-%    x0=(sqrt(4*df*df+4*x*x*df+x*x*ncp*ncp)+x*ncp)/2/sqrt(x*x+df)
-%    logC=df/2*log(df/2)-df*ncp*ncp/2/(x*x+df)-.5*log(pi/2)-lgamma(df/2)-(df+1)/2*log(x*x+df)
-%    logNCT=logC+df*log(x0)-.5*(x0-ncp*x/sqrt(x*x+df))^2+.5*log(2*pi*x0*x0/(x0*x0+df))+
-%            pnorm(0,x0,sqrt(1/(1+df/x0/x0)),lower=FALSE,log=TRUE)
-%
-%    normalization=match.arg(normalize)
-%    if (normalization=='integral'){
-%          warning('integral normalization not implemented yet; set normalize="central"')
-%         normalization='central'
-%    }
-%    logNormalizer=if(normalization=='central') lgamma(df/2+1/2)+df/2-.5*log(2*pi)-df/2*log(df/2)-
-%                                               pnorm(0,sqrt(df),1/sqrt(2),lower=FALSE,log=TRUE)
-%                  else if (normalization=='none') 0 
-%
-%    logAns=logNormalizer+logNCT
-%    if(log)return(logAns) else return(exp(logAns))
-%
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ univar}
 \keyword{ distribution }% __ONLY ONE__ keyword per line

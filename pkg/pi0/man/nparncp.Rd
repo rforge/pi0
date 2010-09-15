@@ -4,7 +4,6 @@
 \alias{nparncpt.sqp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Nonparametric estimation of noncentrality parameters
-%%  ~~function to do ... ~~
 }
 \description{The functions use Gaussian basis functions to estimate the noncentrality parameters(ncp) from a large number of t-statistics. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -102,14 +101,14 @@ of the basis Gaussian density functions.
 %% ...
 }
 \references{
-Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality parameter distribution from a large number of t-statistics, with applications to false discovery rates in microarray data. (manuscripts under preparation). 
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 %% ~put references to the literature/web site here ~
 }
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
 \note{
-%%  ~~further notes~~
+\code{df} could be \code{Inf} for z-tests.
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
@@ -117,20 +116,8 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 \seealso{\code{\link{parncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(tstat, df, ...)
-%{
-%    method='SQP'
-%    if (method=='SQP') {
-%        nparncpt.sqp(tstat, df, ...)
-%    }
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }

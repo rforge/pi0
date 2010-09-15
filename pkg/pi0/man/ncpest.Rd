@@ -2,11 +2,10 @@
 \alias{    ncpest     }
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ 
-semipar NCP estimate
+Estimation of the density of absolute noncentrality parameters
 }
 \description{
-semipar NCP estimate
-
+Estimation of the density of absolute noncentrality parameters, using linear B-spline model. 
 }
 \usage{
 ncpest(p,
@@ -31,61 +30,61 @@ ncpest(p,
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{p}{              }
-  \item{breaks}{              }
-  \item{test}{              }
-  \item{df}{              }
-  \item{alternative}{              }
-  \item{compromise.n}{              }
-  \item{lambdas}{              }
-  \item{deltamax}{              }
-  \item{nknots}{              }
-  \item{ndelta}{              }
-  \item{solver}{              }
-  \item{weights}{              }
-  \item{keep.cdf}{              }
-  \item{LowRankQP.method}{              }
-  \item{lsei.method}{              }
-  \item{debugging}{              }
-  \item{\dots}{              }
+  \item{p}{p-value vector}
+  \item{breaks}{break points to bin the p-values}
+  \item{test}{either \code{t}-test or \code{z}-test}
+  \item{df}{degrees of freedom for the test}
+  \item{alternative}{Same as in \code{\link{t.test}}}
+  \item{compromise.n}{Number of components in the compromised estimate}
+  \item{lambdas}{Candidate tuning parameters}
+  \item{deltamax}{Assumed maximum noncentrality parameters}
+  \item{nknots}{Number of knots}
+  \item{ndelta}{Number of points to evaluate the noncentrality parameters}
+  \item{solver}{Quadratic programming solver function}
+  \item{weights}{Bin weights}
+  \item{keep.cdf}{Logical: whether computed conditional CDF is saved in global enviroment}
+  \item{LowRankQP.method}{Method for \code{\link{LowRankQP}}}
+  \item{lsei.method}{Method for \code{\link[limSolve:lsei]{lsei}}}
+  \item{debugging}{Logical: print excessive messages}
+  \item{\dots}{Additional argumenets to \code{solver}}
 }
-\details{
-
-
-
-
-
-}
-\value{
+%\details{
+%
+%
+%
+%
+%
+%}
+\value{An \code{ncpest} object
 %  \item{}{              }
 %  \item{}{              }
 %  \item{}{              }
   
 }
 \references{
-
+Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
 }
 \author{ Long Qu [\email{longor@iastate.edu}] }
-\note{
+%\note{
+%
+%
+%}
+\seealso{ \code{\link{nparncpt}}, \code{\link{sparncpt}}
 
 
 }
-\seealso{ 
-
-
-}
-\examples{
-\dontrun{
-
-
-}
-
-
-
-}
+%\examples{
+%\dontrun{
+%
+%
+%}
+%
+%
+%
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{univar  }
+\keyword{smooth  }
 %\keyword{  }
 %\keyword{  }

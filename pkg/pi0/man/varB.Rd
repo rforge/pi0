@@ -15,47 +15,38 @@ varB(m,deltamax,K)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{m}{              }
-  \item{deltamax}{              }
-  \item{K}{              }
+  \item{m}{The \code{m}th spline function to which variance is to be computed}
+  \item{deltamax}{maximum noncentrality parameter}
+  \item{K}{Number of splines}
 }
-\details{
-
-
-
-
-
+%\details{
+%}
+\value{Numeric scalar
 }
-\value{
-%  \item{}{              }
-%  \item{}{              }
-%  \item{}{              }
-  
-}
-\references{
-
-
-}
+%\references{
+%
+%
+%}
 \author{ Long Qu [\email{longor@iastate.edu}] }
-\note{
+%\note{
+%
+%
+%}
+\seealso{ \code{\link{NBsplines}}
 
 
 }
-\seealso{ 
-
-
-}
-\examples{
-\dontrun{
-
-
-}
-
-
-
-}
+%\examples{
+%\dontrun{
+%
+%
+%}
+%
+%
+%
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{univar  }
+\keyword{smooth  }
 %\keyword{  }
 %\keyword{  }

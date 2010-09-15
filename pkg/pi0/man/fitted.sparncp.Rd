@@ -4,7 +4,6 @@
 \alias{fitted.values.sparncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Density evaluated at observed t-statistics for sparncpt class
-%%  ~~function to do ... ~~
 }
 \description{Density evaluated at observed t-statistics for \code{sparncpt} class
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -22,9 +21,9 @@
 %%     ~~Describe \code{\dots} here~~
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+%\details{
+%%%  ~~ If necessary, more details than the description above ~~
+%}
 \value{numeric vector of densities at each t-statistic of \code{object}
 %%  ~Describe the value returned
 %%  If it is a LIST, use
@@ -33,32 +32,23 @@
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{
-%%  ~~further notes~~
-}
+%\note{
+%%%  ~~further notes~~
+%}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(object, ...)
-%{
-%    obj$pi0*dt(obj$data$tstat, obj$data$df)+(1-obj$pi0)*dtn.mix(obj$data$tstat, obj$data$df,obj$mu.ncp,obj$sd.ncp,FALSE,...)
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ htest }
+\keyword{ smooth }
 %\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

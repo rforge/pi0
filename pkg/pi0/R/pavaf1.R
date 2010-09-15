@@ -1,7 +1,7 @@
 pavaf1=function(p,max.bins=20,bin.method=c("max","Sturges","Scott","FD"),
                 discrete=FALSE,plotit=FALSE,...)
 {
-    require(Iso)
+    library(Iso)
     if(discrete){
         counts=table(p)
         cents=as.numeric(names(counts))

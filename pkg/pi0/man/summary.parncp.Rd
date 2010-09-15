@@ -33,9 +33,9 @@ estimated mean of noncentrality parameters (\code{sd.ncp}), estimated standard d
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
-%\references{
-%%% ~put references to the literature/web site here ~
-%}
+\references{
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+}
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
@@ -48,20 +48,8 @@ estimated mean of noncentrality parameters (\code{sd.ncp}), estimated standard d
 \seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-%##---- Should be DIRECTLY executable !! ----
-%##-- ==>  Define data, use random,
-%##--	or do  help(data=index)  for the standard data sets.
-%
-%## The function is currently defined as
-%function(object)
-%{
-%    cat("pi0 (proportion of null hypotheses) =", obj$pi0, fill=TRUE)
-%    cat("mu.ncp (mean of noncentrality parameters) =", obj$mu.ncp, fill=TRUE)
-%    cat("sd.ncp (SD of noncentrality parameters) =", obj$sd.ncp, fill=TRUE)
-%    invisible(object)
-%  }
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }
