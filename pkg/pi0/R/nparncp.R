@@ -317,7 +317,7 @@ plot.nparncpt=function(x,...)
     plot(log10(x$all.lambdas), x$all.enps,xlab='log10(lambda)',ylab='effective # parameters',
         ylim=c(0,max(x$all.enps[i.2se]))); 
         abline(v=log10(x$all.lambdas[c(x$i.final)]), xlab='log10(lambda)', ylab='ENP', lty=1)
-    plot(log10(x$all.lambdas), x$all.pi0s, xlab='log10(lambda)', ylab='pi0'); 
+    plot(log10(x$all.lambdas), x$all.pi0s, xlab='log10(lambda)', ylab='pi0',ylim=0:1); 
         abline(v=log10(x$all.lambdas[c(x$i.final)]), xlab='log10(lambda)', ylab='pi0', lty=1)
 
     d.ncp=function(xx)        # p in the paper
