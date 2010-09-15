@@ -16,7 +16,7 @@ A numeric vector of two-sample t-statistics of length 5000.
 \details{
 This is the result from calling \cr
 \code{
-data(simulatedDat)\cr \code{
+data(simulatedDat)
 simulatedTstat=matrix.t.test(simulatedDat,tOnly=TRUE)
 simulatedPval=matrix.t.test(simulatedDat)
 }
@@ -25,7 +25,9 @@ simulatedPval=matrix.t.test(simulatedDat)
 Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 
 Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 }
-\seealso{\code{\link{sim.dat}}}, \code{\link{simulatedDat}}}
+\seealso{
+	\code{\link{sim.dat}}, \code{\link{simulatedDat}}
+	}
 \examples{
 data(simulatedTstat)
 data(simulatedPval)
