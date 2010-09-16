@@ -20,13 +20,13 @@ pavaf1(p,max.bins=20,bin.method=c("max","Sturges","Scott","FD"),
   \item{plotit}{logical: whether results are plotted. }
   \item{...}{Other arguments to \code{hist}}
 }
-%\details{
-%
-%
-%
-%
-%
-%}
+\details{
+This function bin the p-values and then run PAVA to estimate the minimum of its density. 
+
+
+
+
+}
 \value{Numeric scalar
 %  \item{}{              }
 %  \item{}{              }

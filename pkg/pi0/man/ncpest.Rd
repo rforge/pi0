@@ -1,5 +1,5 @@
-\name{   ncpest       }
-\alias{    ncpest     }
+\name{   nparncpp       }
+\alias{    nparncpp     }
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ 
 Estimation of the density of absolute noncentrality parameters
@@ -8,7 +8,7 @@ Estimation of the density of absolute noncentrality parameters
 Estimation of the density of absolute noncentrality parameters, using linear B-spline model. 
 }
 \usage{
-ncpest(p,
+nparncpp(p,
     breaks=min(2000,round(length(p)/5)),
     test=c("t","z"),
     df,
@@ -42,7 +42,7 @@ ncpest(p,
   \item{ndelta}{Number of points to evaluate the noncentrality parameters}
   \item{solver}{Quadratic programming solver function}
   \item{weights}{Bin weights}
-  \item{keep.cdf}{Logical: whether computed conditional CDF is saved in global enviroment}
+  \item{keep.cdf}{Logical: whether computed conditional CDF is saved in global enviroment. See \code{\link{cond.cdf}}. }
   \item{LowRankQP.method}{Method for \code{\link{LowRankQP}}}
   \item{lsei.method}{Method for \code{\link[limSolve:lsei]{lsei}}}
   \item{debugging}{Logical: print excessive messages}
@@ -55,7 +55,7 @@ ncpest(p,
 %
 %
 %}
-\value{An \code{ncpest} object
+\value{An  object of class \code{c('nparncpp','ncpest')}.
 %  \item{}{              }
 %  \item{}{              }
 %  \item{}{              }
@@ -65,12 +65,12 @@ ncpest(p,
 Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
 }
-\author{ Long Qu [\email{longor@iastate.edu}] }
-%\note{
-%
-%
-%}
-\seealso{ \code{\link{nparncpt}}, \code{\link{sparncpt}}
+\author{ Long Qu [\email{longor@iastate.edu}] translated the original \code{MATLAB} code from Dr. David Ruppert.}
+\note{
+The code right now is not completely compatible with the \code{ncpest} class. 
+
+}
+\seealso{ \code{\link{nparncpt}}, \code{\link{sparncpt}, \code{\link{parncpt}}
 
 
 }

@@ -1,15 +1,15 @@
-momeff=function(tstat,n1,n2=n1,zero.mean,gamma2,lower.df=6.1,upper.df=100,approx=TRUE) {
+parncpt.momeff=function(tstat,n1,n2=n1,zeromean,gamma2,lower.df=6.1,upper.df=100,approx=TRUE) {
 ###### did not deal with missing n1 case yet!!!
 
 df=v=n1+n2-2
 
-if(missing(zero.mean) ) {
-    if(n1+n2-2<=4)zero.mean=FALSE else zero.mean='auto'
+if(missing(zeromean) ) {
+    if(n1+n2-2<=4)zeromean=FALSE else zeromean='auto'
 }
 
-if(n1+n2-2<=4 )zero.mean=FALSE
+if(n1+n2-2<=4 )zeromean=FALSE
 
-if(zero.mean=='auto'){
+if(zeromean=='auto'){
 
     ans.zeromean=if(missing(gamma2)){
             momeff.zeromean(tstat,n1,n2,,lower.df,upper.df,approx)
@@ -42,7 +42,7 @@ if(zero.mean=='auto'){
         ans=if(attr(ans.zeromean,'gamma2')>0) ans.zeromean else ans.nonzeromean
     }
 
-}else if (zero.mean){
+}else if (zeromean){
     ans.zeromean=if(missing(gamma2)){
             momeff.zeromean(tstat,n1,n2,,lower.df,upper.df,approx)
     }else   momeff.zeromean(tstat,n1,n2,gamma2,lower.df,upper.df,approx)

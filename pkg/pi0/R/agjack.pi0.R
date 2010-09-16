@@ -1,10 +1,12 @@
 `agjack.pi0` <-
-function(subtobj,mean.n=c(mean,pointpair=FALSE, trunc=TRUE,tol=1e-5){
+function(subtobj,mean.n=c('mean','harmean','geomean') ,pointpair=FALSE, trunc=TRUE,tol=1e-5){
     y=subtobj[,'f1']
     n1=subtobj[,'n1']
     n2=subtobj[,'n2']
     min.n=pmin(n1,n2)
     max.n=pmax(n1,n2)
+    mean.n=match.arg(mean.n)
+    mean.n=get(mean.n)
     n=apply(cbind(n1,n2),1,mean.n)
     
     if(!pointpair){

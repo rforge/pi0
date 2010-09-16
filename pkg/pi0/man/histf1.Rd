@@ -5,11 +5,12 @@
  Histogram estimator of p-value density evaluated at 1
 }
 \description{
- Histogram estimator of p-value density evaluated at 1
+ Histogram estimator of p-value density evaluated at 1. See references. 
 }
 \usage{
-histf1(p,max.bins=20,bin.method=c("max","nmse","bootstrap","Sturges","Scott","FD"),
-        discrete=FALSE,seq.perm=FALSE,nboots=200,plotit=FALSE,perm.n,perm.h,...)
+histf1(p,max.bins=20,bin.method=c("max","nmse","bootstrap",
+      "Sturges","Scott","FD"),discrete=FALSE,seq.perm=FALSE,
+      nboots=200,plotit=FALSE,perm.n,perm.h,...)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -51,19 +52,14 @@ Bancroft and Nettleton. 2009. Computationally Efficient Estimation of False Disc
 %
 %
 %}
-%\seealso{ 
-%
-%
-%}
-%\examples{
-%\dontrun{
-%
-%
-%}
-%
-%
-%
-%}
+\seealso{ 
+\code{\link{lastbin}}, \code{\link[qvalue:qvalue]{qvalue}}
+
+}
+\examples{
+set.seed(9992722)
+histf1(runif(5e5)^1.5) ##  [1] 0.6762
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{univar  }

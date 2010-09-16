@@ -1,4 +1,4 @@
-\name{   clean.cdf       }
+\name{   clean.cdf, save.cdf and load.cdf       }
 \alias{    clean.cdf     }
 \alias{    save.cdf     }
 \alias{    load.cdf     }
@@ -21,13 +21,13 @@ clean.cdf(where=c("memory","disk","both"),path=getwd())
   \item{where}{Clean either \code{memory} or \code{disk} or \code{both} cdf objects}
   \item{path}{Character: path where pre-computed conditional cdf RData files are stored}
 }
-%\details{
-%
-%
-%
-%
-%
-%}
+\details{
+The filename on the disk is \code{.pi0cdfp.RData}; the environment name is \code{.pi0cdfp} which contains the pre-computed conditional cdf objects. The environment itself is stored in global environment. 
+
+
+
+
+}
 \value{
 invisible logical status for \code{save.cdf} and \code{clean.cdf}. For \code{load.cdf}, a character string from \code{load} or a \code{try-error} object.
 }
@@ -39,10 +39,10 @@ Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the
 %
 %
 %}
-%\seealso{ 
-%
-%
-%}
+\seealso{ 
+
+\code{\link{cond.cdf}}
+}
 %\examples{
 %\dontrun{
 %

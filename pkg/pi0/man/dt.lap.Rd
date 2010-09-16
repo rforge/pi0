@@ -2,23 +2,24 @@
 \Rdversion{1.1}
 \alias{dt.lap}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{laplacian approximation to noncentral t-distribution
+\title{Laplace approximation to the noncentral t-density
 }
-\description{laplacian approximation to noncentral t-distribution
+\description{Laplace approximation to noncentral t-density
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-dt.lap(x, df, ncp = 0, log = FALSE, normalize = c("central", "integral", "none"), ...)
+dt.lap(x, df, ncp = 0, log = FALSE, normalize = c("central", 
+      "integral", "none"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{numeric vector of quantiles
+  \item{x}{A numeric vector of quantiles
 %%     ~~Describe \code{x} here~~
 }
-  \item{df}{numeric vector of degrees of freedom
+  \item{df}{A numeric vector of degrees of freedom
 %%     ~~Describe \code{df} here~~
 }
-  \item{ncp}{numeric vector of noncentrality parameters
+  \item{ncp}{A numeric vector of noncentrality parameters
 %%     ~~Describe \code{ncp} here~~
 }
   \item{log}{logical; if \code{TRUE}, log densities are returned

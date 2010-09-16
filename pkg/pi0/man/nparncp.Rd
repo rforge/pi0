@@ -11,7 +11,7 @@
 \usage{
 nparncpt(tstat, df, ...)
 nparncpt.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), 
-        starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'), K=100, bounds=quantile(tstat,c(.01,.99)), 
+        starts, IC=c('BIC','CAIC','HQIC','AIC'), K=100, bounds=quantile(tstat,c(.01,.99)), 
         solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 }
 %- maybe also 'usage' for other objects documented here.
@@ -35,9 +35,8 @@ nparncpt.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=
   will be used as starting values (warm start). 
 %%     ~~Describe \code{starts} here~~
 }
-  \item{smooth.enp}{Additional smoothing on effective number of parameters (ENP) over \code{log10(lambdas)}. This is not well tested and should be use with care. It is rarely needed except for \emph{very} small \code{lambdas}.
-%%     ~~Describe \code{smooth.enp} here~~
-}
+%  \item{smooth.enp}{Additional smoothing on effective number of parameters (ENP) over \code{log10(lambdas)}. This is not well tested and should be use with care. It is rarely needed except for \emph{very} small \code{lambdas}.
+%}
   \item{IC}{character; one of \code{AIC}, \code{BIC}, \code{CAIC}, \code{HQIC}, specifying the factor multiplied to the ENP in computing Information Criterion (IC). 
 }
   \item{K}{The number of basis Gaussian density functions. 
@@ -108,7 +107,7 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 %%  ~~who you are~~
 }
 \note{
-\code{df} could be \code{Inf} for z-tests.
+\code{df} could be \code{Inf} for z-tests.  When this is the case, \code{approximation} is ignored. 
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

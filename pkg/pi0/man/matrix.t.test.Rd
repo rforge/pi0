@@ -6,9 +6,9 @@
 This function applies the two sample t-test to each row or column of a matrix. 
 }
 \usage{
-matrix.t.test(x, MARGIN = 1, n1 = if (MARGIN == 1) floor(ncol(x)/2) else floor(nrow(x)/2), 
-		n2 = if (MARGIN == 1) ncol(x) - n1 else nrow(x) - n1, pool = TRUE, 
-		pOnly=TRUE, tOnly = FALSE)
+matrix.t.test(x, MARGIN = 1, n1 = if (MARGIN == 1) floor(ncol(x)/2)
+    else floor(nrow(x)/2), n2 = if (MARGIN == 1) ncol(x) - n1 else 
+    nrow(x) - n1, pool = TRUE, pOnly=TRUE, tOnly = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

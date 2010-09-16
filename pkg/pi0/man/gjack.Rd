@@ -2,10 +2,10 @@
 \alias{    gjack     }
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ 
- generalized jackknife
+ Generalized jackknife
 }
 \description{
- generalized jackknife
+ Generalized jackknife bias correction
 
 }
 \usage{
@@ -32,8 +32,7 @@ Computes \code{(theta1-R*theta2)/(1-R)}
   
 }
 %\references{
-%
-%
+Henry L. Gray, W. R. Schucany. 1972. The generalized jackknife statistic. New York, M. Dekker.
 %}
 \author{ Long Qu [\email{longor@iastate.edu}] }
 %\note{

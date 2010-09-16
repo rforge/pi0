@@ -1,4 +1,4 @@
-ncpest.iter=function(p,estimates=c("all","compromise","pi0","f1"),iter=2,weights,eps=1e-6,keep.cdf=TRUE,...)
+nparncpp.iter=function(p,estimates=c("all","compromise","pi0","f1"),iter=2,weights,eps=1e-6,keep.cdf=TRUE,...)
 {
 	estimates=match.arg(estimates)
     stopifnot(iter>=0)
@@ -9,7 +9,7 @@ ncpest.iter=function(p,estimates=c("all","compromise","pi0","f1"),iter=2,weights
 	    pi0=compromise=f1=Inf
 		k=0
 	    repeat{
-        	fit=ncpest(p,weights=weights,keep.cdf=keep.cdf,...);
+        	fit=nparncpp(p,weights=weights,keep.cdf=keep.cdf,...);
         	k=k+1
         	if(k>=1000 || (abs(pi0-fit$pi0)<eps && 
         			abs(compromise-fit$compromise)<eps && 
@@ -21,13 +21,13 @@ ncpest.iter=function(p,estimates=c("all","compromise","pi0","f1"),iter=2,weights
       }else{
       	    weights=1
             for(k in 1:iter){
-                fit=ncpest(p,weights=weights,keep.cdf=keep.cdf,...);
+                fit=nparncpp(p,weights=weights,keep.cdf=keep.cdf,...);
                 weights=pmin(9999,pmax(0,1/sqrt(fit$pdf.p(fit$bincenters))))
             }
             fit_wt=fit
       }
     }else
-        fit_wt=ncpest(p,weights=weights,keep.cdf=keep.cdf,...)
+        fit_wt=nparncpp(p,weights=weights,keep.cdf=keep.cdf,...)
 
 	rslt=switch(EXPR=estimates,
 		compromise=c(compromise=fit_wt$compromise),

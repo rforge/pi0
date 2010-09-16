@@ -8,8 +8,9 @@ from each treatment group are obtained and combined. A t-test is conducted for e
 subsampled data set and the p-value density at one is estimated for each combined subsample. 
 }
 \usage{
-subt(dat, n1 = round(ncol(dat)/2), n2 = ncol(dat) - n1, f1method = c("lastbin", "qvalue"), 
-        max.reps = if(balanced)20 else 5, balanced = FALSE,  ...) %totalOnly=FALSE,
+subt(dat, n1 = round(ncol(dat)/2), n2 = ncol(dat) - n1, 
+      f1method = c("lastbin", "qvalue"), 
+        max.reps = if(balanced)20 else 5, balanced = FALSE,  ...) 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

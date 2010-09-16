@@ -10,8 +10,9 @@ zero; and probability \eqn{1-\pi_0}{1-pi0} of being from another distribution. T
 are simulated independently conditional on the standardized effect sizes.
 }
 \usage{
-sim.dat(G = 10000, pi0 = 0.75, gamma2 = 1, n1 = 5, n2 = n1, errdist = rnorm, 
-        effdist = function(g, gamma2) rnorm(g, , sqrt(gamma2)), ErrArgs, EffArgs)
+sim.dat(G = 10000, pi0 = 0.75, gamma2 = 1, n1 = 5, n2 = n1, 
+        errdist = rnorm, effdist = function(g, gamma2) 
+        rnorm(g, , sqrt(gamma2)), ErrArgs, EffArgs)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

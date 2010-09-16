@@ -1,4 +1,4 @@
-ncpest=function(p,
+nparncpp=function(p,
             breaks=min(2000,round(length(p)/5)),
             test=c("t","z"),
             df,
@@ -323,7 +323,9 @@ ncpest=function(p,
                 nknots=nknots,
                 bincenters=bincenters,
                 weights=weights,
-                solver=solver
+                solver=solver, 
+                par=thetahat, 
+                data=list(p=p)
              )
         if(isTRUE(debugging))rslt=c(rslt,list(
                   thetahat=thetahat,
@@ -357,6 +359,6 @@ ncpest=function(p,
                 min=min,
                 min.nopen=min.nopen
         ))
-        class(rslt)=c("ncpest")
+        class(rslt)=c('nparncpp',"ncpest")
         rslt
 }

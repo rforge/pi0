@@ -13,6 +13,7 @@
 parncpt(tstat, df, zeromean = TRUE, ...)
 parncpt.bfgs.0mean(tstat, df, starts, grids, approximation = "int2", ...)
 parncpt.bfgs.non0mean(tstat, df, starts, grids, approximation = "int2", ...)
+parncpt.momeff(tstat,n1,n2=n1,zeromean,gamma2,lower.df=6.1,upper.df=100,approx=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -40,6 +41,12 @@ parncpt.bfgs.non0mean(tstat, df, starts, grids, approximation = "int2", ...)
   'laplace' is the laplacian approximation; 'saddlepoint' is the saddlepoint approximation; 'none' computes the (sort of) exact density using the default \code{\link{dt}} function. 
 %%     ~~Describe \code{approximation} here~~
 }
+  \item{n1}{Treatment 1 sample size}
+  \item{n2}{Treatment 2 sample size}
+  \item{gamma2}{Gamma square parameter, i.e., variance of effect sizes.}
+  \item{lower.df}{  lower bound of degrees of freedom, in case of n1 is missing            }
+  \item{upper.df}{  upper bound of degrees of freedom, in case of n1 is missing            }
+  \item{approx}{  logical, indicating if no exact solutions are available, whether approx. solutions are returned.  }
 
 }
 \details{\code{parncpt} calls either \code{parncpt.bfgs.0mean} or \code{parncpt.bfgs.non0mean}, depending whether \code{zeromean} is \code{TRUE} or \code{FALSE}. 
@@ -72,7 +79,9 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{\code{df} could be \code{Inf} for z-tests.
+\note{\code{df} could be \code{Inf} for z-tests. When this is the case, \code{approximation} is ignored. 
+
+\code{parncpt.momeff} is the old code using method of moments estimates. It is outdated, depreciated, and not completely compatible with current \code{ncpest} class. 
 %%  ~~further notes~~
 }
 

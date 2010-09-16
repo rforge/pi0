@@ -73,7 +73,9 @@ vector containing the solution of the dual quadratic programming problem.
 vector containing the solution of the dual quadratic programming problem.
 }
 }
-
+\note{
+Some extensive outputs are commented out. 
+}
 \references{
 Ormerod, J.T., Wand, M.P. and Koch, I. (2005). Penalised spline support vector 
 classifiers: computational issues, in A.R. Francis, K.M. Matawie, A. Oshlack, 

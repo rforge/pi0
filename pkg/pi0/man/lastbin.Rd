@@ -1,7 +1,7 @@
 \name{lastbin}
 \alias{lastbin}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ A Naive but Quick Histogram Based Estimator of P-value Density at 1 }
+\title{ Histogram estimator of p-value density evaluated at 1 }
 \description{
 This function reports the density estimate of the right most bin of histogram of p-values.
 }
@@ -27,7 +27,7 @@ But this is usually ignorable. The function is defined as:\cr
 }
 
 \author{ Long Qu \email{longor@iastate.edu} }
-\seealso{\code{\link[qvalue]{qvalue}}}
+\seealso{\code{\link[qvalue:qvalue]{qvalue}}, \code{\link{histf1}}}
 \examples{
 set.seed(9992722)
 lastbin(runif(5e5)^1.5) ##  [1] 0.69511

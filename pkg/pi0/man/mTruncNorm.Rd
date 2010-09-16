@@ -10,8 +10,10 @@
 }
 \usage{
 mTruncNorm(r = 1, mu = 0, sd = 1, lower = -Inf, upper = Inf, 
-        approximation = c("int2", "laplace", "numerical"), integral.only = FALSE, ...)
-mTruncNorm.int2(r = as.integer(1), mu = 0, sd = 1, lower = -Inf, upper = Inf, takeLog = TRUE, ndiv = 8)
+        approximation = c("int2", "laplace", "numerical"), 
+        integral.only = FALSE, ...)
+mTruncNorm.int2(r = as.integer(1), mu = 0, sd = 1, lower = -Inf, 
+        upper = Inf, takeLog = TRUE, ndiv = 8)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

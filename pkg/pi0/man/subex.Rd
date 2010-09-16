@@ -7,8 +7,10 @@ This function is a wrapper of \code{\link{subt}}, \code{\link{extrp.pi0}} and \c
 a ready to use directly on a matrix of microarray data. 
 }
 \usage{
-subex(dat, n1 = round(ncol(dat)/2), n2 = ncol(dat) - n1, f1method = c("lastbin", "qvalue"), 
-  max.reps = 20, balanced = FALSE, nparm = c(2, 4), extrpFUN = c("constrOptim", "genoud"), 
+subex(dat, n1 = round(ncol(dat)/2), n2 = ncol(dat) - n1, 
+  f1method = c("lastbin", "qvalue"), 
+  max.reps = 20, balanced = FALSE, nparm = c(2, 4), 
+  extrpFUN = c("constrOptim", "genoud"), 
   starts = c(pi0 = 0.75, gam2 = 1, a = 0.5, c = 0.5), plotit = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.

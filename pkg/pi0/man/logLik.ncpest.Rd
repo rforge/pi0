@@ -19,7 +19,7 @@
 %%     ~~Describe \code{\dots} here~~
 }
 }
-\details{Extract the \code{logLike} component. This is used by \code{\link{AIC}}. The \code{df} is the estimated effetive number of parameters. 
+\details{Extract the \code{logLik} component. This is used by \code{\link{AIC}}. The \code{df} is the estimated effetive number of parameters. 
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{an object of class \code{\link{logLik}}

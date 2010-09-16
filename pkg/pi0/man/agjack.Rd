@@ -15,20 +15,20 @@ agjack.pi0(subtobj,mean.n=mean,pointpair=FALSE, trunc=TRUE,tol=1e-5)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{subtobj}{      A \code{\link{subt}} object        }
-  \item{mean.n}{      mean function        }
-  \item{pointpair}{logical}
-  \item{trunc}{logical, indicating if results are truncated. }
+  \item{mean.n}{A character: name of the function to compute the average sample sizes}
+  \item{pointpair}{logical: if \code{TRUE}, then \code{\link{gjack}} is called for each pair of rows in \code{subtobj}; otherwise, \code{\link{gjack}} is called for each pair of unique average sample sizes. }
+  \item{trunc}{logical, indicating if each \code{\link{gjack}} estiamte is truncated to [0,1]. }
   \item{tol}{A small tolerance number. }
 }
-%\details{
-%
-%
-%
-%
-%
-%}
+\details{
+When \code{pointpair} is \code{FALSE}, the rows in \code{subtobj} are first grouped by combination of sample sizes and the estimates are averaged for each group. Then \code{\link{gjack}} is called for each pair of groups. 
+
+
+
+
+}
 \value{
-A numeric scalar  
+A numeric scalar of estiamted pi0.
 }
 %\references{
 %
@@ -39,21 +39,18 @@ A numeric scalar
 %
 %
 %}
-%\seealso{ 
-%
-%
-%}
-%\examples{
-%\dontrun{
-%
-%
-%}
-%
-%
-%
-%}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
+\seealso{ 
+    \code{\link{gjack}}
+
+}
+\examples{
+    data(simulatedSubt)
+    agjack(simulatedSubt)  ##
+
+
+
+}
+ Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{model  }
 \keyword{nonparametric  }
 %\keyword{  }

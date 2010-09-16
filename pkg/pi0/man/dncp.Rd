@@ -3,6 +3,7 @@
 \alias{dncp.parncpt}
 \alias{dncp.nparncpt}
 \alias{dncp.sparncpt}
+\alias{dncp.nparncpp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Density of noncentrality parameters}
 \description{
@@ -10,14 +11,19 @@ These functions return the density function of noncentrality parameters, from \c
 }
 \usage{
 dncp(obj, ...)
-\method{dncp}{parncpt}(obj, ...)
-\method{dncp}{nparncpt}(obj, ...)
-\method{dncp}{sparncpt}(obj, ...)
+\method{dncp}{parncpt}(obj, fold=FALSE, ...)
+\method{dncp}{nparncpt}(obj, fold=FALSE, ...)
+\method{dncp}{sparncpt}(obj, fold=FALSE, ...)
+\method{dncp}{sparncpt}(obj, reflect=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{obj}{ an object from \code{ncpest}, from which noncentrality parameter density to be extracted }
-  \item{\dots}{ currently not used }
+  \item{fold}{Logical: if \code{TRUE}, then the density of noncentrality paramters is folded about zero to give the density of absolute noncentrality parameters. 
+}
+  \item{reflect}{Logical: if \code{TRUE}, then the density of absolute noncentrality parameters is reflected about zero.
+}
+  \item{\dots}{ Further arguments.  }
 }
 %\details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -33,12 +39,10 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 \author{ Long Qu \email{longor@iastate.edu}
 %~~who you are~~ 
 }
-%\note{ 
-%%~~further notes~~ 
-%%
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-%}
-\seealso{ \code{\link{parncpt}}. \code{\link{nparncpt}} ,\code{\link{sparncpt}}
+\note{ 
+\code{\link{dnp.nparncpp}} is not yet implemented. 
+}
+\seealso{ \code{\link{parncpt}}. \code{\link{nparncpt}} ,\code{\link{sparncpt}}. \code{\link{nparncpp}}
 }
 %\examples{
 %%##---- Should be DIRECTLY executable !! ----

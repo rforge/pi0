@@ -52,5 +52,4 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 %}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ models }
-\keyword{ univar }% __ONLY ONE__ keyword per line
+\keyword{ methods }

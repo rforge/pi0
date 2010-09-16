@@ -1,4 +1,4 @@
-\name{reflect}
+\name{reflect and fold}
 \alias{reflect}
 \alias{fold}
 %- Also NEED an '\alias' for EACH other topic documented here.

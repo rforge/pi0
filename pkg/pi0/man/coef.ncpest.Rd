@@ -4,10 +4,10 @@
 \alias{coefficients.ncpest}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-        extract estimated parameters
+        Extract estimated parameters
 }
 \description{
-        extract estimated parameters from object of \code{ncpect} class
+        Extract estimated parameters from object of \code{ncpect} class
 }
 \usage{
 \method{coef}{ncpest}(object,...)
@@ -25,7 +25,7 @@
 %\details{
 %%%  ~~ If necessary, more details than the description above ~~
 %}
-\value{ a numeric vector givng the estimated parameters
+\value{ a numeric vector of the estimated parameters
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
@@ -44,7 +44,7 @@
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}, \code{\link{nparncpp}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{

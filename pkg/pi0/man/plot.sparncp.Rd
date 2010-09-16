@@ -44,7 +44,12 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 \seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-%\examples{
+\examples{
+\dontrun{
+data(spfit)
+plot(spfit)
+}
+}
 % R documentation directory.
 \keyword{ hplot }
-\keyword{ univar }% __ONLY ONE__ keyword per line
+\keyword{ methods }

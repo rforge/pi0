@@ -11,7 +11,8 @@ such combinations or a subset of \code{R} of them. A function, possibly identity
 applied to each selected combination. 
 }
 \usage{
-combn2R(x, m, x2, m2, R, FUN = c, simplify = TRUE, sample.method="all", try.rest=TRUE, ...)
+combn2R(x, m, x2, m2, R, FUN = c, simplify = TRUE, 
+        sample.method="all", try.rest=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -2,16 +2,17 @@
 \alias{    cond.cdf     }
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ 
-conditional cdf of p-values given ncp
+conditional cdf of p-values given noncentrality parameters
 
 }
 \description{
-conditional cdf of p-values given ncp
+conditional cdf of p-values given noncentrality parameters (ncp)
 
 }
 \usage{
-cond.cdf(p.eval,ncp,test=c("t","z"),alternative=c("two.sided","less","greater"),
-    df=if(test=="z")Inf else df,keep.cdf=TRUE,suppressWarnings=TRUE) #,save=FALSE)
+cond.cdf(p.eval,ncp,test=c("t","z"),alternative=c("two.sided","less",
+    "greater"), df=if(test=="z")Inf else df,keep.cdf=TRUE,
+    suppressWarnings=TRUE) 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,17 +33,17 @@ cond.cdf(p.eval,ncp,test=c("t","z"),alternative=c("two.sided","less","greater"),
 %}
 \value{
 
-A numeric matrix  
+A numeric matrix, with each row corresponding to \code{p.eval} and each column corresponding to \code{ncp}. 
 }
 \references{
 Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
 }
 \author{ Long Qu [\email{longor@iastate.edu}] }
-%\note{
-%
-%
-%}
+\note{
+Warnings might be produced when full precision is not achieved in \code{\link{pt}}, but this is rarely very problematic. 
+
+}
 %\seealso{ 
 %
 %

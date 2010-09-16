@@ -27,7 +27,7 @@ License: \tab GPL version 2 or newer\cr
 \item{\code{\link{parncpt}}}{Parametrically estimate the distribution of noncentrality parameters. }
 \item{\code{\link{nparncpt}}}{Nonparametrically estimate the distribution of noncentrality parameters. }
 \item{\code{\link{sparncpt}}}{Semiparametrically estimate the distribution of noncentrality parameters. 
-\item{\code{\link{ncpest}}}{Nonparametric estimate of the distribution of absolute noncentrality parameters from a large number of p-values. }
+\item{\code{\link{nparncpp}}}{Nonparametric estimate of the distribution of absolute noncentrality parameters from a large number of p-values. }
 }
 }
 \author{
@@ -55,7 +55,7 @@ Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the
 \keyword{ distribution }
 \seealso{
 \code{\link{subex}}, \code{\link{subt}}, \code{\link{extrp.pi0}}, \code{\link{fdr}}, \code{\link{combn2R}}, 
-\code{\link{nparncpt}}, \code{\link{parncpt}}, \code{\link{sparncpt}}, \code{\link{ncpest}}
+\code{\link{nparncpt}}, \code{\link{parncpt}}, \code{\link{sparncpt}}, \code{\link{nparncpp}}
 }
 \examples{
 \dontrun{

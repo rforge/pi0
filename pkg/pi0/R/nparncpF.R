@@ -5,7 +5,7 @@ nparncpF=function(Fstat, df1,df2, ...)
         nparncpF.sqp(Fstat, df1,df2, ...)
     }
 }
-nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.deriv','sqrt.1st.deriv','3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,8,by=1), starts, smooth.enp=FALSE, IC=c('BIC','CAIC','HQIC','AIC'),
+nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.deriv','sqrt.1st.deriv','3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,8,by=1), starts, IC=c('BIC','CAIC','HQIC','AIC'),
                         K=20, bounds=quantile(Fstat,c(.99)), solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 {
 #   source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dFsnc.mix.R")
@@ -248,14 +248,14 @@ nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.de
         pi0s[i]=1-sum(sqp.fit[i,])
     }
 
-    if(smooth.enp) {
-          warning("smoothing snp is not well tested")
-        require(monoProc)
-        loe=loess(enps~log10(lambdas))
-        mon=mono.1d(list(log10(lambdas), fitted(loe)), bw.nrd0(fitted(loe))/3,mono1='decreasing')
-        enps.smooth=mon@y
-        nics=nics-enps+enps.smooth
-    }
+#    if(smooth.enp) {
+#          warning("smoothing snp is not well tested")
+#        require(monoProc)
+#        loe=loess(enps~log10(lambdas))
+#        mon=mono.1d(list(log10(lambdas), fitted(loe)), bw.nrd0(fitted(loe))/3,mono1='decreasing')
+#        enps.smooth=mon@y
+#        nics=nics-enps+enps.smooth
+#    }
 
     i.final=which.min(nics); # i.1se=tail(which(nics<=nics[i.final]+nic.sd[i.final] & 1:n.lambda>=i.final),1) # one se rule
     lambda.final=lambdas[i.final]

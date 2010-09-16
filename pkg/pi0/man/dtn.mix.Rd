@@ -4,24 +4,25 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Density of noncental t-normal mixture
 }
-\description{Density of noncentral t-distribution, with nencentrality parameter (NCP) being normally distributed. This is a scaled noncentral t-density. 
+\description{Density of noncentral t-distribution, with noncentrality parameter (NCP) being normally distributed. This is a scaled noncentral t-density. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-dtn.mix(t, df, mu.ncp, sd.ncp, log = FALSE, approximation = c("int2", "saddlepoint", "laplace", "none"), ...)
+dtn.mix(t, df, mu.ncp, sd.ncp, log = FALSE, approximation = c("int2", 
+        "saddlepoint", "laplace", "none"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{t}{numeric vector of quantiles
+  \item{t}{A numeric vector of quantiles
 %%     ~~Describe \code{t} here~~
 }
-  \item{df}{numeric vector of degrees of freedom
+  \item{df}{A numeric vector of degrees of freedom
 %%     ~~Describe \code{df} here~~
 }
-  \item{mu.ncp}{numeric vector of normal mean of NCP
+  \item{mu.ncp}{A numeric vector of normal mean of NCP
 %%     ~~Describe \code{mu.ncp} here~~
 }
-  \item{sd.ncp}{numeric vector of normal SD of NCP
+  \item{sd.ncp}{A numeric vector of normal SD of NCP
 %%     ~~Describe \code{sd.ncp} here~~
 }
   \item{log}{logical; if \code{TRUE}, log density is returned. 
@@ -57,13 +58,13 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-\note{For normal-normal mixture, set \code{df=Inf}. 
+\note{For normal-normal mixture, set \code{df=Inf}. When this is the case, \code{approximation} is ignored. 
 %%  ~~further notes~~
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{dt.sad}}, \code{\link{dt.int2}}
+\seealso{\code{\link{dt.sad}}, \code{\link{dt.int2}}, \code{\link{dt.lap}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{

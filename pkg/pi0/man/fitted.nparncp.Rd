@@ -1,20 +1,32 @@
-\name{fitted.nparncpt}
+\name{fitted}
 \Rdversion{1.1}
 \alias{fitted.nparncpt}
 \alias{fitted.values.nparncpt}
+\alias{fitted.nparncpp}
+\alias{fitted.values.nparncpp}
+\alias{fitted.parncpt}
+\alias{fitted.values.parncpt}
+\alias{fitted.sparncpt}
+\alias{fitted.values.sparncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Density evaluated at observed t-statistics for nparncpt class
+\title{Density evaluated at observed statistics for ncpest class
 }
-\description{Density evaluated at observed t-statistics for \code{nparncpt} class
+\description{Density evaluated at observed statistics for \code{ncpest} class
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 \method{fitted}{nparncpt}(object, ...)
 \method{fitted.values}{nparncpt}(object, ...)
+\method{fitted}{parncpt}(object, ...)
+\method{fitted.values}{parncpt}(object, ...)
+\method{fitted}{sparncpt}(object, ...)
+\method{fitted.values}{sparncpt}(object, ...)
+\method{fitted}{nparncpp}(object, ...)
+\method{fitted.values}{nparncpp}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{object of class \code{nparncpt}
+  \item{object}{object of class \code{nparncpt}, \code{parncpt}, \code{sparncpt} or \code{nparncpp}
 %%     ~~Describe \code{object} here~~
 }
   \item{\dots}{other arguments passed to \code{dtn.mix}
@@ -24,7 +36,7 @@
 %\details{
 %%%  ~~ If necessary, more details than the description above ~~
 %}
-\value{numeric vector of densities at each t-statistic of \code{object}
+\value{numeric vector of densities at each observed statistic of \code{object}
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
@@ -32,18 +44,18 @@
 %% ...
 }
 \references{
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of \eqn{t}-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-%\note{
-%%%  ~~further notes~~
-%}
+\note{
+Functions for \code{nparncpp} are not yet implemented. 
+}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{sparncpt}}, \code{\link{parncpt}}, \code{\link{nparncpt}}
+\seealso{\code{\link{sparncpt}}, \code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{nparncpp}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{

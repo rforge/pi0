@@ -20,7 +20,7 @@ for different choice of tuning parameters; also plot the estimated density of no
 %%     ~~Describe \code{\dots} here~~
 }
 }
-\details{For NIC, only values within one s.e. of the minimum are shown. The solid line on NIC, ENP and pi0 shows the final tuning parameter, i.e., the one that minimizes NIC. 
+\details{For NIC, only values within 2 s.e.'s of the minimum are shown. The solid line on NIC, ENP and pi0 shows the final tuning parameter, i.e., the one that minimizes NIC. 
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{Invisible \code{par}.
@@ -45,9 +45,13 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 \seealso{\code{\link{nparncpt}}, \code{\link{sparncpt}},\code{\link{parncpt}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-%\examples{
-%}
+\examples{
+\dontrun{
+data(npfit)
+plot(npfit)
+}
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ hplot}
-\keyword{ univar }% __ONLY ONE__ keyword per line
+\keyword{ methods }

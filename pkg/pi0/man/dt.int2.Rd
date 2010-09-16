@@ -4,7 +4,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{INTerpolation of INTeger degrees of freedom noncentral t-density
 }
-\description{This funciton evaluate the noncentral t-density using an iterative procedure for integer degrees of freedom. This is much faster than two calls to the \code{pt} approach. 
+\description{This funciton evaluates the noncentral t-density using an iterative procedure for integer degrees of freedom. This is much faster than two calls to the \code{pt} approach. 
 For non-integer degrees of freedom, the polynomial interpolation is used to approximate the density. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
@@ -13,13 +13,13 @@ dt.int2(x, df, ncp, log = FALSE, ndiv = 8)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{numeric vector of quantiles
+  \item{x}{A numeric vector of quantiles
 %%     ~~Describe \code{x} here~~
 }
-  \item{df}{numeric vector degrees of freedom
+  \item{df}{A numeric vector degrees of freedom
 %%     ~~Describe \code{df} here~~
 }
-  \item{ncp}{numeric vector of noncentrality parameters
+  \item{ncp}{A numeric vector of noncentrality parameters
 %%     ~~Describe \code{ncp} here~~
 }
   \item{log}{logical; if \code{TRUE}, log densities are returned. 
@@ -31,10 +31,10 @@ dt.int2(x, df, ncp, log = FALSE, ndiv = 8)
 }
 \details{This function uses the iterative relation for the integral in the noncentral t-density. It starts with \code{df=0} and \code{df=1}, 
 and then iteratively computes the integral for larger \code{df}. For non-integer \code{df}, it uses \code{ndiv} nearest points to perform a 
-divided difference polynomial interpolation. For integer \code{df}, this function is about 2 to 3 times faster than \code{dt} function. 
+divided difference polynomial interpolation approximation. For integer \code{df}, this function is about 2 to 3 times faster than \code{dt} function and is exact.  
 %%  ~~ If necessary, more details than the description above ~~
 }
-\value{numeric vector of densities. 
+\value{A numeric vector of densities. 
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}
@@ -53,7 +53,7 @@ divided difference polynomial interpolation. For integer \code{df}, this functio
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{dtn.mix}}, \code{\link{dt}}, \code{\link{dt.lap}}, \code{\link{dt.sad}}
+\seealso{\code{\link{dtn.mix}}, \code{\link{dt}}, \code{\link{dt.lap}}, \code{\link{dt.sad}}, \code{\link{mTruncNorm}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{
