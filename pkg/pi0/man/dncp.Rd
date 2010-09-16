@@ -40,7 +40,7 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 %~~who you are~~ 
 }
 \note{ 
-\code{\link{dnp.nparncpp}} is not yet implemented. 
+\code{dncp.nparncpp} is not yet implemented. 
 }
 \seealso{ \code{\link{parncpt}}. \code{\link{nparncpt}} ,\code{\link{sparncpt}}. \code{\link{nparncpp}}
 }

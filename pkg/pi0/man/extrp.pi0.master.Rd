@@ -33,7 +33,7 @@ extrp.pi0.both.gam2(n1,n2,y,gam2.interval=c(1e-3,6),rate.interval=c(.3,2),eps=1e
 \arguments{
   \item{dat}{ an object of class \code{\link{subt}}; typically resulting from calling the function \code{\link{subt}}. }
   \item{slope.constraint}{ logical: whether slope \eqn{a} should be constrained to be positive}
-  \item{gamma2.range, gamma2.interval}{ a numeric vector of length 2, defining the appropriate range of the gamma square parameter. When they are equal, it is assumed as known. }
+  \item{gamma2.range, gam2.interval}{ a numeric vector of length 2, defining the appropriate range of the gamma square parameter. When they are equal, it is assumed as known. }
   \item{rate.margin}{ a numeric vector of length 2, defining the margin of \eqn{c} parameter. When they are equal, it is assumed as known. }
   \item{plotit}{logical: whether plot should be produced}
   \item{n1,n2}{subsample size vectors for each of the two treatment groups.}
