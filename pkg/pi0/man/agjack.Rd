@@ -50,7 +50,7 @@ A numeric scalar of estiamted pi0.
 
 
 }
- Add one or more standard keywords, see file 'KEYWORDS' in the
+% Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{nonparametric  }
 %\keyword{  }

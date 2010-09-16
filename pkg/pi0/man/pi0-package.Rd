@@ -12,8 +12,8 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.2-109\cr
-Date: \tab 2010-09-15\cr
+Version: \tab 1.2-111\cr
+Date: \tab 2010-09-16\cr
 License: \tab GPL version 2 or newer\cr
 }
 \itemize{
@@ -26,7 +26,7 @@ License: \tab GPL version 2 or newer\cr
 \item{\code{\link{lastbin}}}{Estimate p-value density at 1 based on a histogram. }
 \item{\code{\link{parncpt}}}{Parametrically estimate the distribution of noncentrality parameters. }
 \item{\code{\link{nparncpt}}}{Nonparametrically estimate the distribution of noncentrality parameters. }
-\item{\code{\link{sparncpt}}}{Semiparametrically estimate the distribution of noncentrality parameters. 
+\item{\code{\link{sparncpt}}}{Semiparametrically estimate the distribution of noncentrality parameters.} 
 \item{\code{\link{nparncpp}}}{Nonparametric estimate of the distribution of absolute noncentrality parameters from a large number of p-values. }
 }
 }
