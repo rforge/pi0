@@ -43,7 +43,7 @@ nparncpp(p,
   \item{solver}{Quadratic programming solver function}
   \item{weights}{Bin weights}
   \item{keep.cdf}{Logical: whether computed conditional CDF is saved in global enviroment. See \code{\link{cond.cdf}}. }
-  \item{LowRankQP.method}{Method for \code{\link{LowRankQP}}}
+  \item{LowRankQP.method}{Method for \code{\link[LowRankQP:LowRankQP]{LowRankQP}}}
   \item{lsei.method}{Method for \code{\link[limSolve:lsei]{lsei}}}
   \item{debugging}{Logical: print excessive messages}
   \item{\dots}{Additional argumenets to \code{solver}}
