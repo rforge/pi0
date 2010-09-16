@@ -1,7 +1,7 @@
 `extrp.pi0` <-
 function(dat,slope.constraint=TRUE,
          gamma2.range=2^c(-4,3),
-         rate.margin=c(0,0),
+         rate.margin=c(0.5,0.5),
          plotit=TRUE
          ) {
 #    require(limSolve)

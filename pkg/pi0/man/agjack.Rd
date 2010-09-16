@@ -9,7 +9,8 @@ Averaged generalized jackknife estimate of pi0
 
 }
 \usage{
-agjack.pi0(subtobj,mean.n=mean,pointpair=FALSE, trunc=TRUE,tol=1e-5)
+agjack.pi0(subtobj,mean.n=c('mean','harmean','geomean') ,
+    pointpair=FALSE, trunc=TRUE,tol=1e-5)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -45,7 +46,7 @@ A numeric scalar of estiamted pi0.
 }
 \examples{
     data(simulatedSubt)
-    agjack(simulatedSubt)  ##
+    agjack.pi0(simulatedSubt)  ##
 
 
 

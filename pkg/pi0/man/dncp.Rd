@@ -14,7 +14,7 @@ dncp(obj, ...)
 \method{dncp}{parncpt}(obj, fold=FALSE, ...)
 \method{dncp}{nparncpt}(obj, fold=FALSE, ...)
 \method{dncp}{sparncpt}(obj, fold=FALSE, ...)
-\method{dncp}{sparncpt}(obj, reflect=TRUE, ...)
+\method{dncp}{nparncpp}(obj, reflect=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

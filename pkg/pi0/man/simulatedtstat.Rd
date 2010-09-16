@@ -16,8 +16,8 @@ A numeric vector of two-sample t-statistics of length 5000.
 \details{
 This is the result from calling \cr
 \code{
-data(simulatedDat)\cr
-simulatedTstat=matrix.t.test(simulatedDat,tOnly=TRUE)\cr
+data(simulatedDat)
+simulatedTstat=matrix.t.test(simulatedDat,tOnly=TRUE)
 simulatedPval=matrix.t.test(simulatedDat)
 }
 }

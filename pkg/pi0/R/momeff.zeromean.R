@@ -5,7 +5,7 @@ momeff.zeromean=function(tstat,n1,n2=n1,gamma2,lower.df=6.1,upper.df=100,approx=
     }else if (missing(n1)){ ## all, df and gamma2 need to be estimated, assuming n1=n2
         fobj.v=function(v){
             if(v<=6)return(NA)
-            this.fit=momeff(tstat=tstat,n1=(v+2)/2,zero.mean=TRUE)
+            this.fit=parncpt.momeff(tstat=tstat,n1=(v+2)/2,zero.mean=TRUE)
             var.ncp=attr(this.fit,'gamma2')*(v+2)/4
             (
             mean(tstat^6)-
@@ -14,7 +14,7 @@ momeff.zeromean=function(tstat,n1,n2=n1,gamma2,lower.df=6.1,upper.df=100,approx=
          }
          v=try(optimize(fobj.v,c(lower.df,upper.df)))
          if(inherits(v,'try-error'))return(NA)
-         last.fit=momeff(tstat,(v$minimum+2)/2,zero.mean=TRUE)
+         last.fit=parncpt.momeff(tstat,(v$minimum+2)/2,zero.mean=TRUE)
          attr(last.fit,'df')=v$minimum
          attr(last.fit,'n1=n2')=(v$minimum+2)/2
          return(last.fit)

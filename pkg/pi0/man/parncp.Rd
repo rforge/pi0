@@ -3,6 +3,7 @@
 \alias{parncpt}
 \alias{parncpt.bfgs.0mean}
 \alias{parncpt.bfgs.non0mean}
+\alias{parncpt.momeff}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Parametric estimation of noncentrality parameter distribution
 }
