@@ -12,7 +12,7 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.2-116\cr
+Version: \tab 1.2-117\cr
 Date: \tab 2010-09-16\cr
 License: \tab GPL version 2 or newer\cr
 }
@@ -65,17 +65,13 @@ simulatedDat=sim.dat(G=5000)
 ## this is how the 'simulatedSubex' object in this package generated
 simulatedSubex=subex(simulatedDat,balanced=FALSE,max.reps=Inf,plotit=FALSE)
 plot(simulatedSubex)
+}
+data(simulatedSubex); print(simulatedSubex)
 ## parametric, nonparametric, semiparametric estimate of 
 ## noncentrality parameter distribution from t-statistics
 data(simulatedTstat)
 (npfit=nparncpt(tstat=simulatedTstat, df=8)); 
-(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE)); plot(pfit)
-(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE)); plot(pfit0)
-(spfit=sparncpt(npfit,pfit)); plot(spfit)
-}
-data(simulatedSubex); print(simulatedSubex)
-data(npfit); print(npfit)
-data(pfit0); print(pfit0)
-data(pfit); print(pfit)
-data(spfit); print(spfit)
+(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE)); 
+(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE)); 
+(spfit=sparncpt(npfit,pfit));
 }
