@@ -1,4 +1,4 @@
-\name{Saddle Point Approximation of noncentral t-distribution}
+\name{dt.sad and pt.sad}
 \Rdversion{1.1}
 \alias{pt.sad}
 \alias{dt.sad}

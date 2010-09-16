@@ -2,10 +2,10 @@
 \alias{    agjack.pi0     }
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ 
- averaged generalized jackknife estimate of pi0
+Averaged generalized jackknife estimate of pi0
 }
 \description{
- averaged generalized jackknife estimate of pi0
+Averaged generalized jackknife estimate of pi0
 
 }
 \usage{
@@ -14,7 +14,7 @@ agjack.pi0(subtobj,mean.n=mean,pointpair=FALSE, trunc=TRUE,tol=1e-5)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{subtobj}{      A subt object        }
+  \item{subtobj}{      A \code{\link{subt}} object        }
   \item{mean.n}{      mean function        }
   \item{pointpair}{logical}
   \item{trunc}{logical, indicating if results are truncated. }

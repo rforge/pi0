@@ -6,13 +6,13 @@
 Estimating the proportion of true null hypotheses and False Discovery Rates
 }
 \description{
-This package implements method(s) to (approximately unbiasedly) estimate the proportion of true null hypotheses, i.e., the pi0, when a very large number of hypotheses are simultaneously tested, especially for the purpose of (local) false discovery rate control for microarray data. 
+This package implements method(s) to (approximately unbiasedly) estimate the proportion of true null hypotheses, i.e., the pi0, when a very large number of hypotheses are simultaneously tested, especially for the purpose of (local) false discovery rate control for microarray data. It also contains functions to estimate the distribution of noncentrality parameters from a large number of parametric tests. 
 }
 \details{
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.2-108\cr
+Version: \tab 1.2-109\cr
 Date: \tab 2010-09-15\cr
 License: \tab GPL version 2 or newer\cr
 }
@@ -26,7 +26,8 @@ License: \tab GPL version 2 or newer\cr
 \item{\code{\link{lastbin}}}{Estimate p-value density at 1 based on a histogram. }
 \item{\code{\link{parncpt}}}{Parametrically estimate the distribution of noncentrality parameters. }
 \item{\code{\link{nparncpt}}}{Nonparametrically estimate the distribution of noncentrality parameters. }
-\item{\code{\link{sparncpt}}}{Semiparametrically estimate the distribution of noncentrality parameters. }
+\item{\code{\link{sparncpt}}}{Semiparametrically estimate the distribution of noncentrality parameters. 
+\item{\code{\link{ncpest}}}{Nonparametric estimate of the distribution of absolute noncentrality parameters from a large number of p-values. }
 }
 }
 \author{
@@ -37,6 +38,11 @@ Maintainer: Long Qu \email{longor@iastate.edu}
 \references{
 Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 
 Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
+
+Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+
+Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
+
 }
 \keyword{ package }
 \keyword{ htest }
@@ -48,7 +54,8 @@ Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 \keyword{ smooth }
 \keyword{ distribution }
 \seealso{
-\code{\link{subex}}, \code{\link{subt}}, \code{\link{extrp.pi0}}, \code{\link{fdr}}, \code{\link{combn2R}}
+\code{\link{subex}}, \code{\link{subt}}, \code{\link{extrp.pi0}}, \code{\link{fdr}}, \code{\link{combn2R}}, 
+\code{\link{nparncpt}}, \code{\link{parncpt}}, \code{\link{sparncpt}}, \code{\link{ncpest}}
 }
 \examples{
 \dontrun{
@@ -58,7 +65,16 @@ simulatedDat=sim.dat(G=5000)
 ## this is how the 'simulatedSubex' object in this package generated
 simulatedSubex=subex(simulatedDat,balanced=FALSE,max.reps=Inf,plotit=FALSE)
 plot(simulatedSubex)
+## parametric, nonparametric, semiparametric estimate of noncentrality parameter distribution from t-statistics
+data(simulatedTstat)
+(npfit=nparncpt(tstat=simulatedTstat, df=8, lambdas=10^seq(-2,8,length=20))); plot(npfit)
+(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE)); plot(pfit)
+(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE)); plot(pfit0)
+(spfit=sparncpt(npfit,pfit)); plot(spfit)
 }
-data(simulatedSubex)
-print(simulatedSubex)
+data(simulatedSubex); print(simulatedSubex)
+data(npfit); print(npfit)
+data(pfit0); print(pfit0)
+data(pfit); print(pfit)
+data(spfit); print(spfit)
 }
