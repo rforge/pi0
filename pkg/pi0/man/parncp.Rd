@@ -96,10 +96,10 @@ Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality pa
 \examples{
 \dontrun{
 data(simulatedTstat)
-(npfit=nparncpt(tstat=simulatedTstat, df=8, lambdas=10^seq(-2,8,length=20)))
-(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE))
-(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE))
-(spfit=sparncpt(npfit,pfit))
+(npfit=nparncpt(tstat=simulatedTstat, df=8)); 
+(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE)); plot(pfit)
+(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE)); plot(pfit0)
+(spfit=sparncpt(npfit,pfit)); plot(spfit)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

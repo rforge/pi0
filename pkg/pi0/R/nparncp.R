@@ -118,7 +118,7 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
     adjust.pi0=function(thetas){
         betas=thetas/sum(thetas)
         obj=function(pi0)NPLL((1-pi0)*betas)
-        pi0=optimize(obj,interval=c(1e-3,1-1e-3))$minimum
+        pi0=optimize(obj,interval=c(0,1-1e-3),tol=1e-2)$minimum
         (1-pi0)*betas
     }
 
