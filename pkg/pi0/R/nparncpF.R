@@ -11,10 +11,10 @@ nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.de
 #   source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dFsnc.mix.R")
     solver=match.arg(solver)
     penalty=match.arg(penalty)
-    solver.package=switch(solver, solve.QP='limSolve', ipop='kernlab', lsei='limSolve',LowRankQP='pi0'#'LowRankQP'
+    solver.package=switch(solver, solve.QP='limSolve', ipop='kernlab', lsei='limSolve',LowRankQP='LowRankQP'
     )
-    require(solver.package, character.only=TRUE)
-    require(Matrix)
+    library(solver.package, character.only=TRUE)
+    library(Matrix)
     if (K<=0 || length(K)!=1) stop("K should be a positive integer")
     if (any(lambdas<0)) stop("lambdas should be a vector of positive numbers")
     lambdas=sort(lambdas)

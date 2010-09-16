@@ -25,12 +25,12 @@ nparncpp=function(p,
 ## CHECK solver
     solver=match.arg(solver)
     if(solver=="LowRankQP") {
-######### this is commented out as pi0 contains a copy of LowRankQP.c
-#        load.pck=require(LowRankQP)
-#        if(!isTRUE(load.pck)){
-#            install.packages("LowRankQP")
-#            stopifnot(require(LowRankQP))
-#        }
+######## this is commented out as pi0 contains a copy of LowRankQP.c
+        load.pck=require(LowRankQP)
+        if(!isTRUE(load.pck)){
+            install.packages("LowRankQP")
+            stopifnot(require(LowRankQP))
+        }
         LowRankQP.method=match.arg(LowRankQP.method)
     }else if(solver=="solve.QP") {
         load.pck=require(quadprog)
