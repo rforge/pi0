@@ -116,10 +116,9 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
                             ## for limSolve::lsei, this is t(G)
 
     adjust.pi0=function(thetas){
-        betas=thetas/sum(thetas)
-        obj=function(pi0)NPLL((1-pi0)*betas)
-        pi0=optimize(obj,interval=c(0,1-1e-3),tol=1e-2)$minimum
-        (1-pi0)*betas
+        obj=function(r)NPLL(r*thetas)
+        r=optimize(obj,interval=c(1e-4,1-1e-4),tol=1e-2)$minimum
+        if(is.na(r)) thetas else r*thetas
     }
 
     sqp=function(thetas, conv.f=1e-10, verbose=FALSE, maxiter=1e3) { ## thetas is a starting value
