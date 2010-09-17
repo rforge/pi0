@@ -19,14 +19,14 @@ The function treats each matrix as an element and put the element along the diag
 \value{
  A matrix, which is the direct sum of \dots. 
 }
-\references{ 
-}
+%\references{ 
+%}
 \author{ Long Qu \email{longor@iastate.edu}
 }
-\note{ 
-}
-\seealso{ 
-}
+%\note{ 
+%}
+%\seealso{ 
+%}
 \examples{
 A=matrix(1:9,3,3)
 all.equal(directSum(A), A) #TRUE

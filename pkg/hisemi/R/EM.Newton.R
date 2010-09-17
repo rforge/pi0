@@ -8,7 +8,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
      em.beta.iter.max=1,
      newton.iter.max=1500,
      scale.conv=1e-3, lfdr.conv=1e-3, NPLL.conv=1e-3, 
-     debugging=FALSE, plot.it=TRUE,...)
+     debugging=FALSE, plotit=TRUE,...)
 {
     if(debugging)options(error=quote(dump.frames("testdump", TRUE)))  ## this will save the objects when error occurs
 
@@ -365,7 +365,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
             warning(paste("final Hessian is not positive definite. The smallest eigen value is", tail(eigen(J,TRUE,TRUE)$val,1)))
             J.Inv=symmpart(as(solve(nearPD(J)$mat),'sparseMatrix'))
         }else{
-            J.Inv=sympart(J.Inv)
+            J.Inv=symmpart(J.Inv)
         }
         cov.parms=symmpart(J.Inv%*%K%*%J.Inv)
         ans=list(lfdr=lfdr.final,
@@ -390,7 +390,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
                           )
         )
         class(ans)='hisemit'
-        if(plot.it)plot(ans)
+        if(plotit)plot(ans)
         return(ans)
     }
 
@@ -398,13 +398,13 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
 
     final.fit=penLik.EMNewton(tstat.all,x,df, spar=spar[imin.cv], nknots, all.parms[,imin.cv], tuning.method='NIC',
                 cv.fold=1, optim.method, logistic.correction=FALSE,
-                em.iter.max, em.beta.iter.max,newton.iter.max, scale.conv, lfdr.conv,NPLL.conv, debugging, plot.it=FALSE)
+                em.iter.max, em.beta.iter.max,newton.iter.max, scale.conv, lfdr.conv,NPLL.conv, debugging, plotit=FALSE)
     
     final.fit$tuning=list(mean=criterion.mean,  var=criterion.var,  grp=cv.grp,  method=tuning.method, 
                     final=final.fit$tuning$final)
     final.fit$spar=list(all=spar, final=spar[imin.cv], final.idx=imin.cv)
     final.fit$enp=list(raw=enps0, logistic=enps, final=final.fit$enp$final, good.idx=goodenp.idx)
-    if(plot.it)plot(final.fit)
+    if(plotit)plot(final.fit)
     return(final.fit)
    
 }

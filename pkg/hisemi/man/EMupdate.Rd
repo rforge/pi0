@@ -26,18 +26,18 @@ EMupdate(starts, nLogLik.pen, optim.method, H, tstat, df, dt0, spar.Pen.mat,
   \item{NPLL.conv}{ A small numeric scalar specifying the convergence criterion for the negative penalized log likelihood }
   \item{debugging}{ A logical scalar indicating whether debugging mode of the code should be run }
 }
-\details{
-}
+%\details{
+%}
 \value{
 A numeric vector of updated parameter estimates. The scale factor is in the \code{log(scale.fact-1)} parameterization. 
 }
 \references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
 \author{ Long Qu \email{longor@iastate.edu} }
-\note{ 
-}
+%\note{ 
+%}
 \seealso{ \code{\link{penLik.EMNewton}}, \code{\link{NRupdate}} }
-\examples{
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ optimize }

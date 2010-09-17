@@ -22,14 +22,15 @@ scaledTMix.null(tstat, df, starts = list(pi0 = seq(0.1, 0.99, length = 20), scal
   A \code{hesimit} object. 
 }
 \references{
+Qu, Nettleton, Dekkers. A Hierarchical Semiparametric Model for Incorporating Inter-gene Information for Analysis of Genomic Data. unpublished manuscript. 
 } 
 \author{ Long Qu \email{longor@iastate.edu}
 }
-\note{ 
+%\note{ 
 %  ~~further notes~~ 
 %
 % ~Make other sections like Warning with \section{Warning }{....} ~
-}
+%}
 \seealso{ \code{\link[pi0]{parncp}}, \code{\link{scaledTMix.sat}}, \code{\link{scaledTMix.psat}}}
 \examples{
 set.seed(99927220)

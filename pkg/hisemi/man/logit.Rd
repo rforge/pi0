@@ -22,11 +22,11 @@ logit.inv(eta)
 \value{
         A link function or its inverse. See \code{\link{make.link}}. 
 }
-\references{ }
+%\references{ }
 \author{ Long Qu \email{longor@iastate.edu}}
-\note{
-}
+%\note{
+%}
 \seealso{\code{\link{make.link}}}
-\examples{
-}
+%\examples{
+%}
 \keyword{ models }

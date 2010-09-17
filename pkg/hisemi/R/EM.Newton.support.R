@@ -11,12 +11,23 @@ plot.hisemit=function(x, type=c('tuning', 'residual'), ...)
 }
 print.hisemit=function(x,...)
 {
-    print(unclass(x),...)
+#    print(unclass(x),...)
+    cat('sd.ncp =', x$scale.fact$sd.ncp, fill=TRUE)
+    cat("enp =", x$enp$final, fill=TRUE)
+    cat("smoothing parameter =", x$spar$final, fill=TRUE)
+    cat("logLik =", sum(x$NPLL$logLik), ',\tpenalty =',x$NPLL$penalty, fill=TRUE)
+    cat('lfdr summary: ',fill=TRUE)
+    print(summary(x$lfdr))
+    cat('pi0 summary: ', fill=TRUE)
+    print(summary(x$pi0))
+
+    invisible(x)
+
 }
 
 summary.hisemit=function(object,...)
 {
-    summary(unclass(object),...)
+    print(object,...)
 }
 
 plotHisemitResid=function(obj, y.type=c('hist','scatter'), x.type=c('lfdr','pi0','f'),...)
@@ -184,10 +195,10 @@ vcov.hisemit=function(object,...)
     object$fit$asym.vcov
 }
 
-NIC=function(obj,...)
-{
-    AIC(obj,...)
-}
+#NIC=function(obj,...)
+#{
+#    AIC(obj,...)
+#}
 
 confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.ncp','r','coef','pi0','f'),level=.95,... )
 {

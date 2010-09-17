@@ -12,21 +12,21 @@
 \arguments{
   \item{object}{ A \code{hisemit} object }
   \item{take.sum}{ A logical scalar, indicating whether total log likelihood or the log likelihood of each data point should be extracted. }
-  \item{\dots}{Currently not used}
+  \item{\dots}{ Currently not used}
 }
-\details{
-}
+%\details{
+%}
 \value{
         An object of class \code{'logLik'}. 
 }
 \references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
 \author{ Long Qu \email{longor@iastate.edu} }
-\note{ 
-}
+%\note{ 
+%}
 \seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{resid.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
 \code{\link{penLik.EMNewton}}}
-\examples{
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{models}

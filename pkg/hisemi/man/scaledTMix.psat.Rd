@@ -21,16 +21,16 @@ scaledTMix.psat(tstat, df, upper0 = 2)
 }
 \value{
   A numeric scalar, being estimated scale factor, with attributes
-  \item{equiv.sd.ncp }{A numeric scalar being the equivalent standard deviation of the noncentrality parameters, given the noncentrality parameter being nonzero. }
-  \item{df }{degrees of freedom}
-  \item{fit }{results from \code{\link{optimize}}}
-  \item{n2ll}{Negative 2 times the log likelihood}
-  \item{pi0}{A numeric vector of 0 or 1, which are the maximum likelihood estimate of \code{pi0}}
+  \item{equiv.sd.ncp }{ A numeric scalar being the equivalent standard deviation of the noncentrality parameters, given the noncentrality parameter being nonzero. }
+  \item{df }{ degrees of freedom}
+  \item{fit }{ results from \code{\link{optimize}}}
+  \item{n2ll}{ Negative 2 times the log likelihood}
+  \item{pi0}{ A numeric vector of 0 or 1, which are the maximum likelihood estimate of \code{pi0}}
 }
-\references{ }
+%\references{ }
 \author{ Long Qu \email{longor@iastate.edu}
 }
-\note{}
+%\note{}
 \seealso{ \code{\link{scaledTMix.null}}, \code{\link{scaledTMix.sat}}}
 \examples{
 set.seed(99927220)

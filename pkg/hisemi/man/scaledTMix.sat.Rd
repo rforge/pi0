@@ -18,10 +18,10 @@ scaledTMix.sat(tstat, df)
 }
 \value{
   A numeric vector of estimated scale parameters, with two attributes
-  \item{pi0 }{A numeric vector of estimated pi0}
-  \item{logLik }{A numeric vector of log likelihood}
+  \item{pi0 }{ A numeric vector of estimated pi0}
+  \item{logLik }{ A numeric vector of log likelihood}
 }
-\references{ }
+%\references{ }
 \author{ Long Qu \email{longor@iastate.edu}
 }
 \note{ 

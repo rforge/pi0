@@ -24,22 +24,22 @@ NRupdate(f, starts, gradient, hessian, ..., ridge0 = 1e-06, tolerance = sqrt(.Ma
   \item{return.hessian}{ A logical scalar indicating if the final Hessian matrix is returned. }
   \item{debugging}{ A logical scalar indicating if the debuggging mode of the code should be run. }
 }
-\details{
-}
+%\details{
+%}
 \value{
     A numeric vector of updated parameters, with attributes
-    \item{\code{'objective'}}{The final evaluated objective function}
-    \item{\code{'gradient'}}{The final gradient vector}
-    \item{\code{'iter'}}{The number of iterations}
-    \item{\code{'hessian'}}{The final Hessian matrix, only available if \code{return.hessian=TRUE}. }
+    \item{\code{'objective'}}{ The final evaluated objective function}
+    \item{\code{'gradient'}}{ The final gradient vector}
+    \item{\code{'iter'}}{ The number of iterations}
+    \item{\code{'hessian'}}{ The final Hessian matrix, only available if \code{return.hessian=TRUE}. }
 }
 \references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
 \author{ Long Qu \email{longor@iastate.edu} }
-\note{ 
-}
+%\note{ 
+%}
 \seealso{ \code{\link{penLik.EMNewton}}, \code{\link{EMupdate}} }
-\examples{
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ optimize }

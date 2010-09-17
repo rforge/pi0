@@ -12,15 +12,31 @@ The package includes functions for fitting hierarchical semiparametric regressio
 \tabular{ll}{
 Package: \tab hisemi\cr
 Type: \tab Package\cr
-Version: \tab 1.0-123\cr
+Version: \tab 1.0-124\cr
 Date: \tab 2010-09-17\cr
 License: \tab What license is it under?\cr
 LazyLoad: \tab yes\cr
 }
+
 \code{\link{penLik.EMNewton}} is the major interface function to be called. 
+\code{\link{coef.hisemit}} extracts the estimated parameters.
+\code{\link{confint.hisemit}} returns the confidence intervals
+\code{\link{directSum}} computes the direct sum of matrices. 
+\code{\link{EMupdate}} is the EM algorithm used in \code{\link{penLik.EMNewton}}. 
+\code{\link{fitted.hisemit}} extracts the fitted values. 
+\code{\link{logLik.hisemit}} returns the log likelihood
+\code{\link{NRupdate}} is the Newton-Raphson algorithm used in \code{\link{penLik.EMNewton}}.
+\code{\link{plot.hisemit}} plots the fitted model. 
+\code{\link{print.hisemit}} print summary information. 
+\code{\link{resid.hisemit}} returns the residuals. 
+\code{\link{scaledTMix.null}} fits the null model with common pi0. 
+\code{\link{scaledTMix.psat}} fits the partially saturated model with free pi0 and common scale factor.
+\code{\link{scaledTMix.sat}} fits the completely saturated model with free pi0 and free scale factor. 
+\code{\link{vcov.hisemit}} returns the sandwich variance-covariance matrix. 
 }
 \author{
 Long Qu \email{longor@iastate.edu}, Dan Nettleton \email{dnett@iastate.edu}, Jack C.M. Dekkers \email{jdekkers@iastate.edu}
+
 Maintainer: Long Qu \email{longor@iastate.edu}
 }
 \references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
@@ -32,4 +48,22 @@ Maintainer: Long Qu \email{longor@iastate.edu}
 \code{\link[pi0]{pi0}}
 }
 \examples{
+## simulate some fake data
+G=20000
+sdncp=1.3
+n1=n2=5
+df=n1+n2-2
+set.seed(2437892)
+x=runif(G,1,G)
+f=function(x)sin(x*pi/1000)+1
+Pi.i=1/(1+exp(f(x)))
+Z.i=rbinom(G,1,1-Pi.i)
+t0.i=rt(G,df)
+ncp.i=rnorm(G,0,sdncp)
+t1.i=rt(G,df,ncp.i)
+t.i=ifelse(Z.i==0,t0.i,t1.i)
+
+## fit model
+(plfit=penLik.EMNewton(t.i, x, df, plotit=FALSE))
+
 }

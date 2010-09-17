@@ -21,21 +21,21 @@ The purpose is of this function is to reduce some estimation variability of effe
 }
 \value{
 A numeric vector of fitted effective number of parameters, with attributes
-\item{log.spar}{log of smoothing parameter}
-\item{rate}{rate parameter of the logistic curve}
-\item{mdis}{the center parameter of the logistic curve}
-\item{pow}{the exponent parameter of the logistic curve}
-\item{fit}{a nonlinear least squared fit object}
-\item{goodenp.idx}{Indices of enps whose values are reasonably estimated}
-\item{mode}{The model of enps from a isotonic fit}
+\item{log.spar}{ log of smoothing parameter}
+\item{rate}{ rate parameter of the logistic curve}
+\item{mdis}{ the center parameter of the logistic curve}
+\item{pow}{ the exponent parameter of the logistic curve}
+\item{fit}{ a nonlinear least squared fit object}
+\item{goodenp.idx}{ Indices of enps whose values are reasonably estimated}
+\item{mode}{ The model of enps from a isotonic fit}
 }
-\references{ }
+%\references{ }
 \author{ Long Qu \email{longor@iastate.edu} }
-\note{ 
-}
+%\note{ 
+%}
 \seealso{ \code{\link{nls}} }
-\examples{
-}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ models }
