@@ -25,7 +25,7 @@ extrp.pi0.slope=function(n1,n2,y,gam2,eps=1e-5)
                     fitted.obj=NULL))
 
     ## QP solution with constraints
-    library(limSolve)
+    loadOrInstall(limSolve)
 #    cat("LS=",pi0.ls,slope.ls,crossprod(y-slope.ls*xvec-pi0.ls),fill=T)
     X=cbind(1,c(xvec))
     Gmat=matrix(c(1,0,
@@ -67,7 +67,7 @@ extrp.pi0.rate=function(n1,n2,y,gam2,rate.interval=c(.3,2),eps=1e-5)
 
 extrp.pi0.both=function(n1,n2,y,gam2,rate.interval=c(.3,2),eps=1e-5)
 {   ## y=(1-pi0)*B+pi0  <==> y-B=(1-B)*pi0
-        library(limSolve)
+        loadOrInstall(limSolve)
     my=mean(y)
     Gmat=matrix(c(1,0,
                  -1,0,

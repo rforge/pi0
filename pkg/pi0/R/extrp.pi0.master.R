@@ -4,7 +4,7 @@ function(dat,slope.constraint=TRUE,
          rate.margin=c(0.5,0.5),
          plotit=TRUE
          ) {
-#    require(limSolve)
+#    loadOrInstall(limSolve)
 
     gamma2.range=range(gamma2.range)
     stopifnot(gamma2.range[1]>0)

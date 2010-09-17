@@ -26,29 +26,29 @@ nparncpp=function(p,
     solver=match.arg(solver)
     if(solver=="LowRankQP") {
 ######## this is commented out as pi0 contains a copy of LowRankQP.c
-        load.pck=require(LowRankQP)
+        load.pck=loadOrInstall(LowRankQP)
         if(!isTRUE(load.pck)){
             install.packages("LowRankQP")
-            stopifnot(require(LowRankQP))
+            stopifnot(loadOrInstall(LowRankQP))
         }
         LowRankQP.method=match.arg(LowRankQP.method)
     }else if(solver=="solve.QP") {
-        load.pck=require(quadprog)
+        load.pck=loadOrInstall(quadprog)
         if(!isTRUE(load.pck)){
             install.packages("quadprog")
-            stopifnot(require(quadprog))
+            stopifnot(loadOrInstall(quadprog))
         }
     }else if (solver=='ipop') {
-        load.pck=require(kernlab)
+        load.pck=loadOrInstall(kernlab)
         if(!isTRUE(load.pck)){
             install.packages("kernlab")
-            stopifnot(require(kernlab))
+            stopifnot(loadOrInstall(kernlab))
         }
     }else if (solver=='lsei') {
-        load.pck=require(limSolve)
+        load.pck=loadOrInstall(limSolve)
         if(!isTRUE(load.pck)){
             install.packages("limSolve")
-            stopifnot(require(limSolve))
+            stopifnot(loadOrInstall(limSolve))
         }
         lsei.method=match.arg(lsei.method)
     }else stop("solver unimplemented!")

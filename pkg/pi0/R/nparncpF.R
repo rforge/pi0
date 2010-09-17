@@ -13,8 +13,8 @@ nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.de
     penalty=match.arg(penalty)
     solver.package=switch(solver, solve.QP='limSolve', ipop='kernlab', lsei='limSolve',LowRankQP='LowRankQP'
     )
-    library(solver.package, character.only=TRUE)
-    library(Matrix)
+    loadOrInstall(solver.package)
+    loadOrInstall(Matrix)
     if (K<=0 || length(K)!=1) stop("K should be a positive integer")
     if (any(lambdas<0)) stop("lambdas should be a vector of positive numbers")
     lambdas=sort(lambdas)
@@ -250,7 +250,7 @@ nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.de
 
 #    if(smooth.enp) {
 #          warning("smoothing snp is not well tested")
-#        require(monoProc)
+#        loadOrInstall(monoProc)
 #        loe=loess(enps~log10(lambdas))
 #        mon=mono.1d(list(log10(lambdas), fitted(loe)), bw.nrd0(fitted(loe))/3,mono1='decreasing')
 #        enps.smooth=mon@y
@@ -461,7 +461,7 @@ grad.C=function(thetas){  ## grad.C^TRUE thetas + C >=0
 Amat=grad.C(numeric(K))
     
 sqp=function(thetas, conv.f=1e-10, fnscale, verbose=TRUE) {
-require(quadprog)
+loadOrInstall(quadprog)
   npll.last=Inf
   repeat{
 
