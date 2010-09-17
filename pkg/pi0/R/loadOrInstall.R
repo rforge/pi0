@@ -1,13 +1,15 @@
 loadOrInstall=function(package, dependencies="Depends",...)
 {
-    for.one.package=function(pkg, ...)
+    stopifnot(all(is.character(package)))
+    ddd=list(...)
+    singlePKG=function(pkg)
     {
-        load.rslt=suppressWarnings(require(pkg, character.only=TRUE,...))
+        load.rslt=do.call('require',c(ddd, package=pkg, character.only=TRUE))
         if(isTRUE(load.rslt)) return(TRUE)
-        install.packages(pkg,dependencies=dependencies,...)
-        require(pkg, character.only=TRUE, quietly = TRUE, ...)
+        do.call('install.packages',c(ddd, pkgs=pkg,dependencies=dependencies))
+        do.call('require', c(ddd, package=pkg, character.only=TRUE, quietly = TRUE))
     }
-    rslt=sapply(package, for.one.package)
+    rslt=sapply(package, singlePKG)
     if(any(!rslt)) {
         ans=FALSE
         attr(ans,'failed')=package[!rslt]

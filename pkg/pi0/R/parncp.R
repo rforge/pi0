@@ -73,7 +73,7 @@ parncpt.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
     attr(ll,'df')=3
     class(ll)='logLik'
 
-#    loadOrInstall(numDeriv)
+#    loadOrInstall("numDeriv")
 #    tmp=make.link('logit'); logit=tmp$linkfun; logitinv=tmp$linkinv; dlogitinv=tmp$mu.eta
 #    obj.nobound=function(par)obj(c(logitinv(par[1]),par[2], exp(par[3])))
 #    app.hess.nobound=hessian(obj.nobound, c(logit(optimFit$par[1]), optimFit$par[2], log(optimFit$par[3])))  ## need to consider hitting boundaries
@@ -137,7 +137,7 @@ parncpt.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
     attr(ll,'df')=2
     class(ll)='logLik'
     
-#    loadOrInstall(numDeriv)
+#    loadOrInstall("numDeriv")
 #    tmp=make.link('logit'); logit=tmp$linkfun; logitinv=tmp$linkinv; dlogitinv=tmp$mu.eta
 #    obj.nobound=function(par)obj(c(logitinv(par[1]),exp(par[2])))
 #    app.hess.nobound=hessian(obj.nobound, c(logit(optimFit$par[1]), log(optimFit$par[2])))  ## need to consider hitting boundaries

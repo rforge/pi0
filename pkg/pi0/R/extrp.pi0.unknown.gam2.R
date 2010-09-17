@@ -23,7 +23,7 @@ extrp.pi0.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6))
 
 extrp.pi0.slope.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),eps=1e-5)
 {
-    loadOrInstall(limSolve)
+    loadOrInstall("limSolve")
     my=mean(y)
     Gmat=matrix(c(1,0,
                  -1,0,
@@ -122,7 +122,7 @@ extrp.pi0.rate.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),rate.interval=c(.3,
 
 extrp.pi0.both.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),rate.interval=c(.3,2),eps=1e-5)
 {   ## y=(1-pi0)*B+pi0  <==> y-B=(1-B)*pi0
-        loadOrInstall(limSolve)
+        loadOrInstall("limSolve")
     my=mean(y)
     Gmat=matrix(c(1,0,
                  -1,0,

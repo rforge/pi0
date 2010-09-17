@@ -11,7 +11,7 @@ plot.extrpi0=function(x,y,rgl=TRUE,...)
     nn1=seq(1,2*max(n1),length=50)
     nn2=seq(1,2*max(n1),length=50)
     plane=outer(nn1,nn2,f)
-    if(rgl) rgl=suppressWarnings(loadOrInstall(rgl))
+    if(rgl) rgl=suppressWarnings(loadOrInstall("rgl"))
 
     if(rgl){
         persp3d(nn1,nn2,plane,xlab='n1',ylab='n2',zlab='pi0',
