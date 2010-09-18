@@ -46,7 +46,8 @@ plotHisemitResid=function(obj, y.type=c('hist','scatter'), x.type=c('lfdr','pi0'
 }
 
 plotHisemitTuning=function(obj, SE=FALSE, add=FALSE,  ...)
-{   tuning.method=obj$tuning$method
+{   if(length(obj$spar$all)<2) stop('need enough smoothing parameters')
+    tuning.method=obj$tuning$method
     spar.exp=log10(obj$spar$all)
     final.spar.exp=log10(obj$spar$final)
     criterion.mean=obj$tuning$mean
@@ -67,18 +68,18 @@ plotHisemitTuning=function(obj, SE=FALSE, add=FALSE,  ...)
 
     myplot=if(add)lines else plot
 
-    crit.range=range(criterion.mean.mean, na.rm=TRUE)
+    crit.range=range(criterion.mean.mean, na.rm=TRUE)*G
     enp.range=c(2, length(obj$fit$beta))
             
     if(!add){    par(mar=c(5,4,4,4)+.1)}
 
     if(SE){
-        myplot(spar.exp[goodenp.idx], drop(criterion.mean.mean)[goodenp.idx], ylab=if(add)''else tuning.method, 
+        myplot(spar.exp[goodenp.idx], G*drop(criterion.mean.mean)[goodenp.idx], ylab=if(add)''else tuning.method, 
             xlab='log10(smoothing par.)',
-            ylim=range(c(criterion.mean.mean+criterion.var.se,criterion.mean.mean-criterion.var.se)),
+            ylim=range(G*c(criterion.mean.mean+criterion.var.se,criterion.mean.mean-criterion.var.se)),
                 type='o',...)
         for(i in 1:length(spar.exp))
-            lines(c(spar.exp[i],spar.exp[i]),criterion.mean.mean[i]+c(1,-1)*criterion.var.se[i],col=2,lwd=3)
+            lines(c(spar.exp[i],spar.exp[i]),G*(criterion.mean.mean[i]+c(1,-1)*criterion.var.se[i]),col=2,lwd=3)
         abline(v=spar.exp[imin.cv])
 #        spar.exp[criterion.mean.mean<(criterion.mean.mean[imin.cv]+criterion.var.se[imin.cv])]=Inf
 #        cv.1se=tail(which.max(spar.exp),1)
@@ -87,7 +88,7 @@ plotHisemitTuning=function(obj, SE=FALSE, add=FALSE,  ...)
 #    abline(h=criterion.mean.mean[imin.cv]+criterion.var.se[imin.cv])
     }else{
 
-            myplot(spar.exp,drop(criterion.mean.mean), ylab=if(add)''else tuning.method, xlab='log10(smoothing par.)',
+            myplot(spar.exp,G*drop(criterion.mean.mean), ylab=if(add)''else tuning.method, xlab='log10(smoothing par.)',
                  type='o', ...)
             abline(v=final.spar.exp)
 

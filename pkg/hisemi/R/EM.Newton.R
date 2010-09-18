@@ -193,8 +193,8 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
 
 
 ############ setting staring values
-        null.fit=scaledTMix.null(tstat.all,df)
         if(missing(starts)){
+            null.fit=scaledTMix.null(tstat.all,df)
             starts=c(coef(null.fit), rep(0, ncol(H.all)-1))
         }
 
@@ -251,7 +251,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
             optim.fit=optim(em.parms, nLogLik.pen, deriv.nLogLik.pen, method=optim.method, 
                         control=list(maxit=newton.iter.max, trace=if(debugging)3 else 0, REPORT=30))
             parms.new=optim.fit$par
-            if(debugging)cat("nlminb iter=", nlminb.fit$iterations,fill=TRUE)
+            if(debugging)cat("optim iter=", optim.fit$iterations,fill=TRUE)
         }else if (optim.method=='nlminb') {
             nlminb.fit=nlminb(em.parms, nLogLik.pen, deriv.nLogLik.pen, hess.nLogLik.pen, return.dense=TRUE, 
                               control=list(eval.max=newton.iter.max*2, iter.max=newton.iter.max))
@@ -296,7 +296,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
 
     ########## logistic correction to the enp
     if(logistic.correction){
-        enp.logistic=try(logistic.enp(log10(spar),enps[cv.i,],ncol(H.all)+1), silent=FALSE)
+        enp.logistic=try(logistic.enp(log10(spar),enps[cv.i,],ncol(H.all)+1), silent=TRUE)
         if(class(enp.logistic)=='try-error') enp.logistic=enps[cv.i,]
         enps[cv.i,]=enp.logistic
     }
@@ -346,7 +346,8 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
         parms.new=all.parms[,imin.cv]
         final.scale=1+exp(parms.new[1])
         final.ll=logLiktest(parms.new[-1], final.scale)
-        final.pen=.5*spar[imin.cv]*drop(parms.new[-1]%*%Pen.mat%*%parms.new[-1])
+        final.pen=if(is.infinite(spar[imin.cv])) 0 else
+            .5*spar[imin.cv]*drop(parms.new[-1]%*%Pen.mat%*%parms.new[-1])
 
         fx.final=drop(H.all%*%parms.new[-1])
         pi0.final=1/(1+exp(fx.final))
@@ -358,8 +359,13 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
         fx.j=matrix(,G,n.vars)
         for(j in 1:n.vars) {j.idx=j==j.all; fx.j[,j]=drop(H.all[,j.idx]%*%parms.new[-1][j.idx]); fx.j[,j]=fx.j[,j]-mean(fx.j[,j])}
 
-        J=hess.nLogLik.pen(parms.new)
-        K=attr(deriv.nLogLik.pen(parms.new,TRUE),'K')
+        if(is.infinite(spar[imin.cv])){
+            if(!exists('null.fit', inherits=FALSE))null.fit=scaledTMix.null(tstat.all,df)
+            J=K=solve(null.fit$fit$asym.vcov)
+        }else{
+            J=hess.nLogLik.pen(parms.new)
+            K=attr(deriv.nLogLik.pen(parms.new,TRUE),'K')
+        }
         J.Inv=try(solve(J), silent=TRUE)
         if(class(J.Inv)=='try-error'){
             warning(paste("final Hessian is not positive definite. The smallest eigen value is", tail(eigen(J,TRUE,TRUE)$val,1)))

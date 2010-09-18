@@ -12,7 +12,7 @@ The package includes functions for fitting hierarchical semiparametric regressio
 \tabular{ll}{
 Package: \tab hisemi\cr
 Type: \tab Package\cr
-Version: \tab 1.0-124\cr
+Version: \tab 1.0-125\cr
 Date: \tab 2010-09-17\cr
 License: \tab What license is it under?\cr
 LazyLoad: \tab yes\cr
@@ -65,5 +65,11 @@ t.i=ifelse(Z.i==0,t0.i,t1.i)
 
 ## fit model
 (plfit=penLik.EMNewton(t.i, x, df, plotit=FALSE))
+(plfit0=scaledTMix.null(t.i, df))
 
+\dontrun{
+plot(plfit)
+plot(t.i, plfit$lfdr, pch='.')
+lines(sort(t.i), plfit0$lfdr[order(t.i)], col=2, lwd=3)
+}
 }
