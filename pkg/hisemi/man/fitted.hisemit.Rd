@@ -27,10 +27,10 @@
         \item{\code{'pi0'}}{ specifys prior probability of null hypothesis to be extracted.}
         \item{\code{'f'}}{ specifys the smooth function to be extracted.}
 }
-        When \code{fitted.type='f'}, the \code{component} specifies which component of the fitted smooth function to be extracted. \\
-        If \code{component} is missing, the overal function is returned. \\
-        If \code{component='intercept'}, only the intercept term is returned. \\
-        If \code{component} is numeric, then it specifies the smooth function corresponding to which covariate to be extracted. \\
+        When \code{fitted.type='f'}, the \code{component} specifies which component of the fitted smooth function to be extracted. \cr
+        If \code{component} is missing, the overal function is returned. \cr
+        If \code{component='intercept'}, only the intercept term is returned. \cr
+        If \code{component} is numeric, then it specifies the smooth function corresponding to which covariate to be extracted. 
 }
 \value{
         A numeric vector

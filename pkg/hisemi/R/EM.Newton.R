@@ -1,5 +1,5 @@
 ########## EM algorithm followed by Newton-type optimization
-penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
+penLik.EMNewton=function(tstat,x,df,spar=10^seq(-10,10,length=50), nknots=100, starts,
      tuning.method=c('NIC','CV') ,#'GCV','BIC','CAIC','HQIC'),
      cv.fold=5, 
      optim.method=c('nlminb',"BFGS","CG","L-BFGS-B","Nelder-Mead", "SANN", 'NR'),
@@ -113,7 +113,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
         ans
     }
 
-    deriv.nLogLik.pen=function(parms, return.K=FALSE,...)  ## also depends on dt0, tstat, spar.Pen.mat, H
+    deriv.nLogLik.pen=function(parms, return.K=FALSE, ...)  ## also depends on dt0, tstat, spar.Pen.mat, H
     {   r=parms[1]; scale.fact=1+exp(r);  # scale.fact=parms[1]; alternative parameterization to remove boundary
         betas=parms[-1]
         pi0s=drop(1/(1+exp(H%*%betas)))
@@ -146,7 +146,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
         ans
     }
 
-    hess.nLogLik.pen=function(parms, return.dense=FALSE,...)  ## also depends on dt0, tstat, spar.Pen.mat, H
+    hess.nLogLik.pen=function(parms, return.dense=FALSE, ...)  ## also depends on dt0, tstat, spar.Pen.mat, H
     {   r=parms[1]; scale.fact=1+exp(r);  # scale.fact=parms[1]; alternative parameterization to remove boundary
         betas=parms[-1]
         pi0s=drop(1/(1+exp(H%*%betas)))
@@ -253,10 +253,18 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
             parms.new=optim.fit$par
             if(debugging)cat("optim iter=", optim.fit$iterations,fill=TRUE)
         }else if (optim.method=='nlminb') {
+#            nlminb.i=1
+#            repeat{
             nlminb.fit=nlminb(em.parms, nLogLik.pen, deriv.nLogLik.pen, hess.nLogLik.pen, return.dense=TRUE, 
                               control=list(eval.max=newton.iter.max*2, iter.max=newton.iter.max))
+#            if(nlminb.i>=10 || nlminb.fit$convergence==0) break
+#            nlminb.i=nlminb.i+1
+#            em.parms=nlminb.fit$par
+#            if(debugging)cat('another try on nlminb',fill=TRUE)
+#            }
             parms.new=nlminb.fit$par
             if(debugging)cat("nlminb iter=", nlminb.fit$iterations,fill=TRUE)
+            if(debugging)cat('max |gradient|=', max(abs(deriv.nLogLik.pen(parms.new))), fill=TRUE)
         }else if (optim.method=='NR'){
             NR.fit=NRupdate(nLogLik.pen, em.parms, iter.max=newton.iter.max, with.grad.hess=TRUE,debugging=debugging)
             parms.new=NR.fit
@@ -287,7 +295,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
         criterion.var[cv.i, spar.i]=var(pred.ll)/length(pred.ll)
 
         if(debugging){
-            cat("enp=",enp,"\t@spar=",spar[spar.i],fill=TRUE)
+            cat("enp=",enp,"\tpred.ll=",sum(pred.ll),"\t@spar=",spar[spar.i],fill=TRUE)
         }
 
         this.start=parms.new
@@ -334,7 +342,8 @@ penLik.EMNewton=function(tstat,x,df,spar=10^(-1:8), nknots=100, starts,
     }else{
         crit.mean.all=drop(criterion.mean)
         crit.se.all=sqrt(drop(criterion.var))
-        s.mode.i=which(log10(spar)==attr(enp.logistic,'mode'))[1]; if(is.na(s.mode.i))s.mode.i=1
+        s.mode.i=if(exists('enp.logistic',inherits=FALSE))which(log10(spar)==attr(enp.logistic,'mode'))[1] else 1
+        if(is.na(s.mode.i))s.mode.i=1
         goodenp.idx=rep(FALSE,n.spar)
         goodenp.idx[s.mode.i:n.spar]=TRUE
         imin.cv=s.mode.i-1+which.min(crit.mean.all[goodenp.idx])

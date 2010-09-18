@@ -1,8 +1,8 @@
 Package: hisemi
 Type: Package
 Title: Hierarchical Semiparametric Regression of Test Statistics
-Version: 1.0-126
-Date: 2010-09-17
+Version: 1.0-127
+Date: 2010-09-18
 Author: Long Qu <longor@iastate.edu>, Dan Nettleton <dnett@iastate.edu>, Jack Dekkers <jdekkers@iastate.edu>
 Maintainer: Long Qu <longor@iastate.edu>
 Depends: R (>= 2.5.1), Matrix , Iso(>= 0.0-5), splines, fda, MASS

@@ -69,7 +69,7 @@ plotHisemitTuning=function(obj, SE=FALSE, add=FALSE,  ...)
     myplot=if(add)lines else plot
 
     crit.range=range(criterion.mean.mean, na.rm=TRUE)*G
-    enp.range=c(2, length(obj$fit$beta))
+    enp.range=c(2, max(obj$enp$logistic))
             
     if(!add){    par(mar=c(5,4,4,4)+.1)}
 
