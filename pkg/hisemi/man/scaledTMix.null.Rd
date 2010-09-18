@@ -7,9 +7,9 @@
 }
 \usage{
 scaledTMix.null(tstat, df, starts = 
-	list(pi0 = seq(0.1, 0.99, length = 20), 
-	     scale = 2^seq(0.01, log2(max(abs(tstat))),
-		length = 20)))
+        list(pi0 = seq(0.1, 0.99, length = 20), 
+             scale = 2^seq(0.01, log2(max(abs(tstat))),
+                length = 20)))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -8,9 +8,9 @@
 }
 \usage{
 \method{fitted}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), 
-	gene.list, component, ...)
+        gene.list, component, ...)
 \method{fitted.values}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), 
-	gene.list, component, ...)
+        gene.list, component, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -8,9 +8,9 @@
 }
 \usage{
 \method{coef}{hisemit}(object, scale.parameterization = c("r", 
-	"scale.factor", "sd.ncp"), ...)
+        "scale.factor", "sd.ncp"), ...)
 \method{coefficients}{hisemit}(object, scale.parameterization = c("r", 
-	"scale.factor", "sd.ncp"), ...)
+        "scale.factor", "sd.ncp"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

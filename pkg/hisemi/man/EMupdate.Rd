@@ -7,9 +7,9 @@ Utility function performing EM algorithm updates for \code{\link{penLik.EMNewton
 }
 \usage{
 EMupdate(starts, nLogLik.pen, optim.method, H, tstat, df, dt0, 
-	spar.Pen.mat, em.iter.max = 10, em.beta.iter.max = 1, 
-	scale.conv = 0.001, lfdr.conv = 0.001, 
-	NPLL.conv = 0.001, debugging = FALSE)
+        spar.Pen.mat, em.iter.max = 10, em.beta.iter.max = 1, 
+        scale.conv = 0.001, lfdr.conv = 0.001, 
+        NPLL.conv = 0.001, debugging = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

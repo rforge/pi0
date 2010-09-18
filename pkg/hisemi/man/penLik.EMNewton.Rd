@@ -7,13 +7,13 @@
 }
 \usage{
 penLik.EMNewton(tstat, x, df, spar = 10^seq(-1,8,length=30), 
-	nknots = 100, starts, tuning.method = c("NIC", "CV"), 
+        nknots = 100, starts, tuning.method = c("NIC", "CV"), 
         cv.fold = 5, optim.method = c("nlminb", "BFGS", "CG", 
-	"L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
+        "L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
         logistic.correction = TRUE, em.iter.max = 10, 
-	em.beta.iter.max = 1, newton.iter.max = 1500, 
+        em.beta.iter.max = 1, newton.iter.max = 1500, 
         scale.conv = 0.001, lfdr.conv = 0.001, NPLL.conv = 0.001, 
-	debugging = FALSE, plotit = TRUE, ...)
+        debugging = FALSE, plotit = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
