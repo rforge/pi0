@@ -6,7 +6,10 @@
   This function fits a null model to t-statistics, i.e., a two-component mixture, with one component being central t-distribution, the other component being scaled central t-distribution with scale parameter larger than 1. The mixing proportion for the central t-distribution is pi0. 
 }
 \usage{
-scaledTMix.null(tstat, df, starts = list(pi0 = seq(0.1, 0.99, length = 20), scale = 2^seq(0.01, log2(max(abs(tstat))), length = 20)))
+scaledTMix.null(tstat, df, starts = 
+	list(pi0 = seq(0.1, 0.99, length = 20), 
+	     scale = 2^seq(0.01, log2(max(abs(tstat))),
+		length = 20)))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

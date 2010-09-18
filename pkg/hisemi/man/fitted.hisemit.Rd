@@ -7,8 +7,10 @@
   Extract fitted values from a \code{hisemit} object
 }
 \usage{
-\method{fitted}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), gene.list, component, ...)
-\method{fitted.values}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), gene.list, component, ...)
+\method{fitted}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), 
+	gene.list, component, ...)
+\method{fitted.values}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), 
+	gene.list, component, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -25,10 +27,10 @@
         \item{\code{'pi0'}}{ specifys prior probability of null hypothesis to be extracted.}
         \item{\code{'f'}}{ specifys the smooth function to be extracted.}
 }
-        When \code{fitted.type='f'}, the \code{component} specifies which component of the fitted smooth function to be extracted. 
-        If \code{component} is missing, the overal function is returned. 
-        If \code{component='intercept'}, only the intercept term is returned. 
-        If \code{component} is numeric, then it specifies the smooth function corresponding to which covariate to be extracted. 
+        When \code{fitted.type='f'}, the \code{component} specifies which component of the fitted smooth function to be extracted. \\
+        If \code{component} is missing, the overal function is returned. \\
+        If \code{component='intercept'}, only the intercept term is returned. \\
+        If \code{component} is numeric, then it specifies the smooth function corresponding to which covariate to be extracted. \\
 }
 \value{
         A numeric vector

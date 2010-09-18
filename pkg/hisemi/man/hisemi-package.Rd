@@ -12,27 +12,27 @@ The package includes functions for fitting hierarchical semiparametric regressio
 \tabular{ll}{
 Package: \tab hisemi\cr
 Type: \tab Package\cr
-Version: \tab 1.0-125\cr
+Version: \tab 1.0-126\cr
 Date: \tab 2010-09-17\cr
 License: \tab What license is it under?\cr
 LazyLoad: \tab yes\cr
 }
 
-\code{\link{penLik.EMNewton}} is the major interface function to be called. 
-\code{\link{coef.hisemit}} extracts the estimated parameters.
-\code{\link{confint.hisemit}} returns the confidence intervals
-\code{\link{directSum}} computes the direct sum of matrices. 
-\code{\link{EMupdate}} is the EM algorithm used in \code{\link{penLik.EMNewton}}. 
-\code{\link{fitted.hisemit}} extracts the fitted values. 
-\code{\link{logLik.hisemit}} returns the log likelihood
-\code{\link{NRupdate}} is the Newton-Raphson algorithm used in \code{\link{penLik.EMNewton}}.
-\code{\link{plot.hisemit}} plots the fitted model. 
-\code{\link{print.hisemit}} print summary information. 
-\code{\link{resid.hisemit}} returns the residuals. 
-\code{\link{scaledTMix.null}} fits the null model with common pi0. 
-\code{\link{scaledTMix.psat}} fits the partially saturated model with free pi0 and common scale factor.
-\code{\link{scaledTMix.sat}} fits the completely saturated model with free pi0 and free scale factor. 
-\code{\link{vcov.hisemit}} returns the sandwich variance-covariance matrix. 
+\code{\link{penLik.EMNewton}} is the major interface function to be called. \\
+\code{\link{coef.hisemit}} extracts the estimated parameters. \\
+\code{\link{confint.hisemit}} returns the confidence intervals. \\
+\code{\link{directSum}} computes the direct sum of matrices. \\
+\code{\link{EMupdate}} is the EM algorithm used in \code{\link{penLik.EMNewton}}. \\
+\code{\link{fitted.hisemit}} extracts the fitted values. \\
+\code{\link{logLik.hisemit}} returns the log likelihood. \\
+\code{\link{NRupdate}} is the Newton-Raphson algorithm used in \code{\link{penLik.EMNewton}}. \\
+\code{\link{plot.hisemit}} plots the fitted model. \\
+\code{\link{print.hisemit}} print summary information. \\
+\code{\link{resid.hisemit}} returns the residuals. \\
+\code{\link{scaledTMix.null}} fits the null model with common pi0. \\
+\code{\link{scaledTMix.psat}} fits the partially saturated model with free pi0 and common scale factor. \\
+\code{\link{scaledTMix.sat}} fits the completely saturated model with free pi0 and free scale factor. \\
+\code{\link{vcov.hisemit}} returns the sandwich variance-covariance matrix. \\
 }
 \author{
 Long Qu \email{longor@iastate.edu}, Dan Nettleton \email{dnett@iastate.edu}, Jack C.M. Dekkers \email{jdekkers@iastate.edu}
@@ -45,7 +45,7 @@ Maintainer: Long Qu \email{longor@iastate.edu}
 \keyword{ regression }
 \keyword{ optimize }
 \seealso{
-\code{\link[pi0]{pi0}}
+\code{\link[pi0]{pi0-package}}
 }
 \examples{
 ## simulate some fake data

@@ -9,7 +9,8 @@
 }
 \usage{
 \method{plot}{hisemit}(x, type = c("tuning", "residual"), ...)
-plotHisemitResid(obj, y.type = c("hist", "scatter"), x.type = c("lfdr", "pi0", "f"), ...)
+plotHisemitResid(obj, y.type = c("hist", "scatter"), 
+	x.type = c("lfdr", "pi0", "f"), ...)
 plotHisemitTuning(obj, SE = FALSE, add = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.

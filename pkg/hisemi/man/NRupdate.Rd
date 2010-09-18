@@ -6,8 +6,10 @@
 Utility function performing Newton-Raphson algorithm updates for \code{\link{penLik.EMNewton}}
 }
 \usage{
-NRupdate(f, starts, gradient, hessian, ..., ridge0 = 1e-06, tolerance = sqrt(.Machine$double.eps), 
-        iter.max = 1500, halving.max = Inf, relative = FALSE, return.hessian = FALSE, debugging = FALSE)
+NRupdate(f, starts, gradient, hessian, ..., ridge0 = 1e-06, 
+	tolerance = sqrt(.Machine$double.eps), 
+        iter.max = 1500, halving.max = Inf, relative = FALSE, 
+	return.hessian = FALSE, debugging = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

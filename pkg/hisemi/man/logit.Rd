@@ -16,7 +16,7 @@ logit.inv(eta)
   \item{eta}{ See \code{\link{make.link}}. }
 }
 \details{
-        \code{logit} is defined as \code{make.link("logit")$linkfun}. 
+        \code{logit} is defined as \code{make.link("logit")$linkfun}. \\
         \code{logit.inv} is defined as \code{make.link("logit")$linkinv}.
 }
 \value{

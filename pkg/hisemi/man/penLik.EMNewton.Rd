@@ -6,10 +6,14 @@
   Fits hierarchical semiparametric regression model to t-statistics
 }
 \usage{
-penLik.EMNewton(tstat, x, df, spar = 10^(-1:8), nknots = 100, starts, tuning.method = c("NIC", "CV"), 
-        cv.fold = 5, optim.method = c("nlminb", "BFGS", "CG", "L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
-        logistic.correction = TRUE, em.iter.max = 10, em.beta.iter.max = 1, newton.iter.max = 1500, 
-        scale.conv = 0.001, lfdr.conv = 0.001, NPLL.conv = 0.001, debugging = FALSE, plotit = TRUE, ...)
+penLik.EMNewton(tstat, x, df, spar = 10^(-1:8), nknots = 100, 
+	starts, tuning.method = c("NIC", "CV"), 
+        cv.fold = 5, optim.method = c("nlminb", "BFGS", "CG", 
+	"L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
+        logistic.correction = TRUE, em.iter.max = 10, 
+	em.beta.iter.max = 1, newton.iter.max = 1500, 
+        scale.conv = 0.001, lfdr.conv = 0.001, NPLL.conv = 0.001, 
+	debugging = FALSE, plotit = TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -38,42 +42,42 @@ penLik.EMNewton(tstat, x, df, spar = 10^(-1:8), nknots = 100, starts, tuning.met
 %}
 \value{
         An list of class \code{hisemit}:
-\item{lfdr}{ A numeric vector of local false discovery rates.}
+\item{lfdr:}{ A numeric vector of local false discovery rates.}
 \item{model}{A  list of \code{tstat}, \code{df} and \code{x}, which are the same as arguments}
-\item{scale.fact}{ A list with \itemize{
-        \item{scale.fact}{ Scale factor}
-        \item{sd.ncp}{ Equivalent standard deviation of noncentrality parameters}
-        \item{r}{ A reparameterization of \code{scale.fact}}
-        \item{t.cross}{ \code{sqrt(df*(final.scale^(2/(df+1))-1)/(1-final.scale^(-2*df/(df+1))))}}}}
-\item{pi0}{ A numeric vector of mixing proportions for the central t component}
-\item{tuning}{ A list with \itemize{
-        \item{mean}{ Mean criterion}
-        \item{var}{ Variance of criterion across observations}
-        \item{grp}{ Cross-validation group membership}
-        \item{method}{ The \code{tuning.method} used.}
-        \item{final}{ The minimum mean criterion}}}
-\item{spar}{ A list with \itemize{
-        \item{all}{ All smoothing parameters searched}
-        \item{final}{ The smoothing parameter used}
-        \item{final.idx}{ The index of the final \code{spar}}}}
-\item{enp}{ A list with \itemize{
-        \item{raw}{ Raw effective number of parameters}
-        \item{logistic}{ Effective number of parameters after fitting logistic curve as a correction}
-        \item{final}{ The effective nubmer of parameters in the final model}
-        \item{good.idx}{ The index of the selected effective number of parameters}}}
-\item{fit}{ A list with \itemize{
-        \item{intercept}{ The fitted intercept}
-        \item{covariate.idx}{ The index of covariates}
-        \item{f.covariate}{ Each additive smooth function evaluated at the covariates}
-        \item{f}{ Fitted smoothing funciton}
-        \item{beta}{ Estimated regression coefficients}
-        \item{H}{ Expanded design matrix}
-        \item{asym.vcov}{ Asymptotic variance-covariance matrix for estimated parameters}}}
-\item{NPLL}{ A list with \itemize{
-        \item{NPLL}{ Negative penalized log likelihood}
-        \item{logLik}{ Log likelihood}
-        \item{penalty}{ Penalty term}
-        \item{saturated.ll}{ Saturated log likelihood}}}
+\item{scale.fact:}{ A list with \itemize{
+        \item{scale.fact:}{ Scale factor}
+        \item{sd.ncp:}{ Equivalent standard deviation of noncentrality parameters}
+        \item{r:}{ A reparameterization of \code{scale.fact}}
+        \item{t.cross:}{ \code{sqrt(df*(final.scale^(2/(df+1))-1)/(1-final.scale^(-2*df/(df+1))))}}}}
+\item{pi0:}{ A numeric vector of mixing proportions for the central t component}
+\item{tuning:}{ A list with \itemize{
+        \item{mean:}{ Mean criterion}
+        \item{var:}{ Variance of criterion across observations}
+        \item{grp:}{ Cross-validation group membership}
+        \item{method:}{ The \code{tuning.method} used.}
+        \item{final:}{ The minimum mean criterion}}}
+\item{spar:}{ A list with \itemize{
+        \item{all:}{ All smoothing parameters searched}
+        \item{final:}{ The smoothing parameter used}
+        \item{final.idx:}{ The index of the final \code{spar}}}}
+\item{enp:}{ A list with \itemize{
+        \item{raw:}{ Raw effective number of parameters}
+        \item{logistic:}{ Effective number of parameters after fitting logistic curve as a correction}
+        \item{final:}{ The effective nubmer of parameters in the final model}
+        \item{good.idx:}{ The index of the selected effective number of parameters}}}
+\item{fit:}{ A list with \itemize{
+        \item{intercept:}{ The fitted intercept}
+        \item{covariate.idx:}{ The index of covariates}
+        \item{f.covariate:}{ Each additive smooth function evaluated at the covariates}
+        \item{f:}{ Fitted smoothing funciton}
+        \item{beta:}{ Estimated regression coefficients}
+        \item{H:}{ Expanded design matrix}
+        \item{asym.vcov:}{ Asymptotic variance-covariance matrix for estimated parameters}}}
+\item{NPLL:}{ A list with \itemize{
+        \item{NPLL:}{ Negative penalized log likelihood}
+        \item{logLik:}{ Log likelihood}
+        \item{penalty:}{ Penalty term}
+        \item{saturated.ll:}{ Saturated log likelihood}}}
 }
 \references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
 \author{ Long Qu \email{longor@iastate.edu} }

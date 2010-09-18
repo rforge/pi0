@@ -6,7 +6,8 @@
 Extract Wald-type asymptotic confidence intervals from a \code{hisemit} object.
 }
 \usage{
-\method{confint}{hisemit}(object, parm = c("lfdr", "fpp", "beta", "scale.fact", "sd.ncp", "r", "coef", "pi0", "f"), level = 0.95, ...)
+\method{confint}{hisemit}(object, parm = c("lfdr", "fpp", "beta", "scale.fact", 
+	"sd.ncp", "r", "coef", "pi0", "f"), level = 0.95, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
