@@ -1,5 +1,5 @@
 ########## EM algorithm followed by Newton-type optimization
-penLik.EMNewton=function(tstat,x,df,spar=10^seq(-5,10,length=40), nknots=100, starts,
+penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, starts,
      tuning.method=c('NIC','CV') ,#'GCV','BIC','CAIC','HQIC'),
      cv.fold=5, 
      optim.method=c('nlminb',"BFGS","CG","L-BFGS-B","Nelder-Mead", "SANN", 'NR'),
