@@ -12,7 +12,7 @@ The package includes functions for fitting hierarchical semiparametric regressio
 \tabular{ll}{
 Package: \tab hisemi\cr
 Type: \tab Package\cr
-Version: \tab 1.0-127\cr
+Version: \tab 1.0-128\cr
 Date: \tab 2010-09-18\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
@@ -55,7 +55,7 @@ G=20000
 sdncp=1.3
 n1=n2=5
 df=n1+n2-2
-set.seed(2437892)
+set.seed(9992722)
 x=runif(G,1,G)
 f=function(x)sin(x*pi/1000)+1
 Pi.i=1/(1+exp(f(x)))

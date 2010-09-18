@@ -6,8 +6,8 @@
   Fits hierarchical semiparametric regression model to t-statistics
 }
 \usage{
-penLik.EMNewton(tstat, x, df, spar = 10^(-1:8), nknots = 100, 
-	starts, tuning.method = c("NIC", "CV"), 
+penLik.EMNewton(tstat, x, df, spar = 10^seq(-5,10,length=40), 
+	nknots = 100, starts, tuning.method = c("NIC", "CV"), 
         cv.fold = 5, optim.method = c("nlminb", "BFGS", "CG", 
 	"L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
         logistic.correction = TRUE, em.iter.max = 10, 
