@@ -46,8 +46,11 @@ Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distr
 }
 \examples{
 \dontrun{
-data(spfit)
-plot(spfit)
+data(simulatedTstat)
+(npfit=nparncpt(tstat=simulatedTstat, df=8)); 
+(pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE)); plot(pfit)
+(pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE)); plot(pfit0)
+(spfit=sparncpt(npfit,pfit)); plot(spfit)
 }
 }
 % R documentation directory.
