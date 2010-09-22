@@ -226,17 +226,19 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
             Kmat=t(Jacobian)%*%Kmat%*%Jacobian
         }
         eigvals=eigen((hess+t(hess))/2, symmetric=TRUE, only.values=TRUE)$val
-        ans=try(max(c(0, sum(diag(solve((hess+t(hess))/2, Kmat))))))
+        hess=(hess+t(hess))/2
+        ans=try(solve(hess,Kma))
+#        ans=try(max(c(0, sum(diag(solve((hess+t(hess))/2, Kmat))))))
         if(tail(eigvals,1)<1e-6 || class(ans)=='try-error' ) {
             max(c(0, sum(diag(solve(nearPD(hess)$mat, Kmat)))))
         }else{
-            ans
+            max(c(0,sum(diag(ans))))
         }
     }
 
     if(missing(starts)) {
         tmp=parncpt(tstat,df,zeromean=FALSE)
-        starts=rep(coef(tmp)['pi0']/K,K)
+        starts=rep(max(min(1-1e-3,coef(tmp)['pi0']),1e-3)/K,K)
         if(sum(starts)>1-1e-6) starts=starts/sum(starts)*(1-1e-6)
     }
 
