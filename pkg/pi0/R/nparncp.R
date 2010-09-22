@@ -337,14 +337,17 @@ plot.nparncpt=function(x,...)
     abline(v=log10(x$all.lambdas[x$i.final]), col=2);
     abline(h=x$all.nics[x$i.final]+c(-1,1)*x$all.nic.sd[x$i.final], col=4)
 #    abline(v=log10(x$all.lambdas[i.1se]), col=2,lty=2)
+    title(sub=paste('lambda =',round(x$lambda,3),sep=''))
 
 #    plot(log10(x$all.lambdas), x$all.enps); abline(v=log10(x$all.lambdas[c(x$i.final,i.1se)]), xlab='log10(lambda)', ylab='ENP', lty=1:2)
 #    plot(log10(x$all.lambdas), x$all.pi0s); abline(v=log10(x$all.lambdas[c(x$i.final,i.1se)]), xlab='log10(lambda)', ylab='pi0', lty=1:2)
     plot(log10(x$all.lambdas), x$all.enps,xlab='log10(lambda)',ylab='effective # parameters',
         ylim=c(0,max(x$all.enps[i.2se]))); 
         abline(v=log10(x$all.lambdas[c(x$i.final)]), xlab='log10(lambda)', ylab='ENP', lty=1)
+    title(sub=paste('df =', round(x$enp,3),sep=''))
     plot(log10(x$all.lambdas), x$all.pi0s, xlab='log10(lambda)', ylab='pi0',ylim=0:1); 
         abline(v=log10(x$all.lambdas[c(x$i.final)]), xlab='log10(lambda)', ylab='pi0', lty=1)
+    title(sub=paste('pi0 =', round(x$pi0,3),sep=''))
 
     d.ncp=function(xx)        # p in the paper
     {   ## depends on mus, sigs
@@ -356,6 +359,7 @@ plot.nparncpt=function(x,...)
     curve(d.ncp, min(x$data$tstat,x$all.mus),max(x$data$tstat,x$all.mus),100,col=4,lwd=2, xlab='delta',ylab='density')
 #    detach(x)
     rug(x$all.mus)
+    title(sub=paste("mean =",round(x$mu.ncp,3),"; sd =",round(x$sd.ncp,3),sep=''))
     par(op)
     invisible(x)
 }
