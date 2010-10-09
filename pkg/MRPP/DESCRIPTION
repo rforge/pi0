@@ -1,8 +1,8 @@
 Package: MRPP
 Type: Package
 Title: Multiresponse permutation procedure and its variable importance and backward variable selection methods. 
-Version: 1.0-97
-Date: 2010-09-13
+Version: 1.0-137
+Date: 2010-10-09
 Author: Long Qu
 Maintainer: Long Qu <longor@iastate.edu>
 Description: Multiresponse permutation procedure and its variable importance and backward variable selection methods. 

@@ -1,11 +1,11 @@
-
+/*
 //void unisqeuc(double *x, int *nr,  double *dist)
-/*********** CALL FROM R ***************
+*********** CALL FROM R ***************
 .C("unisqeuc", x = as.double(1:2326), nr = as.integer(2326), dist=dist.holder, DUP = FALSE,  NAOK = TRUE)$dist 
 	where x is univariate double vector; 
 	     nr is a scalar integer equal to the length x; 
 		 dist is a double vector of length nr*nr, which would store the resulting squared euclidean distance matrix
-***************************************/
+***************************************
 //{
 //	int i, j, basei, basej, dimi;
 //	for(j = 1, basej=*nr ; j < *nr ; ++j, basej+=*nr){
@@ -62,7 +62,9 @@
 //	ans*=2;
 //	return ans;
 //}
+*/
 inline double sumSubMatSorted( double const * const x,  int const * const idx,  const int n,  const int N)
+/*
 // Input:
 //   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
 //	 idx is a vector of "sorted" indices where sum of x is taken over;
@@ -72,6 +74,7 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 //   returns sum(as.matrix(x)[idx, idx])
 // Note:
 //   This is about 3~5% faster than sumSubMat when N=30 and B=5000. 
+*/
 {
 	double ans=0.0;
 	register unsigned  int j, i, N2=(N<<1), base;
@@ -88,6 +91,7 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 void mrppstats(double const * const x, int const * const perm, int const * const permcomplement, 
 			   int const * const n, int const * const B, int const * const N, int const * const wtmethod,
 			   double * const ans)
+/*
 // Input:
 //   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
 //   perm is perm idx mat for 1st group (*n x *B); 
@@ -97,13 +101,15 @@ void mrppstats(double const * const x, int const * const perm, int const * const
 //   *wtmethod is the treatment group weight: 0=sample size-1; 1=sample size
 // Output: 
 //   *ans is a length *B space of mrpp statistics to be filled in
+*/
 {	register unsigned int b;
 	double tmp1, tmp2, denom1, denom2;
 	denom1=1.0/(*n-*wtmethod); denom2=1.0/(*N-*n-*wtmethod) ;
 	for(b=0; b<*B; ++b) {
+/*
 //		tmp1=sumSubMat(x, perm+(b**n), *n, *N); 
 //		tmp2=sumSubMat(x, permcomplement+(b*(*N-*n)), *N-*n, *N); 
-
+*/
 		tmp1=sumSubMatSorted(x, perm+(b**n), *n, *N); 
 		tmp2=sumSubMatSorted(x, permcomplement+(b*(*N-*n)), *N-*n, *N); 
 		
