@@ -79,9 +79,9 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 	double ans=0.0;
 	register unsigned  int j, i, N2=(N<<1), base;
 
-	for(j=0; j<n-1; ++j){ // column index
-		base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;  // part that does not involve row index
-		for(i=j+1; i<n; ++i){  //  row index
+	for(j=0; j<n-1; ++j){ /* // column index */
+		base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;  /* // part that does not involve row index */
+		for(i=j+1; i<n; ++i){  /* //  row index */
 			ans+=x[ base+idx[i] ]; 
 		}
 	}
