@@ -1,14 +1,3 @@
-#ifdef _WINDOWS
-#define INLINE __inline
-#ifdef INTNCT_EXPORTS
-#define DLL_API __declspec(dllexport)
-#else
-#define DLL_API __declspec(dllimport)
-#endif
-#else 
-#define DLL_API
-#define INLINE inline
-#endif
  
 #include<Rmath.h>
 #include<R_ext/Arith.h>
@@ -17,7 +6,7 @@
 #include<stdio.h>
 #endif
 
-DLL_API INLINE void intTruncNorm(int *r, int *length, double *mu, double *sd, double *low, double *upp, double *ans)
+void intTruncNorm(int *r, int *length, double *mu, double *sd, double *low, double *upp, double *ans)
 {
 	// r needs to be non-negative; length needs to be positive
 	// returns int_low^upp x^(r-1+1:length) exp(-(x-mu)^2/2/sd^2) dx
@@ -67,7 +56,7 @@ DLL_API INLINE void intTruncNorm(int *r, int *length, double *mu, double *sd, do
 }
 
 
-DLL_API INLINE double divDifInt(int ntab, int r, double *ytab, double xval, int takeLog)	// warning: this function will modify values of ytab
+double divDifInt(int ntab, int r, double *ytab, double xval, int takeLog)	// warning: this function will modify values of ytab
 {	// reference: http://people.sc.fsu.edu/~burkardt/cpp_src/divdif/divdif.html
 	int i,j;
 	double value;
@@ -97,7 +86,7 @@ DLL_API INLINE double divDifInt(int ntab, int r, double *ytab, double xval, int 
 	return takeLog? exp(value) : value; 
 }
 
-DLL_API INLINE void fracTruncNorm(double *r, double *mu, double *sd, double *low, double *upp, double *ans, int *ndiv, int* takeLog)
+void fracTruncNorm(double *r, double *mu, double *sd, double *low, double *upp, double *ans, int *ndiv, int* takeLog)
 {
 	// r needs to be non-negative; ndiv needs to be positive
 	// returns int_low^upp x^r exp(-(x-mu)^2/2/sd^2) dx
@@ -116,7 +105,7 @@ DLL_API INLINE void fracTruncNorm(double *r, double *mu, double *sd, double *low
 }
 
 
-DLL_API void intTruncNormVec(int *n, int *r, double *mu, double *sd, double *low, double *upp, double *ans)
+void intTruncNormVec(int *n, int *r, double *mu, double *sd, double *low, double *upp, double *ans)
 {	// all vectors: r, mu, sd, low, upp, ans should be of length *n
 	int i; 
 	int len=1;
@@ -127,7 +116,7 @@ DLL_API void intTruncNormVec(int *n, int *r, double *mu, double *sd, double *low
 	for(i=0; i<*n; ++i) intTruncNorm(r+i, &len, mu+i, sd+i, low+i, upp+i, ans+i);
 }
 
-DLL_API void fracTruncNormVec(int *n, double *r, double *mu, double *sd, double *low, double *upp, double *ans, int *ndiv, int* takeLog)
+void fracTruncNormVec(int *n, double *r, double *mu, double *sd, double *low, double *upp, double *ans, int *ndiv, int* takeLog)
 {	// all vectors: r, mu, sd, low, upp, ans should be of length *n
 	int i;
 #ifdef _DEBUG
