@@ -34,7 +34,7 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
         mrpp.stats0=mrpp.test.dist(dist0,perm.mat=perm.mat,cperm.mat=cperm.mat,...)$all.stat
         imptnc=if(importance=='dp.dw') 
                     get.dp.dw.kde(y[,idx,drop=FALSE],perm.mat,distObj=dist0,mrpp.stats=mrpp.stats0, cperm.mat=cperm.mat,...) 
-               else get.p.dd.dw(y[,idx,drop=FALSE],perm.mat,distObj=dist0,cperm.mat=cperm.mat,...)
+               else get.p.dd.dw(y[,idx,drop=FALSE],perm.mat,cperm.mat=cperm.mat,...)
         var.rank=order(imptnc)
         ans[[i]]=list(iter=i-1, var.idx=idx[var.rank], influence=imptnc[var.rank],
                       p.value=mean(mrpp.stats0[1]>=mrpp.stats0-min(c(1e-8,.5/B))),
