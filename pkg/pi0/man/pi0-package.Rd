@@ -12,7 +12,7 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.2-135\cr
+Version: \tab 1.2-136\cr
 Date: \tab 2010-10-09\cr
 License: \tab GPL version 2 or newer\cr
 }
