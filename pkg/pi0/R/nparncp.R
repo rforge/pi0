@@ -227,7 +227,7 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
         }
         eigvals=eigen((hess+t(hess))/2, symmetric=TRUE, only.values=TRUE)$val
         hess=(hess+t(hess))/2
-        ans=try(solve(hess,Kma))
+        ans=try(solve(hess,Kmat))
 #        ans=try(max(c(0, sum(diag(solve((hess+t(hess))/2, Kmat))))))
         if(tail(eigvals,1)<1e-6 || class(ans)=='try-error' ) {
             max(c(0, sum(diag(solve(nearPD(hess)$mat, Kmat)))))
