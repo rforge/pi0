@@ -1,5 +1,5 @@
 mrpp.test.dist <-
-function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cperm.mat, ...) ## this is C code
+function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cperm.mat, ...) ## this uses C code
 ## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
 {
     if(missing(y) || !inherits(y,'dist')) stop('dist object missing or incorrect')
@@ -32,9 +32,18 @@ function(y, ...) {
 }
 
 mrpp.test.formula <-
-function(y,B, perm.mat, ...) 
+function(y, ...) 
 {
-    .NotYetImplemented()
+    if (missing(y) || (length(y) != 3L) || (length(attr(terms(y[-2L]), "term.labels")) != 1L)) 
+        stop("'formula' missing or incorrect")
+    mf <- model.frame(y)
+    response <- attr(attr(mf, "terms"), "response")
+    g <- factor(mf[[-response]])
+    if (nlevels(g) != 2L) 
+        stop("grouping factor must have exactly 2 levels")
+    ans=mrpp.test.dist(dist(mf[[response]]),g,...)
+    ans$data.name=paste("'formula object:'", paste(names(mf), collapse = " by "))
+    ans
 }
 
 mrpp.test <-

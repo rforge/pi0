@@ -9,4 +9,3 @@ function(trt, B=100) ## trt needs have exactly 2 levels; other situations are no
     attr(perms,'.Random.seed')=save.seed
     perms
 }
-
