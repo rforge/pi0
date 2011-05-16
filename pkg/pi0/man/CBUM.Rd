@@ -11,7 +11,7 @@ CBUM(p, pi0=0.5, lambda=0.05, eps=1e-5, niter=Inf, verbose=FALSE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{p}{ a numeric vector the p-values }
-  \item{start.pi0}{ numeric scalar, starting value of pi0 for EM algorithm. }
+  \item{pi0}{ numeric scalar, starting value of pi0 for EM algorithm. }
   \item{lambda}{numeric scalar, the threshold of censoring. If \code{isTRUE(lambda<min(p))}, this is equivalent to the BUM method of Pounds and MOrris (2003). }
   \item{eps}{numeric scalar, maximum tolerable absolute difference of parameter estimates for successive iterations in the EM algorithm. }
   \item{niter}{numeric scalar, maximum number of EM iterations.}

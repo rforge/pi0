@@ -11,7 +11,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Density evaluated at observed statistics for ncpest class
 }
-\description{Density evaluated at observed statistics for \code{ncpest} class
+\description{Density evaluated at observed statistics for ncpest class
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{

@@ -6,7 +6,7 @@
 This function implements the method of McLachLan, Bean and Jones (2006). 
 }
 \usage{
-normixfdr(p, theoretical.null=TRUE, start.pi0, eps=1e-3, niter=Inf, verbose=FALSE)
+normixfdr(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbose=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
