@@ -1,27 +1,27 @@
-CBUM <- function(p, pi0=0.5, lambda=0.05, eps=1e-5, niter=Inf, verbose=FALSE) {
+CBUM <- function(p, start.pi0=0.5, thresh.censor=0.05, eps=1e-5, niter=Inf, verbose=FALSE) {
     verbose=isTRUE(verbose)
 	a <- NA
 	G <- length(p)
 	pi1 <- 1  
-    if(lambda<=0) lambda=min(p)/2
-    stopifnot(lambda>0)
-	#indices for which the pi are <lambda 
-	idx.uncencor <- which(p>=lambda)
+    if(thresh.censor<=0) thresh.censor=min(p)/2
+    stopifnot(thresh.censor>0)
+	#indices for which the pi are <thresh.censor 
+	idx.uncencor <- which(p>=thresh.censor)
     n.censor=G-length(idx.uncencor)
-    sum.z.censor=(1-pi0)*n.censor
-    z.uncensor=rep(1-pi0, G-n.censor)
+    sum.z.censor=(1-start.pi0)*n.censor
+    z.uncensor=rep(1-start.pi0, G-n.censor)
     sum.z.uncensor=sum(z.uncensor)
 
     log.p.uncensor=log(p[idx.uncencor])
-	log.lambda=log(lambda)
+	log.thresh.censor=log(thresh.censor)
 
     iter=1
 	repeat {
 		pi_temp <- (sum.z.censor + sum(z.uncensor)) / G
-		a_temp <- - sum.z.uncensor / ( log.lambda*sum.z.censor + sum(log.p.uncensor * z.uncensor) )
+		a_temp <- - sum.z.uncensor / ( log.thresh.censor*sum.z.censor + sum(log.p.uncensor * z.uncensor) )
         
-        z.censor.num = pi_temp * lambda^(a_temp)
-        sum.z.censor <- n.censor * ( z.censor.num / ( (1-pi_temp) * lambda + z.censor.num ) )
+        z.censor.num = pi_temp * thresh.censor^(a_temp)
+        sum.z.censor <- n.censor * ( z.censor.num / ( (1-pi_temp) * thresh.censor + z.censor.num ) )
 
         z.uncensor.num = pi_temp * a_temp * exp(log.p.uncensor * (a_temp-1)) 
         z.uncensor <-  z.uncensor.num / ( 1-pi_temp + z.uncensor.num) 
@@ -40,7 +40,7 @@ CBUM <- function(p, pi0=0.5, lambda=0.05, eps=1e-5, niter=Inf, verbose=FALSE) {
     attr(ans, 'converged')=iter<niter
     attr(ans, 'iter')=iter
     attr(ans, 'alpha')=a_temp
-    attr(ans, 'lambda')=lambda
+    attr(ans, 'thresh.censor')=thresh.censor
     attr(ans, 'call')=match.call()
     class(ans) = 'CBUM'
     ans
