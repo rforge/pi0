@@ -1,4 +1,4 @@
-normixfdr=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbose=FALSE)
+znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbose=FALSE)
 {
   
     z=as.matrix(qnorm(1-p))

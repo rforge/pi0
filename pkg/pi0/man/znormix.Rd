@@ -1,12 +1,12 @@
-\name{normixfdr}
-\alias{normixfdr}
+\name{znormix}
+\alias{znormix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Normal-mixture based estimation of LFDR and pi0 }
 \description{
 This function implements the method of McLachLan, Bean and Jones (2006). 
 }
 \usage{
-normixfdr(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbose=FALSE)
+znormix(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbose=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
