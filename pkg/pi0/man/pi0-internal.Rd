@@ -39,6 +39,8 @@
 \alias{summary.parncpF}
 \alias{summary.sparncpF}
 
+\alias{lfdr2p}
+
 \title{internal functions not to be used by users directly}
 \description{
   Internal Functions Not to Be Used by Users Directly.
