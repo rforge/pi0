@@ -12,7 +12,7 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.3-151\cr
+Version: \tab 1.3-152\cr
 Date: \tab 2011-05-16\cr
 License: \tab GPL version 2 or newer\cr
 }
@@ -28,7 +28,7 @@ License: \tab GPL version 2 or newer\cr
 \item{\code{\link{nparncpt}}}{Nonparametrically estimate the distribution of noncentrality parameters. }
 \item{\code{\link{sparncpt}}}{Semiparametrically estimate the distribution of noncentrality parameters.} 
 \item{\code{\link{nparncpp}}}{Nonparametric estimate of the distribution of absolute noncentrality parameters from a large number of p-values. }
-\item{\code{\link{CBUM}}}{Cenceroed Beta-Uniform mixture model for p-values. }
+\item{\code{\link{CBUM}}}{(Censored) Beta-Uniform mixture model for p-values. }
 \item{\code{\link{znormix}}}{Normal mixture model for z-scores. }
 }
 }

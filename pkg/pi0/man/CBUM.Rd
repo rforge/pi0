@@ -1,7 +1,7 @@
 \name{CBUM}
 \alias{CBUM}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Censored Beta-Uniform mixture for p-values }
+\title{ (Censored) Beta-Uniform mixture for p-values }
 \description{
 This function implements the method of Markitsis and Lai (2010).  
 }
