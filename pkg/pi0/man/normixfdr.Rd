@@ -13,17 +13,19 @@ normixfdr(p, theoretical.null=TRUE, start.pi0, eps=1e-3, niter=Inf, verbose=FALS
   \item{p}{ a numeric vector the p-values }
   \item{theoretical.null}{ logical scalar, indicating whether theoretical N(0,1) null distribution is assumed for z-scores. }
   \item{start.pi0}{ optional numeric scalar, starting value of pi0 for EM algorithm; if missing, \code{\link[qvalue:qvalue]{qvalue}} will be called with default arguments to get this starting value. }
-  \item{eps} {numeric scalar, maximum tolerable absolute difference of parameter estimates for successive iterations in the EM algorithm. }
-  \item{niter} {numeric scalar, maximum number of EM iterations.}
-  \item{verbose} {logical scalar, indicating whether excessive outputs will be printed during EM algorithm.}
+  \item{eps}{numeric scalar, maximum tolerable absolute difference of parameter estimates for successive iterations in the EM algorithm. }
+  \item{niter}{numeric scalar, maximum number of EM iterations.}
+  \item{verbose}{logical scalar, indicating whether excessive outputs will be printed during EM algorithm.}
 }
 \details{
 A two-component normal mixture model is fit thru EM algorithm on the z-scores, where \code{z=qnorm(1-p)}. 
 }
 \note{
 There are two small differences with McLachlan, Bean and Jones (2006): 
+        \itemize{
         \item{If \code{start.pi0} is missing, it is estimated by the q-value smoother method implimented in \code{\link[qvalue:qvalue]{qvalue}}.}
         \item{For the empirical null case, a call to \code{quantile(z, start.pi0)} is used as the threshold to determine the initial component assignment, when choosing starting values. }
+        }
 }
 \value{
 	A length 5 numeric named vector of estimated parameters, with class 'normfixfdr' and attributes
