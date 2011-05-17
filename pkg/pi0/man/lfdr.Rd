@@ -4,10 +4,18 @@
 \alias{lfdr.parncpt}
 \alias{lfdr.sparncpt}
 \alias{lfdr.nparncpt}
+\alias{lfdr.nparncpp}
+\alias{lfdr.CBUM}
+\alias{lfdr.znormix}
+\alias{lfdr.convest}
 \alias{ppee}
 \alias{ppee.parncpt}
 \alias{ppee.sparncpt}
 \alias{ppee.nparncpt}
+\alias{ppee.nparncpp}
+\alias{ppee.CBUM}
+\alias{ppee.znormix}
+\alias{ppee.convest}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
         Local False Discovery Rates (lfdr), i.e., Posterior Probability of Equivalent Expression (ppee) for gene expression profiling data. 
@@ -30,12 +38,15 @@ ppee(object, ...)
 \method{ppee}{CBUM}(object, ...)
 \method{lfdr}{znormix}(object, ...)
 \method{ppee}{znormix}(object, ...)
+\method{lfdr}{convest}(object, ...)
+\method{ppee}{convest}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{ an object of class \code{parncpt}, \code{sparncpt}, or \code{nparncpt}.
 %%     ~~Describe \code{object} here~~
 }
+  \item{\dots}{Other arguments currently not used.}
 }
 %\details{
 %%%  ~~ If necessary, more details than the description above ~~
