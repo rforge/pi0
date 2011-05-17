@@ -25,3 +25,9 @@ function(object, ...)
 {
     attr(object, 'lfdr')
 }
+
+lfdr.convest=ppee.convest=
+function(object, ...)
+{
+    attr(object, 'lfdr')
+}
