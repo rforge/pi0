@@ -1,3 +1,4 @@
+convest=
 function (p, niter = 100, doplot = FALSE, doreport = FALSE) 
 {
     if (!length(p)) 
