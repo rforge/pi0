@@ -26,6 +26,10 @@ ppee(object, ...)
 \method{ppee}{nparncpt}(object, ...)
 \method{lfdr}{nparncpp}(object, ...)
 \method{ppee}{nparncpp}(object, ...)
+\method{lfdr}{CBUM}(object, ...)
+\method{ppee}{CBUM}(object, ...)
+\method{lfdr}{znormix}(object, ...)
+\method{ppee}{znormix}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

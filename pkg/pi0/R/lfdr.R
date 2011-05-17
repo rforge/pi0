@@ -13,3 +13,15 @@ function(object, ...)
 {
     object$LFDR
 }
+
+lfdr.CBUM=ppee.CBUM=
+function(object, ...)
+{
+    attr(object, 'lfdr')
+}
+
+lfdr.znormix=ppee.znormix=
+function(object, ...)
+{
+    attr(object, 'lfdr')
+}

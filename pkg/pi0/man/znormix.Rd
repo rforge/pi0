@@ -28,7 +28,7 @@ There are two small differences with McLachlan, Bean and Jones (2006):
         }
 }
 \value{
-	A length 5 numeric named vector of estimated parameters, with class 'normfixfdr' and attributes
+	A length 5 numeric named vector of estimated parameters, with class 'znormix' and attributes
         
         \item{theoretical.null}{the same as input.}
         \item{converged}{logical, convergence status.}

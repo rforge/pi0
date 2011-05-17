@@ -61,7 +61,7 @@ znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbo
     attr(new.par, 'call')=match.call()
     attr(new.par, 'lfdr')=ppee
     attr(new.par, 'fdr')=fdr
-    class(new.par)='normmixfdr'
+    class(new.par)='znormix'
     new.par
 }
 

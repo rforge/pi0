@@ -28,7 +28,8 @@ implements the censored (1-paramater beta)-uniform mixture model to a large numb
         \item{iter}{numeric, number of iterations.}
         \item{call}{the \code{match.call()} result.}
         \item{alpha}{estimated alpha parameter for the beta component.}
-        \item{lambda}{the input threshold for p-values.}        
+        \item{lfdr}{numeric vector estimated local false discovery rates, if \code{thresh.censor<min(p)}; NULL, otherwise}
+        \item{thresh.censor}{the censoring threshold for p-values.}        
 }
 \references{
 Anastasios Markitsis and Yinglei Lai (2010) A censored beta mixture model for the estimation of the proportion of non-differentially expressed genes. Bioinformatics 26(5):640-646.
