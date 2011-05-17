@@ -167,6 +167,11 @@ fitted.parncpt=fitted.values.parncpt=function(object, ...)
 {
     object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*dtn.mix(object$data$tstat, object$data$df,object$mu.ncp,object$sd.ncp,FALSE,...)
 }
+lfdr=ppee=function(object)UseMethod('lfdr')
+lfdr.parncpt=ppee.parncpt=function(object)
+{
+    pmin(pmax(object$pi0*dt(object$data$tstat, object$data$df)/fitted(object), 0), 1)
+}
 summary.parncpt=function(object,...)
 {
     cat("pi0 (proportion of null hypotheses) =", object$pi0, fill=TRUE)

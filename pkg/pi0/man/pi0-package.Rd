@@ -12,8 +12,8 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.3-152\cr
-Date: \tab 2011-05-16\cr
+Version: \tab 1.3-153\cr
+Date: \tab 2011-05-17\cr
 License: \tab GPL version 2 or newer\cr
 }
 \itemize{
