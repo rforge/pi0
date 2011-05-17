@@ -43,7 +43,7 @@ fitted.sparncpt=fitted.values.sparncpt=function(object, ...)
     object$par * fitted(object$parfit) + (1-object$par)*fitted(object$nparfit)
 }
 
-lfdr.sparncpt=ppee.sparncpt=lfdr.parncpt
+#lfdr.sparncpt=ppee.sparncpt=lfdr.parncpt
 
 print.sparncpt=function(x,...)
 {

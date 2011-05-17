@@ -13,17 +13,19 @@
         Local False Discovery Rates (lfdr), i.e., Posterior Probability of Equivalent Expression (ppee) for gene expression profiling data. 
 }
 \description{
-        These functions return pi0*(central t-density)/(marginal t-density). 
+        These functions return pi0*(null test statistic density)/(marginal test statistic density). 
 }
 \usage{
-lfdr(object)
-ppee(object)
-\method{lfdr}{parncpt}(object)
-\method{ppee}{parncpt}(object)
-\method{lfdr}{sparncpt}(object)
-\method{ppee}{sparncpt}(object)
-\method{lfdr}{nparncpt}(object)
-\method{ppee}{nparncpt}(object)
+lfdr(object, ...)
+ppee(object, ...)
+\method{lfdr}{parncpt}(object, ...)
+\method{ppee}{parncpt}(object, ...)
+\method{lfdr}{sparncpt}(object, ...)
+\method{ppee}{sparncpt}(object, ...)
+\method{lfdr}{nparncpt}(object, ...)
+\method{ppee}{nparncpt}(object, ...)
+\method{lfdr}{nparncpp}(object, ...)
+\method{ppee}{nparncpp}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -39,13 +41,14 @@ ppee(object)
 \author{Long Qu \email{longor@iastate.edu}
 %%  ~~who you are~~
 }
-%\note{
+\note{
+        \code{lfdr} and \code{ppee} are equivalent. 
 %%%  ~~further notes~~
-%}
+}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}}, \code{\link{fdr}}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}},  \code{\link{nparncpp}}, \code{\link{fdr}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{

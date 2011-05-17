@@ -308,7 +308,7 @@ fitted.nparncpt=fitted.values.nparncpt=function(object, ...)
     for(k in 1:length(object$all.mus)) nonnull.mat[,k]=dtn.mix(object$data$tstat, object$data$df, object$all.mus[k],object$all.sigs[k],FALSE,...)
     object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*drop(nonnull.mat%*%object$beta)
 }
-lfdr.nparncpt=ppee.nparncpt=lfdr.parncpt
+#lfdr.nparncpt=ppee.nparncpt=lfdr.parncpt
 summary.nparncpt=function(object,...)
 {
     print.nparncpt(object,...)
