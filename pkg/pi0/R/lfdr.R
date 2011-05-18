@@ -1,10 +1,20 @@
 lfdr=ppee=function(object, ...)UseMethod('lfdr')
+lfdr.default=function(object, ...)
+{
+    idx=c(grep('^lfdr$', names(object), ignore=TRUE), grep('^ppee$', names(object), ignore=TRUE))
+    if(length(idx)>0) return (object[[idx[i]]])
+    idx=c(grep('^lfdr$', names(atrributes(object)), ignore=TRUE), grep('^ppee$', names(attributes(object)), ignore=TRUE))
+    if(length(idx)>0) return (attr(object, names(atrributes(object))[idx[i]]))
+    NA
+}
+
 
 lfdr.parncpt=ppee.parncpt=
 lfdr.nparncpt=ppee.nparncpt=
 lfdr.discTMix=ppee.discTMix=
 function(object, ...)
 {
+    if(any(is.na(object))) return (NA)
     pmin(pmax(object$pi0*dt(object$data$tstat, object$data$df)/fitted(object), 0), 1)
 }
 lfdr.sparncpt=ppee.sparncpt=

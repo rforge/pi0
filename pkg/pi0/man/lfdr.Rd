@@ -1,6 +1,7 @@
 \name{lfdr and ppee}
 \Rdversion{1.1}
 \alias{lfdr}
+\alias{lfdr.default}
 \alias{lfdr.parncpt}
 \alias{lfdr.sparncpt}
 \alias{lfdr.nparncpt}
@@ -10,6 +11,7 @@
 \alias{lfdr.convest}
 \alias{lfdr.discTMix}
 \alias{ppee}
+\alias{ppee.default}
 \alias{ppee.parncpt}
 \alias{ppee.sparncpt}
 \alias{ppee.nparncpt}
@@ -28,6 +30,8 @@
 \usage{
 lfdr(object, ...)
 ppee(object, ...)
+\method{lfdr}{default}(object, ...)
+\method{ppee}{default}(object, ...)
 \method{lfdr}{parncpt}(object, ...)
 \method{ppee}{parncpt}(object, ...)
 \method{lfdr}{sparncpt}(object, ...)
