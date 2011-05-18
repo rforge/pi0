@@ -33,7 +33,7 @@ The fitting problem that this function tries to solve is badly conditioned, and 
 \value{
 A list with \code{class} \code{discTMix}, with the following components:
   \item{p0.est}{the estimated proportion of non-differentially expressed genes, after collapsing components with estimated non-centrality sizes below \code{threshold.delta}.}
-  \item{p0.raw}{the estimated proportion before collapsing the components.} 
+  \item{p0.raw and pi0}{the estimated proportion before collapsing the components.} 
   \item{p1}{the estimated proportions of differentially expressed genes corresponding to the effect sizes, relating to \code{p0.raw}.}
   \item{D}{effect sizes of the differentially expressed genes in multiples of the gene-by-gene standard deviation.}
   \item{delta}{effect sizes of the differentially expressed genes expressed as the noncentrality parameter of the corresponding noncentral t-distribution.}
