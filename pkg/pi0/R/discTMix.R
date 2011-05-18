@@ -167,6 +167,6 @@ function(object, ...)
 {
     dtmat=matrix(dt(object$data$tstat, object$data$df), length(object$data$tstat), length(object$p1)+1)
     for(i in 1:length(object$p1)+1)
-        dtmat[,i]=dt(object$data$tstat, object$data$df, object$delta[i-1])
+        dtmat[,i]=suppressWarnings(dt(object$data$tstat, object$data$df, object$delta[i-1]))
     drop(dtmat%*%c(object$p0.raw, object$p1))
 }
