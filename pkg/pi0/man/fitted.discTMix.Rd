@@ -43,7 +43,7 @@ Pawitan Y, Krishna Murthy KR, Michiels S, Ploner A (2005) Bias in the estimation
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{sparncpt}}, \code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{nparncpp}, \code{\link{discTMix}}}
+\seealso{\code{\link{sparncpt}}, \code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{nparncpp}}, \code{\link{discTMix}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{
