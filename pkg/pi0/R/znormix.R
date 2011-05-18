@@ -11,6 +11,8 @@ znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbo
         require(qvalue)
         start.pi0=qvalue(p)$pi0
     }
+    if(start.pi0<=0) start.pi0=1e-3
+    if(start.pi0>=1) start.pi0=1-1e-3
     if(isTRUE(theoretical.null)){
         mu1=mean(z)/(1-start.pi0)
         last.par=c(start.pi0, 0, 1, mu1, sqrt((var(z)-start.pi0-start.pi0*(1-start.pi0)*mu1*mu1)/(1-start.pi0)))
