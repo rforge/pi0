@@ -138,7 +138,7 @@ discTMix= function(tstat, n1=10, n2=n1, nq, p0, p1, D, delta, paired=FALSE,
             }
             ff = apply(FF,2,diff)
             fit = ng* c(ff %*% p)
-            -sum(log(fit)*y)          
+            -sum(log( pmax(fit, min(fit[fit>0])))*y)
     }
 
     # Prepare the starting values; constraints are handled by transformation
