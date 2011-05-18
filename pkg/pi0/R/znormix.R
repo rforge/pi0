@@ -2,6 +2,7 @@ znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbo
 {
   
     z=as.matrix(qnorm(1-p))
+    z[is.infinite(z)]=min(z[is.finite(z)])
     G=length(z); stopifnot(G>=4)
     
     #starting values
