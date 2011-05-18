@@ -2,9 +2,9 @@ lfdr=ppee=function(object, ...)UseMethod('lfdr')
 lfdr.default=ppee.default=function(object, ...)
 {
     idx=c(grep('^lfdr$', names(object), ignore=TRUE), grep('^ppee$', names(object), ignore=TRUE))
-    if(length(idx)>0) return (object[[idx[i]]])
+    if(length(idx)>0) return (object[[idx[idx]]])
     idx=c(grep('^lfdr$', names(attributes(object)), ignore=TRUE), grep('^ppee$', names(attributes(object)), ignore=TRUE))
-    if(length(idx)>0) return (attr(object, names(attributes(object))[idx[i]]))
+    if(length(idx)>0) return (attr(object, names(attributes(object))[idx[idx]]))
     NA
 }
 

@@ -1,7 +1,7 @@
 Package: pi0
 Type: Package
 Title: Estimating the proportion of true null hypotheses for FDR
-Version: 1.3-172
+Version: 1.3-173
 Date: 2011-05-18
 Author: Long Qu <longor@iastate.edu>, Dan Nettleton <dnett@iastate.edu>, Jack Dekkers <jdekkers@iastate.edu>
 Maintainer: Long Qu <longor@iastate.edu>
