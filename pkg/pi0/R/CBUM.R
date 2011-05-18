@@ -40,7 +40,7 @@ CBUM <- function(p, start.pi0=0.5, thresh.censor=0.05, eps=1e-5, niter=Inf, verb
     attr(ans, 'converged')=iter<niter
     attr(ans, 'iter')=iter
     attr(ans, 'alpha')=a_temp
-    attr(ans, 'lfdr')=if(thresh.censor<min(p)) (1-pi1)+pi1*a*p^(a-1) else NULL
+    attr(ans, 'lfdr')=if(thresh.censor<min(p)) ans/((1-pi1)+pi1*a*p^(a-1)) else NULL
     attr(ans, 'thresh.censor')=thresh.censor
     attr(ans, 'call')=match.call()
     class(ans) = 'CBUM'
