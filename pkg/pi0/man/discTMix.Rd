@@ -1,5 +1,5 @@
-\name{tMixture}
-\alias{tMixture}
+\name{discTMix}
+\alias{discTMix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Fit a discrete mixture of (noncentral) t-distributions}
 \description{
