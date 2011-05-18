@@ -85,6 +85,6 @@ Pawitan Y, Krishna Murthy KR, Michiels S, Ploner A (2005) Bias in the estimation
 %myt = tstatistics(xdat, grp, paired=TRUE)$tstat
 %r1p = tMixture(myt, n1=25, nq=3)
 %r1p
-}
+%}
 \keyword{models}% at least one, from doc/KEYWORDS
 \keyword{univar}% __ONLY ONE__ keyword per line
