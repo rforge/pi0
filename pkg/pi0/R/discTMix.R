@@ -1,4 +1,4 @@
-distTMix= function(tstat, n1=10, n2=n1, nq, p0, p1, D, delta, paired=FALSE,
+discTMix= function(tstat, n1=10, n2=n1, nq, p0, p1, D, delta, paired=FALSE,
                     tbreak, ext=TRUE, threshold.delta=0.75, ...)
 #
 # Name: tMixture
