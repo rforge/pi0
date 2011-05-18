@@ -157,6 +157,7 @@ discTMix= function(tstat, n1=10, n2=n1, nq, p0, p1, D, delta, paired=FALSE,
     ans=list(p0.est=p0.est, p0.raw=p0, p1=p1, D = delta/sf, delta = delta, 
          threshold.delta=threshold.delta, AIC=AIC, opt=oo, data=list(tstat=tstat, df=n1+n2-2))
     class(ans)='discTMix'
+    ans
 }
 
 
