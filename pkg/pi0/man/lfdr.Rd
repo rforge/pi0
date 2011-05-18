@@ -8,6 +8,7 @@
 \alias{lfdr.CBUM}
 \alias{lfdr.znormix}
 \alias{lfdr.convest}
+\alias{lfdr.discTMix}
 \alias{ppee}
 \alias{ppee.parncpt}
 \alias{ppee.sparncpt}
@@ -16,6 +17,7 @@
 \alias{ppee.CBUM}
 \alias{ppee.znormix}
 \alias{ppee.convest}
+\alias{ppee.discTMix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
         Local False Discovery Rates (lfdr), i.e., Posterior Probability of Equivalent Expression (ppee) for gene expression profiling data. 
@@ -40,10 +42,12 @@ ppee(object, ...)
 \method{ppee}{znormix}(object, ...)
 \method{lfdr}{convest}(object, ...)
 \method{ppee}{convest}(object, ...)
+\method{lfdr}{discTMix}(object, ...)
+\method{ppee}{discTMix}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{object}{ an object of class \code{parncpt}, \code{sparncpt}, or \code{nparncpt}.
+  \item{object}{ an object of corresponding classes.
 %%     ~~Describe \code{object} here~~
 }
   \item{\dots}{Other arguments currently not used.}
@@ -63,7 +67,8 @@ ppee(object, ...)
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}},  \code{\link{nparncpp}}, \code{\link{fdr}}
+\seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{sparncpt}},  \code{\link{nparncpp}}, \code{\link{fdr}},
+\code{\link{CBUM}}, \code{\link{znormix}}, \code{\link{convest}}, \code{\link{discTMix}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{

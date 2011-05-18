@@ -2,6 +2,7 @@ lfdr=ppee=function(object, ...)UseMethod('lfdr')
 
 lfdr.parncpt=ppee.parncpt=
 lfdr.nparncpt=ppee.nparncpt=
+lfdr.discTMix=ppee.discTMix=
 function(object, ...)
 {
     pmin(pmax(object$pi0*dt(object$data$tstat, object$data$df)/fitted(object), 0), 1)
@@ -35,3 +36,5 @@ function(object, ...)
 {
     attr(object, 'lfdr')
 }
+
+
