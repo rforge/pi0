@@ -165,10 +165,6 @@ discTMix= function(tstat, n1=10, n2=n1, nq, p0, p1, D, delta, paired=FALSE,
 fitted.discTMix=fitted.values.discTMix=
 function(object, ...)
 {
-    nonnull.mat=matrix(NA_real_, length(object$data$tstat), length(object$all.mus))
-    for(k in 1:length(object$all.mus)) nonnull.mat[,k]=dtn.mix(object$data$tstat, object$data$df, object$all.mus[k],object$all.sigs[k],FALSE,...)
-    object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*drop(nonnull.mat%*%object$beta)
-
     dtmat=matrix(dt(object$data$tstat, object$data$df), length(object$data$tstat), length(object$p1)+1)
     for(i in 1:length(object$p1)+1)
         dtmat[,i]=dt(object$data$tstat, object$data$df, object$delta[i])

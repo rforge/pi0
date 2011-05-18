@@ -1,4 +1,4 @@
-\name{fitted}
+\name{fitted.discTMix}
 \Rdversion{1.1}
 \alias{fitted.discTMix}
 \alias{fitted.values.discTMix}
