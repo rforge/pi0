@@ -29,7 +29,7 @@ znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbo
 #        ppee=1/(1+(1-last.par[1])/last.par[1]* 
 #                exp(dnorm(z, last.par[4], last.par[5],log=TRUE)-dnorm(z, last.par[2], last.par[3],log=TRUE)))
         f0=last.par[1]*dnorm(z, last.par[2], last.par[3])
-        ppee=f0/(f0+(1-last.par[1])*dnorm(z, last.par[4], last.par[5]))
+        ppee=pmin(1-1e-6, pmax(1e-6, f0/(f0+(1-last.par[1])*dnorm(z, last.par[4], last.par[5]))))
         new.par[1]=mean(ppee)
         sum.ppee=sum(ppee)
 #        tmp=cov.wt(z, 1-ppee, method='ML')
