@@ -24,7 +24,7 @@ znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbo
 
     #constrained EM algorithm
     iter=1
-    new.par=last.parrd
+    new.par=last.par
     repeat{
 #        ppee=1/(1+(1-last.par[1])/last.par[1]* 
 #                exp(dnorm(z, last.par[4], last.par[5],log=TRUE)-dnorm(z, last.par[2], last.par[3],log=TRUE)))
