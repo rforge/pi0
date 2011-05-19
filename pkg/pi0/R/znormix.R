@@ -15,7 +15,7 @@ znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbo
     if(start.pi0>=1) start.pi0=1-1e-3
     if(isTRUE(theoretical.null)){
         mu1=mean(z)/(1-start.pi0)
-        last.par=c(start.pi0, 0, 1, mu1, sqrt((var(z)-start.pi0-start.pi0*(1-start.pi0)*mu1*mu1)/(1-start.pi0)))
+        last.par=c(start.pi0, 0, 1, mu1, sqrt(pmax(1e-3,(var(z)-start.pi0-start.pi0*(1-start.pi0)*mu1*mu1)/(1-start.pi0))))
     }else{
         zcut=quantile(z, start.pi0)
         z0.idx=which(z<zcut)
@@ -24,7 +24,7 @@ znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbo
 
     #constrained EM algorithm
     iter=1
-    new.par=last.par
+    new.par=last.parrd
     repeat{
 #        ppee=1/(1+(1-last.par[1])/last.par[1]* 
 #                exp(dnorm(z, last.par[4], last.par[5],log=TRUE)-dnorm(z, last.par[2], last.par[3],log=TRUE)))
