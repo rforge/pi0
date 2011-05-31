@@ -67,7 +67,13 @@ parncpt.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
         starts=grid.search(obj, default.grids$lower, default.grids$upper, default.grids$ngrid)
     }
     names(starts)=c('pi0','mu.ncp','sd.ncp')
-    optimFit=optim(starts,obj,gr=deriv.non0mean, method='L-BFGS-B',lower=c(0,-Inf,0),upper=c(1,Inf,Inf),hessian=TRUE,...)
+    optimFit=try(optim(starts,obj,gr=deriv.non0mean, method='L-BFGS-B',lower=c(0,-Inf,0),upper=c(1,Inf,Inf),hessian=TRUE,...))
+    if(class(optimFit)=='try-error'){
+        optimFit=try(nlminb(starts,obj,deriv.non0mean,lower=c(0,-Inf,0),upper=c(1,Inf,Inf), ...))
+    }
+    if(class(optimFit)=='try-error'){
+        return(NA_real_)
+    }
 
     ll=-optimFit$value
     attr(ll,'df')=3
