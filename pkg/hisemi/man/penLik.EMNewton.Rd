@@ -8,7 +8,8 @@
 \usage{
 penLik.EMNewton(tstat, x, df, spar = 10^seq(-1,8,length=30), 
         nknots = 100, starts, tuning.method = c("NIC", "CV"), 
-        cv.fold = 5, optim.method = c("nlminb", "BFGS", "CG", 
+        cv.fold = 5, pen.order=1,poly.degree=pen.order*2-1,
+        optim.method = c("nlminb", "BFGS", "CG", 
         "L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
         logistic.correction = TRUE, em.iter.max = 10, 
         em.beta.iter.max = 1, newton.iter.max = 1500, 
@@ -25,7 +26,9 @@ penLik.EMNewton(tstat, x, df, spar = 10^seq(-1,8,length=30),
   \item{starts}{ An optional numeric vector of starting values}
   \item{tuning.method}{ Either \code{'NIC'} or \code{'CV'}, specifying the method to choose the tuning parameter \code{spar} }
   \item{cv.fold}{ A numeric scalar of the fold for cross-validation. Ignored if \code{tuning.method='NIC'}. }
-  \item{optim.method}{ A character scalar specifying the method of optimization }
+  \item{pen.order}{ A numeric scalar of the order of derivatives of which squared integration will be used as roughness penalty.}
+  \item{poly.degree}{ A numeric scalar of the degree of B-splines. }
+  \item{optim.method}{ A character scalar specifying the method of optimization. }
   \item{logistic.correction}{ A logical scalar specifying whether or not the effective number of parameters should be corrected using a logistic curve }
   \item{em.iter.max}{ A numeric scalar specifying the maximum number of EM iterations. If being \code{Inf}, then EM algorithm is used. If being \code{0}, then Newton method is used. Otherwise, EM algorithm is used initially, followed by Newton method. }
   \item{em.beta.iter.max}{ A numeric scalar specifying the maximum number of iterations in the maximization step for the beta parameters in the EM algorithm. If being \code{Inf}, the original EM is used. If being 1 or other numbers, the generalized EM algorithm is used. }

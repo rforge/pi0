@@ -1,7 +1,7 @@
 ########## EM algorithm followed by Newton-type optimization
 penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, starts,
      tuning.method=c('NIC','CV') ,#'GCV','BIC','CAIC','HQIC'),
-     cv.fold=5, 
+     cv.fold=5, pen.order=1,poly.degree=pen.order*2-1,
      optim.method=c('nlminb',"BFGS","CG","L-BFGS-B","Nelder-Mead", "SANN", 'NR'),
      logistic.correction=TRUE,
      em.iter.max=10, 
@@ -59,13 +59,12 @@ penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, sta
     Pen.mat=matrix(0,1,1)       ########### intercept term is not penalized
     for(i in 1:n.vars){
         knots.all=unique(quantile(x[,i], 1:nknots/(nknots+1)))
-        H.i=bs(x[,i],knots=knots.all, degree=2, intercept=FALSE)  ########### intercept term is not penalized
-                   ## degree=2 corresponds to 1st order differencing; spar->infinity ==> constant pi0
+        H.i=bs(x[,i],knots=knots.all, degree=poly.degree, intercept=FALSE)  ########### intercept term is not penalized
         H.all=cBind(H.all,H.i[,])
         j.all=c(j.all, rep(i, ncol(H.i)))
 ######## derivative penalties 
-        Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=3)  ## norder=3 means quadratic
-        Pen.i=bsplinepen(Hobj.i, Lfdobj=1)[-1,-1] ########### intercept term is not penalized
+        Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
+        Pen.i=bsplinepen(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized
         
         Pen.mat=directSum(Pen.mat,Pen.i)
     }
