@@ -67,7 +67,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, sta
         j.all=c(j.all, rep(i, ncol(H.i)))
 ######## derivative penalties 
         if(pen.order*2-1==poly.degree){
-          Pen.i=OsplinePen(range(x[,i]), knots.all, pen.order)
+          Pen.i=OsplinePen(range(x[,i]), knots.all, pen.order)[-1,-1]
         }else if (pen.order != poly.degree) {
           Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
           Pen.i=bsplinepen(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized

@@ -47,8 +47,11 @@ if(FALSE){
     O6=OsplinePen(b.k, br, 6)
 
     library(fda)
-    des1=create.bspline.basis(c(0,1),norder=2, breaks=br)
+    des1=create.bspline.basis(c(0,1),norder=2, breaks=c(b.k[1], br, b.k[2]))
     P1=bsplinepen(des1, 1)
+    P1=bsplinepen.fda(des1,1)
+    max(abs(P1-O1))
+
     des2=create.bspline.basis(c(0,1),norder=4, breaks=c(b.k[1], br, b.k[2]))
     P2=bsplinepen(des2, 2)
     max(abs(P2-O2))
