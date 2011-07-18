@@ -11,7 +11,10 @@ penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, sta
      debugging=FALSE, plotit=TRUE,...)
 {
     if(debugging)options(error=quote(dump.frames("testdump", TRUE)))  ## this will save the objects when error occurs
-
+    pen.order=round(pen.order)
+    poly.degree=round(poly.degree)
+    cv.fold=round(cv.fold)
+    
 ##### initializing central t and non-central t
     dt0.all=dt(tstat,df)
 ###### saturated fit           
@@ -63,8 +66,15 @@ penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, sta
         H.all=cBind(H.all,H.i[,])
         j.all=c(j.all, rep(i, ncol(H.i)))
 ######## derivative penalties 
-        Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
-        Pen.i=bsplinepen(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized
+        if(pen.order*2-1==poly.degree){
+          Pen.i=OsplinePen(range(x[,i]), knots.all, pen.order)
+        }else if (pen.order != poly.degree) {
+          Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
+          Pen.i=bsplinepen(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized
+        }else {
+          Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
+          Pen.i=bsplinepen.fda(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized
+        }
         
         Pen.mat=directSum(Pen.mat,Pen.i)
     }
