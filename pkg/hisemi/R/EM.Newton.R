@@ -313,7 +313,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, sta
 
     ########## logistic correction to the enp
     if(logistic.correction){
-        enp.logistic=try(logistic.enp(log10(spar), enps[cv.i,], ncol(H.all)+1), 2+nvars*(pen.order-1), silent=TRUE)
+        enp.logistic=try(logistic.enp(log10(spar), enps[cv.i,], ncol(H.all)+1, 2+nvars*(pen.order-1)), silent=TRUE)
         if(class(enp.logistic)=='try-error') enp.logistic=enps[cv.i,]
         enps[cv.i,]=enp.logistic
     }
