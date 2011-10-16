@@ -30,7 +30,7 @@ effective number of parameters (\code{enp}).
 \references{
 Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
-\author{Long Qu \email{longor@iastate.edu}
+\author{Long Qu \email{lqu@biostatsolutions.com}
 %%  ~~who you are~~
 }
 %\note{

@@ -13,7 +13,7 @@ subt=function(dat,
     if(N!=n1+n2) stop("ncol(dat) does match n1+n2")
     f1method=f1method[1]
     if(f1method=='qvalue') {
-        loadOrInstall("qvalue")
+        #loadOrInstall("qvalue")
         q.pi0=function(p,...)qvalue(p,...)$pi0
     }
 

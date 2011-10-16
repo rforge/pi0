@@ -34,7 +34,7 @@
 \references{
 Pawitan Y, Krishna Murthy KR, Michiels S, Ploner A (2005) Bias in the estimation of false discovery rate in microarray studies, Bioinformatics.
 }
-\author{Long Qu \email{longor@iastate.edu}
+\author{Long Qu \email{lqu@biostatsolutions.com}
 %%  ~~who you are~~
 }
 %\note{

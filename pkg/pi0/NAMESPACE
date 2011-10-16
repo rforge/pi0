@@ -1,0 +1,176 @@
+import(Matrix)
+importFrom(stats, coef, coefficients, fitted, fitted.values, vcov, logLik)
+importFrom(graphics, plot)
+importFrom(numDeriv, grad, hessian)
+importFrom(qvalue, qvalue)
+importFrom(scatterplot3d, scatterplot3d)
+importFrom(Iso, pava)
+importFrom(rgl, plot3d, persp3d)
+#import(  limma, OCplus)  #convest and tMixture respectively
+#importExcept(Matrix, summary, update)
+importFrom(kernlab, ipop, primal)
+importFrom(quadprog, solve.QP)
+importFrom(limSolve, lsei)
+
+
+
+export(
+    agjack.pi0,
+    CBUM,
+    clean.cdf, 
+    combn2R,
+    combn2RRepl,
+    combnBt2RAllDifc,
+    combnBt2Rc, 
+    combnBtRc,
+    combnRRepl,
+    cond.cdf,
+    convest,
+    dFsnc.mix,
+    discTMix, 
+    dncp,
+    dt.int2,
+    dt.lap,
+    dt.sad,
+    dtn.mix, 
+    extrp.pi0,
+    extrp.pi0.both,
+    extrp.pi0.both.gam2, 
+    extrp.pi0.gam2,
+    extrp.pi0.only,
+    extrp.pi0.rate, 
+    extrp.pi0.rate.gam2,
+    extrp.pi0.slope,
+    extrp.pi0.slope.gam2, 
+    fdr,
+    fold,
+    geomean,
+    gjack, 
+    grid.search,
+    harmean,
+    histf1, 
+    lastbin,
+    lfdr, 
+    load.cdf, 
+    loadOrInstall, 
+    marginal.dt,
+    marginal.dt.nparncpt,
+    marginal.dt.parncpt,
+    marginal.dt.sparncpt, 
+    matrix.t.test,
+    momeff.nonzeromean,
+    momeff.zeromean, 
+    mTruncNorm,
+    mTruncNorm.int2,
+    NBsplines, 
+    nparncpF,
+    nparncpF.sqp,
+    nparncpp, 
+    nparncpp.iter,
+    nparncpt,
+    nparncpt.sqp, 
+    parncpF,
+    parncpF.lbfgsb.central,
+    parncpF.lbfgsb.noncentral, 
+    parncpF.unconstrained.central,
+    parncpF.unconstrained.noncentral,
+    parncpt, 
+    parncpt.bfgs.0mean,
+    parncpt.bfgs.non0mean,
+    parncpt.momeff, 
+    pavaf1,
+    pdf.dist, 
+    ppee, 
+    pt.sad,
+    reflect,
+    save.cdf, 
+    sim.dat,
+    sparncpF,
+    sparncpF.nparncpF, 
+    sparncpF.numeric,
+    sparncpF.parncpF,
+    sparncpt, 
+    sparncpt.nparncpt,
+    sparncpt.numeric,
+    sparncpt.parncpt, 
+    subex,
+    subt, 
+    varB, 
+    znormix
+)
+
+
+S3method(coef, ncpest)
+S3method(coefficients, ncpest)
+S3method(dncp, nparncpF)
+S3method(dncp, nparncpp)
+S3method(dncp, nparncpt)
+S3method(dncp, parncpF)
+S3method(dncp, parncpt)
+S3method(dncp, sparncpF)
+S3method(dncp, sparncpt)
+S3method(fitted, discTMix)
+S3method(fitted, nparncpF)
+S3method(fitted, nparncpp)
+S3method(fitted, nparncpt)
+S3method(fitted, parncpF)
+S3method(fitted, parncpt)
+S3method(fitted, sparncpF)
+S3method(fitted, sparncpt)
+S3method(fitted.values, discTMix)
+S3method(fitted.values, nparncpF)
+S3method(fitted.values, nparncpp)
+S3method(fitted.values, nparncpt)
+S3method(fitted.values, parncpF)
+S3method(fitted.values, parncpt)
+S3method(fitted.values, sparncpF)
+S3method(fitted.values, sparncpt)
+S3method(lfdr, CBUM)
+S3method(lfdr, convest)
+S3method(lfdr, default)
+S3method(lfdr, discTMix)
+S3method(lfdr, nparncpp)
+S3method(lfdr, nparncpt)
+S3method(lfdr, parncpt)
+S3method(lfdr, sparncpt)
+S3method(lfdr, znormix)
+S3method(logLik, ncpest)
+S3method(plot, extrpi0)
+S3method(plot, nparncpF)
+S3method(plot, nparncpt)
+S3method(plot, parncpF)
+S3method(plot, parncpt)
+S3method(plot, sparncpF)
+S3method(plot, sparncpt)
+S3method(plot, subex)
+S3method(plot, subt)
+S3method(ppee, CBUM)
+S3method(ppee, convest)
+S3method(ppee, default)
+S3method(ppee, discTMix)
+S3method(ppee, nparncpp)
+S3method(ppee, nparncpt)
+S3method(ppee, parncpt)
+S3method(ppee, sparncpt)
+S3method(ppee, znormix)
+S3method(print, extrpi0)
+S3method(print, nparncpF)
+S3method(print, nparncpt)
+S3method(print, parncpF)
+S3method(print, parncpt)
+S3method(print, sparncpF)
+S3method(print, sparncpt)
+S3method(print, subex)
+S3method(print, subt)
+S3method(summary, extrpi0)
+S3method(summary, nparncpF)
+S3method(summary, nparncpt)
+S3method(summary, parncpF)
+S3method(summary, parncpt)
+S3method(summary, sparncpF)
+S3method(summary, sparncpt)
+S3method(summary, subex)
+S3method(summary, subt)
+S3method(vcov, ncpest)
+
+useDynLib(pi0)

@@ -34,7 +34,7 @@ Computes \code{(theta1-R*theta2)/(1-R)}
 \references{
 Henry L. Gray, W. R. Schucany. 1972. The generalized jackknife statistic. New York, M. Dekker.
 }
-\author{ Long Qu [\email{longor@iastate.edu}] }
+\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
 %\note{
 %
 %

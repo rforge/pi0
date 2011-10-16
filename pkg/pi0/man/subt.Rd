@@ -59,7 +59,7 @@ in each treatment group. This object also has the following \code{\link{attribut
 Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 
 Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 }
-\author{ Long Qu \email{longor@iastate.edu} }
+\author{ Long Qu \email{lqu@biostatsolutions.com} }
 \note{ 
 \code{max.reps} applies to each subsample size configuration. For example, 2 subjects subsampled from 
 treatment group1 and 3 subjects subsampled from treatment group 2 will be considered as a different 

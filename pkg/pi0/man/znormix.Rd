@@ -41,7 +41,7 @@ There are two small differences with McLachlan, Bean and Jones (2006):
 \references{
 G.J. McLachlan, R.W. Bean and L. Ben-Tovim Jones. (2006) A Simple implementation of a normal mixture approach to differential gene expression in multiclass microarrays. Bioinformatics, 22(13):1608-1615. 
 }
-\author{ Long Qu \email{longor@iastate.edu} }
+\author{ Long Qu \email{lqu@biostatsolutions.com} }
 \seealso{\code{\link[qvalue:qvalue]{qvalue}}, \code{\link{histf1}}}
 \examples{
 set.seed(9992722)

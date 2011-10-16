@@ -34,7 +34,7 @@ implements the censored (1-paramater beta)-uniform mixture model to a large numb
 \references{
 Anastasios Markitsis and Yinglei Lai (2010) A censored beta mixture model for the estimation of the proportion of non-differentially expressed genes. Bioinformatics 26(5):640-646.
 }
-\author{ Long Qu \email{longor@iastate.edu} modified the code from Markitsis and Lai (2010). }
+\author{ Long Qu \email{lqu@biostatsolutions.com} modified the code from Markitsis and Lai (2010). }
 \seealso{\code{\link[qvalue:qvalue]{qvalue}}, \code{\link{histf1}}}
 \examples{
 set.seed(9992722)

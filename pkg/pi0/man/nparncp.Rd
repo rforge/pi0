@@ -103,7 +103,7 @@ of the basis Gaussian density functions.
 Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 %% ~put references to the literature/web site here ~
 }
-\author{Long Qu \email{longor@iastate.edu}
+\author{Long Qu \email{lqu@biostatsolutions.com}
 %%  ~~who you are~~
 }
 \note{

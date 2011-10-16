@@ -12,8 +12,8 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.3-182\cr
-Date: \tab 2011-05-30\cr
+Version: \tab 1.3-189\cr
+Date: \tab 2011-10-15\cr
 License: \tab GPL version 2 or newer\cr
 }
 \itemize{
@@ -33,9 +33,9 @@ License: \tab GPL version 2 or newer\cr
 }
 }
 \author{
-Long Qu \email{longor@iastate.edu}
+Long Qu \email{lqu@biostatsolutions.com}
 
-Maintainer: Long Qu \email{longor@iastate.edu}
+Maintainer: Long Qu \email{lqu@biostatsolutions.com}
 }
 \references{
 Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 

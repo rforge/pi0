@@ -31,7 +31,7 @@ parncpF.lbfgsb.noncentral=function(Fstat,df1,df2,starts, grids, approximation='n
         }
         
     deriv.noncentral=function(parms) { ### FIXME: analytical derivative not implemented yet
-        loadOrInstall("numDeriv")
+        #loadOrInstall("numDeriv")
         grad(obj, parms)
     }
     if(missing(starts)) {
@@ -72,7 +72,7 @@ parncpF.unconstrained.noncentral=function(Fstat,df1,df2,starts, grids, method='N
         }
         
     deriv.noncentral=function(parms) { ### FIXME: analytical derivative not implemented yet
-        loadOrInstall("numDeriv")
+        #loadOrInstall("numDeriv")
         grad(obj, parms)
     }
     if(missing(starts)) {
@@ -100,7 +100,7 @@ parncpF.lbfgsb.central=function(Fstat,df1, df2, starts, grids, approximation='no
                 -sum(log(Lik))
     }
     deriv.central=function(parms){### FIXME: analytical derivative not implemented yet
-        loadOrInstall("numDeriv")
+        #loadOrInstall("numDeriv")
         grad(obj, parms)
     }
     if(missing(starts)) {
@@ -144,7 +144,7 @@ parncpF.unconstrained.central=function(Fstat,df1, df2, starts, grids, method='Ne
                 -sum(log(Lik))
     }
     deriv.central=function(parms){### FIXME: analytical derivative not implemented yet
-        loadOrInstall("numDeriv")
+        #loadOrInstall("numDeriv")
         grad(obj, parms)
     }
     if(missing(starts)) {

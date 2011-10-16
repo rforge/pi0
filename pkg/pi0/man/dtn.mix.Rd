@@ -55,7 +55,7 @@ Young, G.A. and Smith R.L. 2005. Essentials of statistical inference. Cambridge 
 
 Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
-\author{Long Qu \email{longor@iastate.edu}
+\author{Long Qu \email{lqu@biostatsolutions.com}
 %%  ~~who you are~~
 }
 \note{For normal-normal mixture, set \code{df=Inf}. When this is the case, \code{approximation} is ignored. 

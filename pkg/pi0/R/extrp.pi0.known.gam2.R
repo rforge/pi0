@@ -25,14 +25,14 @@ extrp.pi0.slope=function(n1,n2,y,gam2,eps=1e-5)
                     fitted.obj=NULL))
 
     ## QP solution with constraints
-    loadOrInstall("limSolve")
+    #loadOrInstall("limSolve")
 #    cat("LS=",pi0.ls,slope.ls,crossprod(y-slope.ls*xvec-pi0.ls),fill=T)
     X=cbind(1,c(xvec))
     Gmat=matrix(c(1,0,
                  -1,0,
                   0,1),3,2,by=TRUE)
     hvec=matrix(c(0,-1,eps))
-    lsei.fit=lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
+    lsei.fit=limSolve::lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
     return(list(pi0=lsei.fit$X[1],
                 slope=lsei.fit$X[2],
                 sse=lsei.fit$solutionNorm,
@@ -67,7 +67,7 @@ extrp.pi0.rate=function(n1,n2,y,gam2,rate.interval=c(.3,2),eps=1e-5)
 
 extrp.pi0.both=function(n1,n2,y,gam2,rate.interval=c(.3,2),eps=1e-5)
 {   ## y=(1-pi0)*B+pi0  <==> y-B=(1-B)*pi0
-        loadOrInstall("limSolve")
+        #loadOrInstall("limSolve")
     my=mean(y)
     Gmat=matrix(c(1,0,
                  -1,0,
@@ -84,7 +84,7 @@ extrp.pi0.both=function(n1,n2,y,gam2,rate.interval=c(.3,2),eps=1e-5)
 
         ## QP solution with constraints
         X=cbind(1,c(xvec))
-        lsei.fit=lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
+        lsei.fit=limSolve::lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
         return(lsei.fit$solutionNorm)
     }
 
@@ -105,7 +105,7 @@ extrp.pi0.both=function(n1,n2,y,gam2,rate.interval=c(.3,2),eps=1e-5)
                     par=c(pi0=pi0.ls,gamma2=gam2,slope=slope.ls,rate=rate),
                     fitted.obj=optimize.fit))
     X=cbind(1,c(xvec))
-    lsei.fit=lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
+    lsei.fit=limSolve::lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
     return(list(pi0=lsei.fit$X[1],
                 slope=lsei.fit$X[2],
                 rate=rate,

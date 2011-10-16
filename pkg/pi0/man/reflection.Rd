@@ -25,7 +25,7 @@ See examples.
 \value{ the new function
 }
 %\references{ }
-\author{ Long Qu \email{longor@iastate.edu}}
+\author{ Long Qu \email{lqu@biostatsolutions.com}}
 %\note{
 %}
 %\seealso{  }

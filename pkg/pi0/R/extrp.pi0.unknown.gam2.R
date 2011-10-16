@@ -23,7 +23,7 @@ extrp.pi0.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6))
 
 extrp.pi0.slope.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),eps=1e-5)
 {
-    loadOrInstall("limSolve")
+    #loadOrInstall("limSolve")
     my=mean(y)
     Gmat=matrix(c(1,0,
                  -1,0,
@@ -47,7 +47,7 @@ extrp.pi0.slope.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),eps=1e-5)
         ## QP solution with constraints
     #    cat("LS=",pi0.ls,slope.ls,crossprod(y-slope.ls*xvec-pi0.ls),fill=T)
         X=cbind(1,c(xvec))
-        lsei.fit=lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
+        lsei.fit=limSolve::lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
         return(lsei.fit$solutionNorm
 #               list(pi0=lsei.fit$X[1],
 #                    slope=lsei.fit$X[2],
@@ -74,7 +74,7 @@ extrp.pi0.slope.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),eps=1e-5)
                     fitted.obj=NULL)
         )
     X=cbind(1,c(xvec))
-    lsei.fit=lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
+    lsei.fit=limSolve::lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
     return(list(pi0=lsei.fit$X[1],
                 slope=lsei.fit$X[2],
                 gamma2=gam2,
@@ -122,7 +122,7 @@ extrp.pi0.rate.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),rate.interval=c(.3,
 
 extrp.pi0.both.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),rate.interval=c(.3,2),eps=1e-5)
 {   ## y=(1-pi0)*B+pi0  <==> y-B=(1-B)*pi0
-        loadOrInstall("limSolve")
+        #loadOrInstall("limSolve")
     my=mean(y)
     Gmat=matrix(c(1,0,
                  -1,0,
@@ -141,7 +141,7 @@ extrp.pi0.both.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),rate.interval=c(.3,
 
         ## QP solution with constraints
         X=cbind(1,c(xvec))
-        lsei.fit=lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
+        lsei.fit=limSolve::lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
         return(lsei.fit$solutionNorm)
     }
 
@@ -172,7 +172,7 @@ extrp.pi0.both.gam2=function(n1,n2,y,gam2.interval=c(1e-3,6),rate.interval=c(.3,
                     par=c(pi0=pi0.ls,gamma2=gam2,slope=slope.ls,rate=rate),
                     fitted.obj=optimize.fit))
     X=cbind(1,c(xvec))
-    lsei.fit=lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
+    lsei.fit=limSolve::lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
     return(list(pi0=lsei.fit$X[1],
                 slope=lsei.fit$X[2],
                 rate=rate,

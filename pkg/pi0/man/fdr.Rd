@@ -32,7 +32,7 @@ This implementation avoids explicit loops and is much faster when the number of 
 Benjamini, Y., Hochberg, Y. (1995) Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing. Journal of the Royal Statistical Society, Series B (Methodological) 57, 289-300 \cr
 Storey, J.D.,  Tibshirani, R. (2003) Statistical significance for genomewide studies. The Proceedings of the National Academy of Sciences 100, 9440-9445
 }
-\author{ Long Qu \email{longor@iastate.edu} }
+\author{ Long Qu \email{lqu@biostatsolutions.com} }
 
 \seealso{ \code{\link[qvalue:qvalue]{qvalue}}, \code{\link[multtest:mt.rawp2adjp]{mt.rawp2adjp}}}
 \examples{

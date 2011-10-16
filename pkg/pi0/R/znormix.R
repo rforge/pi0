@@ -8,7 +8,8 @@ znormix=function(p, theoretical.null=TRUE, start.pi0, eps=1e-5, niter=Inf, verbo
     
     #starting values
     if(missing(start.pi0) || start.pi0<0 || start.pi0>1) {
-        require(qvalue)
+        #require(qvalue)
+        loadNamespace('qvalue')
         start.pi0=qvalue(p)$pi0
     }
     if(start.pi0<=0) start.pi0=1e-3

@@ -42,7 +42,7 @@ This is useful for finding a good starting values for many optimization routines
 %\references{
 %%% ~put references to the literature/web site here ~
 %}
-\author{Long Qu \email{longor@iastate.edu}
+\author{Long Qu \email{lqu@biostatsolutions.com}
 %%  ~~who you are~~
 }
 %\note{

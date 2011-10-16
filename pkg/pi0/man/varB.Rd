@@ -27,7 +27,7 @@ varB(m,deltamax,K)
 %
 %
 %}
-\author{ Long Qu [\email{longor@iastate.edu}] }
+\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
 %\note{
 %
 %

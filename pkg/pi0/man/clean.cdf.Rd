@@ -34,7 +34,7 @@ invisible logical status for \code{save.cdf} and \code{clean.cdf}. For \code{loa
 \references{
 Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 }
-\author{ Long Qu [\email{longor@iastate.edu}] }
+\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
 %\note{
 %
 %

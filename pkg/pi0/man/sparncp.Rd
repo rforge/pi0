@@ -45,7 +45,7 @@ I. Olkin and C. H. Spiegelman.  1987. A Semiparametric Approach to Density Estim
 
 Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
 }
-\author{ Long Qu \email{longor@iastate.edu}}
+\author{ Long Qu \email{lqu@biostatsolutions.com}}
 %\note{ 
 %}
 \seealso{\code{\link{parncpt}}, \code{\link{nparncpt}}, 

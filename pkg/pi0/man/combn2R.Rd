@@ -100,7 +100,7 @@ Note that the results are \emph{not} necessarily in order, which is a difference
 }
 
 
-\author{ Long Qu \email{longor@iastate.edu}  }
+\author{ Long Qu \email{lqu@biostatsolutions.com}  }
 \seealso{ \code{\link[utils]{combn}} in \pkg{utils} or \pkg{combinat},  }
 \examples{
 combn2R(4,2) ### the same as combn(4,2), except an additional attribute

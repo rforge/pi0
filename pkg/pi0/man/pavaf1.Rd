@@ -37,7 +37,7 @@ This function bin the p-values and then run PAVA to estimate the minimum of its 
 %
 %
 %}
-\author{ Long Qu [\email{longor@iastate.edu}] }
+\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
 %\note{
 %
 %

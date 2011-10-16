@@ -48,7 +48,7 @@ dt.lap(x, df, ncp = 0, log = FALSE, normalize = c("central",
 Young, G.A. and Smith R.L. 2005. Essentials of statistical inference. Cambridge University Press. Cambridge, UK. 
 %% ~put references to the literature/web site here ~
 }
-\author{Long Qu \email{longor@iastate.edu}
+\author{Long Qu \email{lqu@biostatsolutions.com}
 %%  ~~who you are~~
 }
 %\note{

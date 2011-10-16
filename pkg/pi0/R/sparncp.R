@@ -200,12 +200,12 @@ plot.sparncpt=function(x,...)
 #        cbind(diag(1,length(thetas)),-1)
 #    }
 #    Amat=grad.C(numeric(K)) ## this is the A matrix for quadprog::solve.QP, i.e., t(A)%*%theta>=theta0 linear constraints
-#                            ## for limSolve::lsei, this is t(G)
+#                            ## for limSolve::lsei(, this is t(G)
 #
 #
 #    sqp=function(thetas, conv.f=1e-10, verbose=FALSE, maxiter=1e3) { ## thetas is a starting value
 #        ## not a general solver; instead, designed for this problem per se
-#        ## depends on solver, grad.NPLL, hess.NPLL, Matrix:::nearPD, Amat, C.fctn
+#        ## depends on solver, grad.NPLL, hess.NPLL, nearPD, Amat, C.fctn
 #
 #        npll.last=Inf
 #        niter=1
@@ -232,14 +232,14 @@ plot.sparncpt=function(x,...)
 #                        tmpA=try(solve.QP(Dmat,dvec,Amat=Amat,bvec)$solution, silent=TRUE)
 #                        if(class(tmpA)=='try-error'){ # solver='lsei'
 #                            tmpA=chol(Dmat); tmpB=.5*drop(forwardsolve(t(tmpA), dvec)); 
-#                            lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
+#                            limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
 #                                 Wx=NULL, Wa=NULL, type=1)$X
 #                        }else tmpA
 #                   }else if (solver=='lsei') {
 #                        tmpA=chol(Dmat); tmpB=.5*drop(forwardsolve(t(tmpA), dvec)); 
-##                        lsei(A=tmpA, B=tmpB, E=matrix(0,1,K), F=0, G=t(Amat), H=bvec, 
+##                        limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,1,K), F=0, G=t(Amat), H=bvec, 
 ##                             Wx=NULL, Wa=NULL, type=1)$X
-#                        lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
+#                        limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
 #                             Wx=NULL, Wa=NULL, type=1)$X
 #                   }else if (solver=='ipop') {  ## not working well ## the R translation of the LOQO code is not very honest
 #                        tmpA=ipop(c=-dvec, H=Dmat, A=t(Amat), b=bvec, l=rep(-1,K), u=rep(1,K), r=rep(1e6,K+1),verb=verbose)
@@ -535,7 +535,7 @@ grad.C=function(thetas){  ## grad.C^TRUE thetas + C >=0
 Amat=grad.C(numeric(K))
     
 sqp=function(thetas, conv.f=1e-10, fnscale, verbose=TRUE) {
-loadOrInstall("quadprog")
+#loadOrInstall("quadprog")
   npll.last=Inf
   repeat{
 

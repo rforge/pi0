@@ -41,7 +41,7 @@ a \code{G}-by-\code{(n1+n2)} matrix.
 Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 
 Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 }
-\author{ Long Qu \email{longor@iastate.edu} }
+\author{ Long Qu \email{lqu@biostatsolutions.com} }
 \examples{
 set.seed(54457704)
 ## an unusually small data set of 20 genes and 3 samples in each of the two treatment groups. 

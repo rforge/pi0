@@ -46,7 +46,7 @@ pt.sad(q, df, ncp = 0, log = FALSE, epsilon = 1e-04)
 Broda, Simon and Paolella, Marc S. 2007. Saddlepoint approximations for the doubly noncentral t distribution, Computational Statistics & Data Analysis, 51,6, 2907-2918.
 %% ~put references to the literature/web site here ~
 }
-\author{Long Qu \email{longor@iastate.edu}
+\author{Long Qu \email{lqu@biostatsolutions.com}
 %%  ~~who you are~~
 }
 %\note{

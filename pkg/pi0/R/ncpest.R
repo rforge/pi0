@@ -227,7 +227,7 @@ nparncpp=function(p,
                     Amat=tcrossprod(tmp$vec%*%diag(sqrt(tmp$val)),tmp$vec)
                     bvec=solve(Amat,drop(yWWZ))
                 }
-                thetanew=lsei(A=Amat, B=bvec, E=Emat, F=fvec, G=Gmat, H=hvec,...)
+                thetanew=limSolve::lsei(A=Amat, B=bvec, E=Emat, F=fvec, G=Gmat, H=hvec,...)
                 curmin=thetanew$solutionNorm-crossprod(bvec)/2
                 thetanew=thetanew$X
                 curmin.nopen=-yWWZ%*%thetanew+.5*t(thetanew)%*%ZWWZ%*%thetanew

@@ -77,7 +77,7 @@ for \code{parncpt.bfgs.non0mean} the middle parameter is the mean of noncentrali
 Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality parameter distribution from a large number of t-statistics, with applications to false discovery rates in microarray data. (manuscripts under preparation). 
 %% ~put references to the literature/web site here ~
 }
-\author{Long Qu \email{longor@iastate.edu}
+\author{Long Qu \email{lqu@biostatsolutions.com}
 %%  ~~who you are~~
 }
 \note{\code{df} could be \code{Inf} for z-tests. When this is the case, \code{approximation} is ignored. 
