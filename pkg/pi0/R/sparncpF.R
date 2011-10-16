@@ -660,7 +660,7 @@ for(i in rev(seq(along=nics))){
     enps[i]=enp(sqp.fit)
     tmp=NPLL(sqp.fit,FALSE)
     nics[i]=sum(tmp)+enps[i]
-    nic.sd[i]=sd(tmp)*sqrt(G)
+    nic.sd[i]=sd(drop(tmp))*sqrt(G)
     pi0s[i]=1-sum(sqp.fit)
     hist(ncps,pr=TRUE,xlim=c(min(Fstat),max(Fstat)),br=40,sub=lambda,main=enps[i]); rug(mus); 
     curve(d.ncp(x, sqp.fit/sum(sqp.fit)), min(Fstat),max(Fstat),100,add=TRUE,col=4,lwd=2)
