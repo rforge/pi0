@@ -27,7 +27,7 @@ scaledTMix.null(tstat, df, starts =
 \references{
 Qu, Nettleton, Dekkers. A Hierarchical Semiparametric Model for Incorporating Inter-gene Information for Analysis of Genomic Data. unpublished manuscript. 
 } 
-\author{ Long Qu \email{longor@iastate.edu}
+\author{ Long Qu \email{lqu@biostatsolutions.com}
 }
 %\note{ 
 %  ~~further notes~~ 

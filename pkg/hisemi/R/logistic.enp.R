@@ -12,7 +12,7 @@ logistic.enp=function(log.spar, enps, maximum, minimum=2, eps=1e-8)
     enps=pmin(pmax(enps[ord], minimum+eps), maximum-eps)
 
     ##########  find mode
-    require(Iso)
+    #require(Iso)
     uf=ufit(enps,x=log.spar)
     goodenp.idx=logical(n.spar)
     sm=which(log.spar==uf$mode)[1]; if(is.na(sm)) sm=1

@@ -53,9 +53,9 @@ penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, sta
     if(!inherits(x,'matrix')) x=as.matrix(x)
     n.vars=ncol(x);
     
-    require(splines)
-    library(Matrix)
-    require(fda)
+#    require(splines)
+#    library(Matrix)
+#    require(fda)
 
     H.all=Matrix(matrix(1,G.all,1),sparse=TRUE);   ########### intercept term is not penalized 
     j.all=0
@@ -198,7 +198,7 @@ penLik.EMNewton=function(tstat,x,df,spar=10^seq(-1,8,length=30), nknots=100, sta
         )
     }
 
-    require(MASS)
+    #require(MASS)
 
 
 ############ setting staring values

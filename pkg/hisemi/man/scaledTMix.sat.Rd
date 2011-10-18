@@ -22,7 +22,7 @@ scaledTMix.sat(tstat, df)
   \item{logLik }{ A numeric vector of log likelihood}
 }
 %\references{ }
-\author{ Long Qu \email{longor@iastate.edu}
+\author{ Long Qu \email{lqu@biostatsolutions.com}
 }
 \note{ 
 Whenever the absolute value of the \code{tstat} is less than 1, \code{pi0} will be esitmated to be 1 and the scale will also be 1. Otherwise, the \code{pi0} will be estimated to be 0 and scale will be the absolute value of \code{tstat}.

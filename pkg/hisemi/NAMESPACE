@@ -1,0 +1,42 @@
+import(Matrix)
+#import(MASS)
+importFrom(Iso, pava, ufit)
+importFrom(splines, bs, splineDesign)
+importFrom(fda, create.bspline.basis, bsplinepen, int2Lfd, create.monomial.basis, monomialpen, bsplineS, ppBspline, inprod)
+importFrom(stats, fitted, fitted.values, confint, logLik, resid, residuals, vcov, coef, coefficients, make.link)
+importFrom(graphics, plot)
+
+
+export(
+  directSum,
+  EMupdate,
+  logistic.enp,
+  logit,
+  logit.inv,
+  NRupdate,
+  OsplinePen,
+  penLik.EMNewton,
+  plotHisemitResid,
+  plotHisemitTuning,
+  scaledTMix.null,
+  scaledTMix.psat,
+  scaledTMix.sat
+)
+
+
+S3method(confint, hisemit)
+S3method(fitted, hisemit)
+S3method(fitted.values, hisemit)
+S3method(logLik, hisemit)
+S3method(plot, hisemit)
+S3method(print, hisemit)
+S3method(resid, hisemit)
+S3method(residuals, hisemit)
+S3method(summary, hisemit)
+S3method(vcov, hisemit)
+S3method(coef, hisemit)
+S3method(coefficients, hisemit)
+
+
+
+#bsplinepen.fda,

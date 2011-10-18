@@ -201,7 +201,7 @@ vcov.hisemit=function(object,...)
 #    AIC(obj,...)
 #}
 
-confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.ncp','r','coef','pi0','f'),level=.95,... )
+confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.ncp','r','coef','pi0','f'),level=.95,component,... )
 {
     parm=match.arg(parm)
     tstat=object$model$tstat
@@ -218,7 +218,7 @@ confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.
         ########### this is toooooooooo slow
         #        var.logit.1ml=sapply(1:length(tstat), function(i)drop(grad[i,,drop=FALSE]%*%V%*%grad[i,]))
         ########### this is much faster
-        chol.V=chol(V)  ## upper triagular
+        chol.V=chol(nearPD(V)$mat)  ## upper triagular
         gradL=tcrossprod(grad,chol.V)
         var.logit.1ml=rowSums(gradL*gradL)
         ########### END: this is much faster
@@ -262,18 +262,32 @@ confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.
         return(cl.coef)
     }
     if(parm=='f'){
-        chol.V=chol(V)
+        if(!is.na(pmatch(component,'intercept')) || (length(component)==1 && component==0)) { 
+            return(rep(1,length(object$model$tstat))%o%confint(object, 'beta')[1,])
+        }
+        if(missing(component)){
+            cov.idx=seq_len(ncol(object$fit$H))
+            fitted.f=fitted(object, 'f')
+        }
+        if (is.numeric(component)) {
+            component=sort(unique(  pmax(pmin(round(component), ncol(object$fit$f.covariate)),0) ))
+            if(length(component)!=1) stop("invalid component")
+            if(component[1]==0){ return(rep(1,length(object$model$tstat))%o%confint(object, 'beta')[1,]) }
+            cov.idx=which(object$fit$covariate.idx==component)
+            fitted.f=fitted(object, 'f', component=component)
+        }
+        chol.V=chol(nearPD(V)$mat)
         grad=cBind(0, object$fit$H)
+        grad[,-cov.idx]=0
         gradL=tcrossprod(grad,chol.V)
         var.f=rowSums(gradL*gradL)
-
-        CL.f=fitted(object,'f')+outer( t.1malpha*sqrt(var.f), c(-1,1) )
+        CL.f=fitted.f+outer( t.1malpha*sqrt(var.f), c(-1,1) )
         colnames(CL.f)=paste(round(c(1-0.5-level/2, 0.5+level/2)*100, 3), '%',sep='')
         rownames(CL.f)=names(tstat)
         return(CL.f)
     }
     if(parm=='pi0'){
-        chol.V=chol(V)
+        chol.V=chol(nearPD(V)$mat)
         grad=cBind(0, object$fit$H)
         gradL=tcrossprod(grad,chol.V)
         var.f=rowSums(gradL*gradL)

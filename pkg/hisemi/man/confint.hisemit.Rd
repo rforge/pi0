@@ -7,13 +7,14 @@ Extract Wald-type asymptotic confidence intervals from a \code{hisemit} object.
 }
 \usage{
 \method{confint}{hisemit}(object, parm = c("lfdr", "fpp", "beta", "scale.fact", 
-        "sd.ncp", "r", "coef", "pi0", "f"), level = 0.95, ...)
+        "sd.ncp", "r", "coef", "pi0", "f"), level = 0.95, component, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{ A \code{hisemit} object. }
   \item{parm}{ One of \code{c("lfdr", "fpp", "beta", "scale.fact", "sd.ncp", "r", "coef", "pi0", "f")}. See details. }
   \item{level}{ A numeric scalar between 0 and 1, specifying the level of confidence. }
+  \item{component}{Specifying which additive component to be extracted. See details. }
   \item{\dots}{ Currently not used. }
 }
 \details{
@@ -27,12 +28,18 @@ Extract Wald-type asymptotic confidence intervals from a \code{hisemit} object.
         \item{\code{'coef'}}{ All parameters }
         \item{\code{'pi0'}}{ Prior probability of true null hypotheses }
         \item{\code{'f'}}{ Underlying smooth function}
-}}
+      }
+        The \code{component} specifies which component of the fitted smooth function to be extracted. \cr
+        If \code{component} is missing, the overal function is returned. \cr
+        If \code{component='intercept'}, only the intercept term is returned. \cr
+        If \code{component} is numeric, then it specifies the smooth function corresponding to which covariate to be extracted. 
+      
+}
 \value{
 A matrix (or vector) with columns giving lower and upper confidence limits for each parameter. 
 }
 \references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
-\author{ Long Qu \email{longor@iastate.edu} }
+\author{ Long Qu \email{lqu@biostatsolutions.com} }
 %\note{ 
 %}
 \seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{resid.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
