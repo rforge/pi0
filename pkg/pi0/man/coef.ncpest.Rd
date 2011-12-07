@@ -35,7 +35,7 @@
 %\references{
 %%% ~put references to the literature/web site here ~
 %}
-\author{Long Qu \email{lqu@biostatsolutions.com}
+\author{Long Qu 
 %%  ~~who you are~~
 }
 %\note{

@@ -28,7 +28,7 @@ A logical scalar. \code{TRUE} if all packages are loaded sucessfully. If \code{F
 %
 %
 %}
-\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
+\author{ Long Qu  }
 %\note{
 %
 %

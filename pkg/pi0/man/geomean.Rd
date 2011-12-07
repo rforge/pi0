@@ -37,7 +37,7 @@ harmean(x)
 %
 %
 %}
-\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
+\author{ Long Qu }
 %\note{
 %
 %

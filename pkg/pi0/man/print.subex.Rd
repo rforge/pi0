@@ -26,7 +26,7 @@ an \code{invisible(NULL)}, used only for its side effects.
 Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 
 Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 }
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\author{ Long Qu }
 \seealso{ \code{\link{subex}}, \code{\link{extrp.pi0}}, \code{\link{print.extrpi0}}, \code{\link{fdr}}}
 \examples{
 \dontrun{

@@ -26,7 +26,7 @@ But this is usually ignorable. The function is defined as:\cr
 	a single numeric value as the estimate. 
 }
 
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\author{ Long Qu  }
 \seealso{\code{\link[qvalue:qvalue]{qvalue}}, \code{\link{histf1}}}
 \examples{
 set.seed(9992722)

@@ -31,7 +31,7 @@ an \code{invisible(NULL)}, used for side effects only.
 Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 
 Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 }
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\author{ Long Qu }
 \note{
   Because this function will call \code{\link{plot.extrpi0}}, a warning will be generated when \pkg{rgl} 
   package is not available. 

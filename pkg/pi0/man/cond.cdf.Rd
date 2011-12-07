@@ -39,7 +39,7 @@ A numeric matrix, with each row corresponding to \code{p.eval} and each column c
 Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
 }
-\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
+\author{ Long Qu  }
 \note{
 Warnings might be produced when full precision is not achieved in \code{\link{pt}}, but this is rarely very problematic. 
 

@@ -40,7 +40,7 @@ If \code{pOnly=FALSE} \emph{and} \code{tOnly=FALSE}, a list of three components 
   \item{p.value}{a numeric vector of p-values, one for each row or column, depending on \code{MARGIN}.}
 }
 
-\author{ Long Qu \email{lqu@biostatsolutions.com}}
+\author{ Long Qu }
 \seealso{\code{\link{apply}},\code{\link{t.test}} }
 \examples{
 set.seed(9992722)

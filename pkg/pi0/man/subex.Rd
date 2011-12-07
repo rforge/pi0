@@ -46,7 +46,7 @@ an object of class \code{subex}, which is a list 4 components:
 Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 
 Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 }
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\author{ Long Qu }
 \note{ 
 Plotting using package \pkg{rgl} will be tried. If not available, a warning will be generated. See \code{\link{plot.extrpi0}} for details.
 }

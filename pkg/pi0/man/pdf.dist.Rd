@@ -23,7 +23,7 @@ pdf.dist(f1, f2, method = c("Hellinger", "abdif"))
 }
 %\references{
 %}
-\author{Long Qu \email{lqu@biostatsolutions.com}}
+\author{Long Qu }
 %\note{
 %
 %

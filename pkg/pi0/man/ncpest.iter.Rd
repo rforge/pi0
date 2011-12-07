@@ -40,7 +40,7 @@ nparncpp.iter(p,estimates=c("all","compromise","pi0","f1"),iter=2,
 Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
 }
-\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
+\author{ Long Qu  }
 %\note{
 %
 %

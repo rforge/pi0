@@ -61,7 +61,7 @@ ppee(object, ...)
 %}
 \value{ A numeric vector of lfdr. 
 }
-\author{Long Qu \email{lqu@biostatsolutions.com}
+\author{Long Qu 
 %%  ~~who you are~~
 }
 \note{
