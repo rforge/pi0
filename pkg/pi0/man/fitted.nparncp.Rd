@@ -1,13 +1,13 @@
 \name{fitted}
 \Rdversion{1.1}
 \alias{fitted.nparncpt}
-\alias{fitted.values.nparncpt}
+%\alias{fitted.values.nparncpt}
 \alias{fitted.nparncpp}
-\alias{fitted.values.nparncpp}
+%\alias{fitted.values.nparncpp}
 \alias{fitted.parncpt}
-\alias{fitted.values.parncpt}
+%\alias{fitted.values.parncpt}
 \alias{fitted.sparncpt}
-\alias{fitted.values.sparncpt}
+%\alias{fitted.values.sparncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Density evaluated at observed statistics for ncpest class
 }
@@ -16,13 +16,13 @@
 }
 \usage{
 \method{fitted}{nparncpt}(object, ...)
-\method{fitted.values}{nparncpt}(object, ...)
+%\method{fitted.values}{nparncpt}(object, ...)
 \method{fitted}{parncpt}(object, ...)
-\method{fitted.values}{parncpt}(object, ...)
+%\method{fitted.values}{parncpt}(object, ...)
 \method{fitted}{sparncpt}(object, ...)
-\method{fitted.values}{sparncpt}(object, ...)
+%\method{fitted.values}{sparncpt}(object, ...)
 \method{fitted}{nparncpp}(object, ...)
-\method{fitted.values}{nparncpp}(object, ...)
+%\method{fitted.values}{nparncpp}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

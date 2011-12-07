@@ -1,7 +1,7 @@
 \name{fitted.discTMix}
 \Rdversion{1.1}
 \alias{fitted.discTMix}
-\alias{fitted.values.discTMix}
+%\alias{fitted.values.discTMix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Density evaluated at observed statistics for discTMix class
 }
@@ -10,7 +10,7 @@
 }
 \usage{
 \method{fitted}{discTMix}(object, ...)
-\method{fitted.values}{discTMix}(object, ...)
+%\method{fitted.values}{discTMix}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

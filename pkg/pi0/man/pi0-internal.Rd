@@ -15,9 +15,9 @@
 \alias{fitted.nparncpF}
 \alias{fitted.parncpF}
 \alias{fitted.sparncpF}
-\alias{fitted.values.nparncpF}
-\alias{fitted.values.parncpF}
-\alias{fitted.values.sparncpF}
+%\alias{fitted.values.nparncpF}
+%\alias{fitted.values.parncpF}
+%\alias{fitted.values.sparncpF}
 \alias{nparncpF}
 \alias{nparncpF.sqp}
 \alias{parncpF}

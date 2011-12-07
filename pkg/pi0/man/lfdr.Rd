@@ -11,15 +11,15 @@
 \alias{lfdr.convest}
 \alias{lfdr.discTMix}
 \alias{ppee}
-\alias{ppee.default}
-\alias{ppee.parncpt}
-\alias{ppee.sparncpt}
-\alias{ppee.nparncpt}
-\alias{ppee.nparncpp}
-\alias{ppee.CBUM}
-\alias{ppee.znormix}
-\alias{ppee.convest}
-\alias{ppee.discTMix}
+%\alias{ppee.default}
+%\alias{ppee.parncpt}
+%\alias{ppee.sparncpt}
+%\alias{ppee.nparncpt}
+%\alias{ppee.nparncpp}
+%\alias{ppee.CBUM}
+%\alias{ppee.znormix}
+%\alias{ppee.convest}
+%\alias{ppee.discTMix}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
         Local False Discovery Rates (lfdr), i.e., Posterior Probability of Equivalent Expression (ppee) for gene expression profiling data. 
@@ -31,23 +31,23 @@
 lfdr(object, ...)
 ppee(object, ...)
 \method{lfdr}{default}(object, ...)
-\method{ppee}{default}(object, ...)
+%\method{ppee}{default}(object, ...)
 \method{lfdr}{parncpt}(object, ...)
-\method{ppee}{parncpt}(object, ...)
+%\method{ppee}{parncpt}(object, ...)
 \method{lfdr}{sparncpt}(object, ...)
-\method{ppee}{sparncpt}(object, ...)
+%\method{ppee}{sparncpt}(object, ...)
 \method{lfdr}{nparncpt}(object, ...)
-\method{ppee}{nparncpt}(object, ...)
+%\method{ppee}{nparncpt}(object, ...)
 \method{lfdr}{nparncpp}(object, ...)
-\method{ppee}{nparncpp}(object, ...)
+%\method{ppee}{nparncpp}(object, ...)
 \method{lfdr}{CBUM}(object, ...)
-\method{ppee}{CBUM}(object, ...)
+%\method{ppee}{CBUM}(object, ...)
 \method{lfdr}{znormix}(object, ...)
-\method{ppee}{znormix}(object, ...)
+%\method{ppee}{znormix}(object, ...)
 \method{lfdr}{convest}(object, ...)
-\method{ppee}{convest}(object, ...)
+%\method{ppee}{convest}(object, ...)
 \method{lfdr}{discTMix}(object, ...)
-\method{ppee}{discTMix}(object, ...)
+%\method{ppee}{discTMix}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

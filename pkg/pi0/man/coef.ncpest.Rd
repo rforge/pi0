@@ -1,7 +1,7 @@
 \name{coef.ncpest}
 \Rdversion{1.1}
 \alias{coef.ncpest}
-\alias{coefficients.ncpest}
+%\alias{coefficients.ncpest}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
         Extract estimated parameters
@@ -11,7 +11,7 @@
 }
 \usage{
 \method{coef}{ncpest}(object,...)
-\method{coefficients}{ncpest}(object,...)
+%\method{coefficients}{ncpest}(object,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
