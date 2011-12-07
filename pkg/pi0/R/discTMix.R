@@ -162,7 +162,7 @@ discTMix= function(tstat, n1=10, n2=n1, nq, p0, p1, D, delta, paired=FALSE,
 
 
 
-fitted.discTMix=fitted.values.discTMix=
+fitted.discTMix=#fitted.values.discTMix=
 function(object, ...)
 {
     if(any(is.na(object))) return (NA)

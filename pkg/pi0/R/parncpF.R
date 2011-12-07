@@ -168,11 +168,13 @@ parncpF.unconstrained.central=function(Fstat,df1, df2, starts, grids, method='Ne
 #{
 #    obj$logLik
 #}
-#coef.parncpF=coefficients.parncpF=function(obj)
+#coef.parncpF=#coefficients.parncpF=
+#function(obj)
 #{
 #    obj$par
 #}
-fitted.parncpF=fitted.values.parncpF=function(object, ...)
+fitted.parncpF=#fitted.values.parncpF=
+function(object, ...)
 {
     object$pi0*df(object$data$Fstat, object$data$df1, object$data$df2)+
     (1-object$pi0)*dFsnc.mix(object$data$Fstat, object$data$df1, object$data$df2, object$delta0,object$gamma2,FALSE,...)

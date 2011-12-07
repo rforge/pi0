@@ -297,11 +297,13 @@ logLik.ncpest=function(object,...)
 {
     object$logLik
 }
-coef.ncpest=coefficients.ncpest=function(object,...)
+coef.ncpest=#coefficients.ncpest=
+function(object,...)
 {
     object$par
 }
-fitted.nparncpt=fitted.values.nparncpt=function(object, ...)
+fitted.nparncpt=#fitted.values.nparncpt=
+function(object, ...)
 {
     
     nonnull.mat=matrix(NA_real_, length(object$data$tstat), length(object$all.mus))

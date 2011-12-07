@@ -38,7 +38,8 @@ sparncpt.parncpt=function(obj1, obj2, ...)
     ans
 }
 
-fitted.sparncpt=fitted.values.sparncpt=function(object, ...)
+fitted.sparncpt=#fitted.values.sparncpt=
+function(object, ...)
 {
     object$par * fitted(object$parfit) + (1-object$par)*fitted(object$nparfit)
 }
@@ -359,11 +360,13 @@ plot.sparncpt=function(x,...)
 #{
 #    object$logLik
 #}
-#coef.ncpest=coefficients.ncpest=function(object,...)
+#coef.ncpest=#coefficients.ncpest=
+#function(object,...)
 #{
 #    object$par
 #}
-#fitted.sparncp=fitted.values.sparncp=function(object, ...)
+#fitted.sparncp=#fitted.values.sparncp=
+#function(object, ...)
 #{
 #    
 #    nonnull.mat=matrix(NA_real_, length(object$data$tstat), length(object$all.mus))

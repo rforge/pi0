@@ -165,11 +165,13 @@ parncpt.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
 #{
 #    obj$logLik
 #}
-#coef.parncp=coefficients.parncp=function(obj)
+#coef.parncp=#coefficients.parncp=
+#function(obj)
 #{
 #    obj$par
 #}
-fitted.parncpt=fitted.values.parncpt=function(object, ...)
+fitted.parncpt=#fitted.values.parncpt=
+function(object, ...)
 {
     object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*dtn.mix(object$data$tstat, object$data$df,object$mu.ncp,object$sd.ncp,FALSE,...)
 }
