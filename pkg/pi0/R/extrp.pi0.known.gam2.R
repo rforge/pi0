@@ -30,7 +30,7 @@ extrp.pi0.slope=function(n1,n2,y,gam2,eps=1e-5)
     X=cbind(1,c(xvec))
     Gmat=matrix(c(1,0,
                  -1,0,
-                  0,1),3,2,by=TRUE)
+                  0,1),3,2,byrow=TRUE)
     hvec=matrix(c(0,-1,eps))
     lsei.fit=limSolve::lsei(A=X,B=y,G=Gmat,H=hvec,verbose=FALSE)
     return(list(pi0=lsei.fit$X[1],
@@ -71,7 +71,7 @@ extrp.pi0.both=function(n1,n2,y,gam2,rate.interval=c(.3,2),eps=1e-5)
     my=mean(y)
     Gmat=matrix(c(1,0,
                  -1,0,
-                  0,1),3,2,by=TRUE)
+                  0,1),3,2,byrow=TRUE)
     hvec=matrix(c(0,-1,eps))
     f.obj=function(parm){#       rate=parm
         xvec=((n1+n2)/(n1+n2+n1*n2*gam2))^parm

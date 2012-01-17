@@ -39,8 +39,8 @@ dtn.mix=function(t,df,mu.ncp, sd.ncp, log=FALSE, approximation=c('int2','saddlep
 
         exponent=-mu.ncp*mu.ncp*df/2/denom + df*log(x0) -(x0-u0)*(x0-u0)/2/g0sq
 
-        norm.prob=pnorm(0, x0, x0*g0/sqrt(g0sq*df+x0*x0), lower=FALSE, log=TRUE)
-        norm.prob0=pnorm(0,g0*sqrt(df),g0/sqrt(2),lower=FALSE,log=TRUE)
+        norm.prob=pnorm(0, x0, x0*g0/sqrt(g0sq*df+x0*x0), lower.tail=FALSE, log.p=TRUE)
+        norm.prob0=pnorm(0,g0*sqrt(df),g0/sqrt(2),lower.tail=FALSE,log.p=TRUE)
 
 
         ans=(exponent

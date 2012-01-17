@@ -97,7 +97,7 @@ if(discriminant>=0){ ## having real solutions
 if(!approx)return(NA)
 
     opt.fit=try(optimize(function(pp)abs(a*pp*pp+b*pp+cc),
-                c(0,lastbin(2*pt(abs(tstat),v,lower=FALSE))), ### this range could be changed to c(0,1)
+                c(0,lastbin(2*pt(abs(tstat),v,lower.tail=FALSE))), ### this range could be changed to c(0,1)
                 tol=1e-12))
     if(inherits(opt.fit,'try-error')) return(NA)
     

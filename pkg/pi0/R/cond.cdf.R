@@ -72,7 +72,7 @@ cond.cdf=function(p.eval,ncp,test=c("t","z"),alternative=c("two.sided","less","g
     }
     if(test=="z"){
         if(alternative=="greater"){
-            z =  tcrossprod(qnorm(p.eval, lower=FALSE),rep(1,Nncp)) ;
+            z =  tcrossprod(qnorm(p.eval, lower.tail=FALSE),rep(1,Nncp)) ;
             p =  pnorm(z,tcrossprod(rep(1,Npeval),ncp),lower.tail=FALSE ) ;
         }else if (alternative=="less") {
             z =  tcrossprod(qnorm(p.eval),rep(1,Nncp)) ;
@@ -86,8 +86,8 @@ cond.cdf=function(p.eval,ncp,test=c("t","z"),alternative=c("two.sided","less","g
         }
     }else if(test=='t'){
         if(alternative=="greater"){
-            tt=tcrossprod(qt(p.eval,df,lower=FALSE),rep(1,Nncp))
-            p=pt(tt,df, tcrossprod(rep(1,length(p.eval)),ncp),lower=FALSE)
+            tt=tcrossprod(qt(p.eval,df,lower.tail=FALSE),rep(1,Nncp))
+            p=pt(tt,df, tcrossprod(rep(1,length(p.eval)),ncp),lower.tail=FALSE)
         }else if (alternative=="less") {
             tt = tcrossprod(qt(p.eval,df),rep(1,length(ncp))) ;
             p =  pt(tt, df, tcrossprod(rep(1,length(p.eval)),ncp)  ) ;

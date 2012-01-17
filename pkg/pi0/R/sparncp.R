@@ -165,9 +165,9 @@ plot.sparncpt=function(x,...)
 #           lambda/one_pi0*omega + lambda*drop(crossprod(omega, thetas))/one_pi0/one_pi0
 #        }else{  # return a G x k matrix, each row is the gradient based on one data point
 #            -b.i/Lik+ 
-#            matrix(lambda/one_pi0/one_pi0*Omega.theta/G, G ,K, by=TRUE)-
+#            matrix(lambda/one_pi0/one_pi0*Omega.theta/G, G ,K, byrow=TRUE)-
 #            lambda*drop(crossprod(thetas,Omega.theta))/one_pi0/one_pi0/one_pi0/G -
-#            matrix(lambda/one_pi0*omega/G, G, K, by=TRUE) +
+#            matrix(lambda/one_pi0*omega/G, G, K, byrow=TRUE) +
 #            lambda*drop(crossprod(omega,thetas))/one_pi0/one_pi0/G
 #        }    
 #    }
@@ -512,7 +512,7 @@ grad.NPLL=function(thetas, take.sum=TRUE) {    #, pi0.ub=1-1e-6
        lambda*drop(crossprod(thetas,Omega.theta))/one_pi0/one_pi0/one_pi0
     }else{  # return a G x k matrix, each row is the gradient based on one data point
         -b.i/Lik+ 
-        matrix(lambda/one_pi0/one_pi0*Omega.theta/G, G ,K, by=TRUE)-
+        matrix(lambda/one_pi0/one_pi0*Omega.theta/G, G ,K, byrow=TRUE)-
         lambda*drop(crossprod(thetas,Omega.theta))/one_pi0/one_pi0/one_pi0/G
     }    
 }
@@ -624,7 +624,7 @@ if( 1-sum(thetas)<eps) {## pi0=0, i.e. sum(thetas)==1; ## this needs reparameter
 #    Lik.star=drop(h0.i.star+b.i.star%*%thetas.star)
 #    Omega.theta.star=drop(Omega[nonzero.idx,nonzero.idx]%*%thetas[nonzero.idx])
 #    C=cbind(-1,diag(1,length(thetas.star)))
-#    grads.star=-b.i.star/Lik.star+ matrix(lambda*drop(C%*%Omega.theta.star)/G, G ,length(thetas.star), by=TRUE)
+#    grads.star=-b.i.star/Lik.star+ matrix(lambda*drop(C%*%Omega.theta.star)/G, G ,length(thetas.star), byrow=TRUE)
 #    hess.star=crossprod(b.i.star/Lik.star)+lambda*C%*%Omega[nonzero.idx,nonzero.idx]%*%t(C)
 #    K.star=crossprod(grads.star)
 #
