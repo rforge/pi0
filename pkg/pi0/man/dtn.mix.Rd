@@ -53,7 +53,7 @@ Broda, Simon and Paolella, Marc S. (2007) Saddlepoint approximations for the dou
 
 Young, G.A. and Smith R.L. (2005) Essentials of statistical inference. Cambridge University Press. Cambridge, UK. 
 
-Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
+Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 }
 \author{Long Qu 
 %%  ~~who you are~~

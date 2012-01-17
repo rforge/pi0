@@ -43,7 +43,7 @@ are made and their results are used in combination.
 \references{ 
 I. Olkin and C. H. Spiegelman. (1987) A Semiparametric Approach to Density Estimation. Journal of the American Statistical Association. 82,399,858--865
 
-Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
+Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 }
 \author{ Long Qu }
 %\note{ 

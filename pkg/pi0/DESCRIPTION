@@ -1,7 +1,7 @@
 Package: pi0
 Type: Package
 Title: Estimating the proportion of true null hypotheses for FDR
-Version: 1.3-199
+Version: 1.3-200
 Date: 2012-01-17
 Author: Long Qu 
 Maintainer: Long Qu <longorognol@hotmail.com>

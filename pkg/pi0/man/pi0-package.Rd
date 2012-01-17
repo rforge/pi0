@@ -12,7 +12,7 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.3-199\cr
+Version: \tab 1.3-200\cr
 Date: \tab 2012-01-17\cr
 License: \tab GPL version 2 or newer\cr
 }
@@ -39,9 +39,9 @@ Maintainer: Long Qu \email{longorognol@hotmail.com}
 }
 \references{
 
-Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
+Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 
-Ruppert, Nettleton, Hwang. (2007) Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
+Ruppert D, Nettleton D, Hwang JT. (2007) Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
 G.J. McLachlan, R.W. Bean and L. Ben-Tovim Jones. (2006) A Simple implementation of a normal mixture approach to differential gene expression in multiclass microarrays. Bioinformatics, 22(13):1608-1615. 
 
