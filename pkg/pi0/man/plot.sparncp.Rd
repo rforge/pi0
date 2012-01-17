@@ -2,7 +2,7 @@
 \Rdversion{1.1}
 \alias{plot.sparncpt}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{plot an object of class sparncpt, i.e., semiparametric estiamte of noncentrality parameters
+\title{plot an object of class sparncpt, i.e., semiparametric estimate of noncentrality parameters
 }
 \description{Plot the histogram of observed t-statistics together with its fitted density estimate; also plotted is the estimated density of noncentrality parameters.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
@@ -19,7 +19,7 @@
 %%     ~~Describe \code{\dots} here~~
 }
 }
-\details{ Left panel shows the density estimate of observed t-statistics, overlap with a histogram; right panel shows the estimated density of noncentrality parameters. Solid line is the actual mean of the estimate; dashed line is located at zero. 
+\details{ Left panel shows the density estimate of observed t-statistics, overlapped with a histogram; right panel shows the estimated density of noncentrality parameters. Solid line is the actual mean of the estimate; dashed line is located at zero. 
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{the \code{\link{invisible}} \code{x} itself
@@ -30,7 +30,7 @@
 %% ...
 }
 \references{
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 }
 \author{Long Qu 
 %%  ~~who you are~~

@@ -5,7 +5,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Nonparametric estimation of noncentrality parameters
 }
-\description{The functions use Gaussian basis functions to estimate the noncentrality parameters(ncp) from a large number of t-statistics. 
+\description{The functions use Gaussian basis functions to estimate the noncentrality parameters (ncp) from a large number of t-statistics. 
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -16,55 +16,43 @@ nparncpt.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{tstat}{ numeric vector of noncentrality parameters
-%%     ~~Describe \code{tstat} here~~
+  \item{\code{tstat}}{ Numeric vector of noncentrality parameters
 }
-  \item{df}{ numeric vector of degrees of freedom
-%%     ~~Describe \code{df} here~~
+  \item{\code{df}}{ Numeric vector of degrees of freedom
 }
-  \item{penalty}{ Penalty on either integrated squared first-order derivatives (\code{1st.deriv}) or second-order derivatives (\code{2nd.deriv}) 
-  of the estimated density function of ncp. 
-%%     ~~Describe \code{penalty} here~~
+  \item{\code{penalty}}{ Character vector. Penalty on either integrated squared first-order derivatives (\code{1st.deriv}) or second-order derivatives (\code{2nd.deriv}) 
+  of the estimated density function of ncp. Note that only the first element is used. 
 }
-  \item{lambdas}{numeric vector of smoothness tuning parameter \code{lambda} to be tried. The one that minimizes NIC will be chosen. 
-%%     ~~Describe \code{lambdas} here~~
+  \item{\code{lambdas}}{Numeric vector of smoothness tuning parameter \code{lambda} to be tried. The one that minimizes NIC will be chosen. 
 }
-  \item{starts}{ optional numeric vector of starting values. If missing, \code{parncpt} will be called with \code{zeromean} set to \code{FALSE} 
+  \item{\code{starts}}{ Optional numeric vector of starting values. If missing, \code{parncpt} will be called with \code{zeromean} set to \code{FALSE} 
   to get an initial esimate of \code{pi0}. And the starting values (\code{theta}) will be set all equal to each other and sum to \code{1-pi0}. 
   Note that this is the starting value for the largest \code{lambdas} only. For smaller \code{lambdas}, the estimates from larger \code{lambdas}
-  will be used as starting values (warm start). 
-%%     ~~Describe \code{starts} here~~
+  will be used as starting values (i.e., warm start). 
 }
 %  \item{smooth.enp}{Additional smoothing on effective number of parameters (ENP) over \code{log10(lambdas)}. This is not well tested and should be use with care. It is rarely needed except for \emph{very} small \code{lambdas}.
 %}
-  \item{IC}{character; one of \code{AIC}, \code{BIC}, \code{CAIC}, \code{HQIC}, specifying the factor multiplied to the ENP in computing Information Criterion (IC). 
+  \item{\code{IC}}{Character; one of \code{AIC}, \code{BIC}, \code{CAIC}, \code{HQIC}, specifying the factor multiplied to the ENP in computing Information Criterion (IC). 
 }
-  \item{K}{The number of basis Gaussian density functions. 
-%%     ~~Describe \code{K} here~~
+  \item{\code{K}}{The number of basis Gaussian density functions. 
 }
-  \item{bounds}{A numeric vector of length 2, giving the approximate bounds where most of the probability of ncp lies. 
-%%     ~~Describe \code{bounds} here~~
+  \item{\code{bounds}}{A numeric vector of length 2, giving the approximate bounds where most of the probability of ncp lies. 
 }
-  \item{solver}{character. The name of the function for solving quadratic programming problems. Note that \code{ipop} and \code{kernlab} are not very reliable. \code{solve.QP} is faster but \code{lsei} is more stable. 
-%%     ~~Describe \code{solver} here~~
+  \item{\code{solver}}{Character. The name of the function for solving quadratic programming problems. Note that \code{ipop} and \code{kernlab} are not very reliable. \code{solve.QP} is faster but \code{lsei} is more stable. 
 }
-  \item{plotit}{logical; indicating if \code{\link{plot.nparncpt}} should be called after estimation. This is always recommended before accepting the results. 
-%%     ~~Describe \code{plotit} here~~
+  \item{\code{plotit}}{logical; indicating if \code{\link{plot.nparncpt}} should be called after estimation. This is always recommended before accepting the results. 
 }
-  \item{verbose}{logical; if \code{TRUE}, extensive messages will be printed. 
-%%     ~~Describe \code{verbose} here~~
+  \item{\code{verbose}}{logical; if \code{TRUE}, extensive messages will be printed. 
 }
-  \item{approx.hess}{either logical or a number between 0 and 1. This helps in reducing time in evaluating the hessian matrix. If it is set to \code{TRUE}, 
+  \item{\code{approx.hess}}{either logical or a number between 0 and 1. This helps in reducing time in evaluating the hessian matrix. If it is set to \code{TRUE}, 
   for the kth Gaussian basis function and the gth \code{tstat}, the marginal t-statistic density evaluated at this \code{tstat} will be set to zero 
   if it is below the average of all \code{K*length(tstat)} such values. If it is set to FALSE or 0, then none of the density will be treated as zero, 
   no matter how small they are. If it is set to a number between 0 and 1, values below this quantile will be treated as zero. Note that this approximation 
-  only affects the computation of hessian matrix, which does not need to be exact any way in a optimization routine. Hence, a reasonable sparseness speeds 
+  only affects the computation of hessian matrix, which does not need to be exact in an optimization routine. Hence, a reasonable sparseness speeds 
   up computation of a hessian matrix but might increase the number of iterations to converge. Set this to \code{TRUE} seems a reasonable trade-off between 
   the two effects and usually saves computing time. 
-%%     ~~Describe \code{approx.hess} here~~
 }
-  \item{\dots}{other paramters passed to \code{\link{dtn.mix}}. Usually, the \code{approximation} argument. 
-%%     ~~Describe \code{\dots} here~~
+  \item{\code{\dots}}{other paramters passed to \code{\link{dtn.mix}}. Usually, the \code{approximation} argument. 
 }
 }
 \details{ \code{nparncpt} is a wrapper for \code{nparncpt.sqp}, the latter of which uses a sequential quadratic programming algorithm to find the mixing proportions
@@ -100,7 +88,7 @@ of the basis Gaussian density functions.
 %% ...
 }
 \references{
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 %% ~put references to the literature/web site here ~
 }
 \author{Long Qu 

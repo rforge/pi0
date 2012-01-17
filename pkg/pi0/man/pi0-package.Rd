@@ -12,8 +12,8 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.3-194\cr
-Date: \tab 2011-12-07\cr
+Version: \tab 1.3-195\cr
+Date: \tab 2012-01-17\cr
 License: \tab GPL version 2 or newer\cr
 }
 \itemize{
@@ -38,17 +38,16 @@ Long Qu
 Maintainer: Long Qu \email{longorognol@hotmail.com}
 }
 \references{
-Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of 
-Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 
-Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
+Ruppert, Nettleton, Hwang. (2007) Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
 G.J. McLachlan, R.W. Bean and L. Ben-Tovim Jones. (2006) A Simple implementation of a normal mixture approach to differential gene expression in multiclass microarrays. Bioinformatics, 22(13):1608-1615. 
 
 Anastasios Markitsis and Yinglei Lai (2010) A censored beta mixture model for the estimation of the proportion of non-differentially expressed genes. Bioinformatics 26(5):640-646.
 
+Qu, L., Nettleton, D., Dekkers, J.C.M. Subsampling Based Bias Reduction in Estimating the Proportion of Differentially Expressed Genes from Microarray Data. Unpublished manuscript.
 }
 \keyword{ package }
 \keyword{ htest }

@@ -38,7 +38,7 @@ dtn.mix(t, df, mu.ncp, sd.ncp, log = FALSE, approximation = c("int2",
 %%     ~~Describe \code{\dots} here~~
 }
 }
-\details{Mathematically, this is equivalent to \code{dt(t/s, df, mu.ncp/s)/s} where \code{s=sqrt(1+sd.ncp*sd.ncp)}. But various approximation is usually sufficient for large problems where speed is more important than precision. 
+\details{Mathematically, this is equivalent to \code{dt(t/s, df, mu.ncp/s)/s} where \code{s=sqrt(1+sd.ncp*sd.ncp)}. But the various approximations are usually sufficient for large problems where speed is more important than precision. 
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{numeric vector of densities
@@ -49,11 +49,11 @@ dtn.mix(t, df, mu.ncp, sd.ncp, log = FALSE, approximation = c("int2",
 %% ...
 }
 \references{
-Broda, Simon and Paolella, Marc S. 2007. Saddlepoint approximations for the doubly noncentral t distribution, Computational Statistics & Data Analysis, 51,6, 2907-2918.
+Broda, Simon and Paolella, Marc S. (2007) Saddlepoint approximations for the doubly noncentral t distribution, Computational Statistics & Data Analysis, 51,6, 2907-2918.
 
-Young, G.A. and Smith R.L. 2005. Essentials of statistical inference. Cambridge University Press. Cambridge, UK. 
+Young, G.A. and Smith R.L. (2005) Essentials of statistical inference. Cambridge University Press. Cambridge, UK. 
 
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 }
 \author{Long Qu 
 %%  ~~who you are~~

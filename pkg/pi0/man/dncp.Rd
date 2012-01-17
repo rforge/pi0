@@ -18,7 +18,7 @@ dncp(obj, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{obj}{ an object from \code{ncpest}, from which noncentrality parameter density to be extracted }
+  \item{obj}{ an object of class \code{ncpest}, from which noncentrality parameter density to be extracted }
   \item{fold}{Logical: if \code{TRUE}, then the density of noncentrality paramters is folded about zero to give the density of absolute noncentrality parameters. 
 }
   \item{reflect}{Logical: if \code{TRUE}, then the density of absolute noncentrality parameters is reflected about zero.
@@ -32,9 +32,9 @@ dncp(obj, ...)
         A function of one argument
 }
 \references{ 
-Ruppert, Nettleton, Hwang. 2007. Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
+Ruppert, Nettleton, Hwang. (2007) Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 }
 \author{ Long Qu 
 %~~who you are~~ 

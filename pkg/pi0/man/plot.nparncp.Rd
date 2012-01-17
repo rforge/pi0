@@ -4,8 +4,8 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{plot an object of class nparncpt, i.e., nonparametric estiamte of noncentrality parameters
 }
-\description{Plot the Network information criterion (NIC), effective number of parameters (ENP), and estimated proportion (pi0) of true null hypothesis
-for different choice of tuning parameters; also plot the estimated density of noncentrality parameters
+\description{Plot the Network information criterion (NIC), effective number of parameters (ENP), and estimated proportion (pi0) of true null hypotheses
+for different choices of tuning parameters; also plot the estimated density of noncentrality parameters
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
@@ -31,7 +31,7 @@ for different choice of tuning parameters; also plot the estimated density of no
 %% ...
 }
 \references{
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 }
 \author{Long Qu 
 %%  ~~who you are~~

@@ -62,12 +62,12 @@ nparncpp(p,
   
 }
 \references{
-Ruppert, Nettleton, Hwang. 2007. Exploring the Information in \eqn{p}-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
+Ruppert, Nettleton, Hwang. (2007) Exploring the Information in \eqn{p}-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
 }
-\author{ Long Qu  translated the original \code{MATLAB} code from Dr. David Ruppert.}
+\author{ Long Qu  translated and enhanced the original \code{MATLAB} code from Dr. David Ruppert.}
 \note{
-The code right now is not completely compatible with the \code{ncpest} class. 
+The code right now is not completely compatible with the \code{ncpest} class and is subject to change in future versions.
 
 }
 \seealso{ \code{\link{nparncpt}}, \code{\link{sparncpt}}, \code{\link{parncpt}}, \code{\link{dncp}} 

@@ -8,7 +8,7 @@
 }
 \description{
         Print summary for an object of class \code{parncpt}. This includes the estimated proportion of true null hypotheses (\code{pi0}),
-estimated mean of noncentrality parameters (\code{sd.ncp}), estimated standard deviation of noncentrality parameters (\code{sd.ncp}).
+estimated mean of noncentrality parameters (\code{mu.ncp}), estimated standard deviation of noncentrality parameters (\code{sd.ncp}).
 }
 \usage{
 \method{summary}{parncpt}(object,...)
@@ -34,7 +34,7 @@ estimated mean of noncentrality parameters (\code{sd.ncp}), estimated standard d
 %% ...
 }
 \references{
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 }
 \author{Long Qu 
 %%  ~~who you are~~

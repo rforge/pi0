@@ -74,7 +74,7 @@ for \code{parncpt.bfgs.non0mean} the middle parameter is the mean of noncentrali
 %% ...
 }
 \references{
-Long Qu, Dan Nettleton, Jack CM Dekkers. Improved estimation of noncentrality parameter distribution from a large number of t-statistics, with applications to false discovery rates in microarray data. (manuscripts under preparation). 
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 %% ~put references to the literature/web site here ~
 }
 \author{Long Qu 

@@ -27,10 +27,10 @@ the marginal density is defined as a discrete mixture of densities, one for each
 with mixing proportion based on that of \code{obj$data$df}. 
 }
 \value{
- A function of one argument, i.e., the marginal density function. 
+ A function of one argument (\code{x}), i.e., the marginal density function. 
 }
 \references{ 
-Qu, Nettleton, Dekkers. Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. (unpublished)
+Qu, Nettleton, Dekkers. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
 
 }
 \author{ Long Qu 
