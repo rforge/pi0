@@ -38,7 +38,7 @@ if(FALSE){
     library(splines)
     b.k=c(0,1)
     br=seq(.1,.9,by=.1)
-#    debug(OsplinePen)
+    #    debug(OsplinePen)
     O1=OsplinePen(b.k, br, 1)
     O2=OsplinePen(b.k, br, 2)
     O3=OsplinePen(b.k, br, 3)
