@@ -263,19 +263,20 @@ confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.
         return(cl.coef)
     }
     if(parm=='f'){
-        if(!is.na(pmatch(component,'intercept')) || (length(component)==1 && component==0)) { 
-            return(rep(1,length(object$model$tstat))%o%confint(object, 'beta')[1,])
-        }
         if(missing(component)){
             cov.idx=seq_len(ncol(object$fit$H))
             fitted.f=fitted(object, 'f')
-        }
-        if (is.numeric(component)) {
-            component=sort(unique(  pmax(pmin(round(component), ncol(object$fit$f.covariate)),0) ))
-            if(length(component)!=1) stop("invalid component")
-            if(component[1]==0){ return(rep(1,length(object$model$tstat))%o%confint(object, 'beta')[1,]) }
-            cov.idx=which(object$fit$covariate.idx==component)# this does not count the first scale parameter
-            fitted.f=fitted(object, 'f', component=component)
+        }else {
+            if(!is.na(pmatch(component,'intercept')) || (length(component)==1 && component==0)) { 
+                return(rep(1,length(object$model$tstat))%o%confint(object, 'beta')[1,])
+            }
+            if (is.numeric(component)) {
+                component=sort(unique(  pmax(pmin(round(component), ncol(object$fit$f.covariate)),0) ))
+                if(length(component)!=1) stop("invalid component")
+                if(component[1]==0){ return(rep(1,length(object$model$tstat))%o%confint(object, 'beta')[1,]) }
+                cov.idx=which(object$fit$covariate.idx==component)# this does not count the first scale parameter
+                fitted.f=fitted(object, 'f', component=component)
+            }
         }
         chol.V=chol(nearPD(V)$mat)
         grad=cBind(0, object$fit$H)
