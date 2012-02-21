@@ -84,7 +84,7 @@ tPoly.newton(tstat, x, df, starts,
 \author{ Long Qu \email{longorognol@hotmail.com} }
 %\note{ 
 %}
-\seealso{ \code{\link{penLike.EMNewton}}, \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, 
+\seealso{ \code{\link{penLik.EMNewton}}, \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, 
 \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, 
 \code{\link{confint.hisemit}}, \code{\link{plot.hisemit}} 
 \code{\link{hisemi-package}}, \code{\link[pi0]{pi0-package}}

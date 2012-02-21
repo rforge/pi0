@@ -385,7 +385,7 @@ tPoly.newton=function(tstat,x,df,
 #    }else{
         crit.mean.all=drop(criterion.mean)
         crit.se.all=sqrt(drop(criterion.var))
-        s.mode.i=if(exists('enp.logistic',inherits=FALSE))which(log10(spar)==attr(enp.logistic,'mode'))[1] else 1
+        s.mode.i=1 #if(exists('enp.logistic',inherits=FALSE))which(log10(spar)==attr(enp.logistic,'mode'))[1] else 1
         if(is.na(s.mode.i))s.mode.i=1
         goodenp.idx=rep(FALSE,n.spar)
         goodenp.idx[s.mode.i:n.spar]=TRUE
@@ -398,8 +398,8 @@ tPoly.newton=function(tstat,x,df,
         parms.new=all.parms[,imin.cv]
         final.scale=1+exp(parms.new[1])
         final.ll=logLiktest(parms.new[-1], final.scale)
-        final.pen=if(is.infinite(spar[imin.cv])) 0 else
-            .5*spar[imin.cv]*drop(parms.new[-1]%*%Pen.mat%*%parms.new[-1])
+        final.pen=0 #if(is.infinite(spar[imin.cv])) 0 else
+            #.5*spar[imin.cv]*drop(parms.new[-1]%*%Pen.mat%*%parms.new[-1])
 
         fx.final=drop(H.all%*%parms.new[-1])
         pi0.final=1/(1+exp(fx.final))
