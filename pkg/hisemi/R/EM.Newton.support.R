@@ -69,7 +69,7 @@ plotHisemitTuning=function(obj, SE=FALSE, add=FALSE,  ...)
     myplot=if(add)lines else plot
 
     crit.range=range(criterion.mean.mean, na.rm=TRUE)*G
-    enp.range=c(2, max(obj$enp$logistic))
+    enp.range=c(2+, max(obj$enp$logistic))
             
     if(!add){    par(mar=c(5,4,4,4)+.1)}
 
@@ -274,12 +274,12 @@ confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.
             component=sort(unique(  pmax(pmin(round(component), ncol(object$fit$f.covariate)),0) ))
             if(length(component)!=1) stop("invalid component")
             if(component[1]==0){ return(rep(1,length(object$model$tstat))%o%confint(object, 'beta')[1,]) }
-            cov.idx=which(object$fit$covariate.idx==component)
+            cov.idx=which(object$fit$covariate.idx==component)# this does not count the first scale parameter
             fitted.f=fitted(object, 'f', component=component)
         }
         chol.V=chol(nearPD(V)$mat)
         grad=cBind(0, object$fit$H)
-        grad[,-cov.idx]=0
+        grad[,-cov.idx-1L]=0
         gradL=tcrossprod(grad,chol.V)
         var.f=rowSums(gradL*gradL)
         CL.f=fitted.f+outer( t.1malpha*sqrt(var.f), c(-1,1) )

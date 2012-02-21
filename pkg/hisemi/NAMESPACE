@@ -21,6 +21,7 @@ export(
   scaledTMix.null,
   scaledTMix.psat,
   scaledTMix.sat
+  , tPoly.newton
 )
 
 
