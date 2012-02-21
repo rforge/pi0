@@ -21,7 +21,7 @@ The function treats each matrix as an element and put the element along the diag
 }
 %\references{ 
 %}
-\author{ Long Qu \email{lqu@biostatsolutions.com}
+\author{ Long Qu \email{longorognol@hotmail.com}
 }
 %\note{ 
 %}

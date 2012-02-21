@@ -1,5 +1,5 @@
-\name{resid.hisemit}
-\alias{resid.hisemit}
+\name{residuals.hisemit}
+%\alias{resid.hisemit}
 \alias{residuals.hisemit}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Extract residuals from a hisemit object }
@@ -7,7 +7,7 @@
   Extract residuals from a \code{hisemit} object
 }
 \usage{
-\method{resid}{hisemit}(object, residual.type = "deviance", ...)
+%\method{resid}{hisemit}(object, residual.type = "deviance", ...)
 \method{residuals}{hisemit}(object, residual.type = "deviance", ...)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -23,12 +23,12 @@
         A numeric vector residuals. 
 }
 \references{ 
-Qu, Nettleton, Dekkers. A Hierarchical Semiparametric Model for Incorporating Inter-gene Information for Analysis of Genomic Data. unpublished manuscript. 
+Qu, Nettleton, Dekkers (2012) A Hierarchical Semiparametric Model for Incorporating Inter-gene Information for Analysis of Genomic Data. Biometrics (to appear)
 }
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\author{ Long Qu \email{longorognol@hotmail.com} }
 %\note{ 
 %}
-\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{resid.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
+\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
 \code{\link{penLik.EMNewton}}}
 %\examples{
 %}

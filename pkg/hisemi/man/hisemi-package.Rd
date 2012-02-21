@@ -12,8 +12,8 @@ The package includes functions for fitting hierarchical semiparametric regressio
 \tabular{ll}{
 Package: \tab hisemi\cr
 Type: \tab Package\cr
-Version: \tab 1.0-191\cr
-Date: \tab 2011-10-15\cr
+Version: \tab 1.0-201\cr
+Date: \tab 2012-01-19\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
 }
@@ -29,7 +29,7 @@ LazyLoad: \tab yes\cr
 \item{\code{\link{NRupdate}}} is the Newton-Raphson algorithm used in \code{\link{penLik.EMNewton}}. 
 \item{\code{\link{plot.hisemit}}} plots the fitted model. 
 \item{\code{\link{print.hisemit}}} print summary information. 
-\item{\code{\link{resid.hisemit}}} returns the residuals. 
+\item{\code{\link{residuals.hisemit}}} returns the residuals. 
 \item{\code{\link{scaledTMix.null}}} fits the null model with common pi0. 
 \item{\code{\link{scaledTMix.psat}}} fits the partially saturated model with free pi0 and common scale factor. 
 \item{\code{\link{scaledTMix.sat}}} fits the completely saturated model with free pi0 and free scale factor. 
@@ -37,11 +37,11 @@ LazyLoad: \tab yes\cr
 }
 }
 \author{
-Long Qu \email{lqu@biostatsolutions.com}, Dan Nettleton \email{dnett@iastate.edu}, Jack C.M. Dekkers \email{jdekkers@iastate.edu}
+Long Qu \email{longorognol@hotmail.com}, Dan Nettleton \email{dnett@iastate.edu}, Jack C.M. Dekkers \email{jdekkers@iastate.edu}
 
-Maintainer: Long Qu \email{lqu@biostatsolutions.com}
+Maintainer: Long Qu \email{longorognol@hotmail.com}
 }
-\references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
+\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
 \keyword{ package }
 \keyword{ models }
 \keyword{ regression }

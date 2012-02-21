@@ -28,7 +28,7 @@ plotHisemitTuning(obj, SE = FALSE, add = FALSE, ...)
 }
 \details{The generic function \code{plot.hisemit} calls either \code{plotHisemitResid} or \code{plotHisemitTuning} depending on \code{type}.
         For \code{plot.hisemit}, the \dots is the additinoal arguments to be passed to \code{plotHisemitResid} or \code{plotHisemitTuning}. 
-        For residual plot (\code{plotHisemitResid}), the \dots is the additional arguments to be passed to \code{\link{hist}} when \code{y.type='hist'}; and to \code{\link{resid.hisemit}} when \code{y.type='scatter'}.
+        For residual plot (\code{plotHisemitResid}), the \dots is the additional arguments to be passed to \code{\link{hist}} when \code{y.type='hist'}; and to \code{\link{residuals.hisemit}} when \code{y.type='scatter'}.
         For tuning plot (\code{plotHisemitTuning}), the \dots is the additional arguments to be passed to either \code{\link{plot}} or \code{\link{lines}} depending on \code{add}. 
 }
 \value{
@@ -36,11 +36,11 @@ For histograms of residuals, an object from \code{\link{hist}} is returned.
 For scatter plot of residuals, an object from \code{\link{plot}} is returned. 
 For tuning plot, a matrix with the range of tuning criterion is returned. 
 }
-\references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012) A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
+\author{ Long Qu \email{longorognol@hotmail.com} }
 %\note{ 
 %}
-\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{resid.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
+\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
 \code{\link{penLik.EMNewton}}}
 %\examples{
 %}

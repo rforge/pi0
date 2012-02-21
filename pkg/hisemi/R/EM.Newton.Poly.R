@@ -1,19 +1,24 @@
 ########## EM algorithm followed by Newton-type optimization
-penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=100, starts,
-     tuning.method=c('NIC','CV') ,#'GCV','BIC','CAIC','HQIC'),
-     cv.fold=5, pen.order=1,poly.degree=pen.order*2-1,
+tPoly.newton=function(tstat,x,df,
+     #spar=c(10^seq(-1,8,length=30), Inf), nknots=100, 
+     starts,
+     #tuning.method=c('NIC','CV') ,#'GCV','BIC','CAIC','HQIC'),
+     #cv.fold=5, 
+     pen.order=1, #poly.degree=pen.order*2-1,
      optim.method=c('nlminb',"BFGS","CG","L-BFGS-B","Nelder-Mead", "SANN", 'NR'),
-     logistic.correction=TRUE,
-     em.iter.max=10, 
-     em.beta.iter.max=1,
+     #logistic.correction=TRUE,
+     #em.iter.max=10, 
+     #em.beta.iter.max=1,
      newton.iter.max=1500,
      scale.conv=1e-3, lfdr.conv=1e-3, NPLL.conv=1e-3, 
      debugging=FALSE, plotit=TRUE,...)
 {
+    if(pen.order==1) return(scaledTMix.null(tstat, df))
+
     if(debugging)options(error=quote(dump.frames("testdump", TRUE)))  ## this will save the objects when error occurs
     pen.order=round(pen.order)
-    poly.degree=round(poly.degree)
-    cv.fold=round(cv.fold)
+    poly.degree=round(pen.order)    #round(poly.degree)
+    #cv.fold=round(cv.fold)
     
     ##### initializing central t and non-central t
     dt0.all=dt(tstat,df)
@@ -21,24 +26,26 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
     logLik.saturated=scaledTMix.sat(tstat,df)
 
     optim.method=match.arg(optim.method)
-    stopifnot(all(spar>=0))
-    spar=sort(spar)
+    #stopifnot(all(spar>=0))
+    #spar=sort(spar)
     #spar=unique(c(spar,Inf))
+    spar=Inf
 
     ##### initializing CV
-    tuning.method=match.arg(tuning.method)
-    if(tuning.method!='CV'){
+    #tuning.method=match.arg(tuning.method)
+    #if(tuning.method!='CV'){
+        tuning.method='NIC'
         cv.fold=1
         noCV=TRUE
-    }else{
-        cv.fold=ceiling(cv.fold)
-        if(cv.fold<2){
-            cv.fold=5
-            warning(paste("when using tuning.method='CV', cv.fold has to be at least 2. It is set to", cv.fold)
-            )
-        }
-        noCV=FALSE
-    }
+    #}else{
+    #    cv.fold=ceiling(cv.fold)
+    #    if(cv.fold<2){
+    #        cv.fold=5
+    #        warning(paste("when using tuning.method='CV', cv.fold has to be at least 2. It is set to", cv.fold)
+    #        )
+    #    }
+    #    noCV=FALSE
+    #}
     tstat.all=tstat
     G=G.all=length(tstat)
     n.spar=length(spar)
@@ -49,7 +56,7 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
 
 
     ######## creating quadratic B-spline basis
-    nknots=min(c(nknots, G.all-2))
+    #nknots=min(c(nknots, G.all-2))
     if(!inherits(x,'matrix')) x=as.matrix(x)
     n.vars=ncol(x);
     
@@ -59,52 +66,53 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
 
     H.all=Matrix(matrix(1,G.all,1),sparse=TRUE);   ########### intercept term is not penalized 
     j.all=0
-    Pen.mat=matrix(0,1,1)       ########### intercept term is not penalized
+    #Pen.mat=matrix(0,1,1)       ########### intercept term is not penalized
     for(i in 1:n.vars){
-        knots.all=quantile(unique(x[,i]), 1:nknots/(nknots+1))
-        H.i=bs(x[,i],knots=knots.all, degree=poly.degree, intercept=FALSE)  ########### intercept term is not penalized
+        #knots.all=quantile(unique(x[,i]), 1:nknots/(nknots+1))
+        #H.i=bs(x[,i],knots=knots.all, degree=poly.degree, intercept=FALSE)  ########### intercept term is not penalized
+        H.i=poly(x[,i], degree=pen.order-1)
         H.all=cBind(H.all,H.i[,])
         j.all=c(j.all, rep(i, ncol(H.i)))
         ######## derivative penalties 
-        if(pen.order*2-1==poly.degree){
-          Pen.i=OsplinePen(range(x[,i]), knots.all, pen.order)[-1,-1]
-        }else if (pen.order != poly.degree) {
-          Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
-          Pen.i=bsplinepen(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized
-        }else {
-          Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
-          Pen.i=bsplinepen.fda(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized
-        }
+        #if(pen.order*2-1==poly.degree){
+        #  Pen.i=OsplinePen(range(x[,i]), knots.all, pen.order)[-1,-1]
+        #}else if (pen.order != poly.degree) {
+        #  Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
+        #  Pen.i=bsplinepen(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized
+        #}else {
+        #  Hobj.i=create.bspline.basis(breaks=c(min(x[,i]),knots.all,max(x[,i])),norder=poly.degree+1)  ## norder=3 means quadratic
+        #  Pen.i=bsplinepen.fda(Hobj.i, Lfdobj=pen.order)[-1,-1] ########### intercept term is not penalized
+        #}
         
-        Pen.mat=directSum(Pen.mat,Pen.i)
+        #Pen.mat=directSum(Pen.mat,Pen.i)
     }
-    Pen.mat=Matrix(Pen.mat,sparse=TRUE)
+    #Pen.mat=Matrix(Pen.mat,sparse=TRUE)
     all.parms=matrix(0.0, 1+ncol(H.all), n.spar)
 
     ############ penalized logLik of data and logLik of test data
     #    logit=make.link("logit")$linkfun  ## this is the logit link function in glm of package stats
-    nLogLik.pen=function(parms, with.grad.hess=FALSE, ...) ## also depends on dt0, tstat, spar.Pen.mat, H
+    nLogLik.pen=function(parms, with.grad.hess=FALSE, ...) ## also depends on dt0, tstat,  H
     {   a=parms[1]; scale.fact=1+exp(a);  # scale.fact=parms[1]; alternative parameterization to remove boundary
         betas=parms[-1]
         pi0s=1/(1+exp(H%*%betas))
         ll=sum(log(
             pi0s*dt0+(1-pi0s)*dt(tstat/scale.fact,df)/scale.fact
         ))
-        ans=-ll+.5*drop(betas%*%spar.Pen.mat%*%betas)
+        ans=-ll#+.5*drop(betas%*%spar.Pen.mat%*%betas)
         if(with.grad.hess){
             dt1=dt(tstat/scale.fact,df)/scale.fact
             f=drop(pi0s*dt0+(1-pi0s)*dt1)
             lfdrs=drop(pi0s*dt0/f)
             w.beta=drop((dt0-dt1)/f*(1-pi0s)*pi0s)
             w.beta.H=w.beta*H
-            d.dbetas=colSums(w.beta.H)+ drop(betas%*%spar.Pen.mat)
+            d.dbetas=colSums(w.beta.H)#+ drop(betas%*%spar.Pen.mat)
             d.dr=sum(-(tstat*tstat-scale.fact*scale.fact)*exp(log(1-1/scale.fact)-log(tstat*tstat/df+scale.fact*scale.fact)+log(1-lfdrs)))
             attr(ans,'gradient')=c(d.dr,       d.dbetas)
 
             W.beta.beta=w.beta*drop(pi0s*lfdrs-(1-pi0s)*(1-lfdrs))
             Wbb.H=W.beta.beta*H
             HWH=as(crossprod(H,Wbb.H),'symmetricMatrix')
-            hess.bb=HWH+spar.Pen.mat
+            hess.bb=HWH#+spar.Pen.mat
         
             t2_s2=(tstat*tstat-scale.fact*scale.fact)
             t2vs2=(tstat*tstat/df+scale.fact*scale.fact)
@@ -122,7 +130,7 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
         ans
     }
 
-    deriv.nLogLik.pen=function(parms, return.K=FALSE, ...)  ## also depends on dt0, tstat, spar.Pen.mat, H
+    deriv.nLogLik.pen=function(parms, return.K=FALSE, ...)  ## also depends on dt0, tstat,, H
     {   r=parms[1]; scale.fact=1+exp(r);  # scale.fact=parms[1]; alternative parameterization to remove boundary
         betas=parms[-1]
         pi0s=drop(1/(1+exp(H%*%betas)))
@@ -132,7 +140,7 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
 
         w.beta=drop((dt0-dt1)/f*(1-pi0s)*pi0s)
         w.beta.H=w.beta*H
-        d.dbetas=colSums(w.beta.H)+ drop(betas%*%spar.Pen.mat)
+        d.dbetas=colSums(w.beta.H)#+ drop(betas%*%spar.Pen.mat)
         #        d.dr.i=-exp(-.5*log(df)-lbeta(.5,df/2)+(df-1)*log(scale.fact)+r)*
         #                (exp(
         #                    log(1-pi0s)-log(f)-(df+3)/2*log(tstat*tstat/df+scale.fact*scale.fact)
@@ -142,20 +150,21 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
 
         ans=c(d.dr,
               d.dbetas)
-        if(return.K){
-            #               w.beta.H.pen=w.beta.H+matrix(1/length(dt1),length(dt1),1)%*%(betas%*%spar.Pen.mat)   ## this is faster
-            #               dr.w.beta.H.pen=cBind(d.dr.i,    w.beta.H.pen)
-            #               K.full=crossprod(dr.w.beta.H.pen)/length(dt1)    ## -tcrossprod(ans/length(dt1)) ## no need to subtract zero matrix
-            #               attr(ans,'K')=K.full
-                           #### below is equivalent but much faster
-               K.vec=drop(d.dr.i%*%w.beta.H)
-               K=rBind(c(sum(d.dr.i*d.dr.i), (K.vec)), cBind(K.vec, crossprod(w.beta.H)-crossprod(betas%*%spar.Pen.mat)/G)) #/G
-               attr(ans,'K')=as(as(K,'symmetricMatrix'),'sparseMatrix')
-        }
+#        if(return.K){
+#            #               w.beta.H.pen=w.beta.H+matrix(1/length(dt1),length(dt1),1)%*%(betas%*%spar.Pen.mat)   ## this is faster
+#            #               dr.w.beta.H.pen=cBind(d.dr.i,    w.beta.H.pen)
+#            #               K.full=crossprod(dr.w.beta.H.pen)/length(dt1)    ## -tcrossprod(ans/length(dt1)) ## no need to subtract zero matrix
+#            #               attr(ans,'K')=K.full
+#                           #### below is equivalent but much faster
+#               K.vec=drop(d.dr.i%*%w.beta.H)
+#               K=rBind(c(sum(d.dr.i*d.dr.i), (K.vec)), cBind(K.vec, crossprod(w.beta.H)#-crossprod(betas%*%spar.Pen.mat)/G
+#               ) ) #/G
+#               attr(ans,'K')=as(as(K,'symmetricMatrix'),'sparseMatrix')
+#        }
         ans
     }
 
-    hess.nLogLik.pen=function(parms, return.dense=FALSE, ...)  ## also depends on dt0, tstat, spar.Pen.mat, H
+    hess.nLogLik.pen=function(parms, return.dense=FALSE, ...)  ## also depends on dt0, tstat, , H
     {   r=parms[1]; scale.fact=1+exp(r);  # scale.fact=parms[1]; alternative parameterization to remove boundary
         betas=parms[-1]
         pi0s=drop(1/(1+exp(H%*%betas)))
@@ -168,7 +177,7 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
         #        W.beta.beta=drop((dt0-dt1)*(f*(2*pi0s-1)+(dt0-dt1)*pi0s*(1-pi0s))*pi0s*(1-pi0s)/f/f)
         Wbb.H=W.beta.beta*H
         HWH=as(crossprod(H,Wbb.H),'symmetricMatrix')
-        hess.bb=HWH+spar.Pen.mat
+        hess.bb=HWH#+spar.Pen.mat
         hess.bb
 
         t2_s2=(tstat*tstat-scale.fact*scale.fact)
@@ -203,25 +212,30 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
 
     ############ setting staring values
         if(missing(starts)){
-            if(pen.order==1){
-                null.fit=scaledTMix.null(tstat.all,df)
-                starts=c(coef(null.fit), rep(0, ncol(H.all)-1))
-            }else {
-                #null.fit=scaledTMix.null(tstat.all,df)
+            #if(pen.order==1){
+            #    null.fit=scaledTMix.null(tstat.all,df)
+            #    starts=c(coef(null.fit), rep(0, ncol(H.all)-1))
+            #}else {#.NotYetImplemented() ## 
+                ########## sequentially increase order of orthogonal polynomials
+                tmp.coef=coef( scaledTMix.null(tstat.all,df) )
                 #starts=c(coef(null.fit), rep(0, ncol(H.all)-1))
-                null.fit=tPoly.newton(tstat.all, x, df,
-                     #starts,
-                     pen.order=pen.order, 
-                     optim.method='nlminb',
-                     newton.iter.max=newton.iter.max,
-                     scale.conv=scale.conv, lfdr.conv=lfdr.conv, NPLL.conv=NPLL.conv, 
-                     debugging=FALSE, plotit=FALSE,...)
-                starts=coef(null.fit)[1:2]
-                for(j in 1:n.vars){## transform global polynomial to peicewise polynomial
-                    j.idx=(j==j.all)
-                    starts=c(starts, coef(lm(fitted(null.fit, 'f', component=j)~as.matrix(H.all[,j.idx,drop=FALSE])))[-1])
+                cur.pen.ord=1
+                starts=c(tmp.coef, rep(0,n.vars))
+                repeat{
+                   cur.pen.ord=cur.pen.ord+1
+                   if(cur.pen.ord==pen.order) break
+
+                   tmp = Recall(tstat,x,df,                     
+                         starts,
+                         pen.order=cur.pen.ord,
+                         optim.method,
+                         newton.iter.max,
+                         scale.conv, lfdr.conv, NPLL.conv, 
+                         debugging=FALSE, plotit=FALSE, ...)
+                   tmp.coef=coef(tmp)
+                   starts=c(tmp.coef[1:2], as.vector(rbind(matrix(tmp.coef[-2:-1], ncol=n.vars), 0)))
                 }
-            }
+            #}
         }
 
 
@@ -241,78 +255,49 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
     this.start=starts
     ############ smoothing parameter loop
     for(spar.i in n.spar:1) { 
-        if(is.infinite(spar[spar.i])){  
-            if(pen.order==1){
-                this.null.fit=scaledTMix.null(tstat,df)
-                parms.new=c(coef(this.null.fit), rep(0,ncol(H)-1))
-                
-                if(tuning.method=='NIC'){
-                    criterion.mean[cv.i, spar.i]=this.null.fit$tuning$mean
-                    criterion.var[cv.i, spar.i]=this.null.fit$tuning$var
-                }else if (tuning.method=='CV'){
-                    pred.ll=logLiktest(parms.new[-1], 1+exp(parms.new[1]))
-                    criterion.mean[cv.i, spar.i]=-mean(pred.ll)
-                    criterion.var[cv.i, spar.i]=var(pred.ll)/length(pred.ll)
-                }else {stop('unknown tuning.method')}
-                enps[cv.i, spar.i]=enps0[cv.i, spar.i]=2
+#        if(is.infinite(spar[spar.i])){  
+#            if(pen.order==1){
+#                this.null.fit=scaledTMix.null(tstat,df)
+#                parms.new=c(coef(this.null.fit), rep(0,ncol(H)-1))
+#                
+#                if(tuning.method=='NIC'){
+#                    criterion.mean[cv.i, spar.i]=this.null.fit$tuning$mean
+#                    criterion.var[cv.i, spar.i]=this.null.fit$tuning$var
+#                }else if (tuning.method=='CV'){
+#                    pred.ll=logLiktest(parms.new[-1], 1+exp(parms.new[1]))
+#                    criterion.mean[cv.i, spar.i]=-mean(pred.ll)
+#                    criterion.var[cv.i, spar.i]=var(pred.ll)/length(pred.ll)
+#                }else {stop('unknown tuning.method')}
+#                enps[cv.i, spar.i]=enps0[cv.i, spar.i]=2
+#
+#                this.start=parms.new
+#                all.parms[,spar.i]=all.parms[,spar.i]+parms.new/cv.fold
+#                next
+#            }else .NotYetImplemented() ## TODO: Fit global polynomial
+#        }
+#        if(debugging) cat('############## CV:',cv.i,'\t## spar.i', spar.i,fill=TRUE)
+#        spar.Pen.mat=spar[spar.i]*Pen.mat
 
-                this.start=parms.new
-                all.parms[,spar.i]=all.parms[,spar.i]+parms.new/cv.fold
-                next
-            }else {#.NotYetImplemented() ## Fit global polynomial
-                #this.null.fit=scaledTMix.null(tstat,df)
-                this.null.fit=tPoly.newton(tstat, x[cv.idx,,drop=FALSE], df,
-                     #starts,
-                     pen.order=pen.order, 
-                     optim.method='nlminb',
-                     newton.iter.max=newton.iter.max,
-                     scale.conv=scale.conv, lfdr.conv=lfdr.conv, NPLL.conv=NPLL.conv, 
-                     debugging=FALSE, plotit=FALSE,...)
+#        ############## EM iterations
+#        if(debugging) time.init=proc.time()[3]
+#        em.parms=EMupdate(this.start, nLogLik.pen, optim.method, 
+#                          H, tstat, df, dt0, spar.Pen.mat,
+#                          em.iter.max, em.beta.iter.max, 
+#                          scale.conv, lfdr.conv, NPLL.conv, debugging
+#        )
+#        if(debugging) cat("\ntime used in EM:", proc.time()[3]-time.init,fill=TRUE)
 
-                #parms.new=c(coef(this.null.fit), rep(0,ncol(H)-1))  #  transform from global to piecewise polynomial
-                parms.new=coef(this.null.fit)[1:2] 
-                for(j in 1:n.vars){
-                    j.idx=(j==j.all)
-                    parms.new=c(parms.new, coef(lm(fitted(this.null.fit, 'f', component=j)~as.matrix(H[,j.idx,drop=FALSE])))[-1])
-                }
-                
-                if(tuning.method=='NIC'){
-                    criterion.mean[cv.i, spar.i]=this.null.fit$tuning$mean
-                    criterion.var[cv.i, spar.i]=this.null.fit$tuning$var
-                }else if (tuning.method=='CV'){
-                    pred.ll=logLiktest(parms.new[-1], 1+exp(parms.new[1])) # 
-                    criterion.mean[cv.i, spar.i]=-mean(pred.ll)
-                    criterion.var[cv.i, spar.i]=var(pred.ll)/length(pred.ll)
-                }else {stop('unknown tuning.method')}
-                enps[cv.i, spar.i]=enps0[cv.i, spar.i]=2+n.vars*(pen.order-1)
-
-                this.start=parms.new
-                all.parms[,spar.i]=all.parms[,spar.i]+parms.new/cv.fold
-                next
-            }
-        }
-        if(debugging) cat('############## CV:',cv.i,'\t## spar.i', spar.i,fill=TRUE)
-        spar.Pen.mat=spar[spar.i]*Pen.mat
-
-        ############## EM iterations
-        if(debugging) time.init=proc.time()[3]
-        em.parms=EMupdate(this.start, nLogLik.pen, optim.method, 
-                          H, tstat, df, dt0, spar.Pen.mat,
-                          em.iter.max, em.beta.iter.max, 
-                          scale.conv, lfdr.conv, NPLL.conv, debugging
-        )
-        if(debugging) cat("\ntime used in EM:", proc.time()[3]-time.init,fill=TRUE)
-
-        ############## Newtonian iteration
-        if(debugging) time.init=proc.time()[3]
-        if(optim.method%in%c("BFGS","CG","L-BFGS-B","Nelder-Mead", "SANN")){ ## call optim
-            optim.fit=optim(em.parms, nLogLik.pen, deriv.nLogLik.pen, method=optim.method, 
-                        control=list(maxit=newton.iter.max, trace=if(debugging)3 else 0, REPORT=30))
-            parms.new=optim.fit$par
-            if(debugging)cat("optim iter=", optim.fit$iterations,fill=TRUE)
-        }else if (optim.method=='nlminb') {
+#        ############## Newtonian iteration
+#        if(debugging) time.init=proc.time()[3]
+#        if(optim.method%in%c("BFGS","CG","L-BFGS-B","Nelder-Mead", "SANN")){ ## call optim
+#            optim.fit=optim(em.parms, nLogLik.pen, deriv.nLogLik.pen, method=optim.method, 
+#                        control=list(maxit=newton.iter.max, trace=if(debugging)3 else 0, REPORT=30))
+#            parms.new=optim.fit$par
+#            if(debugging)cat("optim iter=", optim.fit$iterations,fill=TRUE)
+#        }else if (optim.method=='nlminb') {
             #            nlminb.i=1
             #            repeat{
+                em.parms=this.start
             nlminb.fit=nlminb(em.parms, nLogLik.pen, deriv.nLogLik.pen, hess.nLogLik.pen, return.dense=TRUE, 
                               control=list(eval.max=newton.iter.max*2, iter.max=newton.iter.max))
             #            if(nlminb.i>=10 || nlminb.fit$convergence==0) break
@@ -323,11 +308,11 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
             parms.new=nlminb.fit$par
             if(debugging)cat("nlminb iter=", nlminb.fit$iterations,fill=TRUE)
             if(debugging)cat('max |gradient|=', max(abs(deriv.nLogLik.pen(parms.new))), fill=TRUE)
-        }else if (optim.method=='NR'){
-            NR.fit=NRupdate(nLogLik.pen, em.parms, iter.max=newton.iter.max, with.grad.hess=TRUE,debugging=debugging)
-            parms.new=NR.fit
-        }
-        if(debugging) cat("\ntime used in Newtonian optimization:", proc.time()[3]-time.init,fill=TRUE)
+#        }else if (optim.method=='NR'){
+#            NR.fit=NRupdate(nLogLik.pen, em.parms, iter.max=newton.iter.max, with.grad.hess=TRUE,debugging=debugging)
+#            parms.new=NR.fit
+#        }
+#        if(debugging) cat("\ntime used in Newtonian optimization:", proc.time()[3]-time.init,fill=TRUE)
 
 
 
@@ -335,16 +320,16 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
         pred.ll=logLiktest(parms.new[-1], 1+exp(parms.new[1]))
 
             ###### enp = tr{ E[Hess]^(-1) Var(Grad) }
-            grad.new=deriv.nLogLik.pen(parms.new,return.K=TRUE)
+#            grad.new=deriv.nLogLik.pen(parms.new,return.K=TRUE)
             hess.new=hess.nLogLik.pen(parms.new)
-            J.inv.K=try(solve(hess.new,attr(grad.new,'K')), silent=TRUE)
-            if(class(J.inv.K)=='try-error'){
-                warning(paste("final Hessian is not positive definite. The smallest eigen value is", tail(eigen(hess.new,TRUE,TRUE)$val,1)))
-                J.inv.K=solve(nearPD(hess.new)$mat, attr(grad.new,'K'))
-            }
-                
-        enp=(sum(diag(J.inv.K)))
-                
+#            J.inv.K=try(solve(hess.new,attr(grad.new,'K')), silent=TRUE)
+#            if(class(J.inv.K)=='try-error'){
+#                warning(paste("final Hessian is not positive definite. The smallest eigen value is", tail(eigen(hess.new,TRUE,TRUE)$val,1)))
+#                J.inv.K=solve(nearPD(hess.new)$mat, attr(grad.new,'K'))
+#            }
+#                
+#        enp=(sum(diag(J.inv.K)))
+        enp=2+n.vars*(pen.order-1)
 
         ############### CV model selection criteria
         nparm.extra=0       #  1 
@@ -361,43 +346,43 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
     } ## of smoothing parameter
 
     ########## logistic correction to the enp
-    if(logistic.correction){
-        enp.logistic=try(logistic.enp(log10(spar), enps[cv.i,], ncol(H.all)+1, 2+n.vars*(pen.order-1)), silent=TRUE)
-        if(class(enp.logistic)=='try-error') enp.logistic=enps[cv.i,]
-        enps[cv.i,]=enp.logistic
-    }
+#    if(logistic.correction){
+#        enp.logistic=try(logistic.enp(log10(spar), enps[cv.i,], ncol(H.all)+1, 2+n.vars*(pen.order-1)), silent=TRUE)
+#        if(class(enp.logistic)=='try-error') enp.logistic=enps[cv.i,]
+#        enps[cv.i,]=enp.logistic
+#    }
   } ## of cross-validation loop
 
-        if(tuning.method=='NIC') {
+#        if(tuning.method=='NIC') {
             criterion.mean=criterion.mean +enps/G.all
-        }else if (tuning.method=='CV'){ ## nothing to do here
-            #        }else if (tuning.method=='GCV'){
-            #            criterion.mean[cv.i,spar.i]=sum(pred.deviance)/G/(1-(enp)/G)^2 
-            #            criterion.var[cv.i,spar.i]=var(pred.deviance)/G/(1-(enp)/G)^4
-            #        }else if(tuning.method=='BIC'){
-            #            criterion.mean[cv.i,spar.i]=sum(pred.ll) +log(G)*(enp+nparm.extra)
-            #            criterion.var[cv.i,spar.i]=var(pred.ll)
-            #        }else if(tuning.method=='CAIC'){
-            #            criterion.mean[cv.i,spar.i]=sum(pred.ll) +(log(G)+1)*(enp+nparm.extra)
-            #            criterion.var[cv.i,spar.i]=var(pred.ll)
-            #        }else if(tuning.method=='HQIC'){
-            #            criterion.mean[cv.i,spar.i]=sum(pred.ll) +2*log(log(G))*(enp+nparm.extra)
-            #            criterion.var[cv.i,spar.i]=var(pred.ll)
-        }else{
-            stop("unsupported tuning.method")
-        }
+#        }else if (tuning.method=='CV'){ ## nothing to do here
+#            #        }else if (tuning.method=='GCV'){
+#            #            criterion.mean[cv.i,spar.i]=sum(pred.deviance)/G/(1-(enp)/G)^2 
+#            #            criterion.var[cv.i,spar.i]=var(pred.deviance)/G/(1-(enp)/G)^4
+#            #        }else if(tuning.method=='BIC'){
+#            #            criterion.mean[cv.i,spar.i]=sum(pred.ll) +log(G)*(enp+nparm.extra)
+#            #            criterion.var[cv.i,spar.i]=var(pred.ll)
+#            #        }else if(tuning.method=='CAIC'){
+#            #            criterion.mean[cv.i,spar.i]=sum(pred.ll) +(log(G)+1)*(enp+nparm.extra)
+#            #            criterion.var[cv.i,spar.i]=var(pred.ll)
+#            #        }else if(tuning.method=='HQIC'){
+#            #            criterion.mean[cv.i,spar.i]=sum(pred.ll) +2*log(log(G))*(enp+nparm.extra)
+#            #            criterion.var[cv.i,spar.i]=var(pred.ll)
+#        }else{
+#            stop("unsupported tuning.method")
+#        }
 
 
     ############### post-processing
     ## CV is conducted or more than one spar; find good spar and do final call
-    if(!noCV){
-        wt.cv=table(cv.grp)
-        crit.mean.all=crossprod(wt.cv, criterion.mean)/sum(wt.cv)
-        crit.se.all=sqrt(crossprod(wt.cv*wt.cv, criterion.var)/G.all/G.all)
-        s.mode.i=1
-        goodenp.idx=rep(TRUE,n.spar)
-        imin.cv=which.min(crit.mean.all)
-    }else{
+#    if(!noCV){
+#        wt.cv=table(cv.grp)
+#        crit.mean.all=crossprod(wt.cv, criterion.mean)/sum(wt.cv)
+#        crit.se.all=sqrt(crossprod(wt.cv*wt.cv, criterion.var)/G.all/G.all)
+#        s.mode.i=1
+#        goodenp.idx=rep(TRUE,n.spar)
+#        imin.cv=which.min(crit.mean.all)
+#    }else{
         crit.mean.all=drop(criterion.mean)
         crit.se.all=sqrt(drop(criterion.var))
         s.mode.i=if(exists('enp.logistic',inherits=FALSE))which(log10(spar)==attr(enp.logistic,'mode'))[1] else 1
@@ -405,11 +390,11 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
         goodenp.idx=rep(FALSE,n.spar)
         goodenp.idx[s.mode.i:n.spar]=TRUE
         imin.cv=s.mode.i-1+which.min(crit.mean.all[goodenp.idx])
-    }
+#    }
 
 
     ############### either final fit on all data or return results
-    if(noCV){ ### directly reture results
+#    if(noCV){ ### directly reture results
         parms.new=all.parms[,imin.cv]
         final.scale=1+exp(parms.new[1])
         final.ll=logLiktest(parms.new[-1], final.scale)
@@ -424,15 +409,16 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
         lfdr.final=lfdr.final/f.final
 
         fx.j=matrix(,G,n.vars)
-        for(j in 1:n.vars) {j.idx=j==j.all; fx.j[,j]=drop(H.all[,j.idx]%*%parms.new[-1][j.idx]); fx.j[,j]=fx.j[,j]-mean(fx.j[,j])}
+        for(j in 1:n.vars) {j.idx=j==j.all; fx.j[,j]=drop(H.all[,j.idx,drop=FALSE]%*%parms.new[-1][j.idx]); fx.j[,j]=fx.j[,j]-mean(fx.j[,j])}
 
-        if(is.infinite(spar[imin.cv])){
-            if(!exists('null.fit', inherits=FALSE))null.fit=scaledTMix.null(tstat.all,df)
-            J=K=solve(null.fit$fit$asym.vcov)
-        }else{
-            J=hess.nLogLik.pen(parms.new)
-            K=attr(deriv.nLogLik.pen(parms.new,TRUE),'K')
-        }
+#        if(is.infinite(spar[imin.cv])){
+#            if(!exists('null.fit', inherits=FALSE))null.fit=scaledTMix.null(tstat.all,df)
+#            J=K=solve(null.fit$fit$asym.vcov)
+            J=K=hess.new
+#        }else{
+#            J=hess.nLogLik.pen(parms.new)
+#            K=attr(deriv.nLogLik.pen(parms.new,TRUE),'K')
+#        }
         J.Inv=try(solve(J), silent=TRUE)
         if(class(J.Inv)=='try-error'){
             warning(paste("final Hessian is not positive definite. The smallest eigen value is", tail(eigen(J,TRUE,TRUE)$val,1)))
@@ -440,7 +426,7 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
         }else{
             J.Inv=symmpart(J.Inv)
         }
-        cov.parms=symmpart(J.Inv%*%K%*%J.Inv)
+        cov.parms=J.Inv #symmpart(J.Inv%*%K%*%J.Inv)
         ans=list(lfdr=lfdr.final,
                  model=list(tstat=tstat.all, df=df, x=x, pen.order=pen.order, poly.degree=poly.degree), 
                  scale.fact=list(scale.fact=final.scale, sd.ncp=sqrt(final.scale^2-1),  r=parms.new[1], 
@@ -465,20 +451,20 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
         class(ans)='hisemit'
         if(plotit)plot(ans)
         return(ans)
-    }
-
-    if(debugging) cat("\n######### FINAL FIT ##############",fill=TRUE)
-
-    final.fit=penLik.EMNewton(tstat.all,x,df, spar=spar[imin.cv], nknots, all.parms[,imin.cv], tuning.method='NIC',
-                cv.fold=1, optim.method, logistic.correction=FALSE,
-                em.iter.max, em.beta.iter.max,newton.iter.max, scale.conv, lfdr.conv,NPLL.conv, debugging, plotit=FALSE)
-    
-    final.fit$tuning=list(mean=criterion.mean,  var=criterion.var,  grp=cv.grp,  method=tuning.method, 
-                    final=final.fit$tuning$final)
-    final.fit$spar=list(all=spar, final=spar[imin.cv], final.idx=imin.cv)
-    final.fit$enp=list(raw=enps0, logistic=enps, final=final.fit$enp$final, good.idx=goodenp.idx)
-    if(plotit)plot(final.fit)
-    return(final.fit)
+#    }
+#
+#    if(debugging) cat("\n######### FINAL FIT ##############",fill=TRUE)
+#
+#    final.fit=penLik.EMNewton(tstat.all,x,df, spar=spar[imin.cv], nknots, all.parms[,imin.cv], tuning.method='NIC',
+#                cv.fold=1, optim.method, logistic.correction=FALSE,
+#                em.iter.max, em.beta.iter.max,newton.iter.max, scale.conv, lfdr.conv,NPLL.conv, debugging, plotit=FALSE)
+#    
+#    final.fit$tuning=list(mean=criterion.mean,  var=criterion.var,  grp=cv.grp,  method=tuning.method, 
+#                    final=final.fit$tuning$final)
+#    final.fit$spar=list(all=spar, final=spar[imin.cv], final.idx=imin.cv)
+#    final.fit$enp=list(raw=enps0, logistic=enps, final=final.fit$enp$final, good.idx=goodenp.idx)
+#    if(plotit)plot(final.fit)
+#    return(final.fit)
    
 }
 

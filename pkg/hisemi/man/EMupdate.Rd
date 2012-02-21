@@ -33,8 +33,8 @@ EMupdate(starts, nLogLik.pen, optim.method, H, tstat, df, dt0,
 \value{
 A numeric vector of updated parameter estimates. The scale factor is in the \code{log(scale.fact-1)} parameterization. 
 }
-\references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012) A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
+\author{ Long Qu \email{longorognol@hotmail.com} }
 %\note{ 
 %}
 \seealso{ \code{\link{penLik.EMNewton}}, \code{\link{NRupdate}} }

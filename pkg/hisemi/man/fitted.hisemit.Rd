@@ -1,6 +1,6 @@
 \name{fitted.hisemit}
 \alias{fitted.hisemit}
-\alias{fitted.values.hisemit}
+%\alias{fitted.values.hisemit}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Extract fitted values from a hisemit object }
 \description{
@@ -9,8 +9,8 @@
 \usage{
 \method{fitted}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), 
         gene.list, component, ...)
-\method{fitted.values}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), 
-        gene.list, component, ...)
+%\method{fitted.values}{hisemit}(object, fitted.type = c("lfdr", "fpp", "pi0", "f"), 
+%        gene.list, component, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -35,11 +35,11 @@
 \value{
         A numeric vector
 }
-\references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012) A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
+\author{ Long Qu \email{longorognol@hotmail.com} }
 %\note{ 
 %}
-\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{resid.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
+\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
 \code{\link{penLik.EMNewton}}}
 %\examples{
 %}

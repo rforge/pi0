@@ -1,18 +1,16 @@
-\name{penLik.EMNewton}
-\alias{penLik.EMNewton}
+\name{tPoly.newton}
+\alias{tPoly.newton}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{ Fits hierarchical semiparametric regression model to t-statistics }
+\title{ Fits hierarchical global polynomial regression model to t-statistics }
 \description{
-  Fits hierarchical semiparametric regression model to t-statistics
+  Fits hierarchical global polynomial regression model to t-statistics through Newtonian algorithms. 
 }
 \usage{
-penLik.EMNewton(tstat, x, df, spar = 10^seq(-1,8,length=30), 
-        nknots = 100, starts, tuning.method = c("NIC", "CV"), 
-        cv.fold = 5, pen.order=1,poly.degree=pen.order*2-1,
+tPoly.newton(tstat, x, df, starts, 
+        pen.order=1,
         optim.method = c("nlminb", "BFGS", "CG", 
         "L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
-        logistic.correction = TRUE, em.iter.max = 10, 
-        em.beta.iter.max = 1, newton.iter.max = 1500, 
+        newton.iter.max = 1500, 
         scale.conv = 0.001, lfdr.conv = 0.001, NPLL.conv = 0.001, 
         debugging = FALSE, plotit = TRUE, ...)
 }
@@ -21,17 +19,17 @@ penLik.EMNewton(tstat, x, df, spar = 10^seq(-1,8,length=30),
   \item{tstat}{ A numeric vector t-statistics }
   \item{x}{ A numeric matrix of covariates, with \code{nrow(x)} being \code{length(tstat)}}
   \item{df}{ A numeric scalar or vector of degrees of freedom }
-  \item{spar}{ A numeric vector of smoothing parameter lambda }
-  \item{nknots}{ A numeric scalar of number of knots }
-  \item{starts}{ An optional numeric vector of starting values}
-  \item{tuning.method}{ Either \code{'NIC'} or \code{'CV'}, specifying the method to choose the tuning parameter \code{spar} }
-  \item{cv.fold}{ A numeric scalar of the fold for cross-validation. Ignored if \code{tuning.method='NIC'}. }
-  \item{pen.order}{ A numeric scalar of the order of derivatives of which squared integration will be used as roughness penalty.}
-  \item{poly.degree}{ A numeric scalar of the degree of B-splines. }
+%  \item{spar}{ A numeric vector of smoothing parameter lambda }
+%  \item{nknots}{ A numeric scalar of number of knots }
+  \item{starts}{ An optional numeric vector of starting values. The first element is the \code{r}, i.e. \code{log(scale-1)}. The second parameter is the intercept. The remaining elements are the starting values for the B-spline coefficients (removing the first basis) for each x. When thist argument is not provided, the code starts with a global constant model that is easiest to fit, and then increase the order gradually using the warm starts from lower order fits.}
+%  \item{tuning.method}{ Either \code{'NIC'} or \code{'CV'}, specifying the method to choose the tuning parameter \code{spar} }
+%  \item{cv.fold}{ A numeric scalar of the fold for cross-validation. Ignored if \code{tuning.method='NIC'}. }
+  \item{pen.order}{ A numeric scalar of the order of derivatives of which squared integration will be used as roughness penalty. Note: The final order of the global polynomial is always \code{pen.order-1}.}
+%  \item{poly.degree}{ A numeric scalar of the degree of B-splines. }
   \item{optim.method}{ A character scalar specifying the method of optimization. }
-  \item{logistic.correction}{ A logical scalar specifying whether or not the effective number of parameters should be corrected using a logistic curve }
-  \item{em.iter.max}{ A numeric scalar specifying the maximum number of EM iterations. If being \code{Inf}, then EM algorithm is used. If being \code{0}, then Newton method is used. Otherwise, EM algorithm is used initially, followed by Newton method. }
-  \item{em.beta.iter.max}{ A numeric scalar specifying the maximum number of iterations in the maximization step for the beta parameters in the EM algorithm. If being \code{Inf}, the original EM is used. If being 1 or other numbers, the generalized EM algorithm is used. }
+%  \item{logistic.correction}{ A logical scalar specifying whether or not the effective number of parameters should be corrected using a logistic curve }
+%  \item{em.iter.max}{ A numeric scalar specifying the maximum number of EM iterations. If being \code{Inf}, then EM algorithm is used. If being \code{0}, then Newton method is used. Otherwise, EM algorithm is used initially, followed by Newton method. }
+%  \item{em.beta.iter.max}{ A numeric scalar specifying the maximum number of iterations in the maximization step for the beta parameters in the EM algorithm. If being \code{Inf}, the original EM is used. If being 1 or other numbers, the generalized EM algorithm is used. }
   \item{newton.iter.max}{ A numeric scalar specifying the maximum number of iterations in Newton method. }
   \item{scale.conv}{ A small numeric scalar specifying the convergence criterion for the scale parameter.  }
   \item{lfdr.conv}{ A small numeric scalar specifying the convergence criterion for the local false discovery rates. }
@@ -86,7 +84,7 @@ penLik.EMNewton(tstat, x, df, spar = 10^seq(-1,8,length=30),
 \author{ Long Qu \email{longorognol@hotmail.com} }
 %\note{ 
 %}
-\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, 
+\seealso{ \code{\link{penLike.EMNewton}}, \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, 
 \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, 
 \code{\link{confint.hisemit}}, \code{\link{plot.hisemit}} 
 \code{\link{hisemi-package}}, \code{\link[pi0]{pi0-package}}

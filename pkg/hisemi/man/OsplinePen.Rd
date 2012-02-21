@@ -24,7 +24,7 @@ OsplinePen(Boundary.knots, knots, ord=1)
 \references{
 Wand, M. P. and Ormerod, J. T. (2008) On semiparametric regression with O'Sullivan penalized splines. Aust. N. Z. J. Stat. 50(2), 179--198.
 }
-\author{ Long Qu [\email{lqu@biostatsolutions.com}] }
+\author{ Long Qu [\email{longorognol@hotmail.com}] }
 \note{
 When knots are selected by all distinct x values, this returns the penalty matrix of smoothing splines. 
 

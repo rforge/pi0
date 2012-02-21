@@ -38,11 +38,11 @@ Extract Wald-type asymptotic confidence intervals from a \code{hisemit} object.
 \value{
 A matrix (or vector) with columns giving lower and upper confidence limits for each parameter. 
 }
-\references{ Long Qu, Dan Nettleton, Jack Dekkers. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. manuscript.  }
-\author{ Long Qu \email{lqu@biostatsolutions.com} }
+\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012) A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
+\author{ Long Qu \email{longorognol@hotmail.com} }
 %\note{ 
 %}
-\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{resid.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
+\seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},
 \code{\link{penLik.EMNewton}}}
 %\examples{
 %}

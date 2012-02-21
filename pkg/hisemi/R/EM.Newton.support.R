@@ -81,11 +81,11 @@ plotHisemitTuning=function(obj, SE=FALSE, add=FALSE,  ...)
         for(i in 1:length(spar.exp))
             lines(c(spar.exp[i],spar.exp[i]),G*(criterion.mean.mean[i]+c(1,-1)*criterion.var.se[i]),col=2,lwd=3)
         abline(v=spar.exp[imin.cv])
-#        spar.exp[criterion.mean.mean<(criterion.mean.mean[imin.cv]+criterion.var.se[imin.cv])]=Inf
-#        cv.1se=tail(which.max(spar.exp),1)
-#        abline(v=spar.exp[cv.1se],lty=2)
-#        axis(1,spar.exp[cv.1se])
-#    abline(h=criterion.mean.mean[imin.cv]+criterion.var.se[imin.cv])
+    #        spar.exp[criterion.mean.mean<(criterion.mean.mean[imin.cv]+criterion.var.se[imin.cv])]=Inf
+    #        cv.1se=tail(which.max(spar.exp),1)
+    #        abline(v=spar.exp[cv.1se],lty=2)
+    #        axis(1,spar.exp[cv.1se])
+    #    abline(h=criterion.mean.mean[imin.cv]+criterion.var.se[imin.cv])
     }else{
 
             myplot(spar.exp,G*drop(criterion.mean.mean), ylab=if(add)''else tuning.method, xlab='log10(smoothing par.)',
@@ -110,7 +110,7 @@ plotHisemitTuning=function(obj, SE=FALSE, add=FALSE,  ...)
 }
 
 
-coefficients.hisemit=coef.hisemit=function(object, scale.parameterization=c('r','scale.factor','sd.ncp'), ...)
+coef.hisemit=function(object, scale.parameterization=c('r','scale.factor','sd.ncp'), ...)
 {
     scale.parameterization=match.arg(scale.parameterization)
     ans=c(if(scale.parameterization=='r') {
@@ -125,7 +125,7 @@ coefficients.hisemit=coef.hisemit=function(object, scale.parameterization=c('r',
     ans
 }
 
-fitted.hisemit=fitted.values.hisemit=function(object, fitted.type=c('lfdr','fpp','pi0','f'), gene.list, component, ...)
+fitted.hisemit=function(object, fitted.type=c('lfdr','fpp','pi0','f'), gene.list, component, ...)
 {
     fitted.type=match.arg(fitted.type)
     if(fitted.type=='lfdr')        return(object$lfdr)
@@ -141,9 +141,10 @@ fitted.hisemit=fitted.values.hisemit=function(object, fitted.type=c('lfdr','fpp'
     if (fitted.type=='f') {
         if(missing(component))  return(object$fit$f)
         if(!is.na(pmatch(component,'intercept')) || (length(component)==1 && component==0)) { 
-            return(rep(object$fit$intercept, length(object$fit$lfdr)))
+            return(rep(object$fit$intercept, length(object$lfdr)))
         }
         if (is.numeric(component)) {
+            stopifnot(all(round(component)<=ncol(object$fit$f.covariate)))
             component=sort(unique(  pmax(pmin(round(component), ncol(object$fit$f.covariate)),0) ))
             if(length(component)==0) stop("invalid component")
             if(component[1]==0){ 
@@ -156,7 +157,7 @@ fitted.hisemit=fitted.values.hisemit=function(object, fitted.type=c('lfdr','fpp'
             return(drop(cbind(ans, ans.rest)))
         }
         {
-            warning("component argument is unknown. overall fit is return")
+            warning("component argument is unknown. overall fit is returned")
             return(object$fit$f)
         }
     }
@@ -165,7 +166,7 @@ fitted.hisemit=fitted.values.hisemit=function(object, fitted.type=c('lfdr','fpp'
     }
 }
 
-resid.hisemit=residuals.hisemit=function(object, residual.type='deviance', ...)
+residuals.hisemit=function(object, residual.type='deviance', ...)
 {
     residual.type=match.arg(residual.type)
     if(residual.type=='deviance'){

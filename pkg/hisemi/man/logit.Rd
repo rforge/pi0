@@ -23,7 +23,7 @@ logit.inv(eta)
         A link function or its inverse. See \code{\link{make.link}}. 
 }
 %\references{ }
-\author{ Long Qu \email{lqu@biostatsolutions.com}}
+\author{ Long Qu \email{longorognol@hotmail.com}}
 %\note{
 %}
 \seealso{\code{\link{make.link}}}
