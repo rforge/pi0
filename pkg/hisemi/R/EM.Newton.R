@@ -1,5 +1,5 @@
 ########## EM algorithm followed by Newton-type optimization
-penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=100, starts,
+penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=n.knots(length(tstat)), starts,
      tuning.method=c('NIC','CV') ,#'GCV','BIC','CAIC','HQIC'),
      cv.fold=5, pen.order=1,poly.degree=pen.order*2-1,
      optim.method=c('nlminb',"BFGS","CG","L-BFGS-B","Nelder-Mead", "SANN", 'NR'),
@@ -427,8 +427,26 @@ penLik.EMNewton=function(tstat,x,df,spar=c(10^seq(-1,8,length=30), Inf), nknots=
         for(j in 1:n.vars) {j.idx=j==j.all; fx.j[,j]=drop(H.all[,j.idx]%*%parms.new[-1][j.idx]); fx.j[,j]=fx.j[,j]-mean(fx.j[,j])}
 
         if(is.infinite(spar[imin.cv])){
-            if(!exists('null.fit', inherits=FALSE))null.fit=scaledTMix.null(tstat.all,df)
-            J=K=solve(null.fit$fit$asym.vcov)
+            if(!exists('null.fit', inherits=FALSE)){
+                #null.fit=scaledTMix.null(tstat.all,df)
+                null.fit=tPoly.newton(tstat.all, x, df,
+                     #starts,
+                     pen.order=pen.order, 
+                     optim.method='nlminb',
+                     newton.iter.max=newton.iter.max,
+                     scale.conv=scale.conv, lfdr.conv=lfdr.conv, NPLL.conv=NPLL.conv, 
+                     debugging=FALSE, plotit=FALSE,...)
+            }
+            return(null.fit) ### FIXME: temporary solution
+            J=K=solve(null.fit$fit$asym.vcov) 
+            if(FALSE){## FIXME: need to transform covariance matrix
+                starts=coef(null.fit)[1:2]
+                for(j in 1:n.vars){## transform global polynomial to peicewise polynomial
+                    j.idx=(j==j.all)
+                    starts=c(starts, coef(lm(fitted(null.fit, 'f', component=j)~as.matrix(H.all[,j.idx,drop=FALSE])))[-1])
+                }
+            }
+
         }else{
             J=hess.nLogLik.pen(parms.new)
             K=attr(deriv.nLogLik.pen(parms.new,TRUE),'K')

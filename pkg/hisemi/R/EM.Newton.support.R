@@ -46,7 +46,7 @@ plotHisemitResid=function(obj, y.type=c('hist','scatter'), x.type=c('lfdr','pi0'
 }
 
 plotHisemitTuning=function(obj, SE=FALSE, add=FALSE,  ...)
-{   if(length(obj$spar$all)<2) stop('need enough smoothing parameters')
+{   if(length(setdiff(obj$spar$all,Inf))<1) stop('need finite smoothing parameters')
     tuning.method=obj$tuning$method
     spar.exp=log10(obj$spar$all)
     final.spar.exp=log10(obj$spar$final)
@@ -133,7 +133,7 @@ fitted.hisemit=function(object, fitted.type=c('lfdr','fpp','pi0','f'), gene.list
         l=object$lfdr
         ord.l=order(l)
         r=1-logit.inv(cumsum(logit(1-l[ord.l]))/(seq(along=l)))
-        ans=numeric(length(l))
+        ans=l
         ans[ord.l]=r
         return (ans)
     }
@@ -234,6 +234,7 @@ confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.
         var.beta=diag(V)[-1]
         cl.beta=coef(object)[-1]+outer(t.1malpha*sqrt(var.beta), c(-1,1))
         colnames(cl.beta)=paste(round(c(1-0.5-level/2, 0.5+level/2)*100, 3), '%',sep='')
+        rownames(cl.beta)=names(coef(object))[-1]
         return(cl.beta)
     }
     if(parm=='scale.fact'){
@@ -260,6 +261,7 @@ confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.
         var.coef=diag(V)
         cl.coef=coef(object)+outer(t.1malpha*sqrt(var.coef), c(-1,1))
         colnames(cl.coef)=paste(round(c(1-0.5-level/2, 0.5+level/2)*100, 3), '%',sep='')
+        rownames(cl.coef)=names(coef(object))
         return(cl.coef)
     }
     if(parm=='f'){
@@ -301,7 +303,7 @@ confint.hisemit=function(object, parm=c('lfdr', 'fpp', 'beta', 'scale.fact','sd.
         return(CL.pi0)
     }
     if(parm=='fpp') {
-
+        stop('not yet implemented')
     }
 
     {
