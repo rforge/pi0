@@ -12,8 +12,8 @@ n.knots(n, cutoff=35, rate=0.2)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{n}{ An integer vector of sample sizes. }
-  \item{cutoff} { A numeric vector of cutoff values. }
-  \item{rate}   { A numeric vector of rates at which the number of knots increases with the sample size. }
+  \item{cutoff}{ A numeric vector of cutoff values. }
+  \item{rate}{ A numeric vector of rates at which the number of knots increases with the sample size. }
 }
 \value{
  An integer vector, being the number of knots for splines. 
