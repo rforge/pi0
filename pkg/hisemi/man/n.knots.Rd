@@ -1,5 +1,5 @@
 \name{n.knots}
-\alias{directSum}
+\alias{n.knots}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Number of spline knots
 }
@@ -19,6 +19,13 @@ n.knots(n, cutoff=35, rate=0.2)
  An integer vector, being the number of knots for splines. 
 }
 \references{ 
+Claeskens, G. Krivobokova, T., and Opsomer, J. D. (2009). Asymptotic properties of penalized spline estimators. Biometrika 96, 529--544. 
+
+Li, Y. and Ruppert, D. (2008). on the asymptotics of penalized splines. Biometrika 95, 415--436.
+
+Ruppert, D. (2002). Selecting the number of knots for penalized splines. Journal of Computational and Graphical Statistics 11, 735--757.
+
+Qu, L., Nettleton, D., and Dekkers J. C. M. (2012) A hierarchical semiparametric model for incorporating inter-gene information for analysis of genomic data. Biometrics (conditionally accepted).
 
 }
 \author{ Long Qu \email{longorognol@hotmail.com}
