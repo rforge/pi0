@@ -78,22 +78,26 @@
 */
 {
 	double ans=0.0;
-	register unsigned  int j, i, N2=(N<<1), base;
+	register int j, i, N2=(N<<1), base;
 
 	for(j=0; j<n-1; ++j){ /* // column index */
 		/*  base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;  /* // part that does not involve row index */
-		base = ((N2-idx[j])*(idx[j]))>>1 - idx[j] - 1 ;  /* this should replace the previous line  */
+		base = (((N2-idx[j])*(idx[j]-1))>>1) - idx[j] - 1 ;  /* this should replace the previous line  */
 		for(i=j+1; i<n; ++i){  /* //  row index */
-			ans+=x[ base+idx[i] ]; 
+			ans+= x [base + idx[i]]; 
 		}
 	}
-	ans*=2;
+	ans*=2.0;
 	return ans;
 }
-void testSumSubMatSorted(double const * const x, int const * const idx, const int * const n, const int * const N, double const * ans)
+
+#define DEBUG
+#ifdef DEBUG
+void testSumSubMatSorted(double const * const x, int const * const idx, const int * const n, const int * const N, double  * const ans)
 {
 	*ans=sumSubMatSorted(x, idx, *n, *N);
 }
+#endif
 
 void mrppstats2(double const * const x, int const * const perm, int const * const permcomplement, 
 			   int const * const n, int const * const B, int const * const N, int const * const wtmethod,
