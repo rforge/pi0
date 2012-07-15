@@ -27,7 +27,7 @@ mrpp.test.default <-
 function(y, ...) {
     ans=mrpp.test.dist(dist(y),...)
     repl.text=paste("dist(", deparse(substitute(y)), ")",sep='')
-    ans$data.name=gsub("dist(y)", repl.text, ans$data.name, fix=TRUE)
+    ans$data.name=gsub("dist(y)", repl.text, ans$data.name, fixed=TRUE)
     ans
 }
 
