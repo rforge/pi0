@@ -77,15 +77,20 @@
 //   This is about 3~5% faster than sumSubMat when N=30 and B=5000. 
 */
 {
-	double ans=0.0;
+	double ans, compen, adjx, tmpAns;
 	register unsigned int j, i, N2=(N<<1);
 	register int base;
 
+	ans = compen = 0.0;
 	for(j=0; j<n-1; ++j){ /* // column index */
 		/*  base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;  /* // part that does not involve row index */
 		base = (((N2-idx[j])*(idx[j]-1))>>1) - idx[j] - 1 ;  /* this should replace the previous line  */
 		for(i=j+1; i<n; ++i){  /* //  row index */
-			ans+= x [base + idx[i]]; 
+			/*  ans+= x [base + idx[i]];   // the following Kahan's algo recovers this line */
+			adjx = x[base + idx[i]] - compen;
+			tmpAns = ans + adjx;
+			compen = (tmpAns - ans) - adjx;
+			ans = tmpAns;
 		}
 	}
 /*	ans*=2.0;	*/

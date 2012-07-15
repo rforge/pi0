@@ -1,2 +1,3 @@
+allowing >2 trt groups;
 allowing some NA's in the distance matrix;
 allowing formula for mrpp.test.
