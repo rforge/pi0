@@ -1,5 +1,5 @@
 bw.mse.pdf.asym=function(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
-{require(ks)
+{#require(ks)
 
         bw0=bw.nrd(x)
         Rkern=density(x,bw0,from=x[1],to=x[1],n=1,give.Rkern=TRUE)
