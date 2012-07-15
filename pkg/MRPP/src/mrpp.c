@@ -87,8 +87,8 @@
 			ans+= x [base + idx[i]]; 
 		}
 	}
-	ans*=2.0;
-	return ans;
+/*	ans*=2.0;	*/
+	return ans*2.0;
 }
 
 #define DEBUG
@@ -113,16 +113,19 @@ void mrppstats2(double const * const x, int const * const perm, int const * cons
 // Output: 
 //   *ans is a length *B space of mrpp statistics to be filled in
 */
-{	register unsigned int b;
+{	register unsigned int b, Nn;
 	double tmp1, tmp2, denom1, denom2;
-	denom1=1.0/(*n-*wtmethod); denom2=1.0/(*N-*n-*wtmethod) ;
-	for(b=0; b<*B; ++b) {
+
+	Nn = *N - *n;
+	denom1=1.0/(*n-*wtmethod); denom2=1.0/(Nn-*wtmethod) ;
+	for(b=col=0; b<*B; ++b, ) 
+	{
 /*
 //		tmp1=sumSubMat(x, perm+(b**n), *n, *N); 
 //		tmp2=sumSubMat(x, permcomplement+(b*(*N-*n)), *N-*n, *N); 
 */
 		tmp1=sumSubMatSorted(x, perm+(b**n), *n, *N); 
-		tmp2=sumSubMatSorted(x, permcomplement+(b*(*N-*n)), *N-*n, *N); 
+		tmp2=sumSubMatSorted(x, permcomplement+(b*Nn), Nn, *N); 
 		
 
    	    ans[b]=tmp1*denom1 +  tmp2*denom2 ;

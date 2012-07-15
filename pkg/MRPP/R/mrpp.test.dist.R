@@ -1,5 +1,5 @@
 mrpp.test.dist <-
-function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cperm.mat, ...) ## this uses C code
+function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cperm.mat, eps=1e-8, ...) ## this uses C code
 ## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
 {
     if(missing(y) || !inherits(y,'dist')) stop('dist object missing or incorrect')
@@ -15,7 +15,7 @@ function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cper
     stats=.C('mrppstats2',y,perm.mat,cperm.mat,nrow(perm.mat),B,N,as.integer(wtmethod[1]), ans=double(B),
             PACKAGE='MRPP',DUP=FALSE)$ans
     ans=list(statistic=c("MRPP statistic"=stats[1]), all.statistics=stats, 
-             p.value=mean(stats[1]-stats>=-min(c(1e-8,.5/B))), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1]),
+             p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1]),
              data.name=dname, .Random.seed=attr(perm.mat,'.Random.seed'),
              method='2-sample MRPP test')
     class(ans)='htest'
@@ -32,7 +32,7 @@ function(y, ...) {
 }
 
 mrpp.test.formula <-
-function(y, ...) 
+function(y, data, B, perm.mat, ...) 
 {
     if (missing(y) || (length(y) != 3L) || (length(attr(terms(y[-2L]), "term.labels")) != 1L)) 
         stop("'formula' missing or incorrect")
