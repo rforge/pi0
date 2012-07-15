@@ -78,7 +78,8 @@
 */
 {
 	double ans=0.0;
-	register int j, i, N2=(N<<1), base;
+	register unsigned int j, i, N2=(N<<1);
+	register int base;
 
 	for(j=0; j<n-1; ++j){ /* // column index */
 		/*  base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;  /* // part that does not involve row index */
@@ -91,7 +92,6 @@
 	return ans*2.0;
 }
 
-#define DEBUG
 #ifdef DEBUG
 void testSumSubMatSorted(double const * const x, int const * const idx, const int * const n, const int * const N, double  * const ans)
 {
@@ -118,7 +118,7 @@ void mrppstats2(double const * const x, int const * const perm, int const * cons
 
 	Nn = *N - *n;
 	denom1=1.0/(*n-*wtmethod); denom2=1.0/(Nn-*wtmethod) ;
-	for(b=col=0; b<*B; ++b, ) 
+	for(b=0; b<*B; ++b) 
 	{
 /*
 //		tmp1=sumSubMat(x, perm+(b**n), *n, *N); 

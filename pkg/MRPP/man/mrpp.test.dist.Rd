@@ -33,6 +33,7 @@ mrpp.test(y, \dots)
 }
   \item{eps}{A small non-negative number, differences below which among permuted test statistics are treated as equal.
 }
+  \item{data}{A data frame in which variables in the formula can be found.}
   \item{\dots}{Additional arguments passed to the methods. 
 }
 }
@@ -41,13 +42,13 @@ mrpp.test(y, \dots)
 }
 \value{
 An \code{htest} object with the following components:
-\item{statistic}{ The observed test statistic.}
-\item{all.statistics}{ All permuted test statistics.}
-\item{p.value} { The permutation p-value.}
-\item{parameter} { A vector of the number of permutations and the weighting method.}
-\item{data.name} { The character name of the data.}
-\item{.Random.seed}{ The random number seed for reproducibility.} 
-\item{method} { A string of test method.}
+\item{statistic }{The observed test statistic.}
+\item{all.statistics }{All permuted test statistics.}
+\item{p.value }{The permutation p-value.}
+\item{parameter }{A vector of the number of permutations and the weighting method.}
+\item{data.name }{The character name of the data.}
+\item{.Random.seed }{ The random number seed for reproducibility.} 
+\item{method }{A string of test method.}
 }
 \references{
 Paul W. Mielke, Kenneth J. Berry. (2007) Permutation Methods: A Distance Function Approach. 2nd ed. Springer.
