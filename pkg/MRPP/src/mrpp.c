@@ -91,7 +91,7 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 }
 void testSumSubMatSorted(double const * const x, int const * const idx, const int * const n, const int * const N, double * const ans)
 {
-	*ans=sumSubMatSorted(x, idx, &n, &N);
+	*ans=sumSubMatSorted(x, idx, *n, *N);
 }
 
 void mrppstats2(double const * const x, int const * const perm, int const * const permcomplement, 
