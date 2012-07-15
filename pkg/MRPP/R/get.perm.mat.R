@@ -1,18 +1,28 @@
-get.perm.mat <-
-function(trt, B=100) ## trt needs have exactly 2 levels; other situations are not implemented yet
+get.perm2.mat <-
+function(trt, B=100L) ## trt needs have exactly 2 levels; other situations are not implemented yet
 {
-    if(!exists('.Random.seed', envir=globalenv())) runif(1)
+    if(!exists('.Random.seed', envir=globalenv())) runif(1L)
     save.seed=get('.Random.seed', envir=globalenv())
     n=table(trt)
-    perms=replicate(B, sort(sample(sum(n),min(n))))
-    perms[,1]=which(as.factor(trt)==names(n[which.min(n)]))
+    if(length(n) != 2L) stop('"get.perm2.mat" only works when "trt" has exactly two levels.')
+    N=sum(n); m=min(n)
+    #perms=replicate(B, sort(sample(N, m)))
+    perms=combn2R(N, m, R=B, sample.method="noReplace")
+    idx1=sort(which(as.factor(trt)==names(n[which.min(n)])))
+    colid=which(apply(perms == idx1 , 2L, all))
+    if (length(colid)==0L) {
+        perms[,1L]=idx1
+    }else if(colid!=1L){
+        perms[, colid] = perms[,1L]
+        perms[,1L] = idx1 
+    }
     attr(perms,'.Random.seed')=save.seed
     perms
 }
 
 
 get.perm.mat <-
-function(trt, B=100) ## permutation matrix for one way design
+function(trt, B=100L) ## permutation matrix for one way design
 ## returns a length(trt) by B matrix, if B is not larger than multinomial coefficient. 
 {
     if(!exists('.Random.seed', envir=globalenv())) runif(1)

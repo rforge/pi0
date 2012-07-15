@@ -67,7 +67,7 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 /*
 // Input:
 //   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
-//	 idx is a vector of "sorted" indices where sum of x is taken over;
+//	 idx is a vector of "sorted" indices where sum of x is taken over (idx starts from 1 instead of 0);
 //   n is the length of idx; 
 //   *N is the total sample size; 
 // Output: 
@@ -80,7 +80,8 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 	register unsigned  int j, i, N2=(N<<1), base;
 
 	for(j=0; j<n-1; ++j){ /* // column index */
-		base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;  /* // part that does not involve row index */
+		/*  base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;  /* // part that does not involve row index */
+		base = ((N2-idx[j])*(idx[j]))>>1 - idx[j] - 1 ;  /* this should replace the previous line  */
 		for(i=j+1; i<n; ++i){  /* //  row index */
 			ans+=x[ base+idx[i] ]; 
 		}
@@ -88,7 +89,12 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 	ans*=2;
 	return ans;
 }
-void mrppstats(double const * const x, int const * const perm, int const * const permcomplement, 
+void testSumSubMatSorted(double const * const x, int const * const idx, const int * const n, const int * const N, double * const ans);
+{
+	*ans=sumSubMatSorted(x, idx, &n, &N);
+}
+
+void mrppstats2(double const * const x, int const * const perm, int const * const permcomplement, 
 			   int const * const n, int const * const B, int const * const N, int const * const wtmethod,
 			   double * const ans)
 /*
