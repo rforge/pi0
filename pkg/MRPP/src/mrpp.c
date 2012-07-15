@@ -89,7 +89,7 @@ inline double sumSubMatSorted( double const * const x,  int const * const idx,  
 	ans*=2;
 	return ans;
 }
-void testSumSubMatSorted(double const * const x, int const * const idx, const int * const n, const int * const N, double * const ans);
+void testSumSubMatSorted(double const * const x, int const * const idx, const int * const n, const int * const N, double * const ans)
 {
 	*ans=sumSubMatSorted(x, idx, &n, &N);
 }
