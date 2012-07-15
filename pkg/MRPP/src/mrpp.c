@@ -63,7 +63,8 @@
 //	return ans;
 //}
 */
-inline double sumSubMatSorted( double const * const x,  int const * const idx,  const int n,  const int N)
+
+ double sumSubMatSorted( double const * const x,  int const * const idx,  const int n,  const int N)
 /*
 // Input:
 //   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
