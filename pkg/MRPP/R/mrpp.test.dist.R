@@ -1,5 +1,5 @@
 mrpp.test.dist <-
-function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cperm.mat, eps=1e-8, ...) ## this uses C code
+function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, eps=1e-8, ...) ## this uses C code
 ## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
 {
     if(missing(y) || !inherits(y,'dist')) stop('dist object missing or incorrect')
@@ -11,13 +11,16 @@ function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, cper
     }else dname=paste('"dist" object',deparse(substitute(y)), 
                              'and permutation matrix', deparse(substitute(perm.mat)))
     B=ncol(perm.mat)
-    if(missing(cperm.mat)) cperm.mat=apply(perm.mat, 2, function(kk)(1:N)[-kk])
-    stats=.C('mrppstats2',y,perm.mat,cperm.mat,nrow(perm.mat),B,N,as.integer(wtmethod[1]), ans=double(B),
-            PACKAGE='MRPP',DUP=FALSE)$ans
-    ans=list(statistic=c("MRPP statistic"=stats[1]), all.statistics=stats, 
-             p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1]),
+    #if(missing(cperm.mat)) cperm.mat=apply(perm.mat, 2, function(kk)(1:N)[-kk])
+    tabtrt=table(trt)
+    ntrt=length(tabtrt)
+    stats=.Call('mrppstats',y,perm.mat, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
+    stats0=.Call('mrppstats', y, lapply(names(tabtrt), function(z)which(as.character(trt)==z)), as.numeric(wtmethod[1L]), PACKAGE='MRPP')
+    ans=list(statistic=c("MRPP statistic"=stats0), all.statistics=stats, 
+             p.value=mean(stats0-stats>=-eps), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1L]),
              data.name=dname, .Random.seed=attr(perm.mat,'.Random.seed'),
-             method='2-sample MRPP test')
+             method=sprintf('%d-sample MRPP test',ntrt)
+             )
     class(ans)='htest'
     ans
 }

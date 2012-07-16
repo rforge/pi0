@@ -1,3 +1,4 @@
+if (FALSE) {  ## old code
 get.perm2.mat <-
 function(trt, B=100L) ## trt needs have exactly 2 levels; other situations are not implemented yet
 {
@@ -46,25 +47,34 @@ function(trt, B=100L) ## permutation matrix for one way design
         get.choose=function(N,n)exp(lfactorial(N)-sum(lfactorial(n)))
         get.combn=function(vec, n, R){
             if(length(vec)==n[1]) return(matrix(vec))
-            k=choose(length(vec), n[1])
-            rest=get.choose(length(vec)-n[1],n[-1])
-            if(k<=R) { 
-                this.ans=combn(length(vec), n[1])
-                if(rest*k>R){
-                    sampled=table(sort(sample(rest*k, R)-1)%/%rest+1)
-                    remainder=numeric(k)
-                    remainder[as.numeric(names(sampled))]=sampled
-                }else   remainder=rep(rest,k)
-            }else {
-                this.ans=combn2R(length(vec), n[1],R=R)
-                remainder=rep(1L, R)
+            if(FALSE){  ## this is old implementation that is buggy, but still useful
+                k=choose(length(vec), n[1])
+                rest=get.choose(length(vec)-n[1],n[-1])
+                if(k<=R) { 
+                    this.ans=combn(length(vec), n[1])
+                    if(rest*k>R){
+                        sampled=table(sort(sample(rest*k, R)-1)%/%rest+1)
+                        remainder=numeric(k)
+                        remainder[as.numeric(names(sampled))]=sampled
+                    }else   remainder=rep(rest,k)
+                }else {
+                    this.ans=combn2R(length(vec), n[1],R=R) ## BUG: this does not allow duplicates
+                    remainder=rep(1L, R)
+                }
+            }else{
+                remainder=table(bdSample(seq(choose(length(vec), n[1L])), 
+                                         R, 
+                                         get.choose(length(vec)-n[1L], n[-1L])
+                                         )
+                                )
+                this.ans=combn(length(vec), n[1L])[,as.integer(names(remainder)),drop=FALSE]
             }
             
             ans.mat=matrix(NA_real_, length(vec), R)
             cur.col=0
             for(i in 1:ncol(this.ans)){
                 if(remainder[i]==0) next
-                tmp=get.combn(vec[-this.ans[,i]], n[-1], remainder[i])
+                tmp=Recall(vec[-this.ans[,i]], n[-1], remainder[i])
                 tmpans=rbind(matrix(rep(vec[this.ans[,i]],ncol(tmp)),n[1]), tmp)
                 ans.mat[,cur.col+1:ncol(tmpans)]=tmpans
                 cur.col=cur.col+ncol(tmpans)
@@ -86,3 +96,81 @@ function(trt, B=100L) ## permutation matrix for one way design
     perms
 }
 
+bdSample=function(x, n, ubounds)
+# sample n elements of vector x with replacement subject to the number of each element being sampled to be no larger than the corresponding upper bound ubounds
+{
+    N=length(x)
+    x0=seq(N)
+    if(length(ubounds)!=N) ubounds=rep(ubounds, length=N)
+    stopifnot(sum(ubounds)>n)
+    counts=integer(N)
+    idx=rep(TRUE, N)
+    m=n
+    ans=c()
+    while(m>0L){
+        tmp=x0[idx][sample(sum(idx), m, replace=TRUE)]
+        tmpCt=table(tmp); unq=as.integer(names(tmpCt))
+        outOfBd= counts[unq]+tmpCt > ubounds[unq]
+        if(any(outOfBd)){
+            tmpCt[outOfBd]=ubounds[unq[outOfBd]] - counts[unq[outOfBd]]
+            idx[unq[outOfBd]]=FALSE
+        }
+        ans=c(ans, rep(unq, tmpCt))
+        counts[unq]=counts[unq]+tmpCt
+        m=m-sum(tmpCt)
+    }
+    if(length(ans)==1) x[ans] else x[sample(ans)]
+}
+
+mchooseZ=function(N, n)  ## multinomial coef for a vector of n
+{
+   ans = chooseZ(N, n[1L])
+   if(length(n)==1L) ans else ans*Recall(N-n[1L], n[-1L])
+}
+}
+
+
+get.perm.mat <-
+function(trt, B=100L) ## permutation matrices for one way design
+## returns a length(trt) by B matrix, if B is not larger than multinomial coefficient. 
+{
+    n=table(trt)
+    cn=cumsum(n)
+    ntrts=length(n)
+    bg=c(1L, cn[-ntrts]+1L)
+    N=cn[ntrts]
+    #mc=mchooseZ(N, n)
+    ordn=order(n, decreasing=TRUE)
+
+    SP=factorialZ(N)/prod(c(factorialZ(n), factorialZ(table(n))))  ## total number of distinct trt assignments 
+
+    ans=vector('list',ntrts)
+    if(B>=SP){ # list all partitions
+        sp=setparts(n)
+#        idx=which(apply(sp == rep(seq(ntrts), n[ordn]), 2, all))
+#        if(length(idx)==0L){  ## CEHCKME: will this ever happen?
+#            warning("The first permutation may not be the original assignments.")
+#        }else{
+#            sp[,idx] = sp[,1L]
+#        }
+#        sp[, 1L] = rep(seq(ntrts), n[ordn])
+
+        B=ncol(sp)
+        for(i in seq(ntrts))
+            ans[[i]]=matrix( apply(sp==i,2L,function(xx)sort(which(xx)) ), ncol=B)
+        names(ans)=names(n)[ordn]
+    }else{   #sample from all permutations using factoradic number 
+        decfr=HSEL.bigz(factorialZ(N), B)
+        idx=which(decfr==0L)
+        if(length(idx)>0L) decfr[idx]=decfr[1L]
+        decfr[1L]=as.bigz(0L)
+
+        for(i in seq(ntrts)) ans[[i]]=matrix(0L, n[i], B)
+        for(b in seq(B)){
+            perm=dec2permvec(decfr[b],N)
+            for(i in seq(ntrts)) ans[[i]][,b]=sort(perm[bg[i]:cn[i]])
+        }
+        names(ans)=names(n)
+    }
+    ans
+}
