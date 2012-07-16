@@ -145,6 +145,9 @@ void mrppstats2(double const * const x, int const * const perm, int const * cons
 
 SEXP mrppstats(SEXP y, SEXP permMats, SEXP wtmethod)
 {
+	/* y is a 'dist' object with each element being numberic */
+	/* permMats is a 'list', of n * B permutation indices; see get.perm.mat. */
+	/* wtmethod is a scaler of 0 or 1 weighting method: 0=sample size-1; 1=sample size */
     SEXP ans;
     R_len_t t, B, N, ntrt, b, n;
     double * ptrY, * ptrAns, denom, dn, wt;

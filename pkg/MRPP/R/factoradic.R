@@ -1,5 +1,5 @@
 FR2dec=function(FR){
-    drop(crossprod(factorialZ(seq_along(FR)-1),rev(FR)))
+    drop(gmp::crossprod(factorialZ(seq_along(FR)-1),rev(FR)))
 }
 dec2FR=function(dec,N){
     if(missing(N)){

@@ -13,7 +13,7 @@ MRPP test
 }
 \usage{
 mrpp.test(y, \dots)
-\method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, cperm.mat,eps, \dots)
+\method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, eps, \dots)
 \method{mrpp.test}{formula}(y, data, B, perm.mat, \dots)
 \method{mrpp.test}{default}(y, \dots)
 }
@@ -25,11 +25,9 @@ mrpp.test(y, \dots)
 }
   \item{B}{A positive integer number of permutations requested. This would be overwritten by \code{ncol(perm.mat)} if \code{perm.mat} is non-missing.
 }
-  \item{perm.mat}{An optional permutation index matrix. See \code{\link{get.perm2.mat}}. 
+  \item{perm.mat}{An optional permutation index matrix. See \code{\link{get.perm.mat}}. 
 }
   \item{wtmethod}{0 or 1, where 0 stands for weighting each treatment group by sample size - 1, and 1 stands for weighting by sample size. 
-}
-  \item{cperm.mat}{An optional complementary permutation index matrix. 
 }
   \item{eps}{A small non-negative number, differences below which among permuted test statistics are treated as equal.
 }
@@ -63,13 +61,13 @@ Long Qu
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{get.perm2.mat}}, \code{\link{get.perm.mat}}.
+ \code{\link{get.perm.mat}}
 }
 \examples{
 set.seed(2340)
 x=matrix(rnorm(30*5),30)
 trt=gl(2,15)
-pmat=get.perm2.mat(trt, 100L)
+pmat=get.perm.mat(trt, 100L)
 mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
 
 }

@@ -21,7 +21,7 @@ sample1(N, seed=0)
 }
 \details{
 \code{HSEL.bigz} generates a sample of size M from a population of size N, with space complexity linear in M. 
-\code{sample1) generates one number of 0 to N-1 using simple rejection and \code{\link[gmp]{urand.bigz}}. 
+\code{sample1} generates one number of 0 to N-1 using simple rejection and \code{\link[gmp]{urand.bigz}}. 
 }
 \value{
 For \code{HSEL.bigz}, a \code{bigz} vector of length \code{N}. 

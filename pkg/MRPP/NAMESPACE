@@ -2,7 +2,7 @@
 import(KernSmooth)
 import(mvtnorm)
 import(ks)
-import(gmp)
+#import(gmp)
 importFrom(partitions, setparts)
 importFrom(pi0,combn2R)
 #import(Matrix)
@@ -27,9 +27,16 @@ export(
 	bw.mse.pdf.asym,
 	get.dp.dw.kde,
 	get.p.dd.dw,
-	get.perm2.mat,
 	get.perm.mat,
-	mrpp.test
+	mrpp.test, 
+	FR2dec, 
+	dec2FR,
+	dec2permvec,
+	FR2permvec,
+	permvec2dec,
+	permvec2FR, 
+	HSEL.bigz, 
+	sample1
 )
 
 
