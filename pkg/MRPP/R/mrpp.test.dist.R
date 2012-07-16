@@ -37,16 +37,15 @@ function(y, ...) {
 }
 
 mrpp.test.formula <-
-function(y, data, B, perm.mat, ...) 
+function(y, data, B,  ...) 
 {
     if (missing(y) || (length(y) != 3L) || (length(attr(terms(y[-2L]), "term.labels")) != 1L)) 
         stop("'formula' missing or incorrect")
     if(missing(data)) mf = model.frame(y) else mf <- model.frame(y, data=data)
     response <- attr(attr(mf, "terms"), "response")
     g <- factor(mf[[-response]])
-    resNames=mf[[response]]
-    res=do.call('cbind', lapply(resNames, 'get', pos=if(missing(data)) -1 else data))
-    ans=mrpp.test.dist(dist(res),g,...)
+    res=mf[[response]]
+    ans=mrpp.test(dist(res),trt=g, B=B, ...)
     ans$data.name=paste("'formula object:'", paste(names(mf), collapse = " ~ "))
     if(!missing(data)) ans$data.name = paste(ans$data.name, "in data.frame", substitute(data))
     ans

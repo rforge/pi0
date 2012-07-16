@@ -13,7 +13,7 @@ MRPP test
 }
 \usage{
 mrpp.test(y, \dots)
-\method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, eps, \dots)
+\method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, eps=1e-8, \dots)
 \method{mrpp.test}{formula}(y, data, B, perm.mat, \dots)
 \method{mrpp.test}{default}(y, \dots)
 }
@@ -35,9 +35,7 @@ mrpp.test(y, \dots)
   \item{\dots}{Additional arguments passed to the methods. 
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
+
 \value{
 An \code{htest} object with the following components:
 \item{statistic }{The observed test statistic.}
@@ -55,9 +53,7 @@ Paul W. Mielke, Kenneth J. Berry. (2007) Permutation Methods: A Distance Functio
 Long Qu
 }
 \note{
-%%  ~~further notes~~
 }
-
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
@@ -69,7 +65,7 @@ x=matrix(rnorm(20*5),20)
 trt=gl(2,10)
 nparts(length(trt), table(trt))		## 92378 partitions =  choose(20,10)/2
 urand.bigz(1,seed=1032940L) # init seed
-pmat=get.perm.mat(trt, 1e3L)		## use 1000 random permutations
+pmat=get.perm.mat(trt, 5e2L)		## use 500 random permutations
 \dontrun{
 pmat=get.perm.mat(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 
 mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
@@ -77,7 +73,7 @@ mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 )
 mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
 mrpp.test(x, trt, perm.mat=pmat, wtmethod=0 ) 
 dat=data.frame(x, trt)
-mrpp.test(paste0('X',1:5)~trt, dat, perm.mat=pmat, wtmethod=0 )
+mrpp.test(cbind(X1,X2,X3,X4,X5)~trt, dat, perm.mat=pmat, wtmethod=0 )
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
