@@ -36,12 +36,14 @@ export(
 	permvec2dec,
 	permvec2FR, 
 	HSEL.bigz, 
-	sample1
+	sample1, 
+	nparts
 )
 
 
 S3method(mrpp.test, formula)
 S3method(mrpp.test, dist)
+S3method(mrpp.test, default)
 #S3method(coefficients, ncpest)
 #S3method(dncp, nparncpF)
 #S3method(dncp, nparncpp)

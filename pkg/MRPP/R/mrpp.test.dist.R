@@ -15,7 +15,9 @@ function(y, trt, B=choose(length(trt),table(trt)[1]), perm.mat, wtmethod=0, eps=
     tabtrt=table(trt)
     ntrt=length(tabtrt)
     stats=.Call('mrppstats',y,perm.mat, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
-    stats0=.Call('mrppstats', y, lapply(names(tabtrt), function(z)which(as.character(trt)==z)), as.numeric(wtmethod[1L]), PACKAGE='MRPP')
+    stats0=.Call('mrppstats', y, 
+        lapply(names(tabtrt), function(z)matrix(which(as.character(trt)==z))), 
+        as.numeric(wtmethod[1L]),         PACKAGE='MRPP')
     ans=list(statistic=c("MRPP statistic"=stats0), all.statistics=stats, 
              p.value=mean(stats0-stats>=-eps), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1L]),
              data.name=dname, .Random.seed=attr(perm.mat,'.Random.seed'),
@@ -39,13 +41,14 @@ function(y, data, B, perm.mat, ...)
 {
     if (missing(y) || (length(y) != 3L) || (length(attr(terms(y[-2L]), "term.labels")) != 1L)) 
         stop("'formula' missing or incorrect")
-    mf <- model.frame(y)
+    if(missing(data)) mf = model.frame(y) else mf <- model.frame(y, data=data)
     response <- attr(attr(mf, "terms"), "response")
     g <- factor(mf[[-response]])
-    if (nlevels(g) != 2L) 
-        stop("grouping factor must have exactly 2 levels")
-    ans=mrpp.test.dist(dist(mf[[response]]),g,...)
-    ans$data.name=paste("'formula object:'", paste(names(mf), collapse = " by "))
+    resNames=mf[[response]]
+    res=do.call('cbind', lapply(resNames, 'get', pos=if(missing(data)) -1 else data))
+    ans=mrpp.test.dist(dist(res),g,...)
+    ans$data.name=paste("'formula object:'", paste(names(mf), collapse = " ~ "))
+    if(!missing(data)) ans$data.name = paste(ans$data.name, "in data.frame", substitute(data))
     ans
 }
 

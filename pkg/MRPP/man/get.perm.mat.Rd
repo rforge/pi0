@@ -1,7 +1,7 @@
 \name{get.perm.mat}
 \Rdversion{1.1}
 \alias{get.perm.mat}
-%- Also NEED an '\alias' for EACH other topic documented here.
+\alias{nparts}
 \title{
 Compute permutation matrix
 }
@@ -10,57 +10,41 @@ Compute permutation matrix based on design
 }
 \usage{
 get.perm.mat(trt, B = 100)
+nparts(N, n)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{trt}{
-%%     ~~Describe \code{trt} here~~
+  \item{trt}{A vector of treatment labels
 }
-  \item{B}{
-%%     ~~Describe \code{B} here~~
+  \item{B}{A positive integer of the number of permutations requested. 
 }
+  \item{N}{The total number of observations.}
+  \item{n}{The sample size in each treatment group.}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+When \code{B} is larger than \code{nparts(N, table(trt))}, all partitions are returned and \code{B} is adjusted. 
+Otherwise, a sample \code{B} random permutations will be selection from a total of \code{N!}. 
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
+For \code{get.perm.mat}, a list of \code{n}-by-\code{B} permutation index matrices; 
+for \code{nparts}, the total number of non-equivalent treatment assignments. 
 }
 \author{
-%%  ~~who you are~~
+Long Qu
 }
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{combn}}, \code{\link[gmp]{urand.bigz}}, \code{\link{HSEL.bigz}}, \code{\link{sample1}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+set.seed(2340)
+trt=gl(2,10)
+nparts(length(trt), table(trt))		## 92378 partitions =  choose(20,10)/2
+urand.bigz(1,seed=1032940L) # init seed
+pmat=get.perm.mat(trt, 1e3L)		## use 1000 random permutations
+\dontrun{
+pmat=get.perm.mat(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 
+}
 
-## The function is currently defined as
-function(trt, B=100) ## trt needs have exactly 2 levels; other situations are not implemented yet
-{
-    if(!exists('.Random.seed', envir=globalenv())) runif(1)
-    save.seed=get('.Random.seed', envir=globalenv())
-    n=table(trt)
-    perms=replicate(B, sample(sum(n),min(n)))
-    perms[,1]=which(as.factor(trt)==names(n[which.min(n)]))
-    attr(perms,'.Random.seed')=save.seed
-    perms
-  }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

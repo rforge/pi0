@@ -129,6 +129,8 @@ mchooseZ=function(N, n)  ## multinomial coef for a vector of n
 }
 }
 
+nparts=function(N, n)
+    factorialZ(N)/prod(c(factorialZ(n), factorialZ(table(n))))  ## total number of distinct trt assignments 
 
 get.perm.mat <-
 function(trt, B=100L) ## permutation matrices for one way design
@@ -142,7 +144,7 @@ function(trt, B=100L) ## permutation matrices for one way design
     #mc=mchooseZ(N, n)
     ordn=order(n, decreasing=TRUE)
 
-    SP=factorialZ(N)/prod(c(factorialZ(n), factorialZ(table(n))))  ## total number of distinct trt assignments 
+    SP=nparts(N,n)  
 
     ans=vector('list',ntrts)
     if(B>=SP){ # list all partitions

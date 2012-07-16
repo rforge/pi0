@@ -159,19 +159,27 @@ SEXP mrppstats(SEXP y, SEXP permMats, SEXP wtmethod)
 
     ptrY = REAL(y);
     ptrAns=REAL(ans);
+	for(b=0; b<B; ++b) *(ptrAns++)=0.0;
+	ptrAns=REAL(ans);
     N=LENGTH(y);
     N = ( 1 + (int)(0.5 + sqrt(1.0 + 8.0 * N)) ) >> 1;
     PROTECT(wtmethod = AS_NUMERIC(wtmethod));
     wt = *(REAL(wtmethod));
     UNPROTECT(1);
+#ifdef DEBUG
+	Rprintf("ntrt=%d\tB=%d\tL=%d\tN=%d\twt=%f\n", ntrt, B, LENGTH(y), N, wt);
+#endif
 
     for(t=ntrt-1; t>=0; --t){
         n = Rf_nrows(VECTOR_ELT(permMats, t));
         dn = (double) n;
         denom = 1.0 / (dn - wt) ;
+#ifdef DEBUG
+		Rprintf("t=%d\tn=%d\tdn=%f\tdenom=%f\n", t, n, dn, denom);
+#endif
         ptrPerm = INTEGER(VECTOR_ELT(permMats, t)); 
         for(b=0; b<B; ++b){
-            ptrAns[b] += sumSubMatSorted(ptrY,  ptrPerm + (b * n)  , n, N) / denom;
+            ptrAns[b] += sumSubMatSorted(ptrY,  ptrPerm + (b * n)  , n, N) * denom;
         }
     }
     UNPROTECT(1);

@@ -65,10 +65,19 @@ Long Qu
 }
 \examples{
 set.seed(2340)
-x=matrix(rnorm(30*5),30)
-trt=gl(2,15)
-pmat=get.perm.mat(trt, 100L)
+x=matrix(rnorm(20*5),20)
+trt=gl(2,10)
+nparts(length(trt), table(trt))		## 92378 partitions =  choose(20,10)/2
+urand.bigz(1,seed=1032940L) # init seed
+pmat=get.perm.mat(trt, 1e3L)		## use 1000 random permutations
+\dontrun{
+pmat=get.perm.mat(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 
 mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
+}
+mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
+mrpp.test(x, trt, perm.mat=pmat, wtmethod=0 ) 
+dat=data.frame(x, trt)
+mrpp.test(paste0('X',1:5)~trt, dat, perm.mat=pmat, wtmethod=0 )
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
