@@ -72,7 +72,7 @@ mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 )
 mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
 mrpp.test(x, trt, perm.mat=pmat, wtmethod=0 ) 
 dat=data.frame(x, trt)
-fmla=as.formula(sprintf('cbind(%s)~trt',paste0('X',1:5,collapse=',')))
+fmla=as.formula(sprintf('cbind(\%s)~trt',paste0('X',1:5,collapse=',')))
 mrpp.test(fmla, dat, perm.mat=pmat, wtmethod=0 )
 
 }
