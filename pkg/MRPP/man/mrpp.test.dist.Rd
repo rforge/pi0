@@ -14,7 +14,7 @@ MRPP test
 \usage{
 mrpp.test(y, \dots)
 \method{mrpp.test}{dist}(y, trt, B = choose(length(trt), table(trt)[1]), perm.mat, wtmethod=0, eps=1e-8, \dots)
-\method{mrpp.test}{formula}(y, data, B, perm.mat, \dots)
+\method{mrpp.test}{formula}(y, data, \dots)
 \method{mrpp.test}{default}(y, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -52,10 +52,9 @@ Paul W. Mielke, Kenneth J. Berry. (2007) Permutation Methods: A Distance Functio
 \author{
 Long Qu
 }
-\note{
-}
+%%\note{
+%%}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
  \code{\link{get.perm.mat}}
 }
@@ -73,7 +72,8 @@ mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 )
 mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
 mrpp.test(x, trt, perm.mat=pmat, wtmethod=0 ) 
 dat=data.frame(x, trt)
-mrpp.test(cbind(X1,X2,X3,X4,X5)~trt, dat, perm.mat=pmat, wtmethod=0 )
+fmla=as.formula(sprintf('cbind(%s)~trt',paste0('X',1:5,collapse=',')))
+mrpp.test(fmla, dat, perm.mat=pmat, wtmethod=0 )
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

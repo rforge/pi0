@@ -37,7 +37,7 @@ function(y, ...) {
 }
 
 mrpp.test.formula <-
-function(y, data, B,  ...) 
+function(y, data, ...) 
 {
     if (missing(y) || (length(y) != 3L) || (length(attr(terms(y[-2L]), "term.labels")) != 1L)) 
         stop("'formula' missing or incorrect")
@@ -45,7 +45,7 @@ function(y, data, B,  ...)
     response <- attr(attr(mf, "terms"), "response")
     g <- factor(mf[[-response]])
     res=mf[[response]]
-    ans=mrpp.test(dist(res),trt=g, B=B, ...)
+    ans=mrpp.test(dist(res),trt=g, ...)
     ans$data.name=paste("'formula object:'", paste(names(mf), collapse = " ~ "))
     if(!missing(data)) ans$data.name = paste(ans$data.name, "in data.frame", substitute(data))
     ans
