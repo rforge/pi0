@@ -1,4 +1,4 @@
-bw.mse.pdf.asym=function(x,iter.max=100L,eps=1e-6,start.bw=bw.nrd, verbose=FALSE)
+bw.mse.pdf.asym=function(x,iter.max=1L,eps=1e-6,start.bw=bw.nrd, verbose=FALSE)
 {#require(ks)
     if(is.function(start.bw)) bw0=start.bw(x)
     if(is.numeric(start.bw)) bw0=start.bw

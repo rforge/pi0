@@ -1,16 +1,16 @@
 back.search <-
-function(y,perm.mat, verbose=TRUE, niter=Inf, 
+function(y,permutedTrt, verbose=TRUE, niter=Inf, 
          importance=c('dp.dw','p.dd.dw'),
          alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
-         alpha.del=0, stepwise=FALSE, size.in=0L, cperm.mat, ...)
+         alpha.del=0, stepwise=FALSE, size.in=0L, ...)
 ## y is a data matrix, with col's being variables and rows being observations
 {
     if(!is.matrix(y))y=as.matrix(y)
     importance=match.arg(importance)
     if(missing(alpha.in)) alpha.in=if(importance=='dp.dw') 0 else 0.1
     N=nrow(y)
-    if(missing(cperm.mat)) cperm.mat=apply(perm.mat,2,function(kk)(1:N)[-kk])
-    B=ncol(perm.mat)
+#    if(missing(cperm.mat)) cperm.mat=apply(permutedTrt,2,function(kk)(1:N)[-kk])
+    B=ncol(permutedTrt)
 
     ans=vector('list')
     R=ncol(y)
@@ -31,10 +31,10 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
             return(ans)
         }
         dist0=dist(y[,idx,drop=FALSE])
-        mrpp.stats0=mrpp.test.dist(dist0,perm.mat=perm.mat,cperm.mat=cperm.mat,...)$all.stat
+        mrpp.stats0=mrpp.test.dist(dist0,permutedTrt=permutedTrt,...)$all.stat
         imptnc=if(importance=='dp.dw') 
-                    get.dp.dw.kde(y[,idx,drop=FALSE],perm.mat,distObj=dist0,mrpp.stats=mrpp.stats0, cperm.mat=cperm.mat,...) 
-               else get.p.dd.dw(y[,idx,drop=FALSE],perm.mat,cperm.mat=cperm.mat,...)
+                    get.dp.dw.kde(y[,idx,drop=FALSE],permutedTrt,distObj=dist0,mrpp.stats=mrpp.stats0, ...) 
+               else get.p.dd.dw(y[,idx,drop=FALSE],permutedTrt,...)
         var.rank=order(imptnc)
         ans[[i]]=list(iter=i-1, var.idx=idx[var.rank], influence=imptnc[var.rank],
                       p.value=mean(mrpp.stats0[1]>=mrpp.stats0-min(c(1e-8,.5/B))),
@@ -45,8 +45,8 @@ function(y,perm.mat, verbose=TRUE, niter=Inf,
             xcl=c(xcl, idx[imptnc>=imptnc.threshold])
             dist.del=dist(y[,xcl,drop=FALSE])
             if(all(!is.na(dist.del)) && length(xcl)>0)
-#                ans[[i]]$deleted.p.value=mrpp.test.dist(dist.del, perm.mat=perm.mat)$p.value
-                next.deleted.p=mrpp.test.dist(dist.del, perm.mat=perm.mat,cperm.mat=cperm.mat)$p.value
+#                ans[[i]]$deleted.p.value=mrpp.test.dist(dist.del, permutedTrt=permutedTrt)$p.value
+                next.deleted.p=mrpp.test.dist(dist.del, permutedTrt=permutedTrt)$p.value
         }
         if(verbose && isTRUE(i%%verbose==0)) {
           cat('\b\b\b:\t',length(idx),'genes left; mrpp.p =',ans[[i]]$p.value,';', 

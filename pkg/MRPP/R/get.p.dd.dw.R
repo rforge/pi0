@@ -1,25 +1,30 @@
 get.p.dd.dw <-
-function(y, perm.mat, r=1:ncol(as.matrix(y)), #test=F, 
+function(y, permutedTrt, r=seq_len(ncol(y)), #test=F, 
                         #distObj=dist(y), 
-                        cperm.mat, wtmethod=integer(1)
+                        #cperm.mat, 
+                        wtmethod=0, 
+                        eps=1e-8
                     )      
 ## b=permutation index; r=dimension index; 
 {
-    B=ncol(perm.mat)
+    B=ncol(permutedTrt[[1]])
+    if(!is.matrix(y) && !is.data.frame(y)) y = as.matrix(y)
 #    b=if(test) 1:B else 1
 #    ans=matrix(NA_real_, length(r), length(b))
     ans=numeric(length(r))
-    N=as.integer(nrow(y))
-    if(missing(cperm.mat)) cperm.mat=apply(perm.mat,2,function(kk)(1:N)[-kk])
+    N=nrow(y)
+    #if(missing(cperm.mat)) cperm.mat=apply(permutedTrt,2,function(kk)(1:N)[-kk])
 
-    contrast.mat=matrix(0,choose(N,2),N); k=1
-    for(i in 1:(N-1))for(j in (i+1):N){contrast.mat[k,i]=1;contrast.mat[k,j]=-1;k=k+1}
-    diffy=contrast.mat%*%y; diffy2=diffy*diffy
-    all.ddelta.dw=diffy2/pmax(1e-8,sqrt(rowSums(diffy2)))/2
-#    all.ddelta.dw=abs(contrast.mat%*%y)^2/pmax(1e-8,dist(y))/2  ## this works
+#    contrast.mat=matrix(0,choose(N,2),N); k=1
+#    for(i in 1:(N-1))for(j in (i+1):N){contrast.mat[k,i]=1;contrast.mat[k,j]=-1;k=k+1}
+#    diffy=contrast.mat%*%y; diffy2=diffy*diffy
+#    all.ddelta.dw=diffy2/pmax(1e-8,sqrt(rowSums(diffy2)))/2
+##    all.ddelta.dw=abs(contrast.mat%*%y)^2/pmax(1e-8,dist(y))/2  
+    all.ddelta.dw=apply(y,2L,dist)^2/dist(y)*0.5   ## these 2 lines replace the above 5 lines
+        all.ddelta.dw[is.nan(all.ddelta.dw)]=0
 
     for(r.i in seq(along=r)){
-        dz.dw=.C('mrppstats',all.ddelta.dw[,r.i],perm.mat,cperm.mat,nrow(perm.mat),B,N,as.integer(wtmethod[1]),ans=double(B),PACKAGE='MRPP',DUP=FALSE)$ans
+        dz.dw=.Call('mrppstats',all.ddelta.dw[,r.i],permutedTrt, as.numeric(wtmethod[1]), PACKAGE='MRPP')
         ans[r.i]=mean(dz.dw[1]-dz.dw>=-1e-8)
     }
     drop(ans)

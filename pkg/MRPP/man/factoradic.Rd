@@ -46,7 +46,7 @@ http://en.wikipedia.org/wiki/Factoradic
 http://www.mathe2.uni-bayreuth.de/frib/KERBER/h00/node30.html
 }
 \seealso{
-\code{\link{get.perm.mat}}
+\code{\link{permuteTrt}}
 }
 \examples{
 FR2dec(dec2FR(10,10))

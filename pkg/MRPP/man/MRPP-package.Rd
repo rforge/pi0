@@ -13,8 +13,8 @@ Implements multiresponse permutation procedure (MRPP), variable importance measu
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-142\cr
-Date: \tab 2010-10-14\cr
+Version: \tab 1.0-231\cr
+Date: \tab 2012-07-17\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
 }
@@ -29,19 +29,15 @@ LazyLoad: \tab yes\cr
 \author{
 Long Qu
 
-Maintainer: Long Qu <longor@iastate.edu>
+Maintainer: Long Qu <longorognol@hotmail.com>
 }
 \references{
 Long Qu, Dan Nettleton, and Jack C. M. Dekkers. RELATIVE VARIABLE IMPORTANCE AND BACKWARD VARIABLE SELECTION FOR THE MULTIRESPONSE
-PERMUTATION PROCEDURE, WITH APPLICATIONS TO HIGH DIMENSIONAL GENOMIC DATA. (submitted)
+PERMUTATION PROCEDURE, WITH APPLICATIONS TO HIGH DIMENSIONAL GENOMIC DATA. (Manuscript under review)
 }
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
 %~~ the R documentation directory ~~
 \keyword{ package }
-\seealso{
-%~~ Optional links to other man pages, e.g. ~~
-%~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
 \examples{
 %~~ simple examples of the most important functions ~~
 }

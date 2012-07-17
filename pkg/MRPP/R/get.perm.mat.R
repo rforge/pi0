@@ -22,7 +22,7 @@ function(trt, B=100L) ## trt needs have exactly 2 levels; other situations are n
 }
 
 
-get.perm.mat <-
+permuteTrt <-
 function(trt, B=100L) ## permutation matrix for one way design
 ## returns a length(trt) by B matrix, if B is not larger than multinomial coefficient. 
 {
@@ -129,50 +129,52 @@ mchooseZ=function(N, n)  ## multinomial coef for a vector of n
 }
 }
 
-nparts=function(N, n)
-    factorialZ(N)/prod(c(factorialZ(n), factorialZ(table(n))))  ## total number of distinct trt assignments 
+nparts=function(n)
+  factorialZ(sum(n))/prod(c(factorialZ(n), factorialZ(table(n))))  ## total number of distinct trt assignments 
 
-get.perm.mat <-
+permuteTrt <-
 function(trt, B=100L) ## permutation matrices for one way design
 ## returns a length(trt) by B matrix, if B is not larger than multinomial coefficient. 
 {
     n=table(trt)
     cn=cumsum(n)
     ntrts=length(n)
-    bg=c(1L, cn[-ntrts]+1L)
     N=cn[ntrts]
     #mc=mchooseZ(N, n)
     ordn=order(n, decreasing=TRUE)
 
-    SP=nparts(N,n)  
-
-    ans=vector('list',ntrts)
+    SP=nparts(n)  
+    part0=split(seq(N),trt); 
+    
     if(B>=SP){ # list all partitions
         sp=setparts(n)
-#        idx=which(apply(sp == rep(seq(ntrts), n[ordn]), 2, all))
-#        if(length(idx)==0L){  ## CEHCKME: will this ever happen?
-#            warning("The first permutation may not be the original assignments.")
-#        }else{
-#            sp[,idx] = sp[,1L]
-#        }
-#        sp[, 1L] = rep(seq(ntrts), n[ordn])
-
         B=ncol(sp)
-        for(i in seq(ntrts))
-            ans[[i]]=matrix( apply(sp==i,2L,function(xx)sort(which(xx)) ), ncol=B)
+#        for(i in seq(ntrts))  ans[[i]]=matrix( apply(sp==i,2L,function(xx)sort(which(xx)) ), ncol=B)
+        ans=split(row(sp),sp); ## this line and the next replace the previous line
+        for(i in seq(ntrts)) dim(ans[[i]])=c(length(ans[[i]])/B,B)   
         names(ans)=names(n)[ordn]
+        
+        # swapping the original assignment to the first permutation        
+        flag=TRUE
+        for(b in seq(B))  
+            if(setequal(part0, lapply(ans, '[', , b))){ idx=b; flag=FALSE; break }
+        if(isTRUE(flag)){
+          warning("The first permutaiton may not be the original assignment.")
+        }
+        for(i in seq(ntrts)) {tmp=ans[[i]][,b]; ans[[i]][,b]=ans[[i]][,1L]; ans[[i]][,1L]=tmp} 
     }else{   #sample from all permutations using factoradic number. Ideally, a sample from 1:SP should work, but how to do this without enumerating all SP possibilities using setparts?
+
         decfr=HSEL.bigz(factorialZ(N), B)
         idx=which(decfr==0L)
         if(length(idx)>0L) decfr[idx]=decfr[1L]
         decfr[1L]=as.bigz(0L)
 
-        for(i in seq(ntrts)) ans[[i]]=matrix(0L, n[i], B)
+        ans=lapply(sapply(part0,length), matrix, data=NA_integer_, ncol=B)
         for(b in seq(B)){
             perm=dec2permvec(decfr[b],N)
-            for(i in seq(ntrts)) ans[[i]][,b]=sort(perm[bg[i]:cn[i]])
+            for(i in seq(ntrts)) ans[[i]][,b]=sort(perm[part0[[i]]])
         }
-        names(ans)=names(n)
+        names(ans)=names(part0)
     }
     ans
 }

@@ -13,7 +13,7 @@ K-sample MRPP test
 }
 \usage{
 mrpp.test(y, \dots)
-\method{mrpp.test}{dist}(y, trt, B = nparts(attr(y, "Size"), table(trt)), perm.mat, wtmethod=0, eps=1e-8, \dots)
+\method{mrpp.test}{dist}(y, trt, B = nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, \dots)
 \method{mrpp.test}{formula}(y, data, \dots)
 \method{mrpp.test}{default}(y, \dots)
 }
@@ -21,11 +21,11 @@ mrpp.test(y, \dots)
 \arguments{
   \item{y}{A N*P data matrix, \code{\link{dist}} object of the data matrix, or a \code{\link{formula}}. 
 }
-  \item{trt}{A vector of treatment assignments. 
+  \item{trt}{A vector of treatment assignments. If missing, the first permutation in \code{permutedTrt} will be used as the original treatment assignment. As least one of \code{trt} or \code{permutedTrt} need to be given. 
 }
-  \item{B}{A positive integer number of permutations requested. This would be overwritten by \code{ncol(perm.mat)} if \code{perm.mat} is non-missing.
+  \item{B}{A positive integer number of permutations requested. This will only be used when \code{permutedTrt} is missing. This will be overwritten by the \code{ncol(permutedTrt)}.
 }
-  \item{perm.mat}{An optional permutation index matrix. See \code{\link{get.perm.mat}}. 
+  \item{permutedTrt}{An optional permutation index matrix. If missing, this will be computed as \code{permuteTrt(trt,B)}. See \code{\link{permuteTrt}}. 
 }
   \item{wtmethod}{0 or 1, where 0 stands for weighting each treatment group by sample size - 1, and 1 stands for weighting by sample size. 
 }
@@ -43,7 +43,7 @@ An \code{htest} object with the following components:
 \item{p.value }{The permutation p-value.}
 \item{parameter }{A vector of the number of permutations and the weighting method.}
 \item{data.name }{The character name of the data.}
-\item{.Random.seed }{ The random number seed for reproducibility.} 
+%\item{.Random.seed }{ The random number seed for reproducibility.} 
 \item{method }{A string of test method.}
 }
 \references{
@@ -56,24 +56,24 @@ Long Qu
 %%}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 \seealso{
- \code{\link{get.perm.mat}}
+ \code{\link{permuteTrt}}
 }
 \examples{
 set.seed(2340)
 x=matrix(rnorm(20*5),20)
 trt=gl(2,10)
-nparts(length(trt), table(trt))		## 92378 partitions =  choose(20,10)/2
+nparts( table(trt))		## 92378 partitions =  choose(20,10)/2
 urand.bigz(1,seed=1032940L) # init seed
-pmat=get.perm.mat(trt, 5e2L)		## use 500 random permutations
+pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 \dontrun{
-pmat=get.perm.mat(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 
-mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
+pmat=permuteTrt(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 
+mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) 
 }
-mrpp.test(dist(x), trt, perm.mat=pmat, wtmethod=0 ) 
-mrpp.test(x, trt, perm.mat=pmat, wtmethod=0 ) 
+mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) 
+mrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
 dat=data.frame(x, trt)
-fmla=as.formula(sprintf('cbind(\%s)~trt',paste0('X',1:5,collapse=',')))
-mrpp.test(fmla, dat, perm.mat=pmat, wtmethod=0 )
+fmla=as.formula(sprintf('cbind(\%s)~trt',paste('X',1:5,sep='',collapse=',')))
+mrpp.test(fmla, dat, permutedTrt=pmat, wtmethod=0 )
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -9,13 +9,13 @@ Find asymptotically optimal bandwidth for KDE by minimizing MSE at the first dat
 Find asymptotically optimal bandwidth for Gaussian kernel density estimation by minimizing mean squared error at the first data point. 
 }
 \usage{
-bw.mse.pdf.asym(x,iter.max=100L,eps=1e-6,start.bw=bw.nrd, verbose=FALSE)
+bw.mse.pdf.asym(x,iter.max=1L,eps=1e-6,start.bw=bw.nrd, verbose=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{A numeric vector whose density is to be estimated. 
 }
-  \item{iter.max}{The max number of iterations. For a non-iterative procedure, set this to 1L.}
+  \item{iter.max}{The max number of iterations. For an iterative procedure, set this to be  greater than 1L.}
   \item{eps}{A small positive number such that iterations are terminated when the difference between successive bandwidths is below \code{eps}.
 }
   \item{start.bw}{A function, a character, or a positive number. If being a function or a character, the corresponding function will be called with \code{x} as the only argument to get the initial bandwidth. When it is a number, it will be used as the starting bandwidth directly.

@@ -10,21 +10,21 @@ Backward variable selection for the MRPP
 \code{back.search} performs backward variable selection for the MRPP. \code{bsmrpp} nests the backward variable selection within an outer layer of permutations to assess its significance. 
 }
 \usage{
-back.search(y, perm.mat, verbose = TRUE, niter = Inf, 
+back.search(y, permutedTrt, verbose = TRUE, niter = Inf, 
 	    importance = c("dp.dw", "p.dd.dw"), 
 	    alpha.in, alpha.del = 0, stepwise = FALSE, 
-	    size.in=0L, cperm.mat,...)
-bsmrpp(y,perm.mat, verbose=TRUE, niter=Inf, 
+	    size.in=0L, ...)
+bsmrpp(y,permutedTrt, verbose=TRUE, niter=Inf, 
          importance=c('dp.dw','p.dd.dw'),
          alpha.in, alpha.del=0, stepwise=FALSE, 
-	 size.in=1L, cperm.mat, Bperm=ncol(perm.mat), ...)
+	 size.in=1L, Bperm=ncol(permutedTrt), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{y}{
 	Numeric data matrix, with columns being variables and rows being observations.
 }
-  \item{perm.mat}{
+  \item{permutedTrt}{
 	A permutation of indices of the first treatment group. Each column represent a permutation.
 }
   \item{verbose}{
@@ -48,9 +48,9 @@ bsmrpp(y,perm.mat, verbose=TRUE, niter=Inf,
   \item{size.in}{
 	Minimally allowable number of selected variables. 
 }
-  \item{cperm.mat}{
-	Similar to \code{perm.mat}, except that this is the permutation indices matrix for the second treatment group. 
-}
+%  \item{cperm.mat}{
+%	Similar to \code{permutedTrt}, except that this is the permutation indices matrix for the second treatment group. 
+%}
   \item{Bperm}{
 	Number of outer permutations. 
 }
