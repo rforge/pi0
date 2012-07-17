@@ -6,10 +6,10 @@
 \alias{mrpp.test}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-MRPP test
+MRPP test for one-way design
 }
 \description{
-2-sample MRPP test
+K-sample MRPP test
 }
 \usage{
 mrpp.test(y, \dots)

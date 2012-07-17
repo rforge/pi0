@@ -6,78 +6,51 @@
 Find asymptotically optimal bandwidth for KDE by minimizing MSE at the first data point
 }
 \description{
-Find asymptotically optimal bandwidth for KDE by minimizing MSE at the first data point
+Find asymptotically optimal bandwidth for Gaussian kernel density estimation by minimizing mean squared error at the first data point. 
 }
 \usage{
-bw.mse.pdf.asym(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
+bw.mse.pdf.asym(x,iter.max=100L,eps=1e-6,start.bw=bw.nrd, verbose=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{x}{A numeric vector whose density is to be estimated. 
 }
-  \item{iter}{
-%%     ~~Describe \code{iter} here~~
+  \item{iter.max}{The max number of iterations. For a non-iterative procedure, set this to 1L.}
+  \item{eps}{A small positive number such that iterations are terminated when the difference between successive bandwidths is below \code{eps}.
 }
-  \item{eps}{
-%%     ~~Describe \code{eps} here~~
+  \item{start.bw}{A function, a character, or a positive number. If being a function or a character, the corresponding function will be called with \code{x} as the only argument to get the initial bandwidth. When it is a number, it will be used as the starting bandwidth directly.
 }
-  \item{iter.max}{
-%%     ~~Describe \code{iter.max} here~~
-}
-  \item{verbose}{
-%%     ~~Describe \code{verbose} here~~
+  \item{verbose}{Logical, when \code{TRUE}, the bandwidth for each iteration will be printed. 
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+The procedure starts from the starting bandwidth specified by \code{start.bw}. The new bandwidth will be computed as 
+\deqn{
+\left[\frac{Rf(x_1)}{N\left[f''(x_1)\right]^2} \right]^{1/5}
+}
+where \code{R} is approximately 0.2821, \code{N} is the sample size and \code{f} is the density estimate using the current bandwidth. 
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A numeric positive scalar, giving the final bandwidth. 
 }
 \references{
-%% ~put references to the literature/web site here ~
-}
-\author{
-%%  ~~who you are~~
-}
-\note{
-%%  ~~further notes~~
-}
+Parzen, E. (1962). On Estimation of a Probability Density Function and Mode. The Annals of Mathematical Statistics 33: 1065--1076.
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
+Scott, D. W. (1992). Multivariate Density Estimation: Theory, Practice, and Visualization. Wiley, New York.
+}
+\author{Long Qu
+}
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{density}}, \code{\link[ks]{kdde}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
-## The function is currently defined as
-function(x,iter=FALSE,eps=1e-3,iter.max=100,verbose=FALSE)
-{require(ks)
-
-        bw0=bw.nrd(x)
-        Rkern=density(x,bw0,from=x[1],to=x[1],n=1,give.Rkern=TRUE)
-
-        n.iter=1
-        repeat{
-            f.1=density(x,bw0,from=x[1],to=x[1],n=1)$y
-            ddf=drvkde(x,2,bw0,se=FALSE)
-            ddf.1=approx(ddf$x.grid[[1]],ddf$est,xout=x[1])$y
-            bw=(f.1/ddf.1/ddf.1*Rkern/length(x))^.2
-            if(!iter || abs(bw-bw0)<eps || n.iter>=iter.max) return(bw)
-            if(verbose)cat(bw,fill=T)
-            bw0=bw
-            n.iter=n.iter+1
-        }
-  }
+set.seed(23490)
+x=rnorm(100)
+bw.mse.pdf.asym(x)
+\dontrun{
+plot(density(x, bw.mse.pdf.asym(x)))
+abline(v=x[1L])
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
