@@ -1,9 +1,9 @@
 # depends ks (>= 1.6.0), KernSmooth, mvtnorm
-import(KernSmooth)
-import(mvtnorm)
-import(ks)
-#import(gmp)
 importFrom(partitions, setparts)
+#import(KernSmooth)
+#import(mvtnorm)
+#import(ks)
+#import(gmp)
 #importFrom(pi0,combn2R)
 #import(Matrix)
 #importFrom(stats, coef, coefficients, fitted, fitted.values, vcov, logLik)

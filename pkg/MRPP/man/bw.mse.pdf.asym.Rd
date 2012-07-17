@@ -37,6 +37,8 @@ A numeric positive scalar, giving the final bandwidth.
 Parzen, E. (1962). On Estimation of a Probability Density Function and Mode. The Annals of Mathematical Statistics 33: 1065--1076.
 
 Scott, D. W. (1992). Multivariate Density Estimation: Theory, Practice, and Visualization. Wiley, New York.
+
+Wand, M. P. and Jones, M. C. (1995). Kernel Smoothing. Chapman and Hall, London. 
 }
 \author{Long Qu
 }
