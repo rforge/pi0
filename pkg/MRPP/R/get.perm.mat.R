@@ -161,7 +161,7 @@ function(trt, B=100L) ## permutation matrices for one way design
         for(i in seq(ntrts))
             ans[[i]]=matrix( apply(sp==i,2L,function(xx)sort(which(xx)) ), ncol=B)
         names(ans)=names(n)[ordn]
-    }else{   #sample from all permutations using factoradic number 
+    }else{   #sample from all permutations using factoradic number. Ideally, a sample from 1:SP should work, but how to do this without enumerating all SP possibilities using setparts?
         decfr=HSEL.bigz(factorialZ(N), B)
         idx=which(decfr==0L)
         if(length(idx)>0L) decfr[idx]=decfr[1L]
