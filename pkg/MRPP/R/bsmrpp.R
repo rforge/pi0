@@ -1,9 +1,8 @@
 bsmrpp<-
-function(y,permutedTrt, verbose=TRUE, niter=Inf, 
+function(y,permutedTrt, Bperm=ncol(permutedTrt[[1L]]), 
          importance=c('dp.dw','p.dd.dw'),
-         alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
-         alpha.del=0, stepwise=FALSE, size.in=1L,  # cperm.mat,
-         Bperm=ncol(permutedTrt), ...)
+         alpha.in, alpha.del=0, 
+	 size.in=1L, stepwise=FALSE, verbose=TRUE, niter=Inf, ...)
 {   if(!is.matrix(y)) y=as.matrix(y)
     N=nrow(y)
 #    if(missing(cperm.mat)) cperm.mat=apply(permutedTrt,2,function(kk)(1:N)[-kk])

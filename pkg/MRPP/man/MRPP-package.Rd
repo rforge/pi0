@@ -13,7 +13,7 @@ Implements multiresponse permutation procedure (MRPP), variable importance measu
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-231\cr
+Version: \tab 1.0-232\cr
 Date: \tab 2012-07-17\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
@@ -24,7 +24,10 @@ LazyLoad: \tab yes\cr
 \item{\code{\link{get.p.dd.dw}}} {Variable importance measure: permutation p-value using the derivative of Euclidean distance with respect to weights as the distance measure.}
 \item{\code{\link{back.search}}} {Backward variable selection for the MRPP.}
 \item{\code{\link{bsmrpp}}} {Backward variable selection nested within outer permutations.}
-}
+\item{\code{\link{permuteTrt}}} {Generate random treatment assignments.}
+\item{\code{\link{factoradic}}} {Conversions among decimal factoradic number, radix factoradic number, and permutation vector.}
+\item{\code{\link{HSEL.bigz}}} {Generate a random sample of size m from a \emph{large} population of size n.}
+\item{\code{\link{bw.mse.pdf.asym}}} {Choose a bandwidth for kernel density estimation by minimizing asymptotic mean squared error of density estimate at the first data point.}
 }
 \author{
 Long Qu
@@ -32,8 +35,8 @@ Long Qu
 Maintainer: Long Qu <longorognol@hotmail.com>
 }
 \references{
-Long Qu, Dan Nettleton, and Jack C. M. Dekkers. RELATIVE VARIABLE IMPORTANCE AND BACKWARD VARIABLE SELECTION FOR THE MULTIRESPONSE
-PERMUTATION PROCEDURE, WITH APPLICATIONS TO HIGH DIMENSIONAL GENOMIC DATA. (Manuscript under review)
+Long Qu, Dan Nettleton, and Jack C. M. Dekkers. Relative Variable Importance and Backward Variable Selection for the Multiresponse
+Permutation Procedure, with Applications to High Dimensional Genomic Data. (Manuscript under review)
 }
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
 %~~ the R documentation directory ~~
