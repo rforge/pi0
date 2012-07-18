@@ -88,9 +88,7 @@ Long Qu
 %\note{
 %%%  ~~further notes~~
 %}
-
 %% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
 \code{\link{mrpp.test}}, \code{\link{get.p.dd.dw}}, \code{\link{get.dp.dw.kde}}, \code{\link{permuteTrt}}
 }

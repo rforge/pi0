@@ -13,7 +13,7 @@ Implements multiresponse permutation procedure (MRPP), variable importance measu
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-232\cr
+Version: \tab 1.0-233\cr
 Date: \tab 2012-07-17\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
@@ -25,9 +25,10 @@ LazyLoad: \tab yes\cr
 \item{\code{\link{back.search}}} {Backward variable selection for the MRPP.}
 \item{\code{\link{bsmrpp}}} {Backward variable selection nested within outer permutations.}
 \item{\code{\link{permuteTrt}}} {Generate random treatment assignments.}
-\item{\code{\link{factoradic}}} {Conversions among decimal factoradic number, radix factoradic number, and permutation vector.}
+\item{\code{\link{FR2permvec}}} {Conversions among decimal factoradic number, radix factoradic number, and permutation vector.}
 \item{\code{\link{HSEL.bigz}}} {Generate a random sample of size m from a \emph{large} population of size n.}
 \item{\code{\link{bw.mse.pdf.asym}}} {Choose a bandwidth for kernel density estimation by minimizing asymptotic mean squared error of density estimate at the first data point.}
+}
 }
 \author{
 Long Qu
