@@ -77,7 +77,7 @@ In addition, the result also has attribute \code{'parameter'}, which is a list o
 	\item{statistic }{The observed test statistic, i.e., the raw MRPP p-value from the selectd variables.}
 	\item{all.statistics }{All test statistics, i.e., the raw MRPP p-values from the selected variables for each permutation. }
 	\item{p.value }{The final permutation p-value.}
-	\item{parameter }{The same as the \code{parameter} attribute of \code{mrppBVS} result, converted to character.}
+	\item{parameter }{The same as the \code{parameter} attribute of \code{mrppBVS} result, converted to numeric.}
 	\item{data.name }{The character name of the data.}
 	\item{method }{A string of test method.}
 }

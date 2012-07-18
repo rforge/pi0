@@ -11,6 +11,7 @@ function(y,permutedTrt,
     N=nrow(y)
 #    if(missing(cperm.mat)) cperm.mat=apply(permutedTrt,2,function(kk)(1:N)[-kk])
     B=ncol(permutedTrt[[1L]])
+    importance=match.arg(importance)
 
     ans=vector('list'); attr(ans, 'parameter')=list(importance=importance, alpha.in=alpha.in, alpha.del=alpha.del, size.in=size.in, stepwise=stepwise, niter=niter)
     R=ncol(y)
@@ -51,7 +52,7 @@ function(y,permutedTrt,
                 next.deleted.p=mrpp.test.dist(dist.del, permutedTrt=permutedTrt)$p.value
         }
         if(verbose && isTRUE(i%%verbose==0L)) {
-          cat('\b\b\b:\t',length(idx),'genes left; mrpp.p =',ans[[i]]$p.value,';', 
+          cat('\b\b\b:\t',length(idx),'variables left; mrpp.p =',ans[[i]]$p.value,';', 
                         'deleted.mrpp.p =',ans[[i]]$deleted.p.value,
                         ';', proc.time()[3L]-time0,'seconds passed;\n')
         }
