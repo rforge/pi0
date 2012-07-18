@@ -13,7 +13,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, ...) #
         dname=paste('"dist" object',deparse(substitute(y)), 
                              'and treatment group', deparse(substitute(trt)))
     }else dname=paste('"dist" object',deparse(substitute(y)), 
-                             'and permutation matrix', deparse(substitute(permutedTrt)))
+                             'and permuted treatment', deparse(substitute(permutedTrt)))
     B=ncol(permutedTrt[[1]])
     #if(missing(cperm.mat)) cperm.mat=apply(permutedTrt, 2, function(kk)(1:N)[-kk])
     tabtrt=table(trt)

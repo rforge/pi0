@@ -1,4 +1,4 @@
-back.search <-
+mrppBVS <-
 function(y,permutedTrt, 
          importance=c('dp.dw','p.dd.dw'),
          alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
@@ -12,7 +12,7 @@ function(y,permutedTrt,
 #    if(missing(cperm.mat)) cperm.mat=apply(permutedTrt,2,function(kk)(1:N)[-kk])
     B=ncol(permutedTrt[[1L]])
 
-    ans=vector('list'); attr(ans, 'setting')=list(importance=importance, alpha.in=alpha.in, alpha.del=alpha.del, size.in=size.in, stepwise=stepwise, niter=niter)
+    ans=vector('list'); attr(ans, 'parameter')=list(importance=importance, alpha.in=alpha.in, alpha.del=alpha.del, size.in=size.in, stepwise=stepwise, niter=niter)
     R=ncol(y)
     idx=1:R  # inclusion set
     xcl=integer(0L)

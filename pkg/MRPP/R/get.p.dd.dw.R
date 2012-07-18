@@ -7,7 +7,7 @@ function(y, permutedTrt, r=seq_len(ncol(y)), #test=F,
                     )      
 ## b=permutation index; r=dimension index; 
 {
-    B=ncol(permutedTrt[[1]])
+    B=ncol(permutedTrt[[1L]])
     if(!is.matrix(y) && !is.data.frame(y)) y = as.matrix(y)
 #    b=if(test) 1:B else 1
 #    ans=matrix(NA_real_, length(r), length(b))

@@ -63,7 +63,7 @@ Long Qu, Dan Nettleton, Jack C. M. Dekkers. Relative Variable Importance and Bac
 Long Qu
 }
 
-\seealso{\code{\link{mrpp.test}}, \code{\link{permuteTrt}}, \code{\link{bw.mse.pdf.asym}}, \code{\link{bsmrpp}}, \code{\link{back.search}}
+\seealso{\code{\link{mrpp.test}}, \code{\link{permuteTrt}}, \code{\link{bw.mse.pdf.asym}}, \code{\link{mrppBVS.test}}, \code{\link{mrppBVS}}
 }
 \examples{
 

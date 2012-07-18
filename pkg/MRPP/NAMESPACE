@@ -7,8 +7,8 @@ importFrom(partitions, setparts)
 
 
 export(
-	back.search,
-	bsmrpp,
+	mrppBVS,
+	mrppBVS.test,
 	bw.mse.pdf.asym,
 	get.dp.dw.kde,
 	get.p.dd.dw,

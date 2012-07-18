@@ -22,8 +22,8 @@ LazyLoad: \tab yes\cr
 \item{\code{\link{mrpp.test}}} {The MRPP, a permutation test applicable to high dimensional data.}
 \item{\code{\link{get.dp.dw.kde}}} {Variable importance measure: approximate derivative of p-values to weights.}
 \item{\code{\link{get.p.dd.dw}}} {Variable importance measure: permutation p-value using the derivative of Euclidean distance with respect to weights as the distance measure.}
-\item{\code{\link{back.search}}} {Backward variable selection for the MRPP.}
-\item{\code{\link{bsmrpp}}} {Backward variable selection nested within outer permutations.}
+\item{\code{\link{mrppBVS}}} {Backward variable selection for the MRPP.}
+\item{\code{\link{mrppBVS.test}}} {Backward variable selection nested within outer permutations.}
 \item{\code{\link{permuteTrt}}} {Generate random treatment assignments.}
 \item{\code{\link{FR2permvec}}} {Conversions among decimal factoradic number, radix factoradic number, and permutation vector.}
 \item{\code{\link{HSEL.bigz}}} {Generate a random sample of size m from a \emph{large} population of size n.}
@@ -43,5 +43,15 @@ Permutation Procedure, with Applications to High Dimensional Genomic Data. (Manu
 %~~ the R documentation directory ~~
 \keyword{ package }
 \examples{
-%~~ simple examples of the most important functions ~~
+
+set.seed(2340)
+x=matrix(rnorm(20*5),20)
+trt=gl(2,10)
+nparts( table(trt))		## 92378 partitions =  choose(20,10)/2
+urand.bigz(1,seed=1032940L) # init seed
+pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
+mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) ## MRPP for all variables
+mrppBVS(x, pmat) ## backward selection of variables
+mrppBVS.test(x, pmat) ## nested permutation test with backward variable selection
+
 }
