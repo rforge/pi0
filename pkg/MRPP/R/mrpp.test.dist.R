@@ -19,11 +19,11 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, ...) #
     tabtrt=table(trt)
     ntrt=length(tabtrt)
     stats=.Call('mrppstats',y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
-    stats0=.Call('mrppstats', y, 
-        lapply(names(tabtrt), function(z)matrix(which(as.character(trt)==z))), 
-        as.numeric(wtmethod[1L]),         PACKAGE='MRPP')
-    ans=list(statistic=c("MRPP statistic"=stats0), all.statistics=stats, 
-             p.value=mean(stats0-stats>=-eps), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1L]),
+#    stats0=.Call('mrppstats', y, 
+#        lapply(names(tabtrt), function(z)matrix(which(as.character(trt)==z))), 
+#        as.numeric(wtmethod[1L]),         PACKAGE='MRPP')
+    ans=list(statistic=c("MRPP statistic"=stats[1]), all.statistics=stats, 
+             p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 'weight method'=wtmethod[1L]),
              data.name=dname, #  .Random.seed=attr(permutedTrt,'.Random.seed'),  ## this is commented out since the random number seed in gmp:::urand.bigz will be used. 
              method=sprintf('%d-sample MRPP test',ntrt)
              )

@@ -112,3 +112,5 @@ mrppBVS.test(x, pmat) ## nested permutation test with backward variable selectio
 % R documentation directory.
 \keyword{ models }
 \keyword{htest}
+\keyword{ nonparametric }
+\keyword{ multivariate }

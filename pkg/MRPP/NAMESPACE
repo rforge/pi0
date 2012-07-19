@@ -30,4 +30,6 @@ S3method(mrpp.test, formula)
 S3method(mrpp.test, dist)
 S3method(mrpp.test, default)
 
+S3method(smrpp.test, default)
+
 useDynLib(MRPP)

@@ -80,3 +80,5 @@ cor(ir1, ir2, method='s')
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{models}
+\keyword{multivariate}
+\keyword{nonparametric}

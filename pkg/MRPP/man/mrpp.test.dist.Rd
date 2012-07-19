@@ -79,3 +79,5 @@ mrpp.test(fmla, dat, permutedTrt=pmat, wtmethod=0 )
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{htest}
+\keyword{multivariate}
+\keyword{nonparametric}

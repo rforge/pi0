@@ -57,4 +57,4 @@ permvec2dec(dec2permvec(100,10))
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{utilities}
-\keyword{iteration}
+\keyword{arith}

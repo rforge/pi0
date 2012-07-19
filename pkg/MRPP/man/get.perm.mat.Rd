@@ -56,3 +56,4 @@ pmat=permuteTrt(trt, 1e6L)		## use all partitions, as 1e6L >= 92378
 % R documentation directory.
 \keyword{utilities}
 \keyword{iteration}
+\keyword{arith}

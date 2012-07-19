@@ -41,3 +41,4 @@ sample1(factorialZ(15), 12345)
 % R documentation directory.
 \keyword{utilities}
 \keyword{iteration}
+\keyword{arith}

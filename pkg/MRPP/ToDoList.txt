@@ -1,3 +1,4 @@
+formula interface for permuteTrt;
 allowing some NA's in the distance matrix;
 double checking one-way design for all variable selection functions; 
 check number of RHS terms in formula interface; 

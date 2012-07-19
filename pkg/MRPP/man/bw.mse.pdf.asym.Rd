@@ -26,7 +26,9 @@ bw.mse.pdf.asym(x,iter.max=1L,eps=1e-6,start.bw=bw.nrd, verbose=FALSE)
 \details{
 The procedure starts from the starting bandwidth specified by \code{start.bw}. The new bandwidth will be computed as 
 \deqn{
-\left[\frac{Rf(x_1)}{N\left[f''(x_1)\right]^2} \right]^{1/5}
+\left[\frac{Rf(x_1)}{N\lbrace f''(x_1) \rbrace^2} \right]^{1/5}
+}{
+( {Rf(x_1)} / [N{f''(x_1)}^2] )^{1/5}
 }
 where \code{R} is approximately 0.2821, \code{N} is the sample size and \code{f} is the density estimate using the current bandwidth. 
 }
