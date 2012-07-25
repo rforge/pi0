@@ -3,4 +3,5 @@ allowing some NA's in the distance matrix;
 double checking one-way design for all variable selection functions; 
 check number of RHS terms in formula interface; 
 allow parallel running; 
-saving the seed in choosing permutations. 
+saving the seed in choosing permutations; 
+allowing more general wtmethod argument. 

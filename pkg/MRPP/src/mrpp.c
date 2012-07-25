@@ -86,7 +86,7 @@ static R_INLINE double sumSubMatSorted( double const * const x,  int const * con
 
     ans = compen = 0.0;
     for(j=0; j<n-1; ++j){ /* // column index */
-        /*  base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;  /* // part that does not involve row index */
+        /*  base=((idx[j]*(N2-idx[j]-1))>>1)-N-1;   // part that does not involve row index */
         base = (((N2-idx[j])*(idx[j]-1))>>1) - idx[j] - 1 ;  /* this should replace the previous line  */
         for(i=j+1; i<n; ++i){  /* //  row index */
             /*  ans+= x [base + idx[i]];   // the following Kahan's algo recovers this line */
