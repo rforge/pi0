@@ -26,7 +26,7 @@ sample1(N, seed=0)
 \code{rejsample} is similar to \code{HSEL.bigz}, but implemented using direct rejection through \code{\link{unique}}. 
 \code{sample1} generates one number of 0 to N-1 using simple rejection and \code{\link[gmp]{urand.bigz}}. 
 }
-\code{
+\note{
 \code{rejsample} can be very slow when M is large. 
 }
 \value{
