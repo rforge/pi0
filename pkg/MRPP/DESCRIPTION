@@ -2,8 +2,8 @@ Package: MRPP
 Type: Package
 Title: Multiresponse permutation procedure and its variable importance
         and variable selection methods.
-Version: 1.0-237
-Date: 2012-07-18
+Version: 1.0-238
+Date: 2012-07-24
 Author: Long Qu
 Maintainer: Long Qu <longorognol@hotmail.com>
 Description: Multiresponse permutation procedure and its variable importance and backward variable selection methods. 
@@ -11,4 +11,3 @@ Depends: R (>= 2.14.0), gmp
 Imports: partitions
 License: GPL (>=2)
 LazyLoad: yes
-Packaged: 2012-07-18 19:41:32 UTC; longor

@@ -63,7 +63,7 @@ set.seed(2340)
 x=matrix(rnorm(20*5),20)
 trt=gl(2,10)
 nparts( table(trt))		## 92378 partitions =  choose(20,10)/2
-urand.bigz(1,seed=1032940L) # init seed
+urand.bigz(0,seed=1032940L) # init seed
 pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 \dontrun{
 pmat=permuteTrt(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 

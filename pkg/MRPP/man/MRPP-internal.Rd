@@ -45,7 +45,7 @@ Long Qu
 set.seed(2340)
 x=matrix(rnorm(20*5),20)
 trt=gl(2,10)
-urand.bigz(1,seed=1032940L) # init seed
+urand.bigz(0,seed=1032940L) # init seed
 pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 ir3=MRPP:::get.p.L1dEuc(x, pmat)
 

@@ -13,8 +13,8 @@ Implements multiresponse permutation procedure (MRPP), variable importance measu
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-237\cr
-Date: \tab 2012-07-18\cr
+Version: \tab 1.0-238\cr
+Date: \tab 2012-07-24\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
 }
@@ -48,7 +48,7 @@ set.seed(2340)
 x=matrix(rnorm(20*5),20)
 trt=gl(2,10)
 nparts( table(trt))		## 92378 partitions =  choose(20,10)/2
-urand.bigz(1,seed=1032940L) # init seed
+urand.bigz(0,seed=1032940L) # init seed
 pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) ## MRPP for all variables
 mrppBVS(x, pmat) ## backward selection of variables
