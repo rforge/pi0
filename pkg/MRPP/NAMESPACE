@@ -21,6 +21,7 @@ export(
 	permvec2dec,
 	permvec2FR, 
 	HSEL.bigz, 
+	rejsample, 
 	sample1, 
 	nparts
 )

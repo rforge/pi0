@@ -15,7 +15,7 @@ smrpp.test(y, \dots)
 
 %\method{mrpp.test}{dist}(y, trt, B = nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, \dots)
 %\method{mrpp.test}{formula}(y, data, \dots)
-\method{mrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, 
+\method{smrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, 
 	spar=seq(1,sqrt(ncol(y)),length=100L), ...)
 }
 %- maybe also 'usage' for other objects documented here.
