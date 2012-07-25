@@ -43,13 +43,14 @@ An \code{htest} object with the following components:
 \item{all.statistics }{All permuted test statistics.}
 \item{weights }{The selected weights for each dimension of the response variable.}
 \item{p.value }{The permutation p-value.}
-\item{parameter }{A vector of the number of permutations and the weighting method.}
+\item{parameter }{A vector of the number of permutations, the weighting method and the chosen smoothing parameter.}
 \item{data.name }{The character name of the data.}
 %\item{.Random.seed }{ The random number seed for reproducibility.} 
 \item{method }{A string of test method.}
 }
 \references{
 Paul W. Mielke, Kenneth J. Berry. (2007) Permutation Methods: A Distance Function Approach. 2nd ed. Springer.
+Daniela M. Witten and Robert Tibshirani. (2010) A Framework for Feature Selection in Clustering. Journal of the American Statistical Association, 105(490):713--726.
 }
 \author{
 Long Qu
