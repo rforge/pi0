@@ -46,9 +46,8 @@ When knots are selected by all distinct x values, this returns the penalty matri
     library(fda)
     des1=create.bspline.basis(c(0,1),norder=2, breaks=br)
     P1=bsplinepen(des1, 1) # ERROR
-    P1=bsplinepen.fda(des1,1) 
     max(abs(P1-O1))
-
+}
     des2=create.bspline.basis(c(0,1),norder=4, breaks=c(b.k[1], br, b.k[2]))
     P2=bsplinepen(des2, 2)
     max(abs(P2-O2))
@@ -68,7 +67,7 @@ When knots are selected by all distinct x values, this returns the penalty matri
     des6=create.bspline.basis(c(0,1),norder=12, breaks=c(b.k[1], br, b.k[2]))
     P6=bsplinepen(des6, 6, c(0,1))
     max(abs((P6-O6)/(P6+O6)*2),na.rm=T)
-}
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

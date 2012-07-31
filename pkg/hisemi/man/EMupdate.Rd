@@ -13,7 +13,7 @@ EMupdate(starts, nLogLik.pen, optim.method, H, tstat, df, dt0,
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{starts}{ A numeric vector of starting values, in \code{'r'} parameterization of the \code{scale.fact}or. }
+  \item{starts}{ A numeric vector of starting values, in \code{'r'} parameterization of the \code{scale.fact} }
   \item{nLogLik.pen}{ A function computing negative penalized log likelihod }
   \item{optim.method}{ One of \code{BFGS}, \code{CG}, \code{L-BFGS-B}, \code{Nelder-Mead}, \code{SANN}, \code{nlminb}, \code{NR}, the method used for optimization. }
   \item{H}{ Design matrix }

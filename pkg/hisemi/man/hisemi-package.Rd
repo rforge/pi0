@@ -12,7 +12,7 @@ The package includes functions for fitting hierarchical semiparametric regressio
 \tabular{ll}{
 Package: \tab hisemi\cr
 Type: \tab Package\cr
-Version: \tab 1.0-245\cr
+Version: \tab 1.0-246\cr
 Date: \tab 2012-07-31\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
@@ -37,11 +37,11 @@ LazyLoad: \tab yes\cr
 }
 }
 \author{
-Long Qu \email{longorognol@hotmail.com}, Dan Nettleton \email{dnett@iastate.edu}, Jack C.M. Dekkers \email{jdekkers@iastate.edu}
+Long Qu \email{longorognol@hotmail.com}
 
 Maintainer: Long Qu \email{longorognol@hotmail.com}
 }
-\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012. A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
+\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012). A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
 \keyword{ package }
 \keyword{ models }
 \keyword{ regression }
