@@ -50,6 +50,7 @@ An \code{htest} object with the following components:
 }
 \references{
 Paul W. Mielke, Kenneth J. Berry. (2007) Permutation Methods: A Distance Function Approach. 2nd ed. Springer.
+
 Daniela M. Witten and Robert Tibshirani. (2010) A Framework for Feature Selection in Clustering. Journal of the American Statistical Association, 105(490):713--726.
 }
 \author{
