@@ -1,6 +1,5 @@
 \name{penLik.EMNewton}
 \alias{penLik.EMNewton}
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{ Fits hierarchical semiparametric regression model to t-statistics }
 \description{
   Fits hierarchical semiparametric regression model to t-statistics
@@ -9,14 +8,13 @@
 penLik.EMNewton(tstat, x, df, spar = c(10^seq(-1,8,length=30), Inf),
         nknots = n.knots(length(tstat)), starts, 
 	tuning.method = c("NIC", "CV"), cv.fold = 5, pen.order=1,
-	poly.degree=pen.order*2-1, optim.method = c("nlminb", "BFGS", 
-	"CG", L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
+	poly.degree=pen.order*2-1, optim.method =
+	c("nlminb", "BFGS", "CG", "L-BFGS-B", "Nelder-Mead", "SANN", "NR"), 
         logistic.correction = TRUE, em.iter.max = 10, 
         em.beta.iter.max = 1, newton.iter.max = 1500, 
         scale.conv = 0.001, lfdr.conv = 0.001, NPLL.conv = 0.001, 
         debugging = FALSE, plotit = TRUE, ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{tstat}{ A numeric vector t-statistics }
   \item{x}{ A numeric matrix of covariates, with \code{nrow(x)} being \code{length(tstat)}}
@@ -51,7 +49,7 @@ penLik.EMNewton(tstat, x, df, spar = c(10^seq(-1,8,length=30), Inf),
         \item{\code{scale.fact}:}{ Scale factor}
         \item{\code{sd.ncp}:}{ Equivalent standard deviation of noncentrality parameters}
         \item{\code{r}:}{ A reparameterization of \code{scale.fact}}
-        \item{t.cross:}{ \code{sqrt(df*(final.scale^(2/(df+1))-1)/} \code{(1-final.scale^(-2*df/(df+1))))}}}}
+        \item{\code{t.cross}:}{ \code{sqrt(df*(s^(2/(df+1))-1)/(1-s^(-2*df/(df+1))))}}} where \code{s} is the \code{scale.fact}}
 \item{pi0:}{ A numeric vector of mixing proportions for the central t component}
 \item{tuning:}{ A list with \itemize{
         \item{\code{mean}:}{ Mean criterion}
@@ -88,13 +86,13 @@ penLik.EMNewton(tstat, x, df, spar = c(10^seq(-1,8,length=30), Inf),
 %}
 \seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, 
 \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, 
-\code{\link{confint.hisemit}}, \code{\link{plot.hisemit}} 
+\code{\link{confint.hisemit}}, \code{\link{plot.hisemit}}, 
 \code{\link{hisemi-package}}, \code{\link[pi0]{pi0-package}}
 }
 \examples{
-\dontrun{
-# See the example for the package.
-}
+%\dontrun{
+# See the examples for the hisemi-package.
+%}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

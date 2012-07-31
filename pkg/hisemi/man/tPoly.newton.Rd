@@ -49,7 +49,7 @@ tPoly.newton(tstat, x, df, starts,
         \item{scale.fact:}{ Scale factor}
         \item{sd.ncp:}{ Equivalent standard deviation of noncentrality parameters}
         \item{r:}{ A reparameterization of \code{scale.fact}}
-        \item{t.cross:}{ \code{sqrt(df*(final.scale^(2/(df+1))-1)/(1-final.scale^(-2*df/(df+1))))}}}}
+        \item{t.cross:}{ \code{sqrt(df*(s^(2/(df+1))-1)/(1-s^(-2*df/(df+1))))}}} where \code{s} is the \code{scale.fact}}
 \item{pi0:}{ A numeric vector of mixing proportions for the central t component}
 \item{tuning:}{ A list with \itemize{
         \item{mean:}{ Mean criterion}
@@ -86,13 +86,13 @@ tPoly.newton(tstat, x, df, starts,
 %}
 \seealso{ \code{\link{penLik.EMNewton}}, \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, 
 \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, 
-\code{\link{confint.hisemit}}, \code{\link{plot.hisemit}} 
+\code{\link{confint.hisemit}}, \code{\link{plot.hisemit}} ,
 \code{\link{hisemi-package}}, \code{\link[pi0]{pi0-package}}
 }
 \examples{
-\dontrun{
+%\dontrun{
 # See the example for the package.
-}
+%}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

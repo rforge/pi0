@@ -42,8 +42,8 @@ When knots are selected by all distinct x values, this returns the penalty matri
     O5=OsplinePen(b.k, br, 5)
     O6=OsplinePen(b.k, br, 6)
 
-\dontrun{
     library(fda)
+\dontrun{
     des1=create.bspline.basis(c(0,1),norder=2, breaks=br)
     P1=bsplinepen(des1, 1) # ERROR
     max(abs(P1-O1))
@@ -58,15 +58,15 @@ When knots are selected by all distinct x values, this returns the penalty matri
 
     des4=create.bspline.basis(c(0,1),norder=8, breaks=c(b.k[1], br, b.k[2]))
     P4=bsplinepen(des4, 4, c(0,1))
-    max(abs((P4-O4)/(P4+O4)*2),na.rm=T)
+    max(abs((P4-O4)/(P4+O4)*2),na.rm=TRUE)
 
     des5=create.bspline.basis(c(0,1),norder=10, breaks=c(b.k[1], br, b.k[2]))
     P5=bsplinepen(des5, 5, c(0,1))
-    max(abs((P5-O5)/(P5+O5)*2),na.rm=T)
+    max(abs((P5-O5)/(P5+O5)*2),na.rm=TRUE)
 
     des6=create.bspline.basis(c(0,1),norder=12, breaks=c(b.k[1], br, b.k[2]))
     P6=bsplinepen(des6, 6, c(0,1))
-    max(abs((P6-O6)/(P6+O6)*2),na.rm=T)
+    max(abs((P6-O6)/(P6+O6)*2),na.rm=TRUE)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

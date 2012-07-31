@@ -12,7 +12,7 @@ Extract Wald-type asymptotic confidence intervals from a \code{hisemit} object.
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{ A \code{hisemit} object. }
-  \item{parm}{ One of \code{c("lfdr", "fpp", "beta", "scale.fact", "sd.ncp",} \codee{"r", "coef", "pi0", "f")}. See details. }
+  \item{parm}{ One of \code{c("lfdr", "fpp", "beta", "scale.fact", "sd.ncp",} \code{"r", "coef", "pi0", "f")}. See details. }
   \item{level}{ A numeric scalar between 0 and 1, specifying the level of confidence. }
   \item{component}{Specifying which additive component to be extracted. See details. }
   \item{\dots}{ Currently not used. }
