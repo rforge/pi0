@@ -80,6 +80,9 @@ penLik.EMNewton(tstat, x, df, spar = c(10^seq(-1,8,length=30), Inf),
         \item{\code{penalty}:}{ Penalty term}
         \item{\code{saturated.ll}:}{ Saturated log likelihood}}}
 }
+\note{
+When spar is too small, the results need to be treated cautiously. It is advisable to plot the results as a check. 
+}
 \references{ Long Qu, Dan Nettleton, Jack Dekkers (2012) A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
 \author{ Long Qu \email{longorognol@hotmail.com} }
 %\note{ 
