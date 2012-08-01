@@ -1,8 +1,8 @@
 Package: hisemi
 Type: Package
 Title: Hierarchical Semiparametric Regression of Test Statistics
-Version: 1.0-247
-Date: 2012-07-31
+Version: 1.0-248
+Date: 2012-08-01
 Author: Long Qu 
 Maintainer: Long Qu <longorognol@hotmail.com>
 Depends: R (>= 2.12)
