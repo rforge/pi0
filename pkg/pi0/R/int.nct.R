@@ -60,7 +60,7 @@ dt.int2=function(x, df, ncp, log=FALSE, ndiv=8 ) ## pretty fast computation of n
 {   ## when df is integer, this is exact for noncentral t density;
     ## when df is fractional, this is divided difference polynomial interpolation using ndiv points with nearest integer dfs
     if (missing(ncp)) 
-        return(.Internal(dt(x, df, log)))
+        return(dt(x, df, ,log))
 
     n=max(c(length(x),length(df),length(ncp)))
     x=rep(as.double(x),length=n); df=rep(df,length=n); ncp=rep(as.double(ncp),length=n)
