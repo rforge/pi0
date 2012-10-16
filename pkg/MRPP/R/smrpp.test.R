@@ -258,7 +258,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
         tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
         wmrpp.p[s.i]=mean(tmp[b]-tmp >=-eps)
       }
-      plot(wmrpp.p~log10(spar), main=b)
+      #plot(wmrpp.p~log10(spar), main=b)
       stats[b]=min(wmrpp.p)
       if(b==1L){
         s0.i=max(which(wmrpp.p==min(wmrpp.p)))

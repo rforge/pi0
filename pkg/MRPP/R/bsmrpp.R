@@ -48,7 +48,8 @@ function(y,permutedTrt, Bperm=ncol(permutedTrt[[1L]]),
     bsfit$all.statistics=selected.pvals
     bsfit$method="Permutation test with MRPP backward variable selection"
     parms=attr(fit0, 'parameter')
-    bsfit$parameter=c(importance=match(parms$importance, c('dp.dw','p.dd.dw')), unlist(parms[-1]))
+    bsfit$parameter=c(importance=match(parms$importance, c('dp.dw','p.dd.dw')), unlist(parms[-1]), 
+        '#selected variables'=length(bsfit$var.idx))
     bsfit$data.name=dname
     class(bsfit)='htest'
     bsfit

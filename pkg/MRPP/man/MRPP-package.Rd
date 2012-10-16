@@ -13,7 +13,7 @@ Implements multiresponse permutation procedure (MRPP), variable importance measu
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-260\cr
+Version: \tab 1.0-261\cr
 Date: \tab 2012-10-16\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
@@ -55,6 +55,9 @@ pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) ## MRPP for all variables
 mrppBVS(x, pmat) ## backward selection of variables
 mrppBVS.test(x, pmat) ## nested permutation test with backward variable selection
-smrpp.test(x, trt, permutedTrt= pmat) ## nested permutation test with sparse penalized weighting
+
+set.seed(23340)
+pmat0=permuteTrt(trt, 5e1L)		## use 50 random permutations
+smrpp.test(x, trt, permutedTrt= pmat0) ## nested permutation test with sparse penalized weighting
 
 }
