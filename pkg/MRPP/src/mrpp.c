@@ -185,3 +185,23 @@ SEXP mrppstats(SEXP y, SEXP permMats, SEXP wtmethod)
     UNPROTECT(1);
     return(ans);
 }
+
+SEXP sumThresh0(SEXP x)
+// computing sum(pmax(x,0)) assuming x is a double vector;
+{
+	SEXP ans;
+	R_len_t   i;
+	double * ptrAns, * ptrX; 
+	 
+	PROTECT( ans = NEW_NUMERIC(1) );
+	ptrAns = REAL(ans);
+	ptrX   = REAL(x);
+	
+	i=LENGTH(x); 
+	*ptrAns = 0.0;
+    for(; i>0; --i, ++ptrX) 
+		if (*ptrX > 0.0) (*ptrAns) += *ptrX ;
+	
+	UNPROTECT(1);
+	return ans;
+}

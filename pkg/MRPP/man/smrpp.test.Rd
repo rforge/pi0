@@ -1,5 +1,6 @@
 \name{smrpp.test}
 \Rdversion{1.1}
+\alias{smrpp.test}
 \alias{smrpp.test.default}
 \alias{smrpp.test.formula}
 %- Also NEED an '\alias' for EACH other topic documented here.
