@@ -254,7 +254,7 @@ SEXP pmax0(SEXP x)
 	ptrX   = REAL(x);
 	
     for(; i>0; --i, ++ptrX, ++ptrAns) 
-		if (*ptrX > 0.0) (*ptrAns) += *ptrX ;
+		if (*ptrX > 0.0) (*ptrAns) = *ptrX ;
 	    else (*ptrAns) = 0.0;
 	
 	UNPROTECT(1);

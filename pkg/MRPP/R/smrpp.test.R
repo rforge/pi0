@@ -147,7 +147,6 @@ function(dp.dw, spar, simplify=TRUE)
 #   keep the line below for checking correctness of the C implementation
 #    f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  ## depends on l and b in the enclosing env
     f=function(del) .Call('objSolveDelta', del, dp.dw, fact, b, l, R, PACKAGE='MRPP')  ## depends on l and b in the enclosing env
-    .Call0=.Call
     ans=array(NA_real_, dim=c(L, B, R))
     for(b in seq_len(B)){
         rg=-rev(range(dp.dw[b,]))
@@ -156,7 +155,7 @@ function(dp.dw, spar, simplify=TRUE)
             d=-mean.dp.dw[b]-2*spar[b,l]
             if(d >= rg[1]) d=uniroot(f, rg, tol=1e-15)$root
 #            ans[l, b, ]=fact[b,l]*pmax(-d-dp.dw[b,], 0)
-            ans[l, b, ]=fact[b,l]*.Call0('pmax0', -d-dp.dw[b,])
+            ans[l, b, ]=fact[b,l]*.Call('pmax0', -d-dp.dw[b,])
         }
     }
     if(isTRUE(simplify)) drop(ans) else ans
@@ -259,7 +258,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
         tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
         wmrpp.p[s.i]=mean(tmp[b]-tmp >=-eps)
       }
-      plot(wmrpp.p~spar, main=b)
+      plot(wmrpp.p~log10(spar), main=b)
       stats[b]=min(wmrpp.p)
       if(b==1L){
         s0.i=max(which(spar==min(wmrpp.p)))
