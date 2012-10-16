@@ -134,7 +134,7 @@ function(dp.dw, spar, simplify=TRUE)
 {
     if(!is.matrix(dp.dw) && is.numeric(dp.dw)) dp.dw=matrix(dp.dw, 1L)
     B=nrow(dp.dw)
-    R=ncol(dp.dw)
+    R=ncol(dp.dw)+0.0
     if(is.matrix(spar)) stopifnot(nrow(spar)==nrow(dp.dw))
     else spar=matrix(spar, B, length(spar), byrow=TRUE)
     L=ncol(spar)
@@ -144,9 +144,8 @@ function(dp.dw, spar, simplify=TRUE)
     fact=.5/spar
     mean.dp.dw=rowMeans(dp.dw)
 
-    sumPlusFunc=function(x).Call('sumThresh0', x, PACKAGE='MRPP')
-    f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  ## depends on l and b in the enclosing env
-    f=function(del) fact[b,l]*.Call('sumThresh0', -del-dp.dw[b, ], PACKAGE='MRPP') - R  ## depends on l and b in the enclosing env
+#   keep the line below for checking correctness of the C implementation
+#    f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  ## depends on l and b in the enclosing env
     f=function(del) .Call('objSolveDelta', del, dp.dw, fact, b, l, R, PACKAGE='MRPP')  ## depends on l and b in the enclosing env
     ans=array(NA_real_, dim=c(L, B, R))
     for(b in seq_len(B)){

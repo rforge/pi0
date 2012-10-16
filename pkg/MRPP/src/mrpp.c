@@ -188,6 +188,8 @@ SEXP mrppstats(SEXP y, SEXP permMats, SEXP wtmethod)
 
 SEXP sumThresh0(SEXP x)
 // computing sum(pmax(x,0)) assuming x is a double vector;
+// For speed, no type check is conducted! 
+// This is only used in the R funciton smrpp.penWt. 
 {
 	SEXP ans;
 	R_len_t   i;
@@ -208,7 +210,10 @@ SEXP sumThresh0(SEXP x)
 
 SEXP objSolveDelta(SEXP del, SEXP dpdw, SEXP fact, SEXP b, SEXP l, SEXP R)
 // computing fact[b,l]*sum(pmax(x,0)) - R;
+// Equivalent R function is:    f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  
 // b and l are integers; others are double;
+// For speed, no type check is conducted! 
+// This is only used in the R funciton smrpp.penWt. 
 {
 	double negDel;
 	SEXP ans;
@@ -217,18 +222,18 @@ SEXP objSolveDelta(SEXP del, SEXP dpdw, SEXP fact, SEXP b, SEXP l, SEXP R)
 	 
 	PROTECT( ans = NEW_NUMERIC(1) );
 	ptrAns = REAL(ans);
-	ptrX   = REAL(dpdw) + INTEGER(b);
+	ptrX   = REAL(dpdw) + *INTEGER(b) - 1;
 	
 	negDel = - (* REAL(del)); 
 
-	i=Rf_ncol(dpdw); 
-	B=Rf_nrow(dpdw);
+	i=Rf_ncols(dpdw); 
+	B=Rf_nrows(dpdw);
 
 	*ptrAns = 0.0;
     for(; i>0; --i, (ptrX += B) ) 
-		if (*ptrX - negDel) (*ptrAns) += negDel - (*ptrX) ;
+		if (*ptrX < negDel) (*ptrAns) += negDel - (*ptrX) ;
 	
-	*ptrAns = *ptrAns) * (*(REAL(fact) + B * (*(INTEGER(l))-1))) - *REAL(R)
+	*ptrAns = *ptrAns * (*(REAL(fact) + B * (*(INTEGER(l))-1)) + *INTEGER(b) - 1) - *REAL(R) ;
 	UNPROTECT(1);
 	return ans;
 }
