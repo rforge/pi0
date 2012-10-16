@@ -12,7 +12,7 @@ K-sample sparse MRPP test with penalization. Variable selection is through penal
 \usage{
 smrpp.test(y, \dots)
 \method{smrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, \dots)
-\method{smrpp.test{formula}(y, data, \dots)
+\method{smrpp.test}{formula}(y, data, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

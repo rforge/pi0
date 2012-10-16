@@ -232,7 +232,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
         #wy=sweep(y,2L, sqrt(wt), '*', check.margin=FALSE)
         wy=y*sqrt(wt)[ycol]   ## this is much faster
         dist(wy)
-#      }
+      }
 #    }else {
 #      get.wdist=function(wt,p2){
 #        #wy=sweep(y,2L,sqrt(wt),'*')
