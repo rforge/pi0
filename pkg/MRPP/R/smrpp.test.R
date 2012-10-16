@@ -136,7 +136,7 @@ function(dp.dw, spar, simplify=TRUE)
     B=nrow(dp.dw)
     R=ncol(dp.dw)
     if(is.matrix(spar)) stopifnot(nrow(spar)==nrow(dp.dw))
-    else spar=matrix(spar, B, length(spar), by=TRUE)
+    else spar=matrix(spar, B, length(spar), byrow=TRUE)
     L=ncol(spar)
     sparMin=smrpp.defaultSpar(dp.dw, nspar=3L)[,1L]
     spar=structure(pmax(spar, sparMin), dim=dim(spar))
@@ -251,7 +251,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
       wmrpp.p=numeric(length(spar))
       for(s.i in seq_along(spar)){
 #        wt=get.wt(bcss, spar[s.i])
-        wdist=get.wdist(all.weights[s.i, b, ],p2)
+        wdist=get.wdist(all.weights[s.i, b, ])
         tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
         wmrpp.p[s.i]=mean(tmp[b]-tmp >=-eps)
       }
