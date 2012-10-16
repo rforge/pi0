@@ -189,7 +189,7 @@ SEXP mrppstats(SEXP y, SEXP permMats, SEXP wtmethod)
 SEXP sumThresh0(SEXP x)
 // computing sum(pmax(x,0)) assuming x is a double vector;
 // For speed, no type check is conducted! 
-// This is only used in the R funciton smrpp.penWt. 
+// This is no longer used in the R funciton smrpp.penWt. 
 {
 	SEXP ans;
 	R_len_t   i;
@@ -233,7 +233,30 @@ SEXP objSolveDelta(SEXP del, SEXP dpdw, SEXP fact, SEXP b, SEXP l, SEXP R)
     for(; i>0; --i, (ptrX += B) ) 
 		if (*ptrX < negDel) (*ptrAns) += negDel - (*ptrX) ;
 	
-	*ptrAns = *ptrAns * (*(REAL(fact) + B * (*(INTEGER(l))-1)) + *INTEGER(b) - 1) - *REAL(R) ;
+	*ptrAns = *ptrAns * (*(REAL(fact) + B * (*(INTEGER(l))-1) + *INTEGER(b) - 1)) - *REAL(R) ;
+	UNPROTECT(1);
+	return ans;
+}
+
+
+SEXP pmax0(SEXP x)
+// computing (pmax(x,0)) assuming x is a double vector;
+// For speed, no type check is conducted! 
+// This is no longer used in the R funciton smrpp.penWt. 
+{
+	SEXP ans;
+	R_len_t   i;
+	double * ptrAns, * ptrX; 
+	 
+	i=LENGTH(x); 
+	PROTECT( ans = NEW_NUMERIC(i) );
+	ptrAns = REAL(ans);
+	ptrX   = REAL(x);
+	
+    for(; i>0; --i, ++ptrX, ++ptrAns) 
+		if (*ptrX > 0.0) (*ptrAns) += *ptrX ;
+	    else (*ptrAns) = 0.0;
+	
 	UNPROTECT(1);
 	return ans;
 }

@@ -147,6 +147,7 @@ function(dp.dw, spar, simplify=TRUE)
 #   keep the line below for checking correctness of the C implementation
 #    f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  ## depends on l and b in the enclosing env
     f=function(del) .Call('objSolveDelta', del, dp.dw, fact, b, l, R, PACKAGE='MRPP')  ## depends on l and b in the enclosing env
+    .Call0=.Call
     ans=array(NA_real_, dim=c(L, B, R))
     for(b in seq_len(B)){
         rg=-rev(range(dp.dw[b,]))
@@ -154,7 +155,8 @@ function(dp.dw, spar, simplify=TRUE)
             if(is.infinite(spar[b,l])) {ans[l, b, ]=1; next}
             d=-mean.dp.dw[b]-2*spar[b,l]
             if(d >= rg[1]) d=uniroot(f, rg, tol=1e-15)$root
-            ans[l, b, ]=fact[b,l]*pmax(-d-dp.dw[b,], 0)
+#            ans[l, b, ]=fact[b,l]*pmax(-d-dp.dw[b,], 0)
+            ans[l, b, ]=fact[b,l]*.Call0('pmax0', -d-dp.dw[b,])
         }
     }
     if(isTRUE(simplify)) drop(ans) else ans
