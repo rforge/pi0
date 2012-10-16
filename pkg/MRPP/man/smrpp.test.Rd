@@ -69,16 +69,16 @@ trt=gl(2,10)
 nparts( table(trt))		## 92378 partitions =  choose(20,10)/2
 urand.bigz(0,seed=1032940L) # init seed
 pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
-\dontrun{
-pmat=permuteTrt(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 
-smrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
-}
-smrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
 dat=data.frame(x, trt)
 fmla=as.formula(sprintf('cbind(\%s)~trt',paste('X',1:5,sep='',collapse=',')))
+
+#\dontrun{
+smrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
 smrpp.test(fmla, dat, permutedTrt=pmat, wtmethod=0 )
+#}
 
 }
+
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{htest}

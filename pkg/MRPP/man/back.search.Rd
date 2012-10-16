@@ -105,7 +105,10 @@ urand.bigz(0,seed=1032940L) # init seed
 pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) ## MRPP for all variables
 mrppBVS(x, pmat) ## backward selection of variables
+
+\dontrun{
 mrppBVS.test(x, pmat) ## nested permutation test with backward variable selection
+}
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
