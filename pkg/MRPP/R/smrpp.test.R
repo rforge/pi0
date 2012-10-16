@@ -144,9 +144,10 @@ function(dp.dw, spar, simplify=TRUE)
     fact=.5/spar
     mean.dp.dw=rowMeans(dp.dw)
 
-    #sumPlusFunc=function(x).Call('sumThresh0', x, PACKAGE='MRPP')
-    #f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  ## depends on l and b in the enclosing env
+    sumPlusFunc=function(x).Call('sumThresh0', x, PACKAGE='MRPP')
+    f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  ## depends on l and b in the enclosing env
     f=function(del) fact[b,l]*.Call('sumThresh0', -del-dp.dw[b, ], PACKAGE='MRPP') - R  ## depends on l and b in the enclosing env
+    f=function(del) .Call('objSolveDelta', del, dp.dw, fact, b, l, R, PACKAGE='MRPP')  ## depends on l and b in the enclosing env
     ans=array(NA_real_, dim=c(L, B, R))
     for(b in seq_len(B)){
         rg=-rev(range(dp.dw[b,]))

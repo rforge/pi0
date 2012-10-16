@@ -205,3 +205,30 @@ SEXP sumThresh0(SEXP x)
 	UNPROTECT(1);
 	return ans;
 }
+
+SEXP objSolveDelta(SEXP del, SEXP dpdw, SEXP fact, SEXP b, SEXP l, SEXP R)
+// computing fact[b,l]*sum(pmax(x,0)) - R;
+// b and l are integers; others are double;
+{
+	double negDel;
+	SEXP ans;
+	R_len_t   i, B;
+	double * ptrAns, * ptrX; 
+	 
+	PROTECT( ans = NEW_NUMERIC(1) );
+	ptrAns = REAL(ans);
+	ptrX   = REAL(dpdw) + INTEGER(b);
+	
+	negDel = - (* REAL(del)); 
+
+	i=Rf_ncol(dpdw); 
+	B=Rf_nrow(dpdw);
+
+	*ptrAns = 0.0;
+    for(; i>0; --i, (ptrX += B) ) 
+		if (*ptrX - negDel) (*ptrAns) += negDel - (*ptrX) ;
+	
+	*ptrAns = *ptrAns) * (*(REAL(fact) + B * (*(INTEGER(l))-1))) - *REAL(R)
+	UNPROTECT(1);
+	return ans;
+}

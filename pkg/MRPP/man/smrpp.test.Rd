@@ -71,9 +71,8 @@ urand.bigz(0,seed=1032940L) # init seed
 pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 \dontrun{
 pmat=permuteTrt(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 
-smrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) 
+smrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
 }
-smrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) 
 smrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
 dat=data.frame(x, trt)
 fmla=as.formula(sprintf('cbind(\%s)~trt',paste('X',1:5,sep='',collapse=',')))
