@@ -269,7 +269,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
     }
     
     #stats=.Call('mrppstats',y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
-    ans=list(statistic=c("Sparse Weighted MRPP statistic"=stats[1L]), all.statistics=stats, weights=wt0,
+    ans=list(statistic=c("Sparse Weighted MRPP Raw p-value"=stats[1L]), all.statistics=stats, weights=wt0,
              p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 'group weight method'=wtmethod[1L], 'Smoothing'=s0, '#selected variables'=sum(wt0>0)),
              data.name=dname, #  .Random.seed=attr(permutedTrt,'.Random.seed'),  ## this is commented out since the random number seed in gmp:::urand.bigz will be used. 
              method=sprintf('%d-sample Sparse Weighted MRPP test',ntrt)
