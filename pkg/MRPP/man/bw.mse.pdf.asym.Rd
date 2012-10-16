@@ -52,8 +52,9 @@ set.seed(23490)
 x=rnorm(100)
 bw.mse.pdf.asym(x)
 \dontrun{
-plot(density(x, bw.mse.pdf.asym(x)))
+plot(density(x, bw.mse.pdf.asym(x)), ylim=c(0,dnorm(0)))
 abline(v=x[1L])
+curve(dnorm, lty=3, col='grey', add=TRUE)
 }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -23,7 +23,10 @@ export(
 	HSEL.bigz, 
 	rejsample, 
 	sample1, 
-	nparts
+	nparts, 
+	smrpp.test, 
+	smrpp.penWt, 
+	smrpp.defaultSpar
 )
 
 
@@ -32,5 +35,6 @@ S3method(mrpp.test, dist)
 S3method(mrpp.test, default)
 
 S3method(smrpp.test, default)
+S3method(smrpp.test, formula)
 
 useDynLib(MRPP)

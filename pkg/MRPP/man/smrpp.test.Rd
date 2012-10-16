@@ -1,26 +1,22 @@
 \name{smrpp.test}
 \Rdversion{1.1}
 \alias{smrpp.test.default}
-%\alias{smrpp.test.formula}
-\alias{smrpp.test}
+\alias{smrpp.test.formula}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Sparse MRPP test for one-way design
+Sparse Weighted MRPP Test for One-way Design
 }
 \description{
-K-sample sparse MRPP test with penalization. Variable selection is through the test statistic as used in Witten & Tibshirani (2010). The choice of tuning parameter is through minimizing the MRPP p-value, with weighted Euclidean distance. Such a minimum p-value is then used as the final test statistic. The overal significance is through an outer layer of permutations. 
+K-sample sparse MRPP test with penalization. Variable selection is through penalized weighting. The choice of tuning parameter is through minimizing the MRPP p-value, with weighted Euclidean distance. Such a minimum p-value is then used as the final test statistic. The overal significance is through an outer layer of permutations. 
 }
 \usage{
 smrpp.test(y, \dots)
-
-%\method{mrpp.test}{dist}(y, trt, B = nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, \dots)
-%\method{mrpp.test}{formula}(y, data, \dots)
-\method{smrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, 
-	spar=seq(1,sqrt(ncol(y)),length=100L), ...)
+\method{smrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, \dots)
+\method{smrpp.test{formula}(y, data, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{y}{A N*P data matrix. 
+  \item{y}{An N*R data matrix, with rows representing samples and columns representing variables.
 }
   \item{trt}{A vector of treatment assignments. If missing, the first permutation in \code{permutedTrt} will be used as the original treatment assignment. As least one of \code{trt} or \code{permutedTrt} need to be given. 
 }
@@ -32,12 +28,16 @@ smrpp.test(y, \dots)
 }
   \item{eps}{A small non-negative number, differences below which among permuted test statistics are treated as equal.
 }
-  \item{spar}{A positive numeric vector of smoothing parameters, over which the minimum p-value will be searched for.}
+  \item{spar}{A positive numeric vector of smoothing parameters, over which the minimum p-value will be searched for. An \code{Inf} will be padded to \code{spar}, if it is not already there.
+}
+  \item{data}{A data frame in which variables in the formula can be found.}
   \item{\dots}{Additional arguments passed to the methods. 
 }
 }
 
+
 \value{
+
 An \code{htest} object with the following components:
 \item{statistic }{The observed test statistic (the minimum MRPP p-value).}
 \item{all.statistics }{All permuted test statistics.}
@@ -49,9 +49,7 @@ An \code{htest} object with the following components:
 \item{method }{A string of test method.}
 }
 \references{
-Paul W. Mielke, Kenneth J. Berry. (2007) Permutation Methods: A Distance Function Approach. 2nd ed. Springer.
-
-Daniela M. Witten and Robert Tibshirani. (2010) A Framework for Feature Selection in Clustering. Journal of the American Statistical Association, 105(490):713--726.
+Long Qu, Dan Nettleton, and Jack C. M. Dekkers. Relative Variable Importance and Variable Selection for the Multiresponse Permutation Procedure, with Applications to High Dimensional Genomic Data.
 }
 \author{
 Long Qu
@@ -60,7 +58,8 @@ Long Qu
 %%}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 \seealso{
- \code{\link{permuteTrt}}
+ \code{\link{smrpp.defaultSpar}}, 
+ \code{\link{smrpp.penWt}}
 }
 \examples{
 set.seed(2340)
@@ -71,13 +70,13 @@ urand.bigz(0,seed=1032940L) # init seed
 pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 \dontrun{
 pmat=permuteTrt(trt, 1e6L)		## use all partitions, as 1e6L >= 92378 
-mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) 
+smrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) 
 }
-mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) 
-mrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
+smrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) 
+smrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
 dat=data.frame(x, trt)
 fmla=as.formula(sprintf('cbind(\%s)~trt',paste('X',1:5,sep='',collapse=',')))
-mrpp.test(fmla, dat, permutedTrt=pmat, wtmethod=0 )
+smrpp.test(fmla, dat, permutedTrt=pmat, wtmethod=0 )
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
