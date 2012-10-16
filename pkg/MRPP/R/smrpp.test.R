@@ -261,7 +261,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
       plot(wmrpp.p~log10(spar), main=b)
       stats[b]=min(wmrpp.p)
       if(b==1L){
-        s0.i=max(which(spar==min(wmrpp.p)))
+        s0.i=max(which(wmrpp.p==min(wmrpp.p)))
         s0=spar[s0.i]
         #wt0=get.wt(bcss, s0)
         wt0=all.weights[s0.i, 1L, ]
@@ -270,7 +270,9 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
     
     #stats=.Call('mrppstats',y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
     ans=list(statistic=c("Sparse Weighted MRPP Raw p-value"=stats[1L]), all.statistics=stats, weights=wt0,
-             p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 'group weight method'=wtmethod[1L], 'Smoothing'=s0, '#selected variables'=sum(wt0>0)),
+             p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 
+             'group weight method'=wtmethod[1L], 
+             'Smoothing'=s0, '#selected variables'=sum(wt0>0)),
              data.name=dname, #  .Random.seed=attr(permutedTrt,'.Random.seed'),  ## this is commented out since the random number seed in gmp:::urand.bigz will be used. 
              method=sprintf('%d-sample Sparse Weighted MRPP test',ntrt)
              )
