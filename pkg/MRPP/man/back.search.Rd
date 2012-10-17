@@ -106,9 +106,9 @@ pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) ## MRPP for all variables
 mrppBVS(x, pmat) ## backward selection of variables
 
-\dontrun{
+#\dontrun{
 mrppBVS.test(x, pmat) ## nested permutation test with backward variable selection
-}
+#}
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

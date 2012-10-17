@@ -148,12 +148,20 @@ function(dp.dw, spar, simplify=TRUE)
 #    f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  ## depends on l and b in the enclosing env
     f=function(del) .Call('objSolveDelta', del, dp.dw, fact, b, l, R, PACKAGE='MRPP')  ## depends on l and b in the enclosing env
     ans=array(NA_real_, dim=c(L, B, R))
+
     for(b in seq_len(B)){
-        rg=-rev(range(dp.dw[b,]))
+        o=order(dp.dw[b,])
+        grids=(seq(R-1L))*dp.dw[b,o[-1L]]-cumsum(dp.dw[b,o[-R]])  ## this defines finer grids for searching for delta
+#        rg=-rev(range(dp.dw[b,]))      ### this range is too wide
         for(l in seq_len(L)){
             if(is.infinite(spar[b,l])) {ans[l, b, ]=1; next}
-            d=-mean.dp.dw[b]-2*spar[b,l]
-            if(d >= rg[1]) d=uniroot(f, rg, tol=1e-15)$root
+            
+            interval.i=which(grids >= R/fact[b,l]  )[1L]
+            if(is.na(interval.i)) {ans[l, b, ]=1-fact[b,l]*(dp.dw[b,]-mean.dp.dw[b]); next}
+
+            rg=-dp.dw[b, o[1:0+interval.i]]
+            while (f(rg[1L])*f(rg[2L])>0) rg=rg+c(-1,1)*1e-4  ## avoid small numerical errors
+            d= uniroot(f, rg, tol=1e-15)$root 
 #            ans[l, b, ]=fact[b,l]*pmax(-d-dp.dw[b,], 0)
             ans[l, b, ]=fact[b,l]*.Call('pmax0', -d-dp.dw[b,])
         }
