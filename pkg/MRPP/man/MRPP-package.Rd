@@ -13,7 +13,7 @@ Implements multiresponse permutation procedure (MRPP), variable importance measu
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-263\cr
+Version: \tab 1.0-264\cr
 Date: \tab 2012-10-16\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
@@ -54,9 +54,10 @@ urand.bigz(0,seed=1032940L) # init seed
 pmat=permuteTrt(trt, 5e2L)		## use 500 random permutations
 mrpp.test(dist(x), trt, permutedTrt=pmat, wtmethod=0 ) ## MRPP for all variables
 
-#\dontrun{
+\dontrun{
 mrppBVS(x, pmat) ## backward selection of variables
 mrppBVS.test(x, pmat) ## nested permutation test with backward variable selection
-#}
+smrpp.test(x, trt, permutedTrt=pmat, wtmethod=0 ) 
+}
 
 }
