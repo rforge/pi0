@@ -25,7 +25,7 @@ function(y, permutedTrt, r=seq_len(ncol(y)), #test=F,
 
     for(r.i in seq(along=r)){
         dz.dw=.Call('mrppstats',all.ddelta.dw[,r.i],permutedTrt, as.numeric(wtmethod[1]), PACKAGE='MRPP')
-        ans[r.i]=mean(dz.dw[1]-dz.dw>=eps)
+        ans[r.i]=mean(dz.dw[1]-dz.dw>= -eps)
     }
     drop(ans)
 }

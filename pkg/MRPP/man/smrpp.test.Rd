@@ -12,7 +12,7 @@ K-sample sparse MRPP test with penalization. Variable selection is through penal
 }
 \usage{
 smrpp.test(y, \dots)
-\method{smrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, \dots)
+\method{smrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, verbose=TRUE, \dots)
 \method{smrpp.test}{formula}(y, data, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -32,6 +32,9 @@ smrpp.test(y, \dots)
   \item{spar}{A positive numeric vector of smoothing parameters, over which the minimum p-value will be searched for. An \code{Inf} will be padded to \code{spar}, if it is not already there.
 }
   \item{data}{A data frame in which variables in the formula can be found.}
+  \item{verbose}{
+	Logical or numeric scalar. Print messages every \code{verbose} iteration. \code{TRUE} is treated as 1. If \code{FALSE}, no messages are printed.
+}
   \item{\dots}{Additional arguments passed to the methods. 
 }
 }

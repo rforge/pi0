@@ -170,7 +170,7 @@ function(dp.dw, spar, simplify=TRUE)
 }
 
 smrpp.test.default <-
-function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, ...) ## this uses C code
+function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, verbose=TRUE, ...) ## this uses C code
 ## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
 {
     if(missing(y) ) stop('dist object missing or incorrect')
@@ -259,6 +259,9 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
 #      thisPerm=lapply(permutedTrt, '[', , b, drop=FALSE)
 #      bcss=get.bcss(thisPerm)
       
+        if (verbose && isTRUE(b.i%%verbose == 0L)) 
+                    cat("outer permutation:", b.i - 1L, " out of", Bperm, 
+                        "\t\t\r")
       wmrpp.p=numeric(length(spar))
       for(s.i in seq_along(spar)){
 #        wt=get.wt(bcss, spar[s.i])
