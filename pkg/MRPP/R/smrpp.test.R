@@ -259,8 +259,8 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
 #      thisPerm=lapply(permutedTrt, '[', , b, drop=FALSE)
 #      bcss=get.bcss(thisPerm)
       
-        if (verbose && isTRUE(b.i%%verbose == 0L)) 
-                    cat("outer permutation:", b.i - 1L, " out of", Bperm, 
+        if (verbose && isTRUE(b%%verbose == 0L)) 
+                    cat("outer permutation:", b - 1L, " out of", B, 
                         "\t\t\r")
       wmrpp.p=numeric(length(spar))
       for(s.i in seq_along(spar)){
