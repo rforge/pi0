@@ -273,6 +273,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
       stats[b]=min(wmrpp.p)
       if(b==1L){
         s0.i=max(which(wmrpp.p==min(wmrpp.p)))
+        s0.i=min(which(wmrpp.p==min(wmrpp.p)))
         s0=spar[s0.i]
         #wt0=get.wt(bcss, s0)
         wt0=all.weights[s0.i, 1L, ]
