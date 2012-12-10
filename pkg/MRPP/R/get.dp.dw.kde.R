@@ -3,7 +3,7 @@ function(y, permutedTrt, r=seq_len(ncol(y)), test=FALSE,
         distObj=dist(y), 
         mrpp.stats=mrpp.test.dist(distObj,permutedTrt=permutedTrt,wtmethod=wtmethod[1])$all.statistics,
         bw=bw.mse.pdf.asym(mrpp.stats), #cperm.mat, 
-        wtmethod=0)
+        wtmethod=0, scale=1)
 ## y=N-by-p data matrix; b=permutation index for the 1st trt; r=dimension index; 
 {
     ## min.wts=1e-8  ### CHECKME: I cannot remember why the weight was introduced. Set it to zero for now to see what problems show up...
@@ -25,7 +25,7 @@ function(y, permutedTrt, r=seq_len(ncol(y)), test=FALSE,
 #    #all.ddelta.dw=abs(contrast.mat%*%y)^2/pmax(1e-8,distObj)/2 ## avoiding division by zero
 #    all.ddelta.dw=(contrast.mat%*%y)^2/distObj/2 ## when denom is zero, the numerator is also zero. 
 #        all.ddelta.dw[is.nan(all.ddelta.dw)]=0
-    all.ddelta.dw=apply(y,2L,dist)^2/distObj*0.5   ## these 2 lines replace the above 5 lines
+    all.ddelta.dw=apply(y[,r],2L,dist)^2/distObj*0.5   ## these 2 lines replace the above 5 lines
         all.ddelta.dw[is.nan(all.ddelta.dw)]=0
 
     for(r.i in seq(along=r)){
@@ -35,7 +35,7 @@ function(y, permutedTrt, r=seq_len(ncol(y)), test=FALSE,
 #            dd.dw=dz.dw[b[b.i]]-dz.dw
 #            ans[r.i, b[b.i]]=sum(weight[,b.i]*dd.dw)/B  #length(b)
 #        }
-        ans[, r.i] = colMeans(weight * outer(-dz.dw, dz.dw[b], '+'))    ## this lines replace the above 3 lines
+        ans[, r.i] = scale/B* colSumss(weight * outer(-dz.dw, dz.dw[b], '+'))    ## this lines replace the above 3 lines
     }
     drop(ans)
 }

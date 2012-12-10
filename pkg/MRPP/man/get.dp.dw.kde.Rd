@@ -14,7 +14,7 @@ Permutation-based variable importance measure
 get.dp.dw.kde(y, permutedTrt, r = seq_len(ncol(y)), test = FALSE, distObj = dist(y), 
 	mrpp.stats = mrpp.test.dist(distObj, permutedTrt = permutedTrt,
 	wtmethod=wtmethod[1])$all.statistics, bw = bw.mse.pdf.asym(mrpp.stats), 
-	wtmethod=0)
+	wtmethod=0, scale=1)
 get.p.dd.dw(y, permutedTrt, r = seq_len(ncol(y)), wtmethod=0, eps=1e-8)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -36,6 +36,8 @@ get.p.dd.dw(y, permutedTrt, r = seq_len(ncol(y)), wtmethod=0, eps=1e-8)
 %  \item{cperm.mat}{}
   \item{wtmethod}{0 or 1. If 0, the treatment group weight for MRPP statistic will be sample size minus 1. If 1, the sample size of the treatment group.
 }
+  \item{scale}{A numeric scalar. The result will be multiplied by this scale factor. 
+}
 %  \item{min.wts}{}
   \item{eps}{A small positive tolerance, the same as described in \code{\link{mrpp.test}}. 
 }
@@ -47,7 +49,7 @@ That is, if the partial derivative is negatively large, then the corresponding v
 \code{get.p.dd.dw} first computes the partial derivative of the Euclidian distance measure with respect to the hypothetical weights for each variable. This is then used as the distance function for the variable to be used in MRPP. The resulting MRPP p-value is returned as the variable importance. The smaller, the more important.
 }
 \value{
-For \code{get.dp.dw.kde}, when \code{test} is \code{FALSE}, the result is an \code{length(r)}-vector of importance measure. 
+For \code{get.dp.dw.kde}, when \code{test} is \code{FALSE}, the result is an \code{length(r)}-vector of importance measure (multiplied by \code{scale}). 
 When \code{test} is \code{TRUE}, the result is an \code{B}-by-\code{length(r)} matrix of importance measure, where \code{B} is the number of permutations in \code{permutedTrt}. The (\code{i,j})th element is the importance measure for the \code{r[j]}th variable when the \code{i}th column of each component of \code{permutedTrt} is treated as the original treatment assignment. 
 
 For \code{get.p.dd.dw}, the result is an \code{length(r)}-vector of importance measure. 

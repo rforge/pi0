@@ -35,7 +35,7 @@ function(y,permutedTrt,
         mrpp.rslt=mrpp.test.dist(dist0,permutedTrt=permutedTrt,...)
         mrpp.stats0=mrpp.rslt$all.statistics
         imptnc=if(importance=='dp.dw') 
-                    get.dp.dw.kde(y[,idx,drop=FALSE],permutedTrt,distObj=dist0,mrpp.stats=mrpp.stats0, ...) 
+                    get.dp.dw.kde(y[,idx,drop=FALSE],permutedTrt,distObj=dist0,mrpp.stats=mrpp.stats0, scale=B, ...) 
                else get.p.dd.dw(y[,idx,drop=FALSE],permutedTrt,...)
 
         var.rank=order(imptnc)

@@ -67,7 +67,7 @@ mrppBVS.test(y,permutedTrt, Bperm=ncol(permutedTrt[[1L]]),
 For \code{mrppBVS}, the result is a list with each component being list of :
   \item{iter }{The iteration number (starting from 0);}
   \item{var.idx }{The indices of remaining variables at this iteration, in the order of variable importance;}
-  \item{influence }{The variable importance measures for the remaining variables;}
+  \item{influence }{The variable importance measures (multiplied by the number of permutations, if \code{importance} is \code{dp.dw}) for the remaining variables;}
   \item{p.value }{The raw MRPP p-value for the remaining variables;}
   \item{deleted.p.value }{The raw MRPP p-value for the excluded variables.}
 In addition, the result also has attribute \code{'parameter'}, which is a list of \code{importance, alpha.in, alpha.del, size.in, stepwise, niter} of input parameters. 
@@ -88,9 +88,10 @@ Permutation Procedure, with Applications to High Dimensional Genomic Data. (Manu
 \author{
 Long Qu
 }
-%\note{
+\warning{
 %%%  ~~further notes~~
-%}
+In the results, the variable importance measures are multiplied by the number of permutations, if \code{importance} is \code{dp.dw}. 
+}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 \seealso{
 \code{\link{mrpp.test}}, \code{\link{get.p.dd.dw}}, \code{\link{get.dp.dw.kde}}, \code{\link{permuteTrt}}
