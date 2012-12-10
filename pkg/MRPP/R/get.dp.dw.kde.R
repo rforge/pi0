@@ -35,7 +35,7 @@ function(y, permutedTrt, r=seq_len(ncol(y)), test=FALSE,
 #            dd.dw=dz.dw[b[b.i]]-dz.dw
 #            ans[r.i, b[b.i]]=sum(weight[,b.i]*dd.dw)/B  #length(b)
 #        }
-        ans[, r.i] = scale/B* colSumss(weight * outer(-dz.dw, dz.dw[b], '+'))    ## this lines replace the above 3 lines
+        ans[, r.i] = scale/B* colSums(weight * outer(-dz.dw, dz.dw[b], '+'))    ## this lines replace the above 3 lines
     }
     drop(ans)
 }
