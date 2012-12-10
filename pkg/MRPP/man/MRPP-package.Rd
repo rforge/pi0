@@ -35,7 +35,7 @@ LazyLoad: \tab yes\cr
 \author{
 Long Qu
 
-Maintainer: Long Qu <longorognol@hotmail.com>
+Maintainer: Long Qu <longor@iastate.edu>
 }
 \references{
 Long Qu, Dan Nettleton, and Jack C. M. Dekkers. Relative Variable Importance and Backward Variable Selection for the Multiresponse

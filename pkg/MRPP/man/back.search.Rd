@@ -88,7 +88,7 @@ Permutation Procedure, with Applications to High Dimensional Genomic Data. (Manu
 \author{
 Long Qu
 }
-\warning{
+\note{
 %%%  ~~further notes~~
 In the results, the variable importance measures are multiplied by the number of permutations, if \code{importance} is \code{dp.dw}. 
 }
