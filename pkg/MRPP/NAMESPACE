@@ -26,7 +26,7 @@ export(
 	nparts, 
 	smrpp.test, 
 	smrpp.penWt, 
-	smrpp.defaultSpar
+	smrppInitSpar
 )
 
 
