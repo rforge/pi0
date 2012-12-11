@@ -14,7 +14,7 @@ Permutation-based variable importance measure
 get.dp.dw.kde(y, permutedTrt, r = seq_len(ncol(y)), test = FALSE, distObj = dist(y), 
 	mrpp.stats = mrpp.test.dist(distObj, permutedTrt = permutedTrt,
 	wtmethod=wtmethod[1])$all.statistics, bw = bw.mse.pdf.asym(mrpp.stats), 
-	wtmethod=0, scale=1)
+	wtmethod=0, scale=1, standardized=FALSE)
 get.p.dd.dw(y, permutedTrt, r = seq_len(ncol(y)), wtmethod=0, eps=1e-8)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -31,12 +31,14 @@ get.p.dd.dw(y, permutedTrt, r = seq_len(ncol(y)), wtmethod=0, eps=1e-8)
 }
   \item{mrpp.stats}{A vector of all observed MRPP test statistics. 
 }
-  \item{bw}{A numeric scalar giving the bandwidth used for kernel density estimation of \code{mrpp.stats}. 
+  \item{bw}{A numeric scalar giving the bandwidth used for kernel density estimation of \code{mrpp.stats}. This might be positive infinity. 
 }
 %  \item{cperm.mat}{}
   \item{wtmethod}{0 or 1. If 0, the treatment group weight for MRPP statistic will be sample size minus 1. If 1, the sample size of the treatment group.
 }
   \item{scale}{A numeric scalar. The result will be multiplied by this scale factor. 
+}
+  \item{standardized}{In case that \code{bw} is positive infinity, \code{standardized} indicates if the results will be divided by the standard deviation of the permuted statistics.
 }
 %  \item{min.wts}{}
   \item{eps}{A small positive tolerance, the same as described in \code{\link{mrpp.test}}. 
