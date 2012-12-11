@@ -103,6 +103,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar=s
 
 }
 
+if(FALSE){  ## this is the default spar (multiplier for the quadratic part)
 smrpp.defaultSpar <- 
 function(dp.dw, max.ratio=2, nspar=100L)
 {
@@ -125,7 +126,42 @@ function(dp.dw, max.ratio=2, nspar=100L)
     }
     unclass(dropf(ans))
 }
+}
 
+smrppInitSpar <- ## this treats delta as the spar
+function(dp.dw, max.ratio=2, nspar=100L, denseProp=.25)
+{
+# Let k be the ratio of maximum weight to the minimum weight.
+# When spar increases, this ratio decreases. 
+# Whenever k drops below max.ratio, the corresponding spar will be treated as Inf (with k=1)
+# denseProp is the requested proportion of spar that results in dense (but weighted) solutions
+    stopifnot(max.ratio>1 && nspar>=3L && denseProp>=0 && denseProp<=1)
+    k=max.ratio; 
+    if(!is.matrix(dp.dw) && is.numeric(dp.dw)) {dropf=drop; dp.dw=matrix(dp.dw, 1L)} else dropf=I
+    nDense=round(nspar*denseProp)
+    nDense=min(nspar, max(1, nDense))
+    nSparse= nspar - nDense
+    spQuants=seq(0, 1, length=nSparse)
+
+    B=nrow(dp.dw); R=ncol(dp.dw)
+    ans=matrix(NA_real_, B, nspar)
+    for(b in seq(B)){
+        m1=min(dp.dw[b,])
+        #m2=min(dp.dw[b, dp.dw[b,]>m1])
+        mR=max(dp.dw[b,])
+#        min. = (m2-m1)*.5/R*sum(dp.dw[b,]==m1)
+#        max. = .5*( (k*mR-m1)/(k-1)-mean(dp.dw[b,]))
+#        ans[b,]=c(10^seq(from=log10(min.), to=log10(max.), length=nspar-1L), Inf)
+        spAns=quantile(dp.dw[b, dp.dw[b,]>m1], probs=spQuants)
+        dsAns=seq(mR, (k*mR-m1)/(k-1), length=nDense-1)
+        ans[b,]=c(spAns, dsAns, Inf)
+    }
+    unclass(dropf(ans))
+
+}
+
+
+if(FALSE){  ## this treats lambda as spar
 smrpp.penWt <-
 function(dp.dw, spar, simplify=TRUE)
 # dp.dw is a vector or matrix of derivative of MRPP p-value to the weights. 
@@ -168,9 +204,44 @@ function(dp.dw, spar, simplify=TRUE)
     }
     if(isTRUE(simplify)) drop(ans) else ans
 }
+}
 
+
+smrpp.penWt <-  ## this treats delta as spar
+function(dp.dw, spar, simplify=TRUE)
+# dp.dw is a vector or matrix of derivative of MRPP p-value to the weights. 
+# If dp.dw is a matrix, each row is treated as a permutation. 
+# spar is a vector of tuning parameter that controls the influence of the heterogeneity of weights
+{
+    if(!is.matrix(dp.dw) && is.numeric(dp.dw)) dp.dw=matrix(dp.dw, 1L)
+    B=nrow(dp.dw)
+    R=ncol(dp.dw)+0.0
+#    if(is.matrix(spar)) stopifnot(nrow(spar)==nrow(dp.dw))
+#    else spar=matrix(spar, B, length(spar), byrow=TRUE)
+#    L=ncol(spar)
+    sparMin=apply(dp.dw, 1L, min)
+    spar=spar[spar > max(sparMin)]
+    L=length(spar)
+
+    num = structure(.Call('pmax0', outer(spar, dp.dw, '-')), dim=c(L, B, R))
+    den = rowMeans(num, dims=2L)
+    ans = num / den[rep(seq_len(L*B), R)]
+    ans[is.na(ans)]=1
+
+#    ans=array(NA_real_, dim=c(L, B, R))
+#    colidx=col(ans[,1L,,drop=FALSE])
+#
+#    for(b in seq_len(B)){
+#        ansNumerator=structure(.Call('pmax0', outer(spar[b,], dp.dw[b,], '-')), dim=c(L,R))
+#        ans[, b, ]=ansNumerator / colMeans(ansNumerator)[colidx]
+#    }
+    if(isTRUE(simplify)) drop(ans) else ans
+}
+
+
+if(FALSE){
 smrpp.test.default <-
-function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, verbose=TRUE, ...) ## this uses C code
+function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, verbose=TRUE, ...) ## this uses C code and treats lambda as spar
 ## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
 {
     if(missing(y) ) stop('dist object missing or incorrect')
@@ -285,6 +356,82 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
              p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 
              'group weight method'=wtmethod[1L], 
              'Smoothing'=s0, '#selected variables'=sum(wt0>0)),
+             data.name=dname, #  .Random.seed=attr(permutedTrt,'.Random.seed'),  ## this is commented out since the random number seed in gmp:::urand.bigz will be used. 
+             method=sprintf('%d-sample Sparse Weighted MRPP test',ntrt)
+             )
+    class(ans)='htest'
+    ans
+}
+}
+
+smrpp.test.default <-
+function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, verbose=TRUE, ...) ## treats delta as spar
+## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
+{
+    if(missing(y) ) stop('dist object missing or incorrect')
+    if(!is.matrix(y) && !is.data.frame(y)) y= as.matrix(y)
+    R=ncol(y)
+    N= nrow(y)
+    wtmethod=as.numeric(wtmethod[1])
+    if(missing(trt)) {  ## recoving trt from the first permutation
+      trt=integer(N)
+      for(i in seq_along(permutedTrt)) trt[permutedTrt[[i]][,1L]]=i
+    }
+    if(missing(permutedTrt)) {
+        permutedTrt=permuteTrt(trt,B)
+        dname=paste('"dist" object',deparse(substitute(y)), 
+                             'and treatment group', deparse(substitute(trt)))
+    }else dname=paste('"dist" object',deparse(substitute(y)), 
+                             'and permuted treatment', deparse(substitute(permutedTrt)))
+    B=ncol(permutedTrt[[1]])
+    #if(missing(cperm.mat)) cperm.mat=apply(permutedTrt, 2, function(kk)(1:N)[-kk])
+    tabtrt=table(trt)
+    ntrt=length(tabtrt)
+
+    dp.dw=get.dp.dw.kde(y, permutedTrt, test = TRUE, wtmethod=wtmethod)  # B x R matrix
+#    sparMinMax=apply(dp.dw, 1L, smrppInitSpar, nspar=3L, ...)
+#    sparMin=max(sparMinMax[1L,])
+    sparMin=max(apply(dp.dw, 1L, min)) #sparMinMax[1L,])
+    if(missing(spar))         spar=smrppInitSpar(dp.dw[1,])
+    spar=sort(spar[ spar>=sparMin ])
+    if(all(is.finite(spar))) spar=c(spar, Inf)
+    nspar=length(spar)
+
+
+    ycol=col(y)
+#    if(p2==2){
+      get.wdist=function(wt,p2){ # p2 is a placeholder only for potential extensions
+        #wy=sweep(y,2L, sqrt(wt), '*', check.margin=FALSE)
+        wy=y*sqrt(wt)[ycol]   ## this is much faster
+        dist(wy)
+      }
+    
+    stats=numeric(B)
+    all.weights=smrpp.penWt(dp.dw, spar, simplify=FALSE)  ## pre-compute weights (time saving but memory consuming)
+
+    for(b in seq(B)){
+        if (verbose && isTRUE(b%%verbose == 0L)) 
+                    cat("outer permutation:", b - 1L, " out of", B, 
+                        "\t\t\r")
+      wmrpp.p=numeric(length(spar))
+      for(s.i in seq_along(spar)){
+        wdist=get.wdist(all.weights[s.i, b, ])
+        tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
+        wmrpp.p[s.i]=mean(tmp[b]-tmp >=-eps)
+      }
+      stats[b]=min(wmrpp.p)
+      if(b==1L){
+        tmp=which(wmrpp.p==min(wmrpp.p))
+        s0.i=floor(median(tmp)) ## max(tmp)  ## min(tmp)
+        s0=spar[s0.i]
+        wt0=all.weights[s0.i, 1L, ]
+      }
+    }
+    
+    ans=list(statistic=c("Sparse Weighted MRPP Raw p-value"=stats[1L]), all.statistics=stats, weights=wt0,
+             p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 
+             'group weight method'=wtmethod[1L], 
+             'tuning'=s0, '#selected variables'=sum(wt0>0)),
              data.name=dname, #  .Random.seed=attr(permutedTrt,'.Random.seed'),  ## this is commented out since the random number seed in gmp:::urand.bigz will be used. 
              method=sprintf('%d-sample Sparse Weighted MRPP test',ntrt)
              )

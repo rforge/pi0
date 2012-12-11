@@ -1,6 +1,6 @@
-\name{smrpp.defaultSpar}
+\name{smrppInitSpar}
 \Rdversion{1.1}
-\alias{smrpp.defaultSpar}
+\alias{smrppInitSpar}
 \title{
 Default Smoothing parameters for Sparse Weighted MRPP Test 
 }
@@ -8,7 +8,7 @@ Default Smoothing parameters for Sparse Weighted MRPP Test
 Compute a sequence of default smoothing parameters covering the minimum (sparsest) and a user specified maximum, plus infinity (densest).
 }
 \usage{
-smrpp.defaultSpar(dp.dw, max.ratio=2, nspar=100L)
+smrppInitSpar(dp.dw, max.ratio=2, nspar=100L, denseProp= .25)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -20,10 +20,12 @@ smrpp.defaultSpar(dp.dw, max.ratio=2, nspar=100L)
 }
   \item{nspar}{An integer no smaller than 3, requesting the number of smoothing parameters to be generated.
 }
+  \item{denseProp}{The requested proportion of spars that keep all variables (but weighted)
+}
 }
 
 \value{
-\code{smrpp.defaultSpar} returns a vector or matrix of smoothing parameters. 
+\code{smrppInitSpar} returns a vector or matrix of smoothing parameters. 
 
 When \code{dp.dw} is a vector, the result is also a vector. 
 When \code{dp.dw} is a matrix, a separate sequence of smoothing parameters will be generated for each row. 
@@ -52,13 +54,13 @@ Long Qu
 \examples{
 set.seed(2340L)
 dp.dw=runif(10L, -1, 1)  # some fake derivatives
-smrpp.defaultSpar(dp.dw, max.ratio=2, nspar=5L) # a vector of smoothing parameters
+smrppInitSpar(dp.dw, max.ratio=2, nspar=5L) # a vector of smoothing parameters
 
 set.seed(2340L)
 dp.dw=matrix(runif(100L, -1, 1),10L,byrow=TRUE)  # some fake derivatives
-smrpp.defaultSpar(dp.dw, max.ratio=2, nspar=5L) # a vector of smoothing parameters for each row of dp.dw
+smrppInitSpar(dp.dw, max.ratio=2, nspar=5L) # a vector of smoothing parameters for each row of dp.dw
 
-smrpp.defaultSpar(dp.dw, max.ratio=2, nspar=3L)[,1L] # getting the minimum of smoothing parameters 
+smrppInitSpar(dp.dw, max.ratio=2, nspar=3L)[,1L] # getting the minimum of smoothing parameters 
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
