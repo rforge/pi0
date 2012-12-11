@@ -41,13 +41,13 @@ Long Qu
 %%}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 \seealso{
- \code{\link{smrpp.defaultSpar}},
+ \code{\link{smrppInitSpar}},
  \code{\link{smrpp.test}}
 }
 \examples{
 set.seed(2340L)
 dp.dw=runif(10L, -1, 1)  # some fake derivatives
-spar=smrpp.defaultSpar(dp.dw, max.ratio=2, nspar=5L) # a vector of smoothing parameters
+spar=smrppInitSpar(dp.dw, max.ratio=2, nspar=5L) # a vector of smoothing parameters
 smrpp.penWt(dp.dw, spar, TRUE) # a matrix of weights, with rows of decreasing sparseness
 smrpp.penWt(dp.dw, spar, FALSE) # the same result without dropping the 2nd array dimension
 }

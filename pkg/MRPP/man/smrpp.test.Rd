@@ -62,7 +62,7 @@ Long Qu
 %%}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 \seealso{
- \code{\link{smrpp.defaultSpar}}, 
+ \code{\link{smrppInitSpar}}, 
  \code{\link{smrpp.penWt}}
 }
 \examples{
