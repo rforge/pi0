@@ -365,10 +365,11 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
 }
 
 smrpp.test.default <-
-function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, verbose=TRUE, ...) ## treats delta as spar
+function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0,  outerStat=c('WDISCO 1/F','WMRPP P'), eps=1e-8, spar, verbose=TRUE, ...) ## treats delta as spar
 ## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
 {
     if(missing(y) ) stop('dist object missing or incorrect')
+    outerStat = match.arg( outerStat )
     if(!is.matrix(y) && !is.data.frame(y)) y= as.matrix(y)
     R=ncol(y)
     N= nrow(y)
@@ -409,26 +410,48 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
     stats=numeric(B)
     all.weights=smrpp.penWt(dp.dw, spar, simplify=FALSE)  ## pre-compute weights (time saving but memory consuming)
 
+    get.wmrpp.p=function()  ## depends on wdist, b, permutedTrt, wtmethod, eps
+    {
+        tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
+        mean(tmp[b]-tmp >=-eps)
+    }
+
+    get.wdisco.invF=function() ## depends on wdist, b, permutedTrt1, wtmethod, ntrt, N
+    {
+        permutedTrt1=lapply(permutedTrt, '[', , b, drop=FALSE)
+        W =.Call('mrppstats',wdist, permutedTrt1, wtmethod, PACKAGE='MRPP') * .5
+        S = sum(wdist) / N  - W
+        F = S / (ntrt - 1) / W * (N - ntrt) 
+        1 / F
+    }
+    if(outerStat == 'WDISCO 1/F'){
+        outerStatFun=get.wmrpp.p
+        outerStatFunName='Sparse Weighted MRPP Raw p-value'
+    }else if (outerStat == 'WMRPP P') {
+        outerStatFun=get.wdisco.invF
+        outerStatFunName='Sparse Weighted DISCO 1/F'
+    }else stop('Should not reach this line')
+
     for(b in seq(B)){
         if (verbose && isTRUE(b%%verbose == 0L)) 
                     cat("outer permutation:", b - 1L, " out of", B, 
                         "\t\t\r")
-      wmrpp.p=numeric(length(spar))
+      outerStats=numeric(length(spar))
       for(s.i in seq_along(spar)){
         wdist=get.wdist(all.weights[s.i, b, ])
-        tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
-        wmrpp.p[s.i]=mean(tmp[b]-tmp >=-eps)
+        outerStats[s.i]=outerStatFun()
       }
-      stats[b]=min(wmrpp.p)
+      stats[b]=min(outerStats)
       if(b==1L){
-        tmp=which(wmrpp.p==min(wmrpp.p))
+        tmp=which(outerStats==min(outerStats))
         s0.i=floor(median(tmp)) ## max(tmp)  ## min(tmp)
         s0=spar[s0.i]
         wt0=all.weights[s0.i, 1L, ]
       }
     }
     
-    ans=list(statistic=c("Sparse Weighted MRPP Raw p-value"=stats[1L]), all.statistics=stats, weights=wt0,
+    ans=list(statistic=structure(stats[1L], names=outerStatFunName), 
+             all.statistics=stats, weights=wt0,
              p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 
              'group weight method'=wtmethod[1L], 
              'tuning'=s0, '#selected variables'=sum(wt0>0)),
@@ -440,7 +463,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
 }
 
 smrpp.test.formula <-
-function(y, data, ...) 
+function(y, data, ...)
 {
     if (missing(y) || (length(y) != 3L) || (length(attr(terms(y[-2L]), "term.labels")) != 1L)) 
         stop("'formula' missing or incorrect")

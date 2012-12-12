@@ -12,7 +12,8 @@ K-sample sparse MRPP test with penalization. Variable selection is through penal
 }
 \usage{
 smrpp.test(y, \dots)
-\method{smrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, verbose=TRUE, \dots)
+\method{smrpp.test}{default}(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, 
+	outerStat=c('WDISCO 1/F','WMRPP P'), eps=1e-8, spar, verbose=TRUE, \dots)
 \method{smrpp.test}{formula}(y, data, \dots)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -26,6 +27,8 @@ smrpp.test(y, \dots)
   \item{permutedTrt}{An optional permutation index matrix. If missing, this will be computed as \code{permuteTrt(trt,B)}. See \code{\link{permuteTrt}}. 
 }
   \item{wtmethod}{0 or 1, where 0 stands for weighting each treatment group by sample size - 1, and 1 stands for weighting by sample size. 
+}
+  \item{outerStat}{A character value specifying which test statistic to use for the outer permutation. 'WDISCO 1/F' uses the weighted DISCO inverse F-statistic. 'WMRPP P' uses weighted MRPP raw p-value. 
 }
   \item{eps}{A small non-negative number, differences below which among permuted test statistics are treated as equal.
 }
