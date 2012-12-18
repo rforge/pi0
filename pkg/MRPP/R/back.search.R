@@ -21,6 +21,10 @@ function(y,permutedTrt,
     imptnc.threshold=Inf
     imptnc=rep(-Inf, R)
     next.deleted.p=NA_real_
+	ret.msg=c('All remaining variables meet importance requirements',
+			  'Deleted variables fail to meet unimportance requirements if deletion continues', 
+			  'Minimum number of selected variables reached',
+			  'Maximum number of iterations reached')
     repeat{
         if(verbose && isTRUE(i%%verbose==0L)) {cat('iteration',i-1L,'...')
                     time0=proc.time()[3L]}
@@ -29,6 +33,7 @@ function(y,permutedTrt,
             ans[[i]]=list(iter=i-1L,var.idx=integer(0L), influence=numeric(0L), 
                         p.value=numeric(0L),deleted.p.value=ans[[1L]]$p.value)
             if(verbose)message('no variables left in the inclusion set')
+			 attr(ans, 'status')=c(attr(ans, 'status'), ret.msg[3])
             return(ans)
         }
         dist0=dist(y[,idx,drop=FALSE])
@@ -56,10 +61,11 @@ function(y,permutedTrt,
                         'deleted.mrpp.p =',ans[[i]]$deleted.p.value,
                         ';', proc.time()[3L]-time0,'seconds passed;\n')
         }
-        if( all(imptnc<=alpha.in) || i-1L>=niter || 
-#            isTRUE(ans[[i]]$deleted.p.value<=alpha.del) ||
-            isTRUE(next.deleted.p<=alpha.del) ||
-            isTRUE(R-length(xcl)<size.in) ) return(ans)
+        if( all(imptnc<=alpha.in) ) attr(ans, 'status') = c( attr(ans, 'status') , ret.msg[1L] )
+		 if( i-1L>=niter ) attr(ans, 'status') = c( attr(ans, 'status') , ret.msg[4L] )
+        if( isTRUE(next.deleted.p<=alpha.del) ) attr(ans, 'status') = c( attr(ans, 'status') , ret.msg[2L] )
+        if( isTRUE(R-length(xcl)<size.in) ) attr(ans, 'status') = c( attr(ans, 'status') , ret.msg[3L] )
+		 if (!isNULL(attr(ans, 'status')))  return(ans)
         i=i+1L
 #        if(stepwise) idx=idx[imptnc<max(imptnc)] else idx=idx[imptnc<alpha.in]
 #        if(length(idx)==0) {
