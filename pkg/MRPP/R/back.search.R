@@ -65,7 +65,7 @@ function(y,permutedTrt,
 		 if( i-1L>=niter ) attr(ans, 'status') = c( attr(ans, 'status') , ret.msg[4L] )
         if( isTRUE(next.deleted.p<=alpha.del) ) attr(ans, 'status') = c( attr(ans, 'status') , ret.msg[2L] )
         if( isTRUE(R-length(xcl)<size.in) ) attr(ans, 'status') = c( attr(ans, 'status') , ret.msg[3L] )
-		 if (!isNULL(attr(ans, 'status')))  return(ans)
+		 if (!is.null(attr(ans, 'status')))  return(ans)
         i=i+1L
 #        if(stepwise) idx=idx[imptnc<max(imptnc)] else idx=idx[imptnc<alpha.in]
 #        if(length(idx)==0) {
