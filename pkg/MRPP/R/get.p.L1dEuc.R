@@ -20,7 +20,7 @@ function(y, permutedTrt, r=seq_len(ncol(y)), #test=F,
 #    diffy=contrast.mat%*%y; diffy2=diffy*diffy
 #    all.ddelta.dw=diffy2/pmax(1e-8,sqrt(rowSums(diffy2)))/2
 ##    all.ddelta.dw=abs(contrast.mat%*%y)^2/pmax(1e-8,dist(y))/2  
-    all.ddelta.dw=apply(y,2L,dist,method='manhattan')/dist(y)*0.5   ## these 2 lines replace the above 5 lines
+    all.ddelta.dw=apply(y[,r,drop=FALSE],2L,dist,method='manhattan')/dist(y)*0.5   ## these 2 lines replace the above 5 lines
         all.ddelta.dw[is.nan(all.ddelta.dw)]=0
 
     for(r.i in seq(along=r)){
