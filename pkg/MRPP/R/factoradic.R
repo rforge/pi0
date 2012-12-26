@@ -12,18 +12,18 @@ dec2FR=function(dec,N){
         }
         N=k
     }
-    ans=integer(N)
-		dec0=dec
-    for(i in 1:N){############ algorithm in Chapter 10 of .NET Test Automation Recipes
-        ans[N-i+1]=as.integer(mod.bigz(dec, i))  ### mod.bigz call is MUCH slower than divq.bigz call in the next line
-        dec=divq.bigz(dec, i)
-    }
+    # ans=integer(N)
+    # for(i in 1:N){############ algorithm in Chapter 10 of .NET Test Automation Recipes
+        # ans[N-i+1]=as.integer(mod.bigz(dec, i))  ### mod.bigz call is MUCH slower than divq.bigz call in the next line
+        # dec=divq.bigz(dec, i)
+    # }
+    # ans
+	######### The following three line replaces the above 5 lines (implementing the same algorithm, but collapsed all mod.bigz calls into a single call
 		decs=as.bigz(integer(N))
-		for(j in 1:N)decs[j]=dec0=divq.bigz(dec0, j)
-		ans2=rev(as.integer(mod.bigz(decs[c(1L, 2:N-1L)], 1:N)))
-		stopifnot(all(ans==ans2))
-    ans
+		for(j in 1:N)decs[j]=dec=divq.bigz(dec, j)
+		rev(as.integer(mod.bigz(decs[c(1L, 2:N-1L)], 1:N)))
 }
+
 FR2permvec=function(FR,base=1L){
     stopifnot(base%in%(0:1))
     ans=integer(length(FR))
