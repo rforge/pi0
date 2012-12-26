@@ -13,7 +13,7 @@ K-sample MRPP test
 }
 \usage{
 mrpp.test(y, \dots)
-\method{mrpp.test}{dist}(y, trt, B = nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, \dots)
+\method{mrpp.test}{dist}(y, trt, B = min(1e4L, nparts(table(trt))), permutedTrt, wtmethod=0, eps=1e-8, \dots)
 \method{mrpp.test}{formula}(y, data, \dots)
 \method{mrpp.test}{default}(y, \dots)
 }

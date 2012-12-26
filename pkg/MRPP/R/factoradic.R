@@ -14,9 +14,13 @@ dec2FR=function(dec,N){
     }
     ans=integer(N)
     for(i in 1:N){############ algorithm in Chapter 10 of .NET Test Automation Recipes
-        ans[N-i+1]=as.integer(mod.bigz(dec, i))
+        ans[N-i+1]=as.integer(mod.bigz(dec, i))  ### mod.bigz call is MUCH slower than divq.bigz call in the next line
         dec=divq.bigz(dec, i)
     }
+		decs=as.bigz(integer(N))
+		for(j in 1:N)decs[j]=dec=divq.bigz(dec, j)
+		ans2=rev(as.integer(mod.bigz(decs[c(1L, 2:N-1L)], 1:N)))
+		stopifnot(all(ans==ans2))
     ans
 }
 FR2permvec=function(FR,base=1L){

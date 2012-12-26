@@ -1,5 +1,5 @@
 mrpp.test.dist <-
-function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, ...) ## this uses C code
+function(y, trt, B=min(1e4L, nparts(table(trt))), permutedTrt, wtmethod=0, eps=1e-8, ...) ## this uses C code
 ## y is a dist object; wtmethod: 0=sample size-1; 1=sample size
 {
     if(missing(y) || !inherits(y,'dist')) stop('dist object missing or incorrect')

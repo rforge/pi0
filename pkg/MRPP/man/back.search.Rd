@@ -70,7 +70,7 @@ For \code{mrppBVS}, the result is a list with each component being list of :
   \item{influence }{The variable importance measures (multiplied by the number of permutations, if \code{importance} is \code{dp.dw}) for the remaining variables;}
   \item{p.value }{The raw MRPP p-value for the remaining variables;}
   \item{deleted.p.value }{The raw MRPP p-value for the excluded variables.}
-In addition, the result also has attribute \code{'parameter'}, which is a list of \code{importance, alpha.in, alpha.del, size.in, stepwise, niter} of input parameters. 
+In addition, the result also has the attribute \code{'parameter'}, which is a list of \code{importance, alpha.in, alpha.del, size.in, stepwise, niter} of input parameters, and the attribute \code{'status'}, which is a character vector giving the exit status(es).
 
 
 \code{mrppBVS.test} returns an \code{htest} object with the last element of the result from \code{mrppBVS}, and 
