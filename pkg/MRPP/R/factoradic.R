@@ -1,7 +1,8 @@
 FR2dec=function(FR){
     drop(gmp::crossprod(factorialZ(seq_along(FR)-1),rev(FR)))
 }
-dec2FR=function(dec,N){
+if(FALSE){
+dec2FR=function(dec,N){	## old slow but correct implementation
     if(missing(N)){
         k=1L
         fact=1L
@@ -12,16 +13,27 @@ dec2FR=function(dec,N){
         }
         N=k
     }
-    # ans=integer(N)
-    # for(i in 1:N){############ algorithm in Chapter 10 of .NET Test Automation Recipes
-        # ans[N-i+1]=as.integer(mod.bigz(dec, i))  ### mod.bigz call is MUCH slower than divq.bigz call in the next line
-        # dec=divq.bigz(dec, i)
-    # }
-    # ans
-	######### The following three line replaces the above 5 lines (implementing the same algorithm, but collapsed all mod.bigz calls into a single call
-		decs=as.bigz(integer(N))
-		for(j in 1:N)decs[j]=dec=divq.bigz(dec, j)
-		rev(as.integer(mod.bigz(decs[c(1L, 2:N-1L)], 1:N)))
+    ans=integer(N)
+    for(i in 1:N){############ algorithm in Chapter 10 of .NET Test Automation Recipes
+        ans[N-i+1]=as.integer(mod.bigz(dec, i))  ### mod.bigz call is MUCH slower than divq.bigz call in the next line
+        dec=divq.bigz(dec, i)
+    }
+    ans
+}
+}
+
+dec2FR=function(dec,N){		## new implementation
+    if(missing(N)){
+        k=1L
+        fact=as.bigz(1L)
+        repeat{
+            fact=fact*k
+            if(fact>dec)break
+            k=k+1L
+        }
+        N=k
+    }
+	as.integer(mod.bigz(divq.bigz(dec, factorialZ(N:1-1L)), N:1))
 }
 
 FR2permvec=function(FR,base=1L){
