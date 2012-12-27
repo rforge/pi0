@@ -175,7 +175,7 @@ function(trt, B=100L) ## permutation matrices for one way design
         for(b in seq(B)){
             # perm=dec2permvec(decfr[b],N)  ## This subsetting decfr[b] is the slowest part!
             perm=dec2permvec(as.bigz(decfrCC[b]),N)  ## This change speeds up for about 8~9X.
-            for(i in seq(ntrts)) ans[[i]][,b]=sort(perm[part0[[i]]])
+            for(i in seq(ntrts)) ans[[i]][,b]=sort.int(perm[part0[[i]]], method='quick')
         }
         names(ans)=names(part0)
     }

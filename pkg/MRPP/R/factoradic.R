@@ -33,12 +33,11 @@ dec2FR=function(dec,N){		## new implementation
         }
         N=k
     }
-	dec
 	as.integer(mod.bigz(divq.bigz(dec, factorialZ(N:1-1L)), N:1))
 }
 
 if(FALSE){
-FR2permvec=function(FR,base=1L){  ## TODO: optimize this function
+FR2permvec=function(FR,base=1L){  ## slow but correct implementation
     stopifnot(base%in%(0:1))
     ans=integer(length(FR))
     cand=seq_along(FR)-(1L-base)
