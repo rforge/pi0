@@ -165,15 +165,16 @@ function(trt, B=100L) ## permutation matrices for one way design
     }else{   #sample from all permutations using factoradic number. Ideally, a sample from 1:SP should work, but how to do this without enumerating all SP possibilities using setparts?
 
         decfr=HSEL.bigz(factorialZ(N), B)
-		decfrCC=as.character(decfr)
         idx=which(decfr==0L)
         if(length(idx)>0L) decfr[idx]=decfr[1L]
         decfr[1L]=as.bigz(0L)
+		
+		decfrCC=as.character(decfr)  ## for speed only
 
         ans=lapply(sapply(part0,length), matrix, data=NA_integer_, ncol=B)
         for(b in seq(B)){
             # perm=dec2permvec(decfr[b],N)  ## This subsetting decfr[b] is the slowest part!
-            perm=dec2permvec(as.bigz(decfrCC[b]),N)  
+            perm=dec2permvec(as.bigz(decfrCC[b]),N)  ## This change speeds up for about 8~9X.
             for(i in seq(ntrts)) ans[[i]][,b]=sort(perm[part0[[i]]])
         }
         names(ans)=names(part0)
