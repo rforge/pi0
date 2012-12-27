@@ -69,23 +69,15 @@ rejsample=function(N, M, seed=0)
   as.bigz(ans[1:M])+1L
 }
 
+if(FALSE){
 sample1=function(N, seed=0)
 {
   rejsample(N, 1L, seed)-1L
 }
 
-
-sample1=function(N, seed=0)
-# sample one number between 0 and N-1 thru rejections, where N can be huge
-{
-    expo=frexpZ(N)$exp
-    ans = urand.bigz(1, expo, seed)
-    while(ans >= N)        ans = urand.bigz(1, expo)
-    ans
-}
-
 sample1=function(N, seed=0)  
-# sample one number between 0 and N-1, where N can be huge
+# sample one number between 0 and N-1 by finer bracketing, where N can be huge
+# this turns out to be slower than dirent rejection
 {
 	base = as.bigz(0L)
 	urand.bigz(0L, seed=seed)
@@ -96,6 +88,31 @@ sample1=function(N, seed=0)
 		base = base + tmp
 		N = N - tmp
 	}
+}
+
+sample1=function(N, seed=0)
+# sample one number between 0 and N-1 thru block-wise rejections, where N can be huge
+{
+	fr=frexpZ(N)
+	d=fr$d
+	n0=as.integer(.5 + 5 /d)
+    expo=fr$exp
+	repeat{
+		ans = urand.bigz(n0, expo)
+		idx = which(ans<N)
+		if(length(idx)>0L) return(ans[idx[1L]])
+	}
+}
+
+}
+
+sample1=function(N, seed=0)
+# sample one number between 0 and N-1 thru rejections, where N can be huge
+{
+    expo=frexpZ(N)$exp
+    ans = urand.bigz(1, expo, seed)
+    while(ans >= N)        ans = urand.bigz(1, expo)
+    ans
 }
 
 
