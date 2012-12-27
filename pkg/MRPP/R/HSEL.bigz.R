@@ -76,12 +76,26 @@ sample1=function(N, seed=0)
 
 
 sample1=function(N, seed=0)
-# sample one number between 0 and N-1, where N can be huge
+# sample one number between 0 and N-1 thru rejections, where N can be huge
 {
     expo=frexpZ(N)$exp
     ans = urand.bigz(1, expo, seed)
     while(ans >= N)        ans = urand.bigz(1, expo)
     ans
+}
+
+sample1=function(N, seed=0)  
+# sample one number between 0 and N-1, where N can be huge
+{
+	base = as.bigz(0L)
+	urand.bigz(0L, seed=seed)
+	repeat{
+		fr = frexpZ(N)
+		if (runif(1) <= .5 / fr$d) return(urand.bigz(1L, fr$exp-1L) + base)
+		tmp = pow.bigz(2L , (fr$exp - 1L) )
+		base = base + tmp
+		N = N - tmp
+	}
 }
 
 
