@@ -37,7 +37,8 @@ dec2FR=function(dec,N){		## new implementation
 	as.integer(mod.bigz(divq.bigz(dec, factorialZ(N:1-1L)), N:1))
 }
 
-FR2permvec=function(FR,base=1L){
+if(FALSE){
+FR2permvec=function(FR,base=1L){  ## TODO: optimize this function
     stopifnot(base%in%(0:1))
     ans=integer(length(FR))
     cand=seq_along(FR)-(1L-base)
@@ -48,6 +49,14 @@ FR2permvec=function(FR,base=1L){
     }
     ans
 }
+}
+
+FR2permvec=function(FR, base=1L){  ## C implementation
+	if(!is.integer(FR)) FR=as.integer(FR)
+	if(!is.integer(base)) base=as.integer(base)
+	.Call('FR2permvec', FR, base)
+}
+
 ######## this is a naive inversion algorithm to check correctness
 #permvec2FR0=function(permvec){
 #    permvec=permvec-min(permvec)
