@@ -15,7 +15,7 @@ dec2FR=function(dec,N){	## old slow but correct implementation
     }
     ans=integer(N)
     for(i in 1:N){############ algorithm in Chapter 10 of .NET Test Automation Recipes
-        ans[N-i+1]=as.integer(mod.bigz(dec, i))  ### mod.bigz call is MUCH slower than divq.bigz call in the next line
+        ans[N-i+1]=as.integer(mod.bigz(dec, i))  
         dec=divq.bigz(dec, i)
     }
     ans
