@@ -13,7 +13,7 @@ Implements multiresponse permutation procedure (MRPP), variable importance measu
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-282\cr
+Version: \tab 1.0-283\cr
 Date: \tab 2012-12-26\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr

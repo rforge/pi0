@@ -33,6 +33,7 @@ dec2FR=function(dec,N){		## new implementation
         }
         N=k
     }
+	dec
 	as.integer(mod.bigz(divq.bigz(dec, factorialZ(N:1-1L)), N:1))
 }
 

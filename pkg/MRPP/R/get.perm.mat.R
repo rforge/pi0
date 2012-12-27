@@ -144,7 +144,7 @@ function(trt, B=100L) ## permutation matrices for one way design
     ordn=order(n, decreasing=TRUE)
 
     SP=nparts(n)  
-    part0=split(seq(N),trt); 
+    part0=split(seq_len(N),trt); 
     
     if(B>=SP){ # list all partitions
         sp=setparts(n)
@@ -171,7 +171,7 @@ function(trt, B=100L) ## permutation matrices for one way design
 
         ans=lapply(sapply(part0,length), matrix, data=NA_integer_, ncol=B)
         for(b in seq(B)){
-            perm=dec2permvec(decfr[b],N)
+            perm=dec2permvec(decfr[b],N)  ## dec2permvec->dec2FR->mod.bigz is the slowest part!
             for(i in seq(ntrts)) ans[[i]][,b]=sort(perm[part0[[i]]])
         }
         names(ans)=names(part0)
