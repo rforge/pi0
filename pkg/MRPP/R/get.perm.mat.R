@@ -172,10 +172,12 @@ function(trt, B=100L) ## permutation matrices for one way design
 		decfrCC=as.character(decfr)  ## for speed only
 
         ans=lapply(sapply(part0,length), matrix, data=NA_integer_, ncol=B)
+			buff = integer(N); buff
         for(b in seq(B)){
             # perm=dec2permvec(decfr[b],N)  ## This subsetting decfr[b] is the slowest part!
             perm=dec2permvec(as.bigz(decfrCC[b]),N)  ## This change speeds up for about 8~9X.
-            for(i in seq(ntrts)) ans[[i]][,b]=sort.int(perm[part0[[i]]], method='quick')
+            # for(i in seq(ntrts)) ans[[i]][,b]=sort.int(perm[part0[[i]]])
+			 for(i in seq(ntrts)) ans[[i]][,b]=.Call('radixSort_prealloc', perm[part0[[i]]], buff)  ## radix sort with pre-allocated buffer space
         }
         names(ans)=names(part0)
     }
