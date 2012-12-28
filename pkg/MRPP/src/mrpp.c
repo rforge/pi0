@@ -71,9 +71,9 @@ static R_INLINE double sumSubMatSorted( double const * const x,  int const * con
 /*
 // Input:
 //   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
-//     idx is a vector of "sorted" indices where sum of x is taken over (idx starts from 1 instead of 0);
+//     idx is a vector of "sorted" indices over which sum of x is taken (idx starts from 1 instead of 0);
 //   n is the length of idx; 
-//   *N is the total sample size; 
+//   N is the total sample size; 
 // Output: 
 //   returns sum(as.matrix(x)[idx, idx])
 // Note:
