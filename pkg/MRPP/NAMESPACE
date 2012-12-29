@@ -37,4 +37,5 @@ S3method(mrpp.test, default)
 S3method(smrpp.test, default)
 S3method(smrpp.test, formula)
 
-useDynLib(MRPP)
+useDynLib(MRPP, .registration=TRUE)
+# mrppstats, radixSort_prealloc, C_FR2permvec are registered
