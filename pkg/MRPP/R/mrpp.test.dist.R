@@ -18,8 +18,8 @@ function(y, trt, B=as.integer(min(nparts(table(trt)), 1e4L)), permutedTrt, wtmet
     #if(missing(cperm.mat)) cperm.mat=apply(permutedTrt, 2, function(kk)(1:N)[-kk])
     tabtrt=table(trt)
     ntrt=length(tabtrt)
-    stats=.Call('mrppstats',y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
-#    stats0=.Call('mrppstats', y, 
+    stats=.Call(mrppstats,y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
+#    stats0=.Call(mrppstats, y, 
 #        lapply(names(tabtrt), function(z)matrix(which(as.character(trt)==z))), 
 #        as.numeric(wtmethod[1L]),         PACKAGE='MRPP')
     ans=list(statistic=c("MRPP statistic"=stats[1]), all.statistics=stats, 

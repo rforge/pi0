@@ -213,7 +213,7 @@ SEXP objSolveDelta(SEXP del, SEXP dpdw, SEXP fact, SEXP b, SEXP l, SEXP R)
 // Equivalent R function is:    f=function(del) fact[b,l]*sum(pmax(-del-dp.dw[b, ], 0)) - R  
 // b and l are integers; others are double;
 // For speed, no type check is conducted! 
-// This is only used in the R funciton smrpp.penWt. 
+// This is only used in the old R funciton smrpp.penWt. (no longer used)
 {
 	double negDel;
 	SEXP ans;

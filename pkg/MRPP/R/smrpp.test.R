@@ -32,7 +32,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar=s
       ans=numeric(R)
       for(r in seq(R)){
         thisDist=dist(y[,r,drop=FALSE], method='minkowski', p=p1)^p1
-        ans[r]=sum(thisDist)*2/(N-wtmethod) - .Call('mrppstats', thisDist, thisPerm, wtmethod, PACKAGE='MRPP')
+        ans[r]=sum(thisDist)*2/(N-wtmethod) - .Call(mrppstats, thisDist, thisPerm, wtmethod, PACKAGE='MRPP')
       }
       ans
     }
@@ -80,7 +80,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar=s
       for(s.i in seq_along(spar)){
         wt=get.wt(bcss, spar[s.i])
         wdist=get.wdist(wt,p2)
-        tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
+        tmp=.Call(mrppstats,wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
         wmrpp.p[s.i]=mean(tmp[b]-tmp >=-eps)
       }
       plot(wmrpp.p~spar, main=b)
@@ -91,7 +91,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar=s
       }
     }
     
-    #stats=.Call('mrppstats',y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
+    #stats=.Call(mrppstats,y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
     ans=list(statistic=c("Sparse MRPP statistic"=stats[1L]), all.statistics=stats, weights=wt0,
              p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 'group weight method'=wtmethod[1L], 'Smoothing'=s0, '#selected variables'=sum(wt0>0)),
              data.name=dname, #  .Random.seed=attr(permutedTrt,'.Random.seed'),  ## this is commented out since the random number seed in gmp:::urand.bigz will be used. 
@@ -282,7 +282,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
 #      ans=numeric(R)
 #      for(r in seq(R)){
 #        thisDist=dist(y[,r,drop=FALSE], method='minkowski', p=p1)^p1
-#        ans[r]=sum(thisDist)*2/(N-wtmethod) - .Call('mrppstats', thisDist, thisPerm, wtmethod, PACKAGE='MRPP')
+#        ans[r]=sum(thisDist)*2/(N-wtmethod) - .Call(mrppstats, thisDist, thisPerm, wtmethod, PACKAGE='MRPP')
 #      }
 #      ans
 #    }
@@ -337,7 +337,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
       for(s.i in seq_along(spar)){
 #        wt=get.wt(bcss, spar[s.i])
         wdist=get.wdist(all.weights[s.i, b, ])
-        tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
+        tmp=.Call(mrppstats,wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
         wmrpp.p[s.i]=mean(tmp[b]-tmp >=-eps)
       }
       #plot(wmrpp.p~log10(spar), main=b)
@@ -351,7 +351,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
       }
     }
     
-    #stats=.Call('mrppstats',y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
+    #stats=.Call(mrppstats,y,permutedTrt, as.numeric(wtmethod[1L]), PACKAGE='MRPP')
     ans=list(statistic=c("Sparse Weighted MRPP Raw p-value"=stats[1L]), all.statistics=stats, weights=wt0,
              p.value=mean(stats[1]-stats>=-eps), parameter=c("number of permutations"=B, 
              'group weight method'=wtmethod[1L], 
@@ -412,14 +412,14 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0,  outerStat=c('WD
 
     get.wmrpp.p=function()  ## depends on wdist, b, permutedTrt, wtmethod, eps
     {
-        tmp=.Call('mrppstats',wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
+        tmp=.Call(mrppstats,wdist, permutedTrt, wtmethod, PACKAGE='MRPP')
         mean(tmp[b]-tmp >=-eps)
     }
 
     get.wdisco.invF=function() ## depends on wdist, b, permutedTrt1, wtmethod, ntrt, N
     {
         permutedTrt1=lapply(permutedTrt, '[', , b, drop=FALSE)
-        W =.Call('mrppstats',wdist, permutedTrt1, wtmethod, PACKAGE='MRPP') * .5
+        W =.Call(mrppstats,wdist, permutedTrt1, wtmethod, PACKAGE='MRPP') * .5
         S = sum(wdist) / N  - W
         F = S / (ntrt - 1) / W * (N - ntrt) 
         1 / F

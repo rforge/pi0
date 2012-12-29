@@ -31,7 +31,7 @@ function(y, permutedTrt, r=seq_len(ncol(y)), test=FALSE,
     if(is.finite(bw)){
         for(r.i in seq(along=r)){
             #dz.dw=.C('mrppstats',all.ddelta.dw[,r.i],permutedTrt,cperm.mat,nrow(permutedTrt),B,N,as.integer(wtmethod[1]),ans=double(B),PACKAGE='MRPP',DUP=FALSE)$ans
-            dz.dw=.Call('mrppstats', all.ddelta.dw[,r.i], permutedTrt, as.numeric(wtmethod[1]), PACKAGE='MRPP')
+            dz.dw=.Call(mrppstats, all.ddelta.dw[,r.i], permutedTrt, as.numeric(wtmethod[1]), PACKAGE='MRPP')
     #        for(b.i in 1:length(b)){
     #            dd.dw=dz.dw[b[b.i]]-dz.dw
     #            ans[r.i, b[b.i]]=sum(weight[,b.i]*dd.dw)/B  #length(b)
@@ -41,12 +41,12 @@ function(y, permutedTrt, r=seq_len(ncol(y)), test=FALSE,
     }else{  ## infinite bw (the same as finite bw, except no weights(i.e. weight=1)
         if(isTRUE(standardized)){
             for(r.i in seq(along=r)){
-                dz.dw=.Call('mrppstats', all.ddelta.dw[,r.i], permutedTrt, as.numeric(wtmethod[1]), PACKAGE='MRPP')
+                dz.dw=.Call(mrppstats, all.ddelta.dw[,r.i], permutedTrt, as.numeric(wtmethod[1]), PACKAGE='MRPP')
                 ans[, r.i] = scale/B* (B*dz.dw[b]-sum(dz.dw))/sd(dz.dw) 
             }
         }else{
             for(r.i in seq(along=r)){
-                dz.dw=.Call('mrppstats', all.ddelta.dw[,r.i], permutedTrt, as.numeric(wtmethod[1]), PACKAGE='MRPP')
+                dz.dw=.Call(mrppstats, all.ddelta.dw[,r.i], permutedTrt, as.numeric(wtmethod[1]), PACKAGE='MRPP')
                 ans[, r.i] = scale/B* (B*dz.dw[b]-sum(dz.dw)) 
             }
         }

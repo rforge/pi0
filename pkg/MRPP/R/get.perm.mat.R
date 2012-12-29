@@ -177,7 +177,7 @@ function(trt, B=100L) ## permutation matrices for one way design
             # perm=dec2permvec(decfr[b],N)  ## This subsetting decfr[b] is the slowest part!
             perm=dec2permvec(decfrCC[b],N)  ## This change speeds up for about 8~9X.
             # for(i in seq(ntrts)) ans[[i]][,b]=sort.int(perm[part0[[i]]])
-			 for(i in seq(ntrts)) ans[[i]][,b]=.Call('radixSort_prealloc', perm[part0[[i]]], buff)  ## radix sort with pre-allocated buffer space
+			 for(i in seq(ntrts)) ans[[i]][,b]=.Call(radixSort_prealloc, perm[part0[[i]]], buff)  ## radix sort with pre-allocated buffer space
         }
         names(ans)=names(part0)
     }

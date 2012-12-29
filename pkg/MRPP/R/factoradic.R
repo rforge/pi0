@@ -53,7 +53,7 @@ FR2permvec=function(FR,base=1L){  ## slow but correct implementation
 FR2permvec=function(FR, base=1L){  ## C implementation
 	if(!is.integer(FR)) FR=as.integer(FR)
 	if(!is.integer(base)) base=as.integer(base)
-	.Call('FR2permvec', FR, base)
+	.Call(FR2permvec, FR, base)
 }
 
 ######## this is a naive inversion algorithm to check correctness
