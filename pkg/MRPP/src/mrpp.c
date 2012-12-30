@@ -2,6 +2,7 @@
 #include <Rinternals.h>
 #include <Rdefines.h>
 
+#define DEBUG
 
 #ifdef DEBUG
 	int debug_i, debug_j, debug_k, debug_n, debug_m, debug_N;
@@ -244,15 +245,20 @@ static R_INLINE SEXP mrppstats_string(double * ptrY, SEXP permString, SEXP perm0
 	PROTECT(string1 = NEW_STRING(1));
 	PROTECT(dec2pvCall = dec2pvCall2 = allocList(3));
 	SET_TYPEOF(dec2pvCall, LANGSXP);
-		SETCAR(dec2pvCall, install("dec2permvec")); 
+		SETCAR(dec2pvCall, install("dec2permvec"));  // this is a call. 
 	dec2pvCall2 = CDR(dec2pvCall);
-		SETCAR(dec2pvCall2, string1);
+		SETCAR(dec2pvCall2, string1);				 // this string is not bound to any name but a literal
 	dec2pvCall2 = CDR(dec2pvCall2);
-		SETCAR(dec2pvCall2,  NSEXP); 
-	
+		SETCAR(dec2pvCall2,  NSEXP); 				 // this is a literal too. 
+#ifdef DEBUG
+		SET_STRING_ELT(string1, 0, STRING_ELT(permString, 1));
+		// UNPROTECT(4);
+		// return dec2pvCall;
+#endif
+
 	for(b=0; b<B; ++b) {
 		SET_STRING_ELT(string1, 0, STRING_ELT(permString, b));
-		PROTECT(perm = EVAL(dec2pvCall));   // /* R:  perm=dec2permvec(decfrCC[b],N) */  // EVAL'ed in global env
+		PROTECT(perm = EVAL(dec2pvCall));   // /* R:  perm=dec2permvec(decfrCC[b],N) */  // EVAL'ed in global env, because arguments are all literals. It does not matter where to eval this call. 
 		ptrPerm = INTEGER(perm); 
 #ifdef DEBUG
 		Rprintf("b=%d\n\t", b);
