@@ -2,6 +2,9 @@
 \Rdversion{1.1}
 \alias{permuteTrt}
 \alias{nparts}
+\alias{nperms.permutedTrt}
+\alias{ntrt.permutedTrt}
+\alias{trt.permutedTrt}
 \title{
 Compute permutations of treatment assignments in a one-way design. 
 }
