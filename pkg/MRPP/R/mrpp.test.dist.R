@@ -8,7 +8,7 @@ function(y, trt, B=as.integer(min(nparts(table(trt)), 1e4L)), permutedTrt, wtmet
       trt=trt.permutedTrt(permutedTrt)
     }
     if(missing(permutedTrt)) {
-        permutedTrt=permuteTrt(trt,B)
+        permutedTrt=permuteTrt(trt,B, ...)
         dname=paste('"dist" object',deparse(substitute(y)), 
                              'and treatment group', deparse(substitute(trt)))
     }else dname=paste('"dist" object',deparse(substitute(y)), 

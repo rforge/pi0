@@ -33,11 +33,18 @@ function(y,permutedTrt, Bperm=nperms.permutedTrt(permutedTrt),
 #        permutedTrt[,b-1L]=lastperm; cperm.mat[,b-1]=lastcperm
 #        lastperm=permutedTrt[,1]=permutedTrt[,b]; lastcperm=cperm.mat[,1]=cperm.mat[,b]
 #        permutedTrt[,b]=perm1;  cperm.mat[,b]=cperm1
-        for(tt in seq(ntrt)) {
-            permutedTrt[[tt]][,1L] -> tmp
-            permutedTrt[[tt]][,1L] <- permutedTrt[[tt]][,bseqs[b.i]]
-            tmp                    -> permutedTrt[[tt]][,bseqs[b.i]]
+        if(is.na(attr(permutedTrt, 'idx')[1L])) {
+            for(tt in seq(ntrt)) {
+                permutedTrt[[tt]][,1L] -> tmp
+                permutedTrt[[tt]][,1L] <- permutedTrt[[tt]][,bseqs[b.i]]
+                tmp                    -> permutedTrt[[tt]][,bseqs[b.i]]
+            }
+        }else {
+                attr(permutedTrt, 'idx')[1L] -> tmp
+                attr(permutedTrt, 'idx')[1L] <- attr(permutedTrt, 'idx')[bseqs[b.i]]
+                tmp                          -> attr(permutedTrt, 'idx')[bseqs[b.i]]
         }
+
         selected.pvals[b.i+1L]={tmp=tail(mrppBVS(y=y,permutedTrt=permutedTrt, verbose=FALSE, niter=niter, 
                         importance=importance, alpha.in=alpha.in, alpha.del=alpha.del, 
                         stepwise=stepwise, size.in=size.in, ...),1L)[[1L]]$p.value;
