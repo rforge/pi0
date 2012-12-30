@@ -10,7 +10,7 @@ function(y,permutedTrt,
     if(missing(alpha.in)) alpha.in=if(importance=='dp.dw') 0 else 0.1
     N=nrow(y)
 #    if(missing(cperm.mat)) cperm.mat=apply(permutedTrt,2,function(kk)(1:N)[-kk])
-    B=ncol(permutedTrt[[1L]])
+    B=nperms.permutedTrt(permutedTrt)
     importance=match.arg(importance)
 
     ans=vector('list'); attr(ans, 'parameter')=list(importance=importance, alpha.in=alpha.in, alpha.del=alpha.del, size.in=size.in, stepwise=stepwise, niter=niter)

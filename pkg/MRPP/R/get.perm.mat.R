@@ -133,7 +133,7 @@ nparts=function(n)
   factorialZ(sum(n))/prod(c(factorialZ(n), factorialZ(table(n))))  ## total number of distinct trt assignments 
 
 permuteTrt <-
-function(trt, B=100L) ## permutation matrices for one way design
+function(trt, B=100L, idxOnly = FALSE) ## permutation matrices for one way design
 ## returns a length(trt) by B matrix, if B is not larger than multinomial coefficient. 
 {
     n=table(trt)
@@ -169,8 +169,14 @@ function(trt, B=100L) ## permutation matrices for one way design
         if(length(idx)>0L) decfr[idx]=decfr[1L]
         decfr[1L]=as.bigz(0L)
 		
-		decfrCC=as.character(decfr)  ## for speed only
-
+		decfrCC=drop(as.character(decfr))  ## for speed only
+		if(isTRUE(idxOnly)) {	## save memory
+			ans = lapply(part0, as.matrix)
+			attr(ans, 'idx') = decfrCC
+			class(ans) = 'permutedTrt'
+			return(ans)
+		}
+		
         ans=lapply(sapply(part0,length), matrix, data=NA_integer_, ncol=B)
 			buff = integer(N); buff[1L]
         for(b in seq(B)){
@@ -180,6 +186,27 @@ function(trt, B=100L) ## permutation matrices for one way design
 			 for(i in seq(ntrts)) ans[[i]][,b]=.Call(radixSort_prealloc, perm[part0[[i]]], buff)  ## radix sort with pre-allocated buffer space
         }
         names(ans)=names(part0)
+		attr(ans, 'idx') = NA_character_
+		class(ans)='permutedTrt'
     }
     ans
+}
+
+nperms.permutedTrt=function(permutedTrt)
+{
+	if(is.na(attr(permutedTrt, 'idx')[1L])) {
+			ncol(permutedTrt[[1L]])
+	}else   length(attr(permutedTrt, 'idx'))
+}
+
+ntrt.permutedTrt=function(permutedTrt)
+{
+	sapply(permutedTrt, nrow)
+}
+
+trt.permutedTrt=function(permutedTrt)
+{
+	ans=factor(rep(1L, sum(sapply(permutedTrt,nrow))), levels=names(permutedTrt))
+	for(i in seq_along(permutedTrt)) ans[permutedTrt[[i]]] = i
+	ans
 }

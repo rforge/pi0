@@ -1,5 +1,5 @@
 mrppBVS.test<-
-function(y,permutedTrt, Bperm=ncol(permutedTrt[[1L]]), 
+function(y,permutedTrt, Bperm=nperms.permutedTrt(permutedTrt), 
          importance=c('dp.dw','p.dd.dw'),
          alpha.in, alpha.del=0, 
 	 size.in=1L, stepwise=FALSE, verbose=TRUE, niter=Inf, ...)
@@ -7,9 +7,9 @@ function(y,permutedTrt, Bperm=ncol(permutedTrt[[1L]]),
     dname=paste("Response data", deparse(substitute(y)), 'and permuted treatment', deparse(substitute(permutedTrt)))
     if(!is.matrix(y)) y=as.matrix(y)
     N=nrow(y)
-    B=ncol(permutedTrt[[1L]])
-    if(Bperm > B) stop("Current implementation requires Bperm <= ncol(permutedTrt[[1L]])");
-    ntrt=length(permutedTrt)
+    B=nperms.permutedTrt(permutedTrt)
+    if(Bperm > B) stop("Current implementation requires Bperm <= nperms.permutedTrt(permutedTrt)");
+    ntrt=ntrt.permutedTrt(permutedTrt)
     importance=match.arg(importance)
 
 #    if(missing(cperm.mat)) cperm.mat=apply(permutedTrt,2,function(kk)(1:N)[-kk])

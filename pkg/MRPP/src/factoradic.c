@@ -2,11 +2,20 @@
 #include <Rinternals.h>
 #include <Rdefines.h>
 
-SEXP FR2permvec(const SEXP const FR, const SEXP const base)
+SEXP FR2permvec(SEXP FR, SEXP base)
 {
-	SEXP ans, cand;
+	SEXP ans, cand/* , oFR, oBase */;
 	R_len_t n, i, b, idx;
 	int * intPtr, *headPtr, *FRPtr, *ansPtr; 
+
+/* 	if (!IS_INTEGER(FR)) {
+		oFR = FR;
+		PROTECT(FR = AS_INTEGER(FR));
+	}
+	if (!IS_INTEGER(base)) {
+		oBase = base;
+		PROTECT(base = AS_INTEGER(base));
+	} */
 	
 	b = *(INTEGER(base)); 
 	n = LENGTH(FR);
@@ -34,5 +43,7 @@ SEXP FR2permvec(const SEXP const FR, const SEXP const base)
 		}
 	}
 	UNPROTECT(2);
-	return(ans);
+/* 	if (!IS_INTEGER(oBase)) UNPROTECT(1);	
+	if (!IS_INTEGER(oFR)) UNPROTECT(1);	
+ */	return(ans);
 }

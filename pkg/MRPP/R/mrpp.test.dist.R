@@ -5,8 +5,7 @@ function(y, trt, B=as.integer(min(nparts(table(trt)), 1e4L)), permutedTrt, wtmet
     if(missing(y) || !inherits(y,'dist')) stop('dist object missing or incorrect')
     N= as.integer( ( 1 + sqrt(1.0 + 8.0 * length(y))) * .5   +.5);          ### i.e.,   attr(y,'Size'), howerver, attributes might be lost during subsetting. 
     if(missing(trt)) {  ## recoving trt from the first permutation
-      trt=integer(N)
-      for(i in seq_along(permutedTrt)) trt[permutedTrt[[i]][,1L]]=i
+      trt=trt.permutedTrt(permutedTrt)
     }
     if(missing(permutedTrt)) {
         permutedTrt=permuteTrt(trt,B)
@@ -14,7 +13,7 @@ function(y, trt, B=as.integer(min(nparts(table(trt)), 1e4L)), permutedTrt, wtmet
                              'and treatment group', deparse(substitute(trt)))
     }else dname=paste('"dist" object',deparse(substitute(y)), 
                              'and permuted treatment', deparse(substitute(permutedTrt)))
-    B=ncol(permutedTrt[[1]])
+    B=nperms.permutedTrt(permutedTrt)
     #if(missing(cperm.mat)) cperm.mat=apply(permutedTrt, 2, function(kk)(1:N)[-kk])
     tabtrt=table(trt)
     ntrt=length(tabtrt)

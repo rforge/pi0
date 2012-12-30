@@ -1,6 +1,21 @@
 #include <R.h>
 #include <Rinternals.h>
 #include <Rdefines.h>
+
+
+#ifdef DEBUG
+	int debug_i, debug_j, debug_k, debug_n, debug_m, debug_N;
+	
+	void printIntVec(int *x, int n, char * head)
+	{
+		Rprintf("%s ", head);
+		for(debug_i=0; debug_i<n; debug_i++)
+			Rprintf("%3d", x[debug_i]);
+		Rprintf("\n");
+	}
+#endif
+
+extern void radixsort(int *, int , int *);
 /*
 //void unisqeuc(double *x, int *nr,  double *dist)
 *********** CALL FROM R ***************
@@ -70,7 +85,7 @@
 static R_INLINE double sumSubMatSorted( double const * const x,  int const * const idx,  const int n,  const int N)
 /*
 // Input:
-//   x is a stacked vector of the lower triangle of distance mat of (*N x *N); 
+//   x is a stacked vector of the lower triangle of distance mat of (N x N); 
 //     idx is a vector of "sorted" indices over which sum of x is taken (idx starts from 1 instead of 0);
 //   n is the length of idx; 
 //   N is the total sample size; 
@@ -142,32 +157,28 @@ void mrppstats2(double const * const x, int const * const perm, int const * cons
 
 #endif
 
-
-SEXP mrppstats(SEXP y, SEXP permMats, SEXP wtmethod)
+	
+static R_INLINE SEXP mrppstats_listOfMatrix(double * ptrY, SEXP permMats, double wt, R_len_t N)
 {
-	/* y is the vector of a 'dist' object with each element being double */
+	/* ptrY is the REAL pointer to the vector of a 'dist' object with each element being double */
 	/* permMats is a 'list', of n * B permutation indices; see permuteTrt. */
-	/* wtmethod is a scaler of 0 or 1 weighting method: 0=sample size-1; 1=sample size */
+	/* wt is a double scaler of 0 or 1 weighting method: 0.0=sample size-1; 1.0=sample size */
+	/* N is the total sample size */
     SEXP ans;
-    R_len_t t, B, N, ntrt, b, n;
-    double * ptrY, * ptrAns, denom, dn, wt;
+    R_len_t t, B, ntrt, b, n;
+    double  * ptrAns, denom, dn;
 	int * ptrPerm;
     
     ntrt=LENGTH(permMats);
     B=Rf_ncols(VECTOR_ELT(permMats, 1));
-    PROTECT(ans = NEW_NUMERIC(B));
 
-    ptrY = REAL(y);
+    PROTECT(ans = NEW_NUMERIC(B));
     ptrAns=REAL(ans);
 	for(b=0; b<B; ++b) *(ptrAns++)=0.0;
 	ptrAns=REAL(ans);
-    N=LENGTH(y);
-    N = ( 1 + (int)(0.5 + sqrt(1.0 + 8.0 * N)) ) >> 1;
-    PROTECT(wtmethod = AS_NUMERIC(wtmethod));
-    wt = *(REAL(wtmethod));
-    UNPROTECT(1);
+
 #ifdef DEBUG
-	Rprintf("ntrt=%d\tB=%d\tL=%d\tN=%d\twt=%f\n", ntrt, B, LENGTH(y), N, wt);
+	Rprintf("ntrt=%d\tB=%d\tN=%d\twt=%f\n", ntrt, B, N, wt);
 #endif
 
     for(t=ntrt-1; t>=0; --t){
@@ -184,6 +195,120 @@ SEXP mrppstats(SEXP y, SEXP permMats, SEXP wtmethod)
     }
     UNPROTECT(1);
     return(ans);
+}
+
+static R_INLINE SEXP mrppstats_string(double * ptrY, SEXP permString, SEXP perm0, double wt, R_len_t N)
+{
+	/* ptrY is the REAL pointer to the vector of a 'dist' object with each element being double */
+	/* permMats is a permutedTrt object with 'idx' attribute being a character vector. */
+	/* wt is a double scaler of 0 or 1 weighting method: 0.0=sample size-1; 1.0=sample size */
+	/* N is the total sample size */
+    SEXP ans, perm, NSEXP, string1;
+    R_len_t j, t, B, ntrt, b, *ns, **ptrPerm0, *permBuf, *permBuf0, *sortBuf, * ptrPerm;
+    double  * ptrAns,  dn, *denoms;
+	SEXP dec2pvCall, dec2pvCall2;
+	 
+	PROTECT(NSEXP = NEW_INTEGER(1));
+	*(INTEGER(NSEXP)) = N;
+	
+    ntrt=LENGTH(perm0);  // LENGTH(permMats);
+    B=LENGTH(permString) ;  // Rf_ncols(VECTOR_ELT(permMats, 1));
+
+    PROTECT(ans = NEW_NUMERIC(B));
+    ptrAns=REAL(ans);
+	for(b=0; b<B; ++b) *(ptrAns++)=0.0;
+	ptrAns=REAL(ans);
+
+#ifdef DEBUG
+	Rprintf("ntrt=%d\tB=%d\tN=%d\twt=%f\n", ntrt, B,  N, wt);
+#endif
+
+	ns = (int *) R_alloc(ntrt, sizeof(int)); 
+	denoms = (double *) R_alloc(ntrt, sizeof(double)); 
+	ptrPerm0 = (int **) R_alloc(ntrt, sizeof(int *)); 
+	permBuf0 = permBuf = (int *) R_alloc(N, sizeof(int));
+	sortBuf = (int *) R_alloc(N, sizeof(int));
+	
+	for(t=0; t < ntrt; ++t){
+		ns[t] = LENGTH(VECTOR_ELT(perm0, t));
+		dn = (double) ns[t];
+        denoms[t] = 1.0 / (dn - wt) ;
+		ptrPerm0[t] = INTEGER(VECTOR_ELT(perm0, t)); 
+#ifdef DEBUG
+		Rprintf("ns[%d]=%d\tptrPerm0[%d]=%d\n", t, ns[t], t, *(ptrPerm0[t]));
+#endif
+	}
+
+
+	
+	PROTECT(string1 = NEW_STRING(1));
+	PROTECT(dec2pvCall = dec2pvCall2 = allocList(3));
+	SET_TYPEOF(dec2pvCall, LANGSXP);
+		SETCAR(dec2pvCall, install("dec2permvec")); 
+	dec2pvCall2 = CDR(dec2pvCall);
+		SETCAR(dec2pvCall2, string1);
+	dec2pvCall2 = CDR(dec2pvCall2);
+		SETCAR(dec2pvCall2,  NSEXP); 
+	
+	for(b=0; b<B; ++b) {
+		SET_STRING_ELT(string1, 0, STRING_ELT(permString, b));
+		PROTECT(perm = EVAL(dec2pvCall));   // /* R:  perm=dec2permvec(decfrCC[b],N) */  // EVAL'ed in global env
+		ptrPerm = INTEGER(perm); 
+#ifdef DEBUG
+		Rprintf("b=%d\n\t", b);
+		printIntVec(ptrPerm, N, "Permvec:");
+#endif
+		
+		for(t=ntrt-1; t>=0; --t) {
+#ifdef DEBUG
+			Rprintf("\tt=%d\tn=%d\n\t",  t, ns[t] );
+#endif
+			// /* R: for(i in seq(ntrts)) ans[[i]][,b]=.Call(radixSort_prealloc, perm[part0[[i]]], buff) */
+			for(j=0, permBuf=permBuf0; j<ns[t]; ++j) *(permBuf++) = *(ptrPerm + * (ptrPerm0[t]+j) - 1);
+#ifdef DEBUG
+			printIntVec(permBuf0, ns[t], "Pre-sort  :"); 
+#endif	
+			radixsort(permBuf0, ns[t] , sortBuf);
+#ifdef DEBUG
+			printIntVec(permBuf0, ns[t], "PermMatCol:"); 
+#endif			
+			ptrAns[b] += sumSubMatSorted(ptrY,  permBuf0, ns[t], N) * denoms[t];
+		}
+		
+		UNPROTECT(1); // of perm
+	 }
+
+    UNPROTECT(4);
+    return(ans);
+}
+
+SEXP mrppstats(SEXP y, SEXP Perms, SEXP wtmethod)
+{
+	/* y is the vector of a 'dist' object with each element being double */
+	/* permMats is a 'permutedTrt' object. See permutedTrt R function */
+	/* wtmethod is a scaler of 0 or 1 weighting method: 0=sample size-1; 1=sample size */
+	R_len_t N;
+	double  wt, *ptrY;
+	SEXP wt_real, permString;
+	
+	if(isReal(wtmethod)) {
+		wt = *(REAL(wtmethod));
+	}else{
+		PROTECT(wt_real = AS_NUMERIC(wtmethod));
+		wt = *(REAL(wt_real));
+		UNPROTECT(1);
+	}
+
+	ptrY = REAL(y);
+    N = LENGTH(y);  // length of 'dist' obj
+    N = ( 1 + (int)(0.5 + sqrt(1.0 + 8.0 * N)) ) >> 1;
+
+	permString = getAttrib(Perms, install("idx")) ;
+	if (R_NaString == STRING_ELT(permString, 0) ) {
+		return mrppstats_listOfMatrix(ptrY, Perms, wt, N);
+	}else {	
+		return mrppstats_string(ptrY, permString, Perms, wt, N);
+	}
 }
 
 SEXP sumThresh0(SEXP x)

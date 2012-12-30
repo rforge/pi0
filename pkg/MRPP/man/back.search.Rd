@@ -14,7 +14,7 @@ mrppBVS(y,permutedTrt,
          importance=c('dp.dw','p.dd.dw'),
          alpha.in, #=if(match.arg(importance)=='dp.dw') 0 else 0.1, 
          alpha.del=0, size.in=0L, stepwise=FALSE, niter=Inf, verbose=TRUE, ...)
-mrppBVS.test(y,permutedTrt, Bperm=ncol(permutedTrt[[1L]]), 
+mrppBVS.test(y,permutedTrt, Bperm=nperms.permutedTrt(permutedTrt), 
          importance=c('dp.dw','p.dd.dw'),
          alpha.in, alpha.del=0, 
 	 size.in=1L, stepwise=FALSE, verbose=TRUE, niter=Inf, ...)

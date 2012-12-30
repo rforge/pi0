@@ -14,8 +14,8 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar=s
     spar=sort(spar[spar>=1 & spar<=sqrt(R)])
     wtmethod=as.numeric(wtmethod[1])
     if(missing(trt)) {  ## recoving trt from the first permutation
-      trt=integer(N)
-      for(i in seq_along(permutedTrt)) trt[permutedTrt[[i]][,1L]]=i
+      trt=trt.permutedTrt(permutedTrt)
+
     }
     if(missing(permutedTrt)) {
         permutedTrt=permuteTrt(trt,B)
@@ -23,7 +23,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar=s
                              'and treatment group', deparse(substitute(trt)))
     }else dname=paste('"dist" object',deparse(substitute(y)), 
                              'and permuted treatment', deparse(substitute(permutedTrt)))
-    B=ncol(permutedTrt[[1]])
+    B=nperms.permutedTrt(permutedTrt)
     #if(missing(cperm.mat)) cperm.mat=apply(permutedTrt, 2, function(kk)(1:N)[-kk])
     tabtrt=table(trt)
     ntrt=length(tabtrt)
@@ -250,8 +250,8 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
     N= nrow(y)
     wtmethod=as.numeric(wtmethod[1])
     if(missing(trt)) {  ## recoving trt from the first permutation
-      trt=integer(N)
-      for(i in seq_along(permutedTrt)) trt[permutedTrt[[i]][,1L]]=i
+      trt=trt.permutedTrt(permutedTrt)
+
     }
     if(missing(permutedTrt)) {
         permutedTrt=permuteTrt(trt,B)
@@ -259,7 +259,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0, eps=1e-8, spar, 
                              'and treatment group', deparse(substitute(trt)))
     }else dname=paste('"dist" object',deparse(substitute(y)), 
                              'and permuted treatment', deparse(substitute(permutedTrt)))
-    B=ncol(permutedTrt[[1]])
+    B=nperms.permutedTrt(permutedTrt)
     #if(missing(cperm.mat)) cperm.mat=apply(permutedTrt, 2, function(kk)(1:N)[-kk])
     tabtrt=table(trt)
     ntrt=length(tabtrt)
@@ -375,8 +375,8 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0,  outerStat=c('WD
     N= nrow(y)
     wtmethod=as.numeric(wtmethod[1])
     if(missing(trt)) {  ## recoving trt from the first permutation
-      trt=integer(N)
-      for(i in seq_along(permutedTrt)) trt[permutedTrt[[i]][,1L]]=i
+      trt=trt.permutedTrt(permutedTrt)
+
     }
     if(missing(permutedTrt)) {
         permutedTrt=permuteTrt(trt,B)
@@ -384,7 +384,7 @@ function(y, trt, B=nparts(table(trt)), permutedTrt, wtmethod=0,  outerStat=c('WD
                              'and treatment group', deparse(substitute(trt)))
     }else dname=paste('"dist" object',deparse(substitute(y)), 
                              'and permuted treatment', deparse(substitute(permutedTrt)))
-    B=ncol(permutedTrt[[1]])
+    B=nperms.permutedTrt(permutedTrt)
     #if(missing(cperm.mat)) cperm.mat=apply(permutedTrt, 2, function(kk)(1:N)[-kk])
     tabtrt=table(trt)
     ntrt=length(tabtrt)
