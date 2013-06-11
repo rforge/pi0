@@ -11,8 +11,10 @@ These are the user-interface functions to test the nullity of variance component
 }
 \usage{
 varComp.test(object, ...)
-\method{varComp.test}{formula}(object, data, random1, varcov1, random2, varcov2, fit.control, test.control, ...)
-\method{varComp.test}{varComp}(object, object2, additional.varcov, null, test = "LinScore", control = varComp.testControl(test), ...)
+\method{varComp.test}{formula}(object, data, random1, varcov1, 
+random2, varcov2, fit.control, test.control, ...)
+\method{varComp.test}{varComp}(object, object2, additional.varcov, null, 
+test = "LinScore", control = varCompTest.control(test), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,7 +34,7 @@ varComp.test(object, ...)
 	A list of arguments of class \code{\link{varComp.control}}. 
 }
   \item{test.control, control}{
-	A list of arguments of class \code{\link{varComp.testControl}}. 
+	A list of arguments of class \code{\link{varCompTest.control}}. 
 }
   \item{additional.varcov}{
 	An optional list of variance-covariance matrices. It is only used when \code{object2} is missing. When this is given, \code{object} will be treated as the null model. And the test of interest is the nullity of variance components correspoding to these \code{additional.varcov}.  \code{null} needs to be missing when \code{additional.varcov} is given. 
@@ -53,7 +55,7 @@ The formula interface \code{varComp.test.formula} is primarily used to test two 
 In the \code{varComp.test.varComp} interface, exactly \emph{one} of \code{object2}, \code{additional.varcov} and \code{null} needs to be given. If \code{object2} is given, two-model comparison is performed against \code{object}. If \code{additional.varcov} is given, \code{object} is treated as the null and \code{additional.varcov} is treated as the additional variance components to be tested.  If \code{null} is given, \code{object} is treated as the alternative and the componets not in \code{null} will be tested. 
 }
 \value{
-A list of class \code{varComp.test} of the same length as \code{test}. Each component is either an object of \code{htest} or a list of \code{htest} objects, depending upon whether multiple methods are requested under the same \code{test}.  See \code{\link{varComp.testControl}} for more details on controling the tests to be performed. 
+A list of class \code{varComp.test} of the same length as \code{test}. Each component is either an object of \code{htest} or a list of \code{htest} objects, depending upon whether multiple methods are requested under the same \code{test}.  See \code{\link{varCompTest.control}} for more details on controling the tests to be performed. 
 }
 \references{
 
@@ -74,7 +76,7 @@ Long Qu
 }
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 \seealso{
-\code{\link{varComp.testControl}}, \code{\link{varComp}}
+\code{\link{varCompTest.control}}, \code{\link{varComp}}
 }
 \examples{
 

@@ -41,7 +41,7 @@ Long Qu
 \code{\link{varComp.fit}}
 }
 \examples{
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 vcf0 = varComp(distance~age*Sex, Orthodont, ~Subject, control=varComp.control(nlminb=nlminb.control(iter.max=0L)))
 (st=minque(vcf0$residual.contrast, vcf0$working.cor, lower.bound = 0))

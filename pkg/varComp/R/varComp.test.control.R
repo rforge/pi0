@@ -1,4 +1,4 @@
-varComp.testControl <-
+varCompTest.control <-
 function(
   test="LinScore", 
   LinScore.wt="MinVar", 
@@ -15,7 +15,7 @@ function(
   # RWD88.method=list('pboot', 'pboot')
 )
 {
-#a.	varComp.testControl: Returns a list that determines the testing method for varComp.test
+#a.	varCompTest.control: Returns a list that determines the testing method for varComp.test
 #i.	test: A character vector specifying the test to be performed. 
 #1.	LinScore: Linear score tests
 #2.	VM03: Projected, quadratic score test of Verbeke & Molenberghs (2003, Biometrics, 59, 254)
@@ -107,6 +107,6 @@ function(
     }
   }
   if(any(test%in%varCompScoreTests)) ans$information=information
-  class(ans) = 'varComp.testControl'
+  class(ans) = 'varCompTest.control'
   ans
 }

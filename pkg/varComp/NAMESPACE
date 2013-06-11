@@ -61,7 +61,7 @@ export(
 	varComp.control,
 	varComp.fit,
 	varComp.test,
-	varComp.testControl,
+	varCompTest.control,
 	varCompScoreTests,
 	varCompTests,
 	wchibarsq

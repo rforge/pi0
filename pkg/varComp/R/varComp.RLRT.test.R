@@ -2,7 +2,7 @@ varComp.RLRT.test <-
 function(control,negHess, alt.fit, null.fit, tau.idx)  #, k,null,...)
 {
 #Actual testing function for RLRT. 
-#i.	control. the control object from varComp.testControl. 
+#i.	control. the control object from varCompTest.control. 
 #ii.	negHess: Negative expected Hessian matrix. 
 #iii.	alt.fit: Object from varComp under alternative hypothesis. 
 #iv.	null.fit: Object form varComp under null hypothesis. 

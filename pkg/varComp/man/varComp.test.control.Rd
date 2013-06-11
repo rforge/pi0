@@ -1,5 +1,5 @@
-\name{varComp.testControl}
-\alias{varComp.testControl}
+\name{varCompTest.control}
+\alias{varCompTest.control}
 \alias{varCompTests}
 \alias{varCompScoreTests}
 \alias{LinScoreWeightingMethods}
@@ -7,10 +7,10 @@
 	Control of variance component testing. 
 }
 \description{
-\code{varComp.testControl} provide a list of arguments that control the details of the testing method for testing the nullity of variance components in \code{\link{varComp.test}}. 
+\code{varCompTest.control} provide a list of arguments that control the details of the testing method for testing the nullity of variance components in \code{\link{varComp.test}}. 
 }
 \usage{
-varComp.testControl(test = "LinScore", LinScore.wt = "MinVar", LinScore.acc = 1e-05, LinScore.lim = 1e+05, LinScore.method = c("AS155", "SSAS155"), VM03.method = c("SSChiBarSq", "pboot"), VM03.nsim = 10000L, SS95.method = c("pboot", "pboot"), SS95.nsim = 10000L, RLRT.method = c("exact", "pboot"), RLRT.nsim = 10000L, information = 'EI'
+varCompTest.control(test = "LinScore", LinScore.wt = "MinVar", LinScore.acc = 1e-05, LinScore.lim = 1e+05, LinScore.method = c("AS155", "SSAS155"), VM03.method = c("SSChiBarSq", "pboot"), VM03.nsim = 10000L, SS95.method = c("pboot", "pboot"), SS95.nsim = 10000L, RLRT.method = c("exact", "pboot"), RLRT.nsim = 10000L, information = 'EI'
 )
 varCompTests
 varCompScoreTests
@@ -63,7 +63,7 @@ LinScoreWeightingMethods
 	
 }
 \value{
-A list of class \code{varComp.testControl} with length equal to the length \code{test} argument. This can be passed as the \code{control} or \code{fit.control} arguments to \code{\link{varComp.test}}
+A list of class \code{varCompTest.control} with length equal to the length \code{test} argument. This can be passed as the \code{control} or \code{fit.control} arguments to \code{\link{varComp.test}}
 }
 \references{
 	Qu L, Guennel T, Marshall SL. (2013+) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, under revision. 

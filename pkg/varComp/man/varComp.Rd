@@ -11,7 +11,11 @@ Fitting variance component models
 \code{varComp} and \code{varComp.fit} fit linear mixed-effect models where the marginal variance-covariance matrix is linear in known positive semidefinite matrices. \code{varComp} uses the usualy formula interface, whereas \code{varComp.fit} is the underlying working horse. \code{doFit.varComp} performs model fitting if the object has been previously created by setting \code{doFit = FALSE} when calling \code{varComp}. 
 }
 \usage{
-varComp(fixed, data, random, varcov, weights, subset, family = stats::gaussian('identity'), na.action, offset, control = varComp.control(...), doFit = TRUE, normalizeTrace = TRUE, contrasts = NULL, model = TRUE, X = TRUE, Y = TRUE, K = TRUE, ...)
+varComp(fixed, data, random, varcov, weights, subset, 
+family = stats::gaussian('identity'), na.action, offset, 
+control = varComp.control(...), doFit = TRUE, 
+normalizeTrace = TRUE, contrasts = NULL, 
+model = TRUE, X = TRUE, Y = TRUE, K = TRUE, ...)
 
 varComp.fit(Y, X = matrix(0, length(Y), 0L), K, control = varComp.control())
 
@@ -145,7 +149,7 @@ Long Qu
 }
 \examples{
 ### Orthodont data example
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 lmef = lme(distance~age*Sex, Orthodont, ~1|Subject)
 vcf = varComp(distance~age*Sex, Orthodont, ~Subject)

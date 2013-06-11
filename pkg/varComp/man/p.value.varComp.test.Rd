@@ -37,7 +37,7 @@ Long Qu
 \code{\link{varComp.test}}
 }
 \examples{
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
 vct = varComp.test(vcf)

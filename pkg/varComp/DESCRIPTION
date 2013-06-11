@@ -1,12 +1,13 @@
 Package: varComp
 Type: Package
 Title: Variance component models (fitting and testing functions)
-Version: 0.1-299
+Version: 0.1-300
 Date: 2013-06-11
 Author: Long Qu (longor@iastate.edu)
 Maintainer: Long Qu <longor@iastate.edu>
 Description: Variance component models (fitting and testing functions)
 Imports: quadprog, Matrix, MASS, CompQuadForm, RLRsim, SPA3G, mvtnorm, nlme, stats
 Enhances: nlme
-LazyData: FALSE
+LazyData: no
+ByteCompile: yes
 License: GPL-3

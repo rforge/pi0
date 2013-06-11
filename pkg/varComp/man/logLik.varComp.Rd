@@ -35,7 +35,7 @@ Extracting maximized profiled restricted log likelihood (PREML) from a \code{var
 	\code{\link{varComp}}. 
 }
 \examples{
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
 logLik(vcf)

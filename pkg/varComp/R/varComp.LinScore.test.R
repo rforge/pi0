@@ -4,7 +4,7 @@ function(control, n, tau.idx, LIkLI, tr1, infoMat, all.scores, non.pd)  #, ...)
 #### external ref: null.fit, X, Y, K, non.pd
 
 #Compute weights for LinScore; do test when the null has no other variance components; pass to varComp.LinScore.approximation when the null has other variance components. 
-#i.	control: the control object from varComp.testControl.
+#i.	control: the control object from varCompTest.control.
 #ii.	null: the same as in varComp.test. 
 #iii.	n: residual sample size.
 #v.	tau.idx: the complement of null. 

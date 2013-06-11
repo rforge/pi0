@@ -42,7 +42,7 @@ Long Qu
 \code{\link{varComp}}
 }
 \examples{
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
 coef(vcf, 'varComp') 

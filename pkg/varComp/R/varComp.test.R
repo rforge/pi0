@@ -31,7 +31,7 @@ varComp.test.formula = function(object, data, random1, varcov1, random2, varcov2
 
 varComp.test.varComp = function(object, object2, 
 	additional.varcov, null, test='LinScore', 
-  control=varComp.testControl(test),  ...)
+  control=varCompTest.control(test),  ...)
 {
   # information=match.arg(information, informationTypes)
   test=match.arg(test, varCompTests, several.ok=TRUE)
@@ -60,7 +60,7 @@ varComp.test.varComp = function(object, object2,
 		varComp.test.altDoTest(alt.fit=object, null=integer(0L), test=test,  control=control, ...)
 	}
 }
-varComp.test.2modelDoTest = function(null.fit, alt.fit, test='LinScore', control=varComp.testControl(test), ...)
+varComp.test.2modelDoTest = function(null.fit, alt.fit, test='LinScore', control=varCompTest.control(test), ...)
 {
   # information=match.arg(information, informationTypes)
   test=match.arg(test, varCompTests, several.ok=TRUE)
@@ -101,7 +101,7 @@ varComp.test.2modelDoTest = function(null.fit, alt.fit, test='LinScore', control
 	environment(varComp.test.Common)  = sys.frame(sys.nframe())
 	varComp.test.Common()
 }
-varComp.test.nulDoTest = function(null.fit, additional.varcov, test='LinScore', control=varComp.testControl(test), alt.fit=NULL, ...)
+varComp.test.nulDoTest = function(null.fit, additional.varcov, test='LinScore', control=varCompTest.control(test), alt.fit=NULL, ...)
 {
   # information=match.arg(information, informationTypes)
   test=match.arg(test, varCompTests, several.ok=TRUE)
@@ -162,7 +162,7 @@ varComp.test.nulDoTest = function(null.fit, additional.varcov, test='LinScore', 
 	varComp.test.Common()
 }
 
-varComp.test.altDoTest = function(alt.fit, null=integer(0L), test='LinScore', control=varComp.testControl(test), null.fit=NULL, ...)
+varComp.test.altDoTest = function(alt.fit, null=integer(0L), test='LinScore', control=varCompTest.control(test), null.fit=NULL, ...)
 {
   # information=match.arg(information, informationTypes)
   test=match.arg(test, varCompTests, several.ok=TRUE)
@@ -339,7 +339,7 @@ if(FALSE){
 	source("varComp-internal.R")
 	source("varComp.test.R")
 	source("varComp.R")
-	source('varComp.testControl.R')
+	source('varCompTest.control.R')
 	source("varComp.LinScore.test.R")
 	source("varComp.LinScore.SSAS155.R")
 	source("varComp.LinScore.Satterthwaite.R")
@@ -385,11 +385,11 @@ if(FALSE){
 	debug(varComp.test); debug(varComp.test.altDoTest)
 	varComp.test(altFit, null=1L)
 
-	varComp.test(altFit, null=1L, control=varComp.testControl(test='LinScore',LinScore.method=c('AS155','SSAS155')))
+	varComp.test(altFit, null=1L, control=varCompTest.control(test='LinScore',LinScore.method=c('AS155','SSAS155')))
 	
-	varComp.test(altFit, null=1L, control=varComp.testControl(test='LinScore',LinScore.method=c('AS155','Satterth')))
+	varComp.test(altFit, null=1L, control=varCompTest.control(test='LinScore',LinScore.method=c('AS155','Satterth')))
 
-	varComp.test(altFit, null=1L, control=varComp.testControl(test='LinScore',LinScore.method=c('AS155','Normal')))
+	varComp.test(altFit, null=1L, control=varCompTest.control(test='LinScore',LinScore.method=c('AS155','Normal')))
 
 	varComp.test(altFit)
 	
@@ -400,16 +400,16 @@ if(FALSE){
 	varComp.test(altFit, null=1L, test='SS95')
 	varComp.test(altFit, test='SS95')
 	
-	varComp.test(nulFit, test='SS95', control=varComp.testControl(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
-	varComp.test(altFit, null=1L, test='SS95', control=varComp.testControl(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
-	varComp.test(altFit, test='SS95', control=varComp.testControl(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
+	varComp.test(nulFit, test='SS95', control=varCompTest.control(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
+	varComp.test(altFit, null=1L, test='SS95', control=varCompTest.control(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
+	varComp.test(altFit, test='SS95', control=varCompTest.control(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
 	
 	varComp.test(nulFit, test='VM03')
 	varComp.test(altFit, null=1L, test='VM03')
 	varComp.test(altFit, test='VM03')
 	
-	varComp.test(nulFit, test='VM03', control=varComp.testControl(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
-	varComp.test(altFit, null=1L, test='VM03', control=varComp.testControl(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
-	varComp.test(altFit, test='VM03', control=varComp.testControl(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
+	varComp.test(nulFit, test='VM03', control=varCompTest.control(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
+	varComp.test(altFit, null=1L, test='VM03', control=varCompTest.control(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
+	varComp.test(altFit, test='VM03', control=varCompTest.control(test='SS95', SS95.method=c('ChiBarSq', 'ChiBarSq')))
 	
 }

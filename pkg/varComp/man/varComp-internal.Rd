@@ -66,9 +66,9 @@ updateDenom()
 hess(tau)
 gradFunc(tau)
 
-varComp.test.nulDoTest(null.fit, additional.varcov, test = "LinScore", control = varComp.testControl(test), alt.fit = NULL, ...)
-varComp.test.2modelDoTest(null.fit, alt.fit, test = "LinScore", control = varComp.testControl(test), ...)
-varComp.test.altDoTest(alt.fit, null = integer(0L), test = "LinScore", control = varComp.testControl(test), null.fit = NULL, ...)
+varComp.test.nulDoTest(null.fit, additional.varcov, test = "LinScore", control = varCompTest.control(test), alt.fit = NULL, ...)
+varComp.test.2modelDoTest(null.fit, alt.fit, test = "LinScore", control = varCompTest.control(test), ...)
+varComp.test.altDoTest(alt.fit, null = integer(0L), test = "LinScore", control = varCompTest.control(test), null.fit = NULL, ...)
 varComp.test.Common()
 
 

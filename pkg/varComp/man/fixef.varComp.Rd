@@ -48,7 +48,7 @@ Long Qu
 
 \examples{
 
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
 fixef(vcf)

@@ -11,18 +11,17 @@ This package includes functions for fitting and testing variance component model
 \tabular{ll}{
 Package: \tab varComp\cr
 Type: \tab Package\cr
-Version: \tab 0.1-299\cr
+Version: \tab 0.1-300\cr
 Date: \tab 2013-06-11\cr
 License: \tab GPL3\cr
 }
-\itemize{
-Main functions are: 
-	\item \code{varComp}: fitting variance component models.
-	\item \code{varComp.test}: testing variance components. 
-	\item \code{satterth}: testing fixed-effect parameters by the Satterthwaite type method. 
-	\item \code{KR}: testing fixed-effect parameters by the Kenward-Roger method. 
-}
 
+\itemize{
+	\item \code{\link{varComp}}: fitting variance component models.
+	\item \code{\link{varComp.test}}: testing variance components. 
+%	\item \code{\link{satterth}}: testing fixed-effect parameters by the Satterthwaite type method. 
+%	\item \code{\link{KR}}: testing fixed-effect parameters by the Kenward-Roger method. 
+}
 }
 \author{
 Long Qu
@@ -35,10 +34,10 @@ Maintainer: Long Qu <longor@iastate.edu>
 }
 \keyword{ package }
 \seealso{
- \code{\link[nlme:nlme]{nlme}} 
+ \code{\link[nlme]{lme}} 
 }
 \examples{
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 lmef = lme(distance~age*Sex, Orthodont, ~1|Subject)
 vcf = varComp(distance~age*Sex, Orthodont, ~Subject)

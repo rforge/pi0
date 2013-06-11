@@ -65,7 +65,7 @@ Fai and Cornelius (1996) Approximate F-tests of multiple degree of freedom hypot
 	\code{\link{satterth}}
 }
 \examples{
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
 KR(vcf, matrix(c(0,1,0,0), 1))  # test age effect

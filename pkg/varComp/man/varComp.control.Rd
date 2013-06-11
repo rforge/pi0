@@ -73,7 +73,7 @@ Setting \code{iter.max=0L} is trick to get residual contrast and working correla
 }
 \examples{
 
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 ## Using fisher scoring algorithm:
 varComp(distance~age*Sex, Orthodont, ~Subject, 

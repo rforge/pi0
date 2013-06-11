@@ -1,7 +1,7 @@
 varComp.VM03.test <-
 function(control, infoMat, tau.idx, LIkLI, tr1, n, LIy, all.scores)# , ...)
 {#	varComp.VM03.test: Actual testing function for VM03 test
-#i.	control: the control object from varComp.testControl. 
+#i.	control: the control object from varCompTest.control. 
 #ii.	infoMat: Negative expected Hessian matrix.
 #iii.	tau.idx: Integer vector that indexes the additional variance components of the alternative hypothesis compared to the null. That is, this is the complement of the null argument of varComp.test.
 #iv.	LIkLI: A list of matrices being  sqrt(V^{-1})’ K_i sqrt(V ^{-1})

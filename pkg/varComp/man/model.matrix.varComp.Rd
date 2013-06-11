@@ -46,7 +46,7 @@ See details on possible confusions.
 \seealso{\code{\link{varComp}}
 }
 \examples{
-\dontshow{library(nlme)}
+library(nlme)
 data(Orthodont)
 vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
 model.matrix(vcf, 'fixed')
