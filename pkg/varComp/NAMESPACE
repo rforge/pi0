@@ -1,0 +1,69 @@
+import(stats)
+importFrom(quadprog, solve.QP)
+importFrom(nlme, fixef)
+importFrom(Matrix, nearPD)
+importFrom(MASS, ginv)
+importFrom(CompQuadForm, davies)
+importFrom(RLRsim, RLRTSim)
+importFrom(mvtnorm, pmvnorm)
+
+
+S3method(coef, varComp)
+S3method(model.matrix, varComp)
+S3method(fixef, varComp)
+S3method(satterth, varComp)
+S3method(KR, varComp)
+S3method(logLik, varComp)
+S3method(print, varComp)
+S3method(summary, varComp)
+S3method(vcov, varComp)
+S3method(p.value, default)
+S3method(p.value, htest)
+S3method(p.value, varComp.test)
+S3method(print,  varComp.test)
+S3method(varComp.test, formula)
+S3method(varComp.test, varComp)
+
+export(
+#	fixef,
+	p.value,
+	satterth,
+	KR,
+	am,
+	AM,
+	callList2terms,
+	char2list,
+	cholRoot,
+	colon,
+	get.seed,
+	ibs,
+	IBS,
+	informationTypes,
+	is.formula,
+	lin0,
+	Lin0,
+	mchibarsq,
+	minkowski,
+	Minkowski,
+	minque,
+	nlminb.control,
+	normalizeTrace,
+	pchibarsq,
+	plus,
+	quad1,
+	Quad1,
+	safeseq,
+	sortTerm,
+	splitTerm,
+	star,
+	tilde,
+	varComp,
+	varComp.control,
+	varComp.fit,
+	varComp.test,
+	varComp.testControl,
+	varCompScoreTests,
+	varCompTests,
+	wchibarsq
+)
+

@@ -1,0 +1,169 @@
+\name{varComp}
+\alias{varComp}
+\alias{varComp.fit}
+\alias{doFit.varComp}
+
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Fitting variance component models
+}
+\description{
+\code{varComp} and \code{varComp.fit} fit linear mixed-effect models where the marginal variance-covariance matrix is linear in known positive semidefinite matrices. \code{varComp} uses the usualy formula interface, whereas \code{varComp.fit} is the underlying working horse. \code{doFit.varComp} performs model fitting if the object has been previously created by setting \code{doFit = FALSE} when calling \code{varComp}. 
+}
+\usage{
+varComp(fixed, data, random, varcov, weights, subset, family = stats::gaussian('identity'), na.action, offset, control = varComp.control(...), doFit = TRUE, normalizeTrace = TRUE, contrasts = NULL, model = TRUE, X = TRUE, Y = TRUE, K = TRUE, ...)
+
+varComp.fit(Y, X = matrix(0, length(Y), 0L), K, control = varComp.control())
+
+doFit.varComp(object)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{fixed}{A two-sided formula specifying the fixed effects of the model. This is the same as in \code{\link[stats]{lm}} or \code{\link[nlme]{lme}}. 
+}
+  \item{data}{an optional data frame, list or environment containing the variables in the model. If not found in data, the variables are taken from \code{environment(fixed)}, typically the environment from which \code{varComp} is called. This is the same as the \code{data} argument of \code{\link[stats]{lm}} or \code{\link[nlme]{lme}}.
+}
+  \item{random}{An optional one-sided formula specifying additive random effects, of the form \code{~ z1 + z2 + z3}. Interactions are allowed. The error variance compnent should not be included. A warning will be given when \code{environment(fixed)} and \code{environment(random)} do not match. See details.
+}
+  \item{varcov}{An optional list of symmetric positive definite matrices. If \code{random} is non-missing, these matrices represent the correlation matrix of each random-effect. Thus the number of the random effects must match the length of \code{varcov}. If \code{random} is missing, the weighted sum of these matrices represent the contribution of random effects to the marginal variance of the response variable, with unknown weights representing variance components. 
+}
+  \item{weights}{
+	An optional nonnegative vector of the same length as the response variable specified in \code{fixed}. When it is given, it is inversely proportional to the error variances not captured by \code{random} and \code{varcov}. This is similar to the \code{weights} argument in \code{\link[stats]{lm}}. 
+}
+  \item{subset}{An optional vector specifying a subset of observations to be used in the fitting process.
+}
+  \item{family}{The same as the \code{family} argument of \code{\link[stats]{glm}}. However, only \code{gaussian('identity')} is suppported currently. 
+}
+  \item{na.action}{The same as in \code{\link[stats]{lm}}.
+}
+  \item{offset}{The same as in \code{\link[stats]{glm}}. These offsets are assumed known fixed effects. 
+}
+  \item{control}{An object from calling \code{\link{varComp.control}}. 
+}
+  \item{doFit}{A logical scalar, indicating whether model fitting should be performed. 
+}
+  \item{normalizeTrace}{A logical scalar, indicating whether the individual variance-covariance matrices should be normalized such that variance components are on the same scale. 
+}
+  \item{contrasts}{The same as in \code{\link[stats]{lm}}. 
+}
+  \item{model}{A logical scalar, indicating whether the model frame will be included in the result. 
+}
+  \item{X}{For \code{varComp}, this is a logical scalar, indicating whether the fixed-effect design matrix should be included in the result. For \code{varComp.fit} this is the optional numeric fixed effect matrix for the model. If \code{X} is missing or a matrix with zero columns, it is assumed that \code{Y} has zero mean. 
+}
+  \item{Y}{For \code{varComp}, this is a logical scalar, indicating whether the response variable should be included in the result. For \code{varComp.fit}, this is a numeric vector of response variables. 
+}
+  \item{K}{For \code{varComp}, this is a logical scalar, indicating whether the list of variance-covariance matrices should be included in the result. These matrices are computed by pre-and-post multiplying the design matrices of random effects specified by \code{random} and the corresponding matrices specified by \code{varcov}.  For \code{varComp.fit}, this is a list of variance-covariance matrices. 
+}
+  \item{\dots}{When \code{control} is given, this is ignored. Otherwise, these arguments are passed to \code{\link{varComp.control}} and the result will be used as the \code{control} argument. 
+}
+	\item{object}{An object of class \code{varComp}. 
+}
+
+}
+\details{
+The variance component model is of form 
+\deqn{\boldmath{Y} = \boldmath{X}\boldsymbol{\beta} + \boldmath{e}}{Y=X \beta + e}
+where \eqn{\boldmath{e}}{e} is multivariate normally distributed with mean zero and variance-covariance matrix \eqn{\boldmath{V}}{V} being
+\deqn{\boldmath{V} = \sum_{j=1}^R \sigma_j^2 \boldmath{K}_j + \sigma_e^2 \boldmath{W}}{V= \sigma{j=1}^R \sigma_j^2 K_j + \sigma_e^2 W}
+in which \eqn{\boldmath{K}_j}{K_j} are known positive semidefinite matrices and \eqn{\boldmath{W}}{W} is a known diagonal positive definite matrix. In the case of random-effect modeling, the \eqn{\boldmath{K}}{K} matrices are fruther given by 
+\deqn{\boldmath{K}_j = \boldmath{Z}_j \boldmath{G}_j \boldmath{Z}_j^\top}{K_j = Z_j G_j Z_j^T}
+where \eqn{\boldmath{Z}_j}{Z_j} is the design matrix for the jth random-effect factor and \eqn{\boldmath{G}_j}{G_j} the known variance-covariance matrix for the jth random-effect vector. 
+
+In the \code{varComp} formula interface, the \eqn{\boldmath{X}}{X} matrix and response variable are specified by the \code{fixed} argument. The optional \code{random} argument specifies the \eqn{\boldmath{Z}}{Z} matrices. When \code{random} is missing, they are assumed to be identity matrices. The \code{varcov} argument specifies the \eqn{\boldmath{G}}{G} matrices. The \code{weights} argument specifies the \eqn{\boldmath{W}}{W} matrix. 
+
+Note that in \code{random}, kernel functions are allowed. For example, \code{random = ~ ibs(SNP)} is allowed to specify the similarities contributed by a matrix \code{SNP} through the identity-by-descent (\code{\link{IBS}}) kernel. 
+
+Fixed-by-random interactions are allowed in \code{random}. If \code{F} is a fixed factor with 2 levels, and \code{F} has already appeared in the \code{fixed} argument, then \code{random = ~ ibs(SNP) + F:ibs(SNP)} will specify two random effects. The first contributes to the marginal variance-covariance matrix through \code{IBS(SNP)}; the other contributes to the marginal variance-covariance matrix through \code{tcrossprod(X_F2) * IBS(SNP)},  where \code{X_F2} is the 2nd column of the fixed-effect design matrix of factor \code{F} under the sum-to-zero contrast. Note that no matter sum-to-zero constrast will be used even if another contrast is used for \code{F} in the \code{fixed} arugmement. This behavior corresponds to what we usually mean by fixed-by-random interaction. if one indeeds needs to avoid sum-to-zero contrast in this case, it is only possible to do so by providing \code{varcov} directly without specifying \code{random}.  
+
+Additionally, the fixe-by-random interactions in \code{random} specified by the ``\code{:}'' symbol are actually treated as if they are specified by ``\code{*}''. In other words, \code{random = ~ ibs(SNP) + F:ibs(SNP)}, \code{random = ~ F:ibs(SNP)}, and \code{random = ~ F*ibs(SNP)} are actually treated as equivalent. Again this corresponds to the usual notion of fixed-by-random interaction. If such behavior is not wanted, one can directly give the intended \code{varcov} and leave \code{random} as missing. 
+
+Finally, intercept is not included in the \code{random} interface.
+
+The model fitting process uses profiled restricted maximum likelihood (PREML), where the error variance is always profiled out of the REML likelihood. The non-negativity constraints of variance components are always imposed. See \code{\link{varComp.control}} for arguments controling the modeling fitting. 
+}
+\value{The value of any of the three functions is a list with class \code{varComp}. Depending on whether \code{doFit} is \code{TRUE} or \code{FALSE}, the components in the list might differ. 
+In either case, the result from \code{varComp} always contains the following elements: 
+\itemize{
+	\item \code{na.action}: the \code{na.action} used in the model frame. 
+	\item \code{offset}: the same as input. 
+	\item \code{contrasts}: the contrast used in the fixed-effect design matrix. 
+	\item \code{xzlevels}: the levels of both fixed-effect and random-effect factors. 
+	\item \code{terms}: both fixed-effect and random-effect terms. 
+
+	\item \code{call}: the actual call. 
+	\item \code{nobs}: the number of observations. 
+	\item \code{control}: the same as input. 
+	\item \code{random.labels}: the labels used to differentiate random effects. Note that the error variance is not included here. It is safe to check the number of variance components specified by the model by checking the length of \code{random.labels}. 
+	\item \code{doFit}: The value of \code{doFit} is either \code{TRUE} or a call. If the \code{doFit} argument of \code{varComp} is set to \code{FALSE}, this component will be a call that will do the model fitting when being evaluated. If the model fitting has already been done, this component will always be \code{TRUE}.
+}
+
+In the case where \code{doFit} is \code{TRUE}, the following components will also be present in the result of \code{varComp} and \code{doFit}: 
+\itemize{
+	\item {parms}: a named numeric vector of parameter estimates. These are the ratio of each variance component relative to the error variance. 
+	\item {gradients}: a named numeric vector of gradient of the PREML function at the final parameter estimate. Because of non-negativity contraints, the gradients are not necessarily all zero at convergence. 
+	\item {hessian}: a numeric matrix of Hessian matrix at parameter estimate. 
+	\item {sigma2}: the estimated error variance. 
+	\item {varComps}: a named numeric vector of variance components. These are the same as \code{parms} times \code{sigma2}. 
+	\item {n.iter}: the number of iterations during fitting. 
+	\item {PREML}: the final maximized PREML function value. 
+	\item {X.Q2}: a matrix, when left-multiplied to the response variable, produces the residual contrasts. 
+	\item {residual.contrast}: a numeric vector of residual contrasts with \code{length{Y} - qr(X)$rank} elements. 
+	\item {working.cor}: the list of individual variance-covariance matrices, whose weighted sum is the marginal variance-covariance matrix of the residual contrast. 
+}
+
+If \code{varComp.fit} is called directly, the \code{doFit} is always \code{TRUE}, but the result will not contain any of \code{na.action}, \code{offset}, \code{contrasts}, \code{xzlevels}, and \code{terms}, as they do not apply. 
+}
+
+\note{
+	Currently, available S3 methods for the \code{varComp} class are: 
+\itemize{
+	\item {coef}: retrieving fixed-effect estimates, variance component estimates, or estimates of the ratios of variance components to the error variance. 
+	\item {model.matrix}: retriveing the fixed-effect design matrix, equivalent random-effect design matrix, or the list of individual variance-covariance matrices. 
+	\item {vcov}: computing variance-covariance matrix of fixed-effect parameters, variance parameters, or the response variable. 
+	\item {fixef}: retrieving fixed-effect parameter estimates with standard errors and default hypothesis tests against zero. 
+	\item {satterth}: the Satterthwaite test of linear functions of fixed effect parameters. 
+	\item {KR}: the Kenward-Roger test of linear functions of fixed effect parameters. 
+	\item {varComp.test}: testing for nullity of random components (other than the error variance). 
+	\item {logLik}: retriveing the maximized PREML value with degrees of freedom. 
+	\item {print}: showing the object. 
+	\item {summary}: summarize the object by providing standard errors and default tests against zero. 
+}
+}
+
+
+\references{
+	Qu L, Guennel T, Marshall SL. (2013+) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, under revision. 
+}
+\author{
+Long Qu
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+	\code{\link{varComp.test}}, \code{\link{coef.varComp}}, \code{\link{model.matrix.varComp}}, \code{\link{vcov.varComp}}, \code{\link{fixef.varComp}}, \code{\link{satterth}}, \code{\link{KR}}, \code{\link{logLik.varComp}}, \code{\link{print.varComp}}, \code{\link{summary.varComp}}, \code{\link[nlme]{lme}}, \code{\link[stats]{lm}}
+}
+\examples{
+### Orthodont data example
+\dontshow{library(nlme)}
+data(Orthodont)
+lmef = lme(distance~age*Sex, Orthodont, ~1|Subject)
+vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
+VarCorr(lmef)
+coef(vcf, 'varComp') ## same values as above
+
+### Genetics example	
+trt=gl(2, 15)
+set.seed(2340)
+dat=data.frame(Y=as.numeric(trt)+rnorm(30), trt=trt, id=as.factor(1))
+dat$SNP=matrix(sample(0:2, 120, replace=TRUE), 30)
+(vcf0 = varComp(Y~trt, dat, ~ibs(SNP)))
+(vcf00 = varComp(Y~trt, dat, varcov = IBS(dat$SNP))) ## same as above
+(vcf1 = varComp(Y~trt, dat, ~ibs(SNP):trt)) ## two variance components
+
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ multivariate }
+\keyword{ regression}
+\keyword{ smooth}

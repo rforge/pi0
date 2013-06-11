@@ -1,0 +1,46 @@
+\name{logLik.varComp}
+\alias{logLik.varComp}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Extracting Profiled Restricted Log Likelihood 
+}
+\description{
+Extracting maximized profiled restricted log likelihood (PREML) from a \code{varComp} object
+}
+\usage{
+\method{logLik}{varComp}(object, ...)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{object}{
+	A \code{varComp} object
+}
+  \item{\dots}{
+	Not used
+}
+}
+\details{
+	The likelihood value is the profiled restricted log likelihood. The acutal value depends on the residual contrast being chosen, but the \emph{location} of maximum does not. Thus it is only comparable when the same residual constrast is used. This value is not to be compared to results reported using functions in other packages, e.g., \code{\link[nlme]{lme}} or \code{SAS}. The degree of freedom reported is the number of variance components not on the boundary of parameter space, whereas the desicion is based on \code{object$control$boundary.eps}. 
+}
+\value{
+	A numeric value of class \code{logLik}.
+}
+\references{
+	Qu L, Guennel T, Marshall SL. (2013+) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, under revision. 
+}
+\author{
+	Long Qu
+}
+\seealso{
+	\code{\link{varComp}}. 
+}
+\examples{
+\dontshow{library(nlme)}
+data(Orthodont)
+vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
+logLik(vcf)
+
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ models }
