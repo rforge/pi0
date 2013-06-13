@@ -61,10 +61,13 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 	
 	if(!missing(varcov) && !is.matrix(varcov) && !is.list(varcov)) stop("varcov needs to be a matrix or a list, when non-missing")
 	if(!missing(varcov) && is.matrix(varcov)) varcov=list(varcov)
+    if (is.character(family)) family <- get(family, mode = "function", envir = parent.frame())
+	if (is.function(family))  family <- family()
 	if(!all.equal(stats::gaussian('identity'), family)) { 
 		warning("Currently only Gaussian family with identity link is supported")
 		family=stats::gaussian(link='identity')
 	}
+	if (missing(data)) data <- environment(formula)
 	ret.x = X; ret.y=Y; ret.k=K; ret.mod=model
 	
     cl <- match.call()
@@ -73,6 +76,15 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
     m <- match(c("fixed", "data", "random", "weights" ,"subset", "na.action", "offset"
 			), names(mf), 0L)
     mf <- mf[c(1L, m)]  ## mf[1] is varComp()
+	
+	if(m[5L]>0 && is.logical(subset)) {
+		subset=which(subset)
+		mf$subset=subset
+	}
+	if(m[4L]>0 && any(weights<=0)) {	## handling non-positive weights to subset argument
+		if(m[5L]>0) subset = unique(setdiff(subset, which(weights<=0))) else subset = which(weights>0)
+		mf$subset=subset
+	}
 	if(m[3L]>0L) mf['random']=NULL
 	mf['fixed']=NULL
 	mf$formula=fixedRandom		
@@ -80,12 +92,20 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 	mf$drop.unused.levels <- TRUE
     mf[[1L]] <- as.name("model.frame")
     mfAll <- eval(mf, parent.frame())	## removing obs with missing data or not in subset
+	
+	if(!is.null( na.vec <- attr(mfAll, 'na.action'))){	## missing data removed. 
+		if(m[5L]> 0 ){ ## there exists subset argument
+			subset = sort(setdiff(subset, na.vec))
+		}else   subset = sort(setdiff(seq_len(nrow(mfAll)+length(na.vec)), na.vec))
+		mf$subset = subset
+		mfAll = eval(mf, parent.frame())
+	}
 	mtAll = attr(mfAll, 'terms')
 	
 	# mf$data = as.name('mfAll')
 	mf$formula=fixed
 	eframe=sys.frame(sys.nframe())
-	mf.fixed=eval(mf, eframe)
+	mf.fixed=eval(mf, parent.frame())
 	
     mt.fixed <- attr(mf.fixed, "terms")
 	fixedTerms = attr(mt.fixed, 'term.labels')
@@ -116,7 +136,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 		## preparing a vector of all random terms
 		mf$formula=random
 		# if(m[2L]>0L) mf$data = cl$data
-		mf.random=eval(mf, eframe)
+		mf.random=eval(mf, parent.frame())
 		mt.random=attr(mf.random, 'terms')
 		rterms = attr(mt.random, 'term.labels')
 		# rterms = unlist(strsplit(as.character(random[2]), ' *\\+ *'))
@@ -128,7 +148,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 			for(iz in seq_along(rterms)){
 				this.form=update.formula(random, as.formula(paste('~', rterms[iz], '+0', collapse='')))
 				mf$formula = this.form
-				mf.this <- eval(mf, eframe)
+				mf.this <- eval(mf, parent.frame())
 				# isFact <- vapply(mf.this, function(x) is.factor(x) || is.logical(x), NA)
 				isFixed = names(mf.this)%in%fixedVars
 				# idx = (isFact & isFixed)
@@ -138,7 +158,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 			ans
 		})
 		mf$formula = update.formula(random, as.formula(paste0("~", paste0(rterms, collapse='+'))))
-		mf.random=eval(mf, eframe)
+		mf.random=eval(mf, parent.frame())
 		mt.random=attr(mf.random, 'terms')
 		rterms = attr(mt.random, 'term.labels')
 		rterms = setdiff(rterms, -1:1) ## removing all terms invoving intercept(s)
@@ -152,7 +172,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 		for(iz in seq_len(nRterms)){
 			this.form=update.formula(random, as.formula(paste('~', rterms[iz], '+0', collapse='')))
 			mf$formula = this.form
-			mf.this <- eval(mf, eframe)
+			mf.this <- eval(mf, parent.frame())
 			mt.this <- attr(mf.this, "terms")
 			tmp.model.matrix = suppressWarnings(model.matrix(mt.this, mf.this, contrasts))
 			isFact <- vapply(mf.this, function(x) is.factor(x) || is.logical(x), NA)
@@ -163,7 +183,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 				if(fterm%in%fixedTerms){ ## truly fixed-by-random interaction
 					this.form=update.formula(this.form, paste0("~",fterm))
 					mf$formula=this.form
-					mf.tmp=eval(mf, eframe)
+					mf.tmp=eval(mf, parent.frame())
 					mt.tmp=attr(mf.tmp, 'terms')
 					oldContr=getOption('contrasts')
 					options(contrasts=c('contr.sum','contr.sum'))
@@ -174,7 +194,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 					if(tmpRterm=='') {warning("DEBUG ME: tmpRterm should not be empty"); browser()}
 					this.form=update.formula(this.form, paste0("~", tmpRterm, '+0'))
 					mf$formula=this.form
-					mf.tmp=eval(mf, eframe)
+					mf.tmp=eval(mf, parent.frame())
 					mt.tmp=attr(mf.tmp, 'terms')
 					rdmZ=suppressWarnings(model.matrix(mt.tmp, mf.tmp, contrasts))
 					

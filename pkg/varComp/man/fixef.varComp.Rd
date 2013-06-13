@@ -1,4 +1,5 @@
 \name{fixef.varComp}
+\alias{fixef}
 \alias{fixef.varComp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Extracting and testing fixed effect parameters

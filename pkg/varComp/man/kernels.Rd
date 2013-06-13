@@ -1,14 +1,16 @@
 \name{kernels}
-\alias{am}
-\alias{AM}
 \alias{ibs}
 \alias{IBS}
+\alias{am}
+\alias{AM}
 \alias{lin0}
 \alias{Lin0}
 \alias{quad1}
 \alias{Quad1}
 \alias{Minkowski}
 \alias{minkowski}
+\alias{polyk}
+\alias{Polyk}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -28,12 +30,18 @@ quad1(x)
 Quad1(x)
 Minkowski(x, p = 1)
 minkowski(x, p = 1)
+polyk(x,c=0,d=1) 
+Polyk(x,c=0,d=1) 
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{ A numeric matrix encoding genotypes. Each row corresponds to an individual and each column corresponds to a genetic marker. Usually, allele-counting coding is used, but others are allowed. 
 }  
-  \item{p}{ The expoenent defining the Minkowski distance. The same as in \code{\link[stats]{dist}}.
+  \item{p}{ The exponent defining the Minkowski distance. The same as in \code{\link[stats]{dist}}.
+}
+  \item{c}{ The constant added to cross-products before raising to the power of \code{d}.
+}
+  \item{d}{ The exponent defining the polynomial kernel. When \code{c=0} and \code{d=1}, this is equivalent to \code{lin0}. When \code{c=1} and \code{d=2}, this is equivalent to \code{quad1}. 
 }
 }
 \details{

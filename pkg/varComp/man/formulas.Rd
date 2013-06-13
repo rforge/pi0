@@ -7,7 +7,7 @@
 	Internal formula term manipulation functions
 }
 \description{
-	These are helper function used in the  formula interface of \code{\link{varComp}} and \code{\link{varComp.test}}
+	These are helper function used in the  formula interface of \code{\link{varComp}} and \code{\link{varComp.test}}. They either sort or split the formula terms involving ":". 
 }
 \usage{
 callList2terms(cl)
