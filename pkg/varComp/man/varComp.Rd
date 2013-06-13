@@ -148,22 +148,46 @@ Long Qu
 	\code{\link{varComp.test}}, \code{\link{coef.varComp}}, \code{\link{model.matrix.varComp}}, \code{\link{vcov.varComp}}, \code{\link{fixef.varComp}}, \code{\link{satterth}}, \code{\link{KR}}, \code{\link{logLik.varComp}}, \code{\link{print.varComp}}, \code{\link{summary.varComp}}, \code{\link[nlme]{lme}}, \code{\link[stats]{lm}}
 }
 \examples{
-### Orthodont data example
+### Oxide/Semiconductor data example
 library(nlme)
-data(Orthodont)
-lmef = lme(distance~age*Sex, Orthodont, ~1|Subject)
-vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
+data(Oxide)
+lmef = lme(Thickness~Source, Oxide, ~1|Lot/Wafer)
+vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer)
 VarCorr(lmef)
 coef(vcf, 'varComp') ## same values as above
+k0=tcrossprod(model.matrix(~0+Lot,Oxide))
+k1=tcrossprod(Oxide$Source==1)*k0
+k2=tcrossprod(Oxide$Source==2)*k0
+k3=tcrossprod(model.matrix(~0+Lot:Wafer, Oxide))
+(vcf1 = varComp(Thickness~Source, Oxide, varcov=list(S1Lot=k1, S2Lot=k2, `Lot:Wafer`=k3))) ## unequal variance across Source for Lot effects, in a preferred parameterization
+(vcf2 = varComp(Thickness~Source, Oxide, varcov=list(Lot=k0, S2Lot=k2, `Lot:Wafer`=k3))) ## unequal variance across Source for Lot effects, in a different parameterization
+(vcf3 = varComp(Thickness~Source, Oxide, varcov=list(Lot=k0, S1Lot=k1, `Lot:Wafer`=k3))) ## unequal variance across Source for Lot effects, but in a poor parameterization that turns out to be the same as vcf after fitting. 
+logLik(vcf)
+logLik(vcf1)
+logLik(vcf2)  ## the same as vcf1
+logLik(vcf3)  ## the same as vcf
+
+
+
 
 ### Genetics example	
 trt=gl(2, 15)
 set.seed(2340)
-dat=data.frame(Y=as.numeric(trt)+rnorm(30), trt=trt, id=as.factor(1))
+dat=data.frame(trt=trt, id=as.factor(1))
 dat$SNP=matrix(sample(0:2, 120, replace=TRUE), 30)
+dat$Y  = as.numeric(trt)+rnorm(30) + dat$SNP\%*\%rnorm(4)
 (vcf0 = varComp(Y~trt, dat, ~ibs(SNP)))
-(vcf00 = varComp(Y~trt, dat, varcov = IBS(dat$SNP))) ## same as above
+(vcf00 = varComp(Y~trt, dat, varcov = list(`ibs(SNP)`=IBS(dat$SNP)))) ## same as above
 (vcf1 = varComp(Y~trt, dat, ~ibs(SNP):trt)) ## two variance components
+
+dat$trt[1]=NA
+varComp(Y~trt, dat, ~ibs(SNP))  ## 29 observations compared to 30 in vcf0
+dat$SNP[2,1]=NA
+varComp(Y~trt, dat, ~ibs(SNP))  ## still, 29 observations, as ibs handles sporadic NA
+dat$SNP[3, ]=NA
+varComp(Y~trt, dat, ~ibs(SNP))  ## 28 observations, as no genotype for the 3rd obs
+
+
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -87,9 +87,11 @@ range(tcrossprod(am(x)) - AM(x)  )
 
 Lin0(x)
 range(tcrossprod(lin0(x)) - Lin0(x)  )
+range(Lin0(x) - Polyk(x, 0, 1))
 
 Quad1(x)
 range(tcrossprod(quad1(x)) - Quad1(x)  )
+range(Quad1(x) - Polyk(x, 1, 2))
 
 Minkowski(x)
 range(tcrossprod(minkowski(x)) - Minkowski(x)  )

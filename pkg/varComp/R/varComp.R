@@ -499,7 +499,7 @@ varComp.fit = function(Y, X=matrix(0,length(Y),0L), K, control=varComp.control()
   }
 
   if((nearZero = length(bd.idx))>0L){  # check boundary
-	bd.idx.all=lapply(seq_len(nearZero), combn, x=bd.idx)
+	bd.idx.all= if(nearZero == 1) list(matrix(bd.idx)) else lapply(seq_len(nearZero), combn, x=bd.idx)
 	cur.obj=obj(tau)
 	tau.bak = tau
 	for(i.0 in bd.idx.all){
@@ -511,7 +511,7 @@ varComp.fit = function(Y, X=matrix(0,length(Y),0L), K, control=varComp.control()
 				gradNeg0=function(tau) gradNeg(setZero(tau))[-this.0]
 				hessNeg0=function(tau) hessNeg(setZero(tau))[-this.0, -this.0, drop=FALSE]
 				nlminb.fit=nlminb(tau[-this.0], objNeg0, gradNeg0, hessNeg0, lower=rep(0,nK-length(this.0)), control=nlminb.control)
-				if( -nlminb.fit$objective > cur.obj) {tau = setZero(tau); cur.obj=-nlminb.fit$objective}
+				if( -nlminb.fit$objective > cur.obj) {tau = setZero(nlminb.fit$par); cur.obj=-nlminb.fit$objective}
 			}
 		}else{
 			if( (tmp = obj(rep(0, nK))) > cur.obj){ tau = rep(0, nK); cur.obj = tmp}

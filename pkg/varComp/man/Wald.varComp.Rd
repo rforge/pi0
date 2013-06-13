@@ -66,10 +66,12 @@ Fai and Cornelius (1996) Approximate F-tests of multiple degree of freedom hypot
 }
 \examples{
 library(nlme)
-data(Orthodont)
-vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
-KR(vcf, matrix(c(0,1,0,0), 1))  # test age effect
-satterth(vcf, matrix(c(0,1,0,0), 1))  # test age effect
+data(Oxide)
+lmef = lme(Thickness~Source, Oxide, ~1|Lot/Wafer)
+anova(lmef)
+vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer)
+KR(vcf, matrix(c(0,1), 1))  # test Source effect
+satterth(vcf, matrix(c(0,1), 1))  # test Source effect
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

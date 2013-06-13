@@ -48,10 +48,9 @@ Long Qu
 }
 
 \examples{
-
 library(nlme)
-data(Orthodont)
-vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
+data(Oxide)
+vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer)
 fixef(vcf)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

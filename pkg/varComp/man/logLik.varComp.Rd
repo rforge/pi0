@@ -36,10 +36,9 @@ Extracting maximized profiled restricted log likelihood (PREML) from a \code{var
 }
 \examples{
 library(nlme)
-data(Orthodont)
-vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
+data(Oxide)
+vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer)
 logLik(vcf)
-
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -42,10 +42,10 @@ Long Qu
 }
 \examples{
 library(nlme)
-data(Orthodont)
-vcf0 = varComp(distance~age*Sex, Orthodont, ~Subject, control=varComp.control(nlminb=nlminb.control(iter.max=0L)))
+data(Oxide)
+vcf0 = varComp(Thickness~Source, Oxide, ~Lot/Wafer, control=varComp.control(nlminb=nlminb.control(iter.max=0L)))
 (st=minque(vcf0$residual.contrast, vcf0$working.cor, lower.bound = 0))
-vcf = varComp(distance~age*Sex, Orthodont, ~Subject, control=varComp.control(start=st))
+(vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer, control=varComp.control(start=st)))
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

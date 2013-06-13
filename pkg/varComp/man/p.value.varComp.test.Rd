@@ -38,11 +38,11 @@ Long Qu
 }
 \examples{
 library(nlme)
-data(Orthodont)
-vcf = varComp(distance~age*Sex, Orthodont, ~Subject)
-vct = varComp.test(vcf)
-p.value(vct)
-
+data(Oxide)
+vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer)
+coef(vcf, 'varComp')
+p.value(varComp.test(vcf))  ## test both Lot and Wafer%in%Lot
+p.value(varComp.test(vcf, null=1))  ## test Wafer%in%Lot
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

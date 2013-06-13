@@ -74,17 +74,17 @@ Setting \code{iter.max=0L} is trick to get residual contrast and working correla
 \examples{
 
 library(nlme)
-data(Orthodont)
+data(Oxide)
 ## Using fisher scoring algorithm:
-varComp(distance~age*Sex, Orthodont, ~Subject, 
+varComp(Thickness~Source, Oxide, ~Lot/Wafer, 
   control=varComp.control(information='EI')) 
 ## Using Newton-Raphson algorithm: 
-varComp(distance~age*Sex, Orthodont, ~Subject, 
+varComp(Thickness~Source, Oxide, ~Lot/Wafer, 
   control=varComp.control(information='OI')) 
-## Computing residual contrasts and individual varcov matrices only
-varComp(distance~age*Sex, Orthodont, ~Subject, 
+## Computing MINQUE, residual contrasts, and marginal correlations of residual contrasts
+varComp(Thickness~Source, Oxide, ~Lot/Wafer, 
   control=varComp.control(nlminb=nlminb.control(iter.max=0L)))
-  
+ 
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
