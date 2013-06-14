@@ -216,7 +216,7 @@ varComp.test.Common = evalq(function()  ## not to be called directly!
 
 	call.lists=list(LinScore = c('infoMat', 'all.scores','tr1','n','LIkLI','non.pd'),
 				 SS95 = c('infoMat', 'all.scores', 'tr1','n','LIkLI','LIy'),
-				 RLRT = c('alt.fit', 'nul.fit'),
+				 RLRT = c('alt.fit', 'null.fit'),
 				 VM03 = c('infoMat', 'all.scores', 'tr1','n','LIkLI','LIy'))
 	environment(char2list) = sys.frame(sys.nframe())
 	

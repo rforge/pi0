@@ -60,9 +60,9 @@ function(
 #2.	pboot: For the 1st component, this is an alias of exact; for the 2nd component, this is not implemented. 
 #ix.	Wald.method: Not implemented. 
 #x.	RWD88.method: Not implemented.
-  test=match.arg(test, several.ok=TRUE)
+  test=match.arg(test, varCompTests, several.ok=TRUE)
   test[test=='HP01']='SS95'; test=unique(test)
-  LinScore.wt=match.arg(LinScore.wt, several.ok=TRUE)
+  LinScore.wt=match.arg(LinScore.wt, LinScoreWeightingMethods, several.ok=TRUE)
   information = match.arg(information, informationTypes)
 
   stopifnot(length(LinScore.method)==2L)                       
