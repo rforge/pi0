@@ -1,3 +1,5 @@
+is.formula=function(x)inherits(x, 'formula')
+
 get.seed <-
 function(){
 #Retrieve the current random number seed the RNGkind() for reproducibility. 

@@ -1,5 +1,5 @@
 vcov.varComp <-
-function(object, what=c('fixed','beta','random','varComp','var.ratio','tau','response','Y'), drop=TRUE, ...)
+function(object, what=c('fixed','beta','random','varComp','var.ratio','tau','response','Y'), drop=TRUE, beta.correction=TRUE, ...)
 {
 # S3 method for returning variance-covariance matrix of interesting quantities. 
 # what: 'fixed' or 'beta': vcov for fixed effect parameter estimates
@@ -11,9 +11,10 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau','res
   
   if(what=='Y'){
     K=model.matrix(object, what='K')
-    V=Reduce('+', mapply('*', object$varComps, K, SIMPLIFY=FALSE))+diag(object$sigma2, nrow(K[[1]]))
+    V=Reduce('+', mapply('*', object$varComps, K, SIMPLIFY=FALSE))
+	if('weights'%in%names(object)) V = V + diag(object$sigma2 / object$weights, nrow(K[[1L]])) else V = V + diag(object$sigma2, nrow(K[[1L]]))
     return(V)    
-  }else if(what=='varComp'){
+  }else if(what=='varComp'){  
     if(isTRUE(drop)) idx=which(object$parms>0) else idx=seq_along(object$parms)
   
     this.Q2Y=object$residual.contrast
@@ -27,6 +28,7 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau','res
     liy=LI%*%this.Q2Y
     
     ans=matrix(NA_real_, nk+1L, nk+1L)
+		rownames(ans)=colnames(ans) = c(object$random.labels[idx], 'error')
     for(i in seq_len(nk+1)){
       for(j in i:(nk+1)){
         tmp=lik[[i]]%*%lik[[j]]
@@ -42,6 +44,11 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau','res
     ans 
   }else if(what=='beta'){
     X=model.matrix(object, what='X')
-    ginv(crossprod(X, solve(vcov(object, what='Y'),X)))
+	if(ncol(X)==0L) return(matrix(0,0L,0L))
+    ans = ginv(crossprod(X, solve(vcov(object, what='Y'),X)))
+	if(isTRUE(beta.correction)){
+		ans = attr( KR.varComp(object, Lmat=matrix(0,0L,ncol(X)), Vbet=ans), 'vcov.beta' )
+	}
+	ans
   }
 }

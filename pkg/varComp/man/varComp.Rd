@@ -116,6 +116,8 @@ In the case where \code{doFit} is \code{TRUE}, the following components will als
 }
 
 If \code{varComp.fit} is called directly, the \code{doFit} is always \code{TRUE}, but the result will not contain any of \code{na.action}, \code{offset}, \code{contrasts}, \code{xzlevels}, and \code{terms}, as they do not apply. 
+
+For the \code{varComp} interface, if any of \code{model}, \code{X}, \code{Y} or \code{K} is \code{TRUE}, the corresponding part will be included in the result. If \code{weights} is non-missing, it will be included in the result. 
 }
 
 \note{

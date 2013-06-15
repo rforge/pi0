@@ -6,7 +6,8 @@
 Extracting (approximate) variance-covariance matrices for fixed-effect parameters, variance components, ratios of variance components to error variance, or the response variable. 
 }
 \usage{
-\method{vcov}{varComp}(object, what = c("fixed", "beta", "random", "varComp", "var.ratio", "tau", "response", "Y"), drop = TRUE, ...)
+\method{vcov}{varComp}(object, what = c("fixed", "beta", "random", "varComp", 
+	"var.ratio", "tau", "response", "Y"), drop = TRUE, beta.correction, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,6 +20,9 @@ Extracting (approximate) variance-covariance matrices for fixed-effect parameter
   \item{drop}{
 	A logical scalar, indicating whether zero variance components should be dropped from the results. 
 }
+	\item{beta.correction}{
+	A logical scalar, only applicable when \code{what='beta'}, indicating whether the variance-covariance matrix for fixed effect estimates is corrected according to Kackar and Harville~(1984).
+}
   \item{\dots}{
 	Place holder.
 }
@@ -29,12 +33,15 @@ For fixed-effect parameters, the results is the plug-in estimate variance of gen
 \value{
 A numeric matrix of the requested variance-covariances.
 }
+\references{
+Raghu N. Kackar and David A. Harville (1984) Approximations for standard errors of estimators of fixed and random effect in mixed linear models. \emph{Journal of the American Statistical Association}  79, 853--862
+}
 \author{
  Long QU
 }
 \seealso{
 \code{\link{varComp}} for the varComp object; 
-\code{\link{KR}} for testing fixed effect parameters accounting for uncertainty in variance parameter estimates. 
+\code{\link{KR.varComp}} for testing fixed effect parameters accounting for uncertainty in variance parameter estimates. 
 }
 %\examples{
 %}

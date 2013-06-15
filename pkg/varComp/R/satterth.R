@@ -1,5 +1,5 @@
-satterth <-
-function(object, ...) UseMethod('satterth')
+#satterth <-
+#function(object, ...) UseMethod('satterth')
 
 satterth.varComp <-
 function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
@@ -12,8 +12,10 @@ function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 # K:  Optional kernal matrix
 # V:  Optional vcov of response. 
 
+	if(ncol(model.matrix(object, 'X')) == 0L) return(structure(numeric(0L), individual.df=numeric(0L)))
+	
   VVC=vcov(object, what='varComp', drop=TRUE)
-  if(missing(Vbet) ) Vbet=vcov(object, what='beta')
+  if(missing(Vbet) ) Vbet=vcov(object, what='beta', beta.correction=FALSE)
   if(missing(svd.VLbet)){
     eig=eigen(tcrossprod(Lmat%*%Vbet, Lmat), TRUE)
   }else{
@@ -45,5 +47,6 @@ function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
   E=sum(vs/(vs-2)*(vs>2))
   ans=if(E>q) 2*E/(E-q) else 0
   attr(ans, 'individual.df')=vs  
+  names(ans)='denominator.df'
   ans
 }

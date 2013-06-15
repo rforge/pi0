@@ -1,16 +1,20 @@
-KR <-
-function(object, ...) UseMethod('KR')
+# KR <-
+# function(object, ...) UseMethod('KR')
 
 KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 {
-	if(!is.matrix(Lmat)) Lmat=matrix(Lmat, 1)
+	bhat=coef(object, 'fixed'); 
+	if(length(bhat)== 0L){
+		return(stop('FIXME'))
+	}
 	if(missing(K)) K= model.matrix(object, what='K')
 	if(missing(X)) X= model.matrix(object, what='X')
+	if(!is.matrix(Lmat)) Lmat=as.matrix(Lmat)
+		if(ncol(Lmat)!=ncol(X) && nrow(Lmat)==ncol(X)) Lmat=t(Lmat)
 	if(missing(V)) V= vcov(object, 'Y'); VI=solve(V)
-	if(missing(Vbet)) Vbet=vcov(object, what='beta')
-	bhat=coef(object, 'fixed')
+	if(missing(Vbet)) Phi=Vbet=vcov(object, what='beta', beta.correction=FALSE)
 	p=length(bhat)
-	ell=nrow(Lmat)
+	ell=qr(Lmat)$rank
 	r=length(coef(object, 'varComp'))
 	J=r-1
 	n=nrow(V)
@@ -22,7 +26,7 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 
 	
 	VIX=solve(V, X)
-	Phi = solve(crossprod(X, VIX))
+	# Phi = solve(crossprod(X, VIX))
 
 	Q=array(NA_real_, dim=c(p,p,r,r))
 		for(i in seq_len(J)){
@@ -45,6 +49,8 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 	Rstar=0
 	Phi_A = Vbet + 2 * LambdaTilde - Rstar
 
+	if(ell==0L) return(structure(NA_real_, names='denominator.df', numerator.df = ell, scale=NA_real_, raw.F=NA_real_, `p.value`=NA_real_, vcov.beta = Phi_A))
+	
 	Lmat=t(Lmat)
 	F=drop( crossprod(bhat, Lmat%*%solve(crossprod(Lmat, Phi_A%*%Lmat))%*%crossprod(Lmat, bhat))) / ell
 	Theta = Lmat%*%solve(crossprod(Lmat, Phi%*%Lmat), t(Lmat))
@@ -54,11 +60,12 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 	A2=0;	for(i in seq_len(r)) for(j in seq_len(r)) A2=A2+w[i,j]*sum(diag(PTP%*%P[,,i]%*%PTP%*%P[,,j]))
 	B=(A1+6*A2)/2/ell
 	
-	g=((ell+1)*A1-(ell+4)*A2/(ell+2))/A2; c=3*ell+2*(1-g); 
+	g=((ell+1)*A1-(ell+4)*A2)/(ell+2)/A2; c=3*ell+2*(1-g); 
 	d1=g/c; d2=(ell-g)/c; d3=(ell-g+2)/c
 	Estar=1/(1-A2/ell); Vstar=2/ell*(1+d1*B)/(1-d2*B)^2/(1-d3*B)
 	rhoTilde=Vstar/2/Estar/Estar
 	m=4+(2+ell)/(ell*rhoTilde-1); lambda=m/Estar/(m-2)
-	pf(lambda*F, ell, m, lower.tail=FALSE)
+	
+	structure(m, names='denominator.df', numerator.df = ell, scale=lambda, raw.F=F, `p.value`=pf(lambda*F, ell, m, lower.tail=FALSE), vcov.beta = Phi_A)
 }
 

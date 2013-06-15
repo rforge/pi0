@@ -1,4 +1,3 @@
-is.formula=function(x)inherits(x, 'formula')
 nlminb.control=function(
 	eval.max=200L, 
 	iter.max=150L,
@@ -45,7 +44,6 @@ information=informationTypes, boundary.eps=5e-4,
 	  , class = 'varComp.control'
 	)
 }
-varCompSpecial=c('ibs','lin0','quad1','intxn2','am')
 
 varComp=function(fixed, data, random, varcov, weights, subset, family = stats::gaussian('identity'), na.action, offset, control = varComp.control(...), 
      doFit = TRUE, normalizeTrace = TRUE, 
@@ -226,16 +224,16 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
  	    names(K)=names(Z)
  	}
 	
+	if(isTRUE(normalizeTrace)) K=lapply(K, normalizeTrace)
 	
 	if(!missing(weights)){
-		keep.weights= which(mfAll$`(weights)`>0)
-		w.5 = 1/sqrt((mfAll$`(weights)`)[keep.weights])
+		keep.weights= which(w>0)
+		w.5 = sqrt(w[keep.weights])
 		rw.5 = w.5[rep(seq_along(keep.weights), each=length(keep.weights))]
 		Y=Y[keep.weights]*w.5
-		X=w.5*X[keep.weights,drop=FALSE]
+		X=w.5*X[keep.weights, , drop=FALSE]
 		for(ik in seq_len(nK)) K[[ik]] = w.5*K[[ik]][keep.weights, keep.weights, drop=FALSE]*rw.5
 	}
-	if(isTRUE(normalizeTrace)) K=lapply(K, normalizeTrace)
 	
 	if(any(ret.x, ret.y, ret.k)) control$keepXYK=TRUE
 	ansCall = call('varComp.fit', Y=Y, X=X, K=K, control=control)
@@ -259,6 +257,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
     if (!ret.y)     ans$Y = NULL else ans$Y = Y
 	if (!ret.k) 	 ans$K = NULL else ans$K = K
 	ans$random.labels = if(is.null(names(K))) paste("varComp", seq_along(K), sep='.') else names(K)
+	if(missing(weights)) ans$weights = NULL else ans$weights = w
 	
 	if(isTRUE(doFit)) doFit.varComp(ans) else ans
 }
@@ -586,6 +585,7 @@ doFit.varComp=function(object)
 	ans$Y = object$Y
 	ans$K = object$K
 	ans$random.labels = object$random.labels
+	ans$weights = object$weights
 	ans	
 }
 

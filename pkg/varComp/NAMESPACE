@@ -1,6 +1,6 @@
 import(stats)
 importFrom(quadprog, solve.QP)
-importFrom(nlme, fixef)
+importFrom(nlme, fixef, fixed.effects)
 importFrom(Matrix, nearPD)
 importFrom(MASS, ginv)
 importFrom(CompQuadForm, davies)
@@ -11,8 +11,8 @@ importFrom(mvtnorm, pmvnorm)
 S3method(coef, varComp)
 S3method(model.matrix, varComp)
 S3method(fixef, varComp)
-S3method(satterth, varComp)
-S3method(KR, varComp)
+#S3method(satterth, varComp)
+#S3method(KR, varComp)
 S3method(logLik, varComp)
 S3method(print, varComp)
 S3method(summary, varComp)
@@ -23,12 +23,14 @@ S3method(p.value, varComp.test)
 S3method(print,  varComp.test)
 S3method(varComp.test, formula)
 S3method(varComp.test, varComp)
+S3method(anova, varComp)
 
 export(
 	fixef,
+	fixed.effects,
 	p.value,
-	satterth,
-	KR,
+#	satterth,
+#	KR,
 	am,
 	AM,
 	char2list,

@@ -1,4 +1,4 @@
-fixef.varComp <-
+anova.varComp <-
 function(object, Lmat, alpha=.05, test='Satterthwaite', ...)
 {######### FIXME: add KR and LRT
 ## S3 method for reporting fixed effect parameters from class varComp. 

@@ -22,10 +22,12 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau'), ..
 	}else stop("response variable is not recored.")
     X=model.matrix(object, what='fixed')
     
-    this.V=vcov(object, what='Y')
-    this.Vbet=ginv(crossprod(X, solve(this.V,X)))
-    this.bet=drop(this.Vbet%*%crossprod(X, solve(this.V, Y)))
-    names(this.bet)=colnames(X)
+	if(ncol(X)>0L){
+		this.V=vcov(object, what='Y')
+		this.Vbet=ginv(crossprod(X, solve(this.V,X)))
+		this.bet=drop(this.Vbet%*%crossprod(X, solve(this.V, Y)))
+		names(this.bet)=colnames(X)
+	}else this.bet=numeric(0L)
     this.bet
   }else if (what=='varComp'){
     c(object$varComps, error=object$sigma2)
@@ -33,3 +35,6 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau'), ..
     object$parms
   }
 }
+
+fixef.varComp <-
+function(object, ...) coef(object, what='fixed', ...)

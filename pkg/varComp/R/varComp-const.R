@@ -8,3 +8,4 @@ varCompTests=c(varCompScoreTests,score='HP01',RLRT='RLRT') #,'Wald', 'RWD88')
 informationTypes=c('AOI', 'WAI', 'AEI', 'OI', 'EI')
 LinScoreWeightingMethods=c('EqWt', 'InvSTD', 'InvSqrtV', 'MinVar')
 
+# varCompSpecial=c('ibs','lin0','quad1','intxn2','am')
