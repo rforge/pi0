@@ -36,5 +36,5 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau'), ..
   }
 }
 
-fixef.varComp <-
-function(object, ...) coef(object, what='fixed', ...)
+# fixef.varComp <-
+# function(object, ...) coef(object, what='fixed', ...)

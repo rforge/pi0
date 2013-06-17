@@ -2,9 +2,13 @@ print.varComp <-
 function(x, ...)
 {
 	cat("Variance component model fit", '\n')
-	cat("\nFixed:", '\n')
-	print(coef(x, 'fixed'))
-	cat("\nVariance components:", '\n')
+	if(inherits(x$fixef, 'varCompFixEf')) {
+		print(x$fixef)
+	}else{
+		cat("\nFixed effect estimates:", '\n')
+		print(coef(x, 'fixed'))
+	}
+	cat("\nVariance component estimates:", '\n')
 	print(coef(x, 'varComp'))
 	cat(sprintf("\nNumber of observations: %d\n", nobs(x)))
 	invisible(x)

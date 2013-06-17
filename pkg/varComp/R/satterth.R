@@ -25,8 +25,22 @@ function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
   if(missing(K)) K=model.matrix(object, what='K')[object$parms>0]
   if(!is.list(K)) K=list(K)
   if(missing(V)) V=vcov(object, what='Y')
-  if(!is.matrix(Lmat)) Lmat=as.matrix(Lmat)
-  if(ncol(Lmat)!=ncol(X) && nrow(Lmat)==ncol(X)) Lmat=t(Lmat)
+  if(missing(Lmat)) {Lmat=diag(1, ncol(X)); rownames(Lmat)=colnames(X)}
+  if(!is.matrix(Lmat))	Lmat = matrix(Lmat, 1L, dimnames = list("", names(Lmat)))
+  
+  if(!is.null(colnames(Lmat)) && !is.null(colnames(X))){
+	if(ncol(Lmat) < ncol(X)){
+		L=matrix(0, nrow(Lmat), ncol(X))
+		colnames(L) = colnames(X)
+		rownames(L) = rownames(Lmat)
+		L[, colnames(Lmat)]=Lmat
+		Lmat=L
+	}else if (ncol(Lmat) == ncol(X)){
+		Lmat = Lmat[, colnames(X), drop=FALSE]
+	}else stop("`Lmat` has more columns than the number of fixed effect parameters.")	
+  }
+  if(ncol(Lmat) != ncol(X)) stop("`Lmat` has incorrect number of columns.")
+  if(is.null(rownames(Lmat))) rownames(Lmat) = rep('', nrow(Lmat))
   
   q=sum(eig$values>=sqrt(.Machine$double.eps))
   l=crossprod(eig$vectors[,seq_len(q)], Lmat)

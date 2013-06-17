@@ -1,23 +1,24 @@
 \name{anova.varComp}
 \alias{anova.varComp}
-\alias{KR.varComp}
-\alias{satterth.varComp}
+\alias{fixef}
+\alias{fixed.effects}
+\alias{fixef.varComp}
+\alias{print.varCompFixEf}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 	ANOVA-type analysis of fixed effect parameters
 }
 \description{
-\code{anova.varComp} tests for fixed effect contrasts, as well as providing standard errors, etc. \code{satterth.varComp} computes the Satterthwaite-type denominaor degrees of freedom. \code{KR.varComp} computes the Kenward-Roger denominaotr degrees of freedom, adjusted stanard errors, and scale factors applied to the F-statistic. 
+\code{fixef.varComp} and \code{anova.varComp} test for fixed effect contrasts, as well as providing standard errors, etc. 
 }
 \usage{
 \method{anova}{varComp}(object, Lmat, alpha = 0.05, test = "KR", ...)
-satterth.varComp(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
-KR.varComp(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
-
-}
+\method{fixef}{varComp}(object, Lmat, alpha=.05, test=c('KR', 'Satterthwaite'), ...)
+\method{print}{varCompFixEf}(x, ...)
 %- maybe also 'usage' for other objects documented here.
+}
 \arguments{
-  \item{object}{
+  \item{object,x}{
 	An object of class \code{varComp}
 }
   \item{Lmat}{
@@ -81,7 +82,7 @@ Long Qu
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{satterth}}
+\code{\link{satterth.varComp}}, \code{\link{KR.varComp}}
 }
 
 \examples{

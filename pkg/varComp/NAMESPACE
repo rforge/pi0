@@ -24,6 +24,7 @@ S3method(print,  varComp.test)
 S3method(varComp.test, formula)
 S3method(varComp.test, varComp)
 S3method(anova, varComp)
+S3method(print, varCompFixEf)
 
 export(
 	fixef,
@@ -68,6 +69,8 @@ export(
 	varCompTest.control,
 	varCompScoreTests,
 	varCompTests,
-	wchibarsq
+	wchibarsq,
+	KR.varComp, 
+	satterth.varComp
 )
 

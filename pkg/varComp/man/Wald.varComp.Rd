@@ -1,7 +1,7 @@
 \name{Wald}
-\alias{KR}
+%\alias{KR}
 \alias{KR.varComp}
-\alias{satterth}
+%\alias{satterth}
 \alias{satterth.varComp}
 %- Also NEED an '\alias' for EACH other topic documented here.
 
@@ -9,14 +9,14 @@
 }
 
 \description{
-\code{satterth} tests fixed-effect parameters under the variance component model using the Satterthwaite-type method. \code{KR.varComp} tests fixed-effect parameters under the variance component model using the Kenward-Roger method
+\code{satterth.varComp} tests fixed-effect parameters under the variance component model using the Satterthwaite-type method. \code{KR.varComp} tests fixed-effect parameters under the variance component model using the Kenward-Roger method. These functions are most conveniently used by \code{\link{fixef.varComp}} and \code{\link{anova.varComp}}. 
 }
 
 \usage{
-satterth(object, ...)
-KR(object, ...)
-\method{satterth}{varComp}(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
-\method{KR}{varComp}(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
+satterth.varComp(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
+KR.varComp(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
+%\method{satterth}{varComp}()
+%\method{KR}{varComp}(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 }
 
 %- maybe also 'usage' for other objects documented here.
@@ -48,7 +48,14 @@ KR(object, ...)
 }
 
 \value{
-A numeric scalar of p-value
+A numeric scalar of denominator degree of freedom. For \code{satterth.varComp}, the \code{'individual.df'} attribute will contain a vector of numerator degrees of freedom for each row of \code{Lmat}. For \code{KR.varComp}, the result will contain the following attributes: 
+\itemize{
+\item \code{numerator.df}:  The numerator degree of freedom, i.e., the rank of \code{Lmat}. 
+\item \code{scale}: A positive numeric scalar, to be multiplied to raw F-statistics before calculating p-values. 
+\item \code{raw.F}: The F-statistic, after adjusting for the variance estimate of fixed effect parameter estimates, but not multiplied by the scaling factor. 
+\item \code{p.value}: A numeric scalar of Kenward-Roger p-value. 
+\item \code{vcov.beta}: The adjusted variance-covariance estimate of fixed effect parameter estimates. 
+}
 }
 \references{
 Michael G. Kenward and James H. Roger (1997) Small sample inference for fixed effects from restricted maximum likelihood. \emph{Biometrics} 53, 983--997
@@ -62,7 +69,7 @@ Fai and Cornelius (1996) Approximate F-tests of multiple degree of freedom hypot
 	Long Qu
 }
 \seealso{
-	\code{\link{satterth}}
+	\code{\link{fixef.varComp}}, \code{\link{anova.varComp}}
 }
 \examples{
 library(nlme)
@@ -70,8 +77,8 @@ data(Oxide)
 lmef = lme(Thickness~Source, Oxide, ~1|Lot/Wafer)
 anova(lmef)
 vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer)
-KR(vcf, matrix(c(0,1), 1))  # test Source effect
-satterth(vcf, matrix(c(0,1), 1))  # test Source effect
+KR.varComp(vcf, matrix(c(0,1), 1))  # test Source effect
+satterth.varComp(vcf, matrix(c(0,1), 1))  # test Source effect
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
