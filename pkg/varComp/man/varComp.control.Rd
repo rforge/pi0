@@ -11,8 +11,13 @@ Functions controling the model fitting of varComp
 \code{varComp.control} provides detailed control of model fitting for \code{\link{varComp}}
 }
 \usage{
-varComp.control(verbose = FALSE, start = NULL, REML = TRUE, information = informationTypes, boundary.eps = 5e-04, nlminb = nlminb.control(iter.max = 200L, eval.max = 500L), plot.it = FALSE, keepXYK = TRUE)
-nlminb.control(eval.max = 200L, iter.max = 150L, trace = 0L, abs.tol = 0, rel.tol = 1e-10, x.tol = 1.5e-08, xf.tol = 2.2e-14, step.min = 1, step.max = 1, sing.tol = rel.tol, ...)
+varComp.control(verbose = FALSE, start = NULL, REML = TRUE, 
+               information = informationTypes, boundary.eps = 5e-04, 
+			   nlminb = nlminb.control(iter.max = 200L, eval.max = 500L), 
+			   plot.it = FALSE, keepXYK = TRUE)
+nlminb.control(eval.max = 200L, iter.max = 150L, trace = 0L, abs.tol = 0, 
+               rel.tol = 1e-10, x.tol = 1.5e-08, xf.tol = 2.2e-14, step.min = 1, 
+			   step.max = 1, sing.tol = rel.tol, ...)
 informationTypes
 }
 %- maybe also 'usage' for other objects documented here.

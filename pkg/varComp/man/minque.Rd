@@ -43,7 +43,8 @@ Long Qu
 \examples{
 library(nlme)
 data(Oxide)
-vcf0 = varComp(Thickness~Source, Oxide, ~Lot/Wafer, control=varComp.control(nlminb=nlminb.control(iter.max=0L)))
+vcf0 = varComp(Thickness~Source, Oxide, ~Lot/Wafer, 
+      control=varComp.control(nlminb=nlminb.control(iter.max=0L)))
 (st=minque(vcf0$residual.contrast, vcf0$working.cor, lower.bound = 0))
 (vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer, control=varComp.control(start=st)))
 

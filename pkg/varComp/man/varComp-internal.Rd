@@ -66,15 +66,19 @@ updateDenom()
 hess(tau)
 gradFunc(tau)
 
-varComp.test.nulDoTest(null.fit, additional.varcov, test = "LinScore", control = varCompTest.control(test), alt.fit = NULL, ...)
-varComp.test.2modelDoTest(null.fit, alt.fit, test = "LinScore", control = varCompTest.control(test), ...)
-varComp.test.altDoTest(alt.fit, null = integer(0L), test = "LinScore", control = varCompTest.control(test), null.fit = NULL, ...)
+varComp.test.nulDoTest(null.fit, additional.varcov, test = "LinScore", 
+                       control = varCompTest.control(test), alt.fit = NULL, ...)
+varComp.test.2modelDoTest(null.fit, alt.fit, test = "LinScore", 
+                          control = varCompTest.control(test), ...)
+varComp.test.altDoTest(alt.fit, null = integer(0L), test = "LinScore", 
+                       control = varCompTest.control(test), null.fit = NULL, ...)
 varComp.test.Common()
 
 
 varComp.LinScore.Normal(all.scores, lin.form, infoMat, null, w, tr1, n, LIkLI, tau.idx, ...)
 varComp.LinScore.Satterthwaite(all.scores, infoMat, null, w, tr1, n, ...)
-varComp.LinScore.SSAS155(all.scores, lin.form, infoMat, null, w, tr1, n, LIkLI, tau.idx, non.pd, control, ...)
+varComp.LinScore.SSAS155(all.scores, lin.form, infoMat, null, w, tr1, n, 
+                           LIkLI, tau.idx, non.pd, control, ...)
 
 varComp.LinScore.test(control, n, tau.idx, LIkLI, tr1, infoMat, all.scores, non.pd)
 varComp.RLRT.test(control, negHess, alt.fit, null.fit, tau.idx)

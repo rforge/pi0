@@ -160,9 +160,13 @@ k0=tcrossprod(model.matrix(~0+Lot,Oxide))
 k1=tcrossprod(Oxide$Source==1)*k0
 k2=tcrossprod(Oxide$Source==2)*k0
 k3=tcrossprod(model.matrix(~0+Lot:Wafer, Oxide))
-(vcf1 = varComp(Thickness~Source, Oxide, varcov=list(S1Lot=k1, S2Lot=k2, `Lot:Wafer`=k3))) ## unequal variance across Source for Lot effects, in a preferred parameterization
-(vcf2 = varComp(Thickness~Source, Oxide, varcov=list(Lot=k0, S2Lot=k2, `Lot:Wafer`=k3))) ## unequal variance across Source for Lot effects, in a different parameterization
-(vcf3 = varComp(Thickness~Source, Oxide, varcov=list(Lot=k0, S1Lot=k1, `Lot:Wafer`=k3))) ## unequal variance across Source for Lot effects, but in a poor parameterization that turns out to be the same as vcf after fitting. 
+## unequal variance across Source for Lot effects, in a preferred parameterization:
+(vcf1 = varComp(Thickness~Source, Oxide, varcov=list(S1Lot=k1, S2Lot=k2, `Lot:Wafer`=k3))) 
+## unequal variance across Source for Lot effects, in a different parameterization:
+(vcf2 = varComp(Thickness~Source, Oxide, varcov=list(Lot=k0, S2Lot=k2, `Lot:Wafer`=k3)))
+## unequal variance across Source for Lot effects, but in a poor parameterization that 
+##   turns out to be the same as vcf after fitting.
+(vcf3 = varComp(Thickness~Source, Oxide, varcov=list(Lot=k0, S1Lot=k1, `Lot:Wafer`=k3)))  
 logLik(vcf)
 logLik(vcf1)
 logLik(vcf2)  ## the same as vcf1
