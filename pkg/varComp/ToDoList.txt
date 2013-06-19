@@ -1,0 +1,9 @@
+anova interface; 
+logLik;
+update/add1/drop1;
+fitted;
+residual;
+BLUP;
+kernel prediction;
+lme conversion;
+bartlett

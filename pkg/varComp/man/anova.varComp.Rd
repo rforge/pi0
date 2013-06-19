@@ -12,7 +12,7 @@
 \code{fixef.varComp} and \code{anova.varComp} test for fixed effect contrasts, as well as providing standard errors, etc. 
 }
 \usage{
-\method{anova}{varComp}(object, Lmat, alpha = 0.05, test = "KR", ...)
+\method{anova}{varComp}(object, ..., test = c("KR", 'Satterthwaite'), L)
 \method{fixef}{varComp}(object, Lmat, alpha=.05, test=c('KR', 'Satterthwaite'), ...)
 \method{print}{varCompFixEf}(x, ...)
 %- maybe also 'usage' for other objects documented here.
@@ -21,7 +21,7 @@
   \item{object,x}{
 	An object of class \code{varComp}
 }
-  \item{Lmat}{
+  \item{Lmat,L}{
 	A matrix specifying the linear combinations of fixed effect parameters to be tested for nullity. Each row is a linear combination. 
 }
   \item{alpha}{
@@ -30,39 +30,39 @@
   \item{test}{
 	A character scalar requesting the type of the tests to be performed. Currently, only \code{"Satterthwaite"} is supported. 
 }
-  \item{Vbet}{
-	An optional matrix of variance-covariance matrix of fixed-effect parameter estimates \code{without} any correction. 
-}
-  \item{svd.VLbet}{
-	An optional singular value decomposition of \code{Lmat} times \code{Vbet}.
-}
-  \item{X}{
-	Optional fixed-effect design matrix
-}
-  \item{K}{
-	Optional list of K matrices (the same as in \code{\link{varComp.test}}.
-}
-  \item{V}{
-	Optional covariance matrix of the response variable.
-}
   \item{\dots}{
-	Not used.
+	For \code{anova.varComp}, this may be optional additional \code{varComp} objects. For \code{fixef.varComp} and \code{print.varCompFixEf}, this is not used.
 }
 }
 
 \value{
-A numeric matrix with linear combination of fixed effect parameters, standard errors, degrees of freedom, test statistics, the p-values. Also, the \code{attr( , 'Overall')} attribute is set to the overall test of all requested linear combination of parameters. 
-
-\code{satterth.varComp} returns a named numeric scalar, which is the denominaor degrees of freedom. It also has the \code{individual.df} attribute, which is a vector of denominator degrees of freedom for each row of \code{Lmat}. 
-
-\code{KR.varComp} returns a named numeric scalar, which is the denominaor degrees of freedom. It also has the following attributes: 
+For \code{anova.varComp}, this is a data frame with the following columns: 
 \itemize{
-	\item \code{numerator.df}: A numeric scalar of the row rank of \code{Lmat}, i.e., the numerator degrees of freedom. 
-	\item \code{scale}: A numeric scalar of the scale factor to be multiplied to the raw F-statistic. 
-	\item \code{raw.F}; A numeric scalar of the raw F-statistic. 
-	\item \code{p.value}: A numeric scalar of the p-value. 
-	\item \code{vcov.beta}: A numeric matrix of the corrected variance-covariance matrix of fixed effect estimates. 
+	\item \code{raw.F}: The usual F-statistic; 
+	\item \code{scale.F}: The multiplicative factor for F-statistic;
+	\item \code{df1}: The numerator degrees of freedeom;
+	\item \code{df2}: The denominator degrees of freedom;
+	\item \code{Pr(>F)}: The p-value.
 }
+When \code{\dots} is missing but \code{L} is given, each row of \code{L} matrix will have a corresponding row in the result, testing the nullity of linear contrasts specified by that row of \code{L}. Additionally, an "Overall" row will be the last row, testing the nullity of linear contrasts of all rows of \code{L}. 
+
+When \code{\dots} is not missing, \code{L} will be ignored and the result will have the same number of rows as the number of \code{varComp} objects given (including the first \code{object} argument). The order of rows is such that the rank of the fixed effect design matrix is non-decreasing, i.e., smaller models first. The results will be the comparison between the current model vs. the model in the preceding row, except for the first row. For the first row, the model being compared is the null model. If the fixed effect design matrix for the model in first row includes intercept in its column space, the null model includes only an intercept. If the intercept is not in the column space of the first model, the null model will contain no fixed effects. 
+
+When both \code{\dots} and \code{L} are missing, \code{anova.varComp} will test each fixed effect paramters together with a last "Overall" row. However, this last row will remove the intercept from the model, if there is one. See example below. 
+
+For \code{fixef.varComp}, the result is an object with class \code{varCompFixEf}. This is named numeric vector, providing estimates of  fixed effect contrasts specified by \code{Lmat}. The name will be the row name of \code{Lmat}. The \code{anova} attribute is a numeric matrix with the following columns: 
+\itemize{
+\item \code{se}: the standard error of estimate. If \code{test='KR'}, this is the adjusted standard error. If \code{test='Satterthwaite'}, this is the plug-in estimate. 
+\item \code{lower}: the lower limit of the \code{1-alpha} confidence interval. 
+\item \code{upper}: the upper limit of the \code{1-alpha} confidence interval. 
+\item \code{raw.t}: the raw t-statistic testing nullity of this contrast. 
+\item \code{scale.t}: a multiplicative scaling factor for t-statistic. 
+\item \code{df}: the degrees of freedom for the t-statistic. 
+\item \code{Pr(>|t|)}: the p-value.
+}
+Additionally, the \code{anova} attribute also has the \code{Overall} attribute, which is a single-row matrix with the same columns as the results of \code{anova.varComp}, testing for the overall nullity of linear contrasts specified by \code{Lmat}.
+
+\code{print.varCompFixEf} prints the result from \code{fixef.varComp} and return the argument invisibly.
 }
 
 \references{
@@ -78,8 +78,13 @@ Fai and Cornelius (1996) Approximate F-tests of multiple degree of freedom hypot
 \author{
 Long Qu
 }
-
+\section{Warning }{
 %% ~Make other sections like Warning with \section{Warning }{....} ~
+\enumerate{
+\item When neither \code{\dots} nor \code{L} is given for \code{anova.varComp}, the current implementation will test each fixed effect parameter separately. This behavior might be changed in futrure releases. 
+\item When \code{L} is not explictely given, the current implementation will rely on \code{getOption("digits")} when trying to find the \code{L} matrix that test the difference between adjacent models.  
+}
+}
 
 \seealso{
 \code{\link{satterth.varComp}}, \code{\link{KR.varComp}}
@@ -89,7 +94,11 @@ Long Qu
 library(nlme)
 data(Oxide)
 vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer)
+vcf0 = varComp(Thickness~1, Oxide, ~Lot/Wafer)
 fixef(vcf)
+anova(vcf, vcf0)
+anova(vcf)
+anova(vcf, L=diag(1,2)) ## notice the difference in the last row
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

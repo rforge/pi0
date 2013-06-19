@@ -2,7 +2,16 @@ anova.varComp <-
 function (object, ..., test = c("KR", 'Satterthwaite'), L)
 {
 	cl=match.call(expand.dots=FALSE)
+		diffLmat=function(qr0, X1)
+		{
+			z=(diag(1, nrow(X1))- tcrossprod(qr.Q(qr0)))%*%X1
+			qrz=qr(zapsmall(z))    ### WARNING: this will depends on getOption("digits")
+			 pivot <- qrz$pivot
+			 oo <- order(pivot)
+			 qr.R(qrz)[seq_len(qrz$rank), oo, drop=FALSE]
+		}
 	if('...'%in%names(cl)){
+		if(!missing(L)) warning("'L' will be ignored when '...' is given.")
 		ddd.names=sapply(cl[['...']], deparse)
 		ddd = list(...)
 		nObj=length(ddd)
@@ -20,27 +29,21 @@ function (object, ..., test = c("KR", 'Satterthwaite'), L)
 		rks=rks[ork]
 		
 		ddd=ddd[ork]
-		Xmats=Xmas[ork]
+		Xmats=Xmats[ork]
 		qrs=qrs[ork]
 		# (`raw.F`=drop(Fstat), `scale.F` = scale.overall, df1=rk, df2=F.ddf, `Pr(>F)`=drop(F.p))
 		
-		nas=rep(NA_real_, nObjs)
+		nas=rep(NA_real_, nObj)
 		ans = data.frame(`raw.F`=nas, `scale.F` = nas, df1=nas, df2=nas, `Pr(>F)` = nas, check.names=FALSE)
+		rownames(ans) = names(ddd)
 		
 		if('model'%in%names(ddd[[1L]])){
-			hasInt = (attr(ddd[[1L]]$model, 'intercept') == 1)
+			hasInt = attr(attr(ddd[[1L]]$model, 'terms'), 'intercept') == 1
 		}else{
 			ones = rep(1, n)
 			hasInt = ( mean((tcrossprod(qr.Q(qrs[[1]]))%*%ones - ones)^2) < sqrt(.Machine$double.eps) )
 		}
-		diffLmat=function(qr0, X1)
-		{
-			z=(diag(1, nrow(X1))- tcrossprod(qr.Q(qr0)))%*%X1
-			qrz=qr(z)
-			 pivot <- attr(qrz, "pivot") and oo <- order(pivot)
-			 qr.R(qrz)[seq_len(qrz$rank), oo, drop=FALSE]
-		}
-		if(hasInt){
+		if(hasInt && rks[1L] > 1L){
 			Lmat = diffLmat(qr(rep(1,n)), Xmats[[1L]])
 		}else{
 			Lmat = diag(1, ncol(Xmats[[1L]]))
@@ -48,28 +51,29 @@ function (object, ..., test = c("KR", 'Satterthwaite'), L)
 		for(m in seq_len(nObj)){
 			tmp = fixef(ddd[[m]], Lmat = Lmat, test=test)
 			ans[m, ] = attr(attr(tmp, 'anova'), 'Overall')
-			if(m<=nObj)	Lmat = diffLmat(qrs[[m]], Xmats[[m+1L]])
+			if(m < nObj)	Lmat = diffLmat(qrs[[m]], Xmats[[m+1L]])
 		}
 		return(ans)
 	}
 	
-	### one ojbect is given
+	### one object is given
 	if(!missing(L)){
 		tmp = fixef(object, Lmat=L, test=test)
 	}else tmp = fixef(object, test=test)
-	tmp.aov=attr(tmp, 'anova'
-	ans = data.frame(`raw.F` = tmp.aova[,'raw.t']^2,
-					 `scale.F` = tmp.anova[,'scale.t']^2, 
+	tmp.aov=attr(tmp, 'anova')
+	ans = data.frame(`raw.F` = tmp.aov[,'raw.t']^2,
+					 `scale.F` = tmp.aov[,'scale.t']^2, 
 					 `df1` = 1, 
-					 `df2` = tmp.anova[,'df'], 
-					 `Pr(>F)` = tmp.anova[, 'Pr(>|t|)']
+					 `df2` = tmp.aov[,'df'], 
+					 `Pr(>F)` = tmp.aov[, 'Pr(>|t|)'],
+					 check.names=FALSE
 					)
 	if(missing(L)){
 		warning("Current implementation will test each fixed effect parameter separately when only one `varComp` object is provided.")
 		X=model.matrix(object)
-		n = nobs(X)
+		n = nobs(object)
 		if('model'%in%names(object)){
-			hasInt = (attr(object$model, 'intercept') == 1)
+			hasInt = attr(attr(object$model, 'terms'), 'intercept') == 1
 		}else{
 			ones = rep(1, n)		
 			hasInt = ( mean((tcrossprod(qr.Q(qr(X)))%*%ones - ones)^2) < sqrt(.Machine$double.eps) )
@@ -80,7 +84,7 @@ function (object, ..., test = c("KR", 'Satterthwaite'), L)
 		}
 	}
 	ans = rbind(ans, attr(tmp.aov, 'Overall'))
-	rownames(ans) = c(rownames(L), 'Overall')
+	if(!missing(L) && !is.null(rownames(L))) rownames(ans) = c(rownames(L), 'Overall')
 	return(ans)
 
 }

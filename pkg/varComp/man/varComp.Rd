@@ -126,9 +126,8 @@ For the \code{varComp} interface, if any of \code{model}, \code{X}, \code{Y} or 
 	\item {coef}: retrieving fixed-effect estimates, variance component estimates, or estimates of the ratios of variance components to the error variance. 
 	\item {model.matrix}: retriveing the fixed-effect design matrix, equivalent random-effect design matrix, or the list of individual variance-covariance matrices. 
 	\item {vcov}: computing variance-covariance matrix of fixed-effect parameters, variance parameters, or the response variable. 
-	\item {fixef}: retrieving fixed-effect parameter estimates with standard errors and default hypothesis tests against zero. 
-	\item {satterth}: the Satterthwaite test of linear functions of fixed effect parameters. 
-	\item {KR}: the Kenward-Roger test of linear functions of fixed effect parameters. 
+	\item {fixef}: retrieving fixed-effect parameter estimates with standard errors and default hypothesis tests against zero. See also \code{\link{satterth.varComp}} and \code{\link{KR.varComp}} for computing approximate denominator of degrees of freedom for the F-staistics.
+	\item {anova}: similar to \code{fixef}, but returning a data frame. 
 	\item {varComp.test}: testing for nullity of random components (other than the error variance). 
 	\item {logLik}: retriveing the maximized PREML value with degrees of freedom. 
 	\item {print}: showing the object. 
@@ -147,7 +146,7 @@ Long Qu
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-	\code{\link{varComp.test}}, \code{\link{coef.varComp}}, \code{\link{model.matrix.varComp}}, \code{\link{vcov.varComp}}, \code{\link{fixef.varComp}}, \code{\link{satterth}}, \code{\link{KR}}, \code{\link{logLik.varComp}}, \code{\link{print.varComp}}, \code{\link{summary.varComp}}, \code{\link[nlme]{lme}}, \code{\link[stats]{lm}}
+	\code{\link{varComp.test}}, \code{\link{coef.varComp}}, \code{\link{model.matrix.varComp}}, \code{\link{vcov.varComp}}, \code{\link{fixef.varComp}}, \code{\link{satterth.varComp}}, \code{\link{KR.varComp}}, \code{\link{logLik.varComp}}, \code{\link{print.varComp}}, \code{\link{summary.varComp}}, \code{\link[nlme]{lme}}, \code{\link[stats]{lm}}
 }
 \examples{
 ### Oxide/Semiconductor data example
