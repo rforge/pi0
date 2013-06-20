@@ -11,8 +11,8 @@ This package includes functions for fitting and testing variance component model
 \tabular{ll}{
 Package: \tab varComp\cr
 Type: \tab Package\cr
-Version: \tab 0.1-307\cr
-Date: \tab 2013-06-19\cr
+Version: \tab 0.1-308\cr
+Date: \tab 2013-06-20\cr
 License: \tab GPL3\cr
 }
 

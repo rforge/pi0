@@ -75,7 +75,8 @@ varComp.test.altDoTest(alt.fit, null = integer(0L), test = "LinScore",
 varComp.test.Common()
 
 
-varComp.LinScore.Normal(all.scores, lin.form, infoMat, null, w, tr1, n, LIkLI, tau.idx, ...)
+varComp.LinScore.Normal(all.scores, lin.form, infoMat, null, w, tr1, n, LIkLI, 
+                        tau.idx, ...)
 varComp.LinScore.Satterthwaite(all.scores, infoMat, null, w, tr1, n, ...)
 varComp.LinScore.SSAS155(all.scores, lin.form, infoMat, null, w, tr1, n, 
                            LIkLI, tau.idx, non.pd, control, ...)

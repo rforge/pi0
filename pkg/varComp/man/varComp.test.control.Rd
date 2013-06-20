@@ -12,9 +12,10 @@
 \usage{
 varCompTest.control(test = "LinScore", LinScore.wt = "MinVar", LinScore.acc = 1e-05, 
                     LinScore.lim = 1e+05, LinScore.method = c("AS155", "SSAS155"), 
-					VM03.method = c("SSChiBarSq", "pboot"), VM03.nsim = 10000L, 
-					SS95.method = c("pboot", "pboot"), SS95.nsim = 10000L, 
-					RLRT.method = c("exact", "pboot"), RLRT.nsim = 10000L, information = 'EI'
+		    VM03.method = c("SSChiBarSq", "pboot"), VM03.nsim = 10000L, 
+		    SS95.method = c("pboot", "pboot"), SS95.nsim = 10000L, 
+		    RLRT.method = c("exact", "pboot"), RLRT.nsim = 10000L, 
+		    information = 'EI'
 )
 varCompTests
 varCompScoreTests
