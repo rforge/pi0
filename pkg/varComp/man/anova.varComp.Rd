@@ -38,8 +38,8 @@
 \value{
 For \code{anova.varComp}, this is a data frame with the following columns: 
 \itemize{
-	\item \code{raw.F}: The usual F-statistic; 
-	\item \code{scale.F}: The multiplicative factor for F-statistic;
+	\item \code{F value}: The scaled F-statistic; 
+	\item \code{Scale}: The multiplicative factor for in the scaled F-statistic;
 	\item \code{numDF}: The numerator degrees of freedeom;
 	\item \code{denDF}: The denominator degrees of freedom;
 	\item \code{Pr(>F)}: The p-value.
@@ -52,12 +52,12 @@ When both \code{\dots} and \code{L} are missing, \code{anova.varComp} will test 
 
 For \code{fixef.varComp}, the result is an object with class \code{varCompFixEf}. This is named numeric vector, providing estimates of  fixed effect contrasts specified by \code{Lmat}. The name will be the row name of \code{Lmat}. The \code{anova} attribute is a numeric matrix with the following columns: 
 \itemize{
-\item \code{se}: the standard error of estimate. If \code{test='KR'}, this is the adjusted standard error. If \code{test='Satterthwaite'}, this is the plug-in estimate. 
-\item \code{lower}: the lower limit of the \code{1-alpha} confidence interval. 
-\item \code{upper}: the upper limit of the \code{1-alpha} confidence interval. 
-\item \code{raw.t}: the raw t-statistic testing nullity of this contrast. 
-\item \code{scale.t}: a multiplicative scaling factor for t-statistic. 
-\item \code{df}: the degrees of freedom for the t-statistic. 
+\item \code{Std. Error}: the standard error of estimate. If \code{test='KR'}, this is the adjusted standard error. If \code{test='Satterthwaite'}, this is the plug-in estimate. 
+\item \code{Lower}: the lower limit of the \code{1-alpha} confidence interval. 
+\item \code{Upper}: the upper limit of the \code{1-alpha} confidence interval. 
+\item \code{t value}: the scaled t-statistic testing nullity of this contrast. 
+\item \code{Scale}: a multiplicative factor in the scaled t-statistic. 
+\item \code{Df}: the degrees of freedom for the t-statistic. 
 \item \code{Pr(>|t|)}: the p-value.
 }
 Additionally, the \code{anova} attribute also has the \code{Overall} attribute, which is a single-row matrix with the same columns as the results of \code{anova.varComp}, testing for the overall nullity of linear contrasts specified by \code{Lmat}.

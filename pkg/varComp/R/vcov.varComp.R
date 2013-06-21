@@ -12,7 +12,11 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau','res
   if(what=='Y'){
     K=model.matrix(object, what='K')
     V=Reduce('+', mapply('*', object$varComps, K, SIMPLIFY=FALSE))
-	if('weights'%in%names(object)) V = V + diag(object$sigma2 / object$weights, nrow(K[[1L]])) else V = V + diag(object$sigma2, nrow(K[[1L]]))
+	if(is.null(V)){  ## fixed effect only model
+		if('weights'%in%names(object)) V = diag(object$sigma2 / object$weights, nobs(object)) else V=diag(object$sigma2, nobs(object))
+	}else{
+		if('weights'%in%names(object)) V = V + diag(object$sigma2 / object$weights, nobs(object)) else V = V + diag(object$sigma2, nobs(object))
+	}
     return(V)    
   }else if(what=='varComp'){  
     if(isTRUE(drop)) idx=which(object$parms>0) else idx=seq_along(object$parms)
@@ -40,7 +44,8 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau','res
     ans
   }else if(what=='tau'){
     if(isTRUE(drop)) idx=which(object$parms>0) else idx=seq_along(object$parms)
-    ans=-solve(object$hessian[idx,idx, drop=FALSE])
+    if(length(idx)>0L) ans=-solve(object$hessian[idx,idx, drop=FALSE]) else ans = matrix(NA_real_, 0L, 0L)
+	rownames(ans)=colnames(ans)=object$random.labels[idx]
     ans 
   }else if(what=='beta'){
     X=model.matrix(object, what='X')
@@ -49,6 +54,7 @@ function(object, what=c('fixed','beta','random','varComp','var.ratio','tau','res
 	if(isTRUE(beta.correction)){
 		ans = attr( KR.varComp(object, Lmat=matrix(0,0L,ncol(X)), Vbet=ans), 'vcov.beta' )
 	}
+	if(!is.null(colnames(X))) rownames(ans) = colnames(ans) = colnames(X)
 	ans
   }
 }

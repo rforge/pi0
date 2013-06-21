@@ -5,7 +5,7 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 {
 	bhat=coef(object, 'fixed'); 
 	if(length(bhat)== 0L){
-		return(stop('FIXME'))
+		return(structure(numeric(0L), names=character(0L), numDF = numeric(0L), Scale=numeric(0L), `F value`=numeric(0L), `Pr(>F)`=numeric(0L), vcov.beta = matrix(NA_real_, 0L, 0L)))
 	}
 	if(missing(K)) K= model.matrix(object, what='K')
 	if(missing(X)) X= model.matrix(object, what='X')
@@ -64,7 +64,7 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 	Rstar=0
 	Phi_A = Vbet + 2 * LambdaTilde - Rstar
 
-	if(ell==0L) return(structure(NA_real_, names='denDF', numDF = ell, scale=NA_real_, raw.F=NA_real_, `p.value`=NA_real_, vcov.beta = Phi_A))
+	if(ell==0L) return(structure(NA_real_, names='denDF', numDF = ell, Scale=NA_real_, `F value`=NA_real_, `Pr(>F)`=NA_real_, vcov.beta = Phi_A))
 	
 	Lmat=t(Lmat)
 	F=drop( crossprod(bhat, Lmat%*%solve(crossprod(Lmat, Phi_A%*%Lmat))%*%crossprod(Lmat, bhat))) / ell
@@ -81,6 +81,6 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 	rhoTilde=Vstar/2/Estar/Estar
 	m=4+(2+ell)/(ell*rhoTilde-1); lambda=m/Estar/(m-2)
 	
-	structure(m, names='denDF', numDF = ell, scale=lambda, raw.F=F, `p.value`=pf(lambda*F, ell, m, lower.tail=FALSE), vcov.beta = Phi_A)
+	structure(m, names='denDF', numDF = ell, Scale=lambda, `F value`=F*lambda, `Pr(>F)`=pf(lambda*F, ell, m, lower.tail=FALSE), vcov.beta = Phi_A)
 }
 

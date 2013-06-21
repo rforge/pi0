@@ -34,7 +34,7 @@ function (object, ..., test = c("KR", 'Satterthwaite'), L)
 		# (`raw.F`=drop(Fstat), `scale.F` = scale.overall, df1=rk, df2=F.ddf, `Pr(>F)`=drop(F.p))
 		
 		nas=rep(NA_real_, nObj)
-		ans = data.frame(`raw.F`=nas, `scale.F` = nas, numDF=nas, denDF=nas, `Pr(>F)` = nas, check.names=FALSE)
+		ans = data.frame(`F value`=nas, `Scale` = nas, numDF=nas, denDF=nas, `Pr(>F)` = nas, check.names=FALSE)
 		rownames(ans) = names(ddd)
 		
 		if('model'%in%names(ddd[[1L]])){
@@ -61,10 +61,10 @@ function (object, ..., test = c("KR", 'Satterthwaite'), L)
 		tmp = fixef(object, Lmat=L, test=test)
 	}else tmp = fixef(object, test=test)
 	tmp.aov=attr(tmp, 'anova')
-	ans = data.frame(`raw.F` = tmp.aov[,'raw.t']^2,
-					 `scale.F` = tmp.aov[,'scale.t']^2, 
+	ans = data.frame(`F value` = (tmp.aov[,'t value']*tmp.aov[,'Scale'])^2,
+					 `Scale` = tmp.aov[,'Scale']^2, 
 					 `numDF` = 1, 
-					 `denDF` = tmp.aov[,'df'], 
+					 `denDF` = tmp.aov[,'Df'], 
 					 `Pr(>F)` = tmp.aov[, 'Pr(>|t|)'],
 					 check.names=FALSE
 					)

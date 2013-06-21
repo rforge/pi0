@@ -120,7 +120,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
                 length(offset), NROW(Y)), domain = NA)
 		Y = Y - offset  ## CHECKME when family()$link is not identity
     }
-    if (is.empty.model(mt.fixed)) {  ## CHECK ME
+    if (is.empty.model(mt.fixed)) {
         X <- matrix(0, length(Y), 0L)
     } else {
         X <- model.matrix(mt.fixed, mf.fixed, contrasts)
@@ -240,12 +240,12 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 	
 	
 	ans = list(doFit = ansCall)
-	ans$fixef = numeric(0L)
+	ans$fixef = matrix(NA_real_, ncol(X), 0L, dimnames=list(colnames(X),NULL))
 	
     class(ans) <- "varComp"
-    ans$na.action <- attr(mfAll, "na.action")
-    ans$offset <- offset
-    ans$contrasts <- attr(X, "contrasts")
+    ans['na.action'] <- list(attr(mfAll, "na.action"))  ## could be null
+    ans['offset'] <- list(offset) ## could be null
+    ans['contrasts'] <- list(attr(X, "contrasts"))  ## if X is empty, this could be null
     ans$xzlevels <- .getXlevels(mtAll, mfAll)
     ans$call <- cl
     ans$terms <- mtAll
@@ -256,7 +256,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
     if (!ret.x)     ans$X <- NULL else ans$X=X
     if (!ret.y)     ans$Y = NULL else ans$Y = Y
 	if (!ret.k) 	 ans$K = NULL else ans$K = K
-	ans$random.labels = if(is.null(names(K))) paste("varComp", seq_along(K), sep='.') else names(K)
+	ans$random.labels = if(is.null(names(K))) {if(nK>0L) paste("varComp", seq_along(K), sep='.') else character(0L)} else names(K)
 	if(missing(weights)) ans$weights = NULL else ans$weights = w
 	
 	if(isTRUE(doFit)) doFit.varComp(ans) else ans
@@ -343,25 +343,34 @@ varComp.fit = function(Y, X=matrix(0,length(Y),0L), K, control=varComp.control()
 		)
 
 	  ans=list(
+	    ## varComp.fit specific block
 		parms=numeric(0L),
 		gradients=numeric(0L), 
 		hessian=matrix(numeric(0L), 0L, 0L),
 		sigma2=drop(null.sig2), 
 		varComps=numeric(0),
 		n.iter=0L, PREML=drop(null.preml),
-		call=match.call(), 
-		# frame=if(isTRUE(keepXYK)) NULL else parent.frame(), 
 		X.Q2=Q2, 
 		residual.contrast=y, 
 		working.cor=vector('list', 0L),
+		
+		## varComp common block
+		# na.action=NULL,
+		# offset = NULL,
+		# contrasts=NULL,
+		# xzlevels = NULL,
+		# terms = NULL, 
+		call=match.call(), 
+		nobs = length(Y), 
+		control=control, 
+		random.labels = character(0L), 
+		doFit= TRUE,
+		
+		# frame=if(isTRUE(keepXYK)) NULL else parent.frame(), 
 		X=if(isTRUE(keepXYK)) X else NULL,
 		# qrx = if(isTRUE(keepXYK)) qrx else NULL, 
 		Y=if(isTRUE(keepXYK)) Y else NULL, 
-		K=if(isTRUE(keepXYK)) vector('list', 0L) else NULL, 
-		control=control, 
-		nobs = length(Y), 
-		random.labels = character(0L), 
-		doFit= TRUE
+		K=if(isTRUE(keepXYK)) vector('list', 0L) else NULL
 	  )
 	  class(ans)='varComp'	
 	  return(ans)
@@ -535,27 +544,36 @@ varComp.fit = function(Y, X=matrix(0,length(Y),0L), K, control=varComp.control()
   }
   
   nm=names(K)
-  if(is.null(nm)) nm = paste('varComp', seq_along(K), sep='.')
+  if(is.null(nm)) nm = if(nK>0L) paste('varComp', seq_along(K), sep='.') else character(0L)
   ans=list(
+	## varComp.fit specific block
 	parms=structure(tau, names=nm),
 	gradients=structure(-negGrad, names=nm), 
 	hessian=structure(hess(tau), dimnames=list(nm,nm)),
 	sigma2=drop(sigma2), 
 	varComps=structure(drop(tau*sigma2), names=nm),
 	n.iter=n.nr, PREML=PREML(),
-	call=match.call(), 
-	# frame=if(isTRUE(keepXYK)) NULL else parent.frame(), 
 	X.Q2=Q2, 
 	residual.contrast=y, 
 	working.cor=structure(k, names=nm),
+	
+	## varComp common block
+	# na.action=NULL,
+	# offset = NULL,
+	# contrasts=NULL,
+	# xzlevels = NULL,
+	# terms = NULL, 
+	call=match.call(), 
+	nobs = length(Y), 
+	control=control, 
+	random.labels = nm, 
+	doFit= TRUE,
+	# frame=if(isTRUE(keepXYK)) NULL else parent.frame(), 
+	
 	X=if(isTRUE(keepXYK)) X else NULL,
 	# qrx = if(isTRUE(keepXYK)) qrx else NULL, 
 	Y=if(isTRUE(keepXYK)) Y else NULL, 
-	K=if(isTRUE(keepXYK)) K else NULL, 
-	control=control, 
-	nobs = length(Y), 
-	random.labels = nm, 
-	doFit= TRUE
+	K=if(isTRUE(keepXYK)) K else NULL
   )
   class(ans)='varComp'
   ans
@@ -578,7 +596,7 @@ doFit.varComp=function(object)
 	ans$offset = ans$offset
 	ans$contrasts = object$contrasts
 	ans$xzlevels = object$xzlevels
-	ans$call = object$ccall
+	ans$call = object$call
 	ans$terms = object$terms
 	ans$model = object$model
 	ans$X = object$X

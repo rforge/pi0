@@ -2,6 +2,8 @@ print.varComp <-
 function(x, ...)
 {
 	cat("Variance component model fit", '\n')
+	cat("\nCall:\n", paste(deparse(x$call), sep = "\n", collapse = "\n"), 
+        "\n\n", sep = "")
 	if(inherits(x$fixef, 'varCompFixEf')) {
 		print(x$fixef)
 	}else{

@@ -171,7 +171,13 @@ logLik(vcf)
 logLik(vcf1)
 logLik(vcf2)  ## the same as vcf1
 logLik(vcf3)  ## the same as vcf
-
+## fixef-effect only
+vcf0 = varComp(Thickness~Source, Oxide)
+summary(vcf0)
+summary(lmf<-lm(Thickness~Source, Oxide))
+vcf00 = varComp(Thickness~0, Oxide)
+summary(vcf00)
+summary(lmf0<-lm(Thickness~0, Oxide))
 
 
 
