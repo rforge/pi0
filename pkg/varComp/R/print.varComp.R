@@ -18,7 +18,7 @@ function(x, ...)
 
 summary.varComp = function(object, ...)
 {## FIXME: add more summary information
-	object$fixef = fixef(object)
+	object$fixef = fixef(object,...)
 	class(object) = c('summary.varComp', class(object))
 	object
 }

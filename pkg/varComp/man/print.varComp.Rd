@@ -18,7 +18,7 @@ Summary and printing functions of \code{varComp} objects.
 	A \code{varComp} object
 }
   \item{\dots}{
-	Not used. 
+	Not used in \code{print.varComp}. For \code{summary.varComp}, the \code{\dots} are passed to \code{fixef.varComp}. 
 }
 }
 \details{

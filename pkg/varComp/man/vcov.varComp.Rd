@@ -7,7 +7,7 @@ Extracting (approximate) variance-covariance matrices for fixed-effect parameter
 }
 \usage{
 \method{vcov}{varComp}(object, what = c("fixed", "beta", "random", "varComp", 
-	"var.ratio", "tau", "response", "Y"), drop = TRUE, beta.correction, ...)
+	"var.ratio", "tau", "response", "Y"), drop = TRUE, beta.correction=TRUE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -37,7 +37,7 @@ A numeric matrix of the requested variance-covariances.
 Raghu N. Kackar and David A. Harville (1984) Approximations for standard errors of estimators of fixed and random effect in mixed linear models. \emph{Journal of the American Statistical Association}  79, 853--862
 }
 \author{
- Long QU
+ Long Qu
 }
 \seealso{
 \code{\link{varComp}} for the varComp object; 

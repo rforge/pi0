@@ -25,7 +25,7 @@ cholRoot(x)
 	Long Qu
 }
 \seealso{
-	\code{\link[Matrix]{chol}}, \code{\link[base]{chol}}. 
+	\code{\link[Matrix:chol]{Matrix::chol}}, \code{\link[base:chol]{base::chol}}. 
 }
 \examples{
 

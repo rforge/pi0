@@ -71,7 +71,7 @@ where \eqn{\boldmath{e}}{e} is multivariate normally distributed with mean zero 
 \deqn{\boldmath{V} = \sum_{j=1}^R \sigma_j^2 \boldmath{K}_j + \sigma_e^2 \boldmath{W}}{V= \sigma{j=1}^R \sigma_j^2 K_j + \sigma_e^2 W}
 in which \eqn{\boldmath{K}_j}{K_j} are known positive semidefinite matrices and \eqn{\boldmath{W}}{W} is a known diagonal positive definite matrix. In the case of random-effect modeling, the \eqn{\boldmath{K}}{K} matrices are fruther given by 
 \deqn{\boldmath{K}_j = \boldmath{Z}_j \boldmath{G}_j \boldmath{Z}_j^\top}{K_j = Z_j G_j Z_j^T}
-where \eqn{\boldmath{Z}_j}{Z_j} is the design matrix for the jth random-effect factor and \eqn{\boldmath{G}_j}{G_j} the known variance-covariance matrix for the jth random-effect vector. 
+where \eqn{\boldmath{Z}_j}{Z_j} is the design matrix for the \eqn{j}th random-effect factor and \eqn{\boldmath{G}_j}{G_j} the known variance-covariance matrix for the jth random-effect vector. 
 
 In the \code{varComp} formula interface, the \eqn{\boldmath{X}}{X} matrix and response variable are specified by the \code{fixed} argument. The optional \code{random} argument specifies the \eqn{\boldmath{Z}}{Z} matrices. When \code{random} is missing, they are assumed to be identity matrices. The \code{varcov} argument specifies the \eqn{\boldmath{G}}{G} matrices. The \code{weights} argument specifies the \eqn{\boldmath{W}}{W} matrix. 
 

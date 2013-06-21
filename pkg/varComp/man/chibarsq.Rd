@@ -41,7 +41,7 @@ wchibarsq(V)
 \references{
 A. Shapiro (1988) Towards a Unified Theory of Inequality Constrained Testing in Multivariate Analysis. \emph{Int. Stat. Rev.} 56, 49--62. 
 
-Akio Kud\^{o} (1963) A multivariate analogue of the one-sided test.
+Akio Kudo (1963) A multivariate analogue of the one-sided test.
  \emph{Biometrika} 50, 403--418.
 }
 \author{
@@ -57,7 +57,8 @@ set.seed(203490L)
   V=crossprod(matrix(rnorm(25),5))
   VI=solve(V)
   L=t(chol(V))
-  chibarsq=replicate(1e3L, -2*quadprog::solve.QP(VI, VI\%*\%(L\%*\%rnorm(5)), diag(1,5), rep(0,5))[['value']] )
+  chibarsq=replicate(1e3L, -2*quadprog::solve.QP(VI, VI\%*\%(L\%*\%rnorm(5)),
+     diag(1,5), rep(0,5))[['value']] )
   chibarsq=sort(chibarsq)
   p=pchibarsq(chibarsq, V)
   
