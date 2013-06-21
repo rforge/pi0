@@ -68,7 +68,7 @@ Arthur R. Gilmour, Robin Thompson, Brian R. Cullis (1995) Average Information RE
 Long Qu
 }
 \note{
-Setting \code{iter.max=0L} is trick to get residual contrast and working correlation matrices computed, but not fitting the models completely. 
+Setting \code{iter.max=0L} is a trick to get residual contrast and working correlation matrices computed, but not fitting the models completely. 
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

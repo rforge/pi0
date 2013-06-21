@@ -21,7 +21,7 @@ function(control, n, tau.idx, LIkLI, tr1, infoMat, all.scores, non.pd)  #, ...)
   if(length(null)==0L) {
     methods=control$method[[1]] 
     if(!any(methods%in%c('AS155', 'exact', 'Davies', 'SSAS155')))
-      warning('LinScore test method was changed to the exact method "AS155" when null=integer(0L). ')
+      message('LinScore test method was changed to the exact method "AS155" when null=integer(0L). ')
     methods='AS155'
   }else{
     methods=control$method[[2]]

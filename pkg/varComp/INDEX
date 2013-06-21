@@ -1,2 +1,3 @@
-varComp                      Fitting variance component models
+varComp                      Fitting Variance Component Models
 varComp.test                 Tests for Nullity of Variance Components
+fixef.varComp                Tests for Nullity of Fixed Effect Contrasts

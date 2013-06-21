@@ -30,4 +30,3 @@ sortTerm=function(term, priority)
 	}
 	paste0(singleTerms, collapse=':')
 }
-

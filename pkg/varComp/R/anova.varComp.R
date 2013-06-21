@@ -11,7 +11,7 @@ function (object, ..., test = c("KR", 'Satterthwaite'), L)
 			 qr.R(qrz)[seq_len(qrz$rank), oo, drop=FALSE]
 		}
 	if('...'%in%names(cl)){
-		if(!missing(L)) warning("'L' will be ignored when '...' is given.")
+		if(!missing(L)) message("'L' will be ignored when '...' is given.")
 		ddd.names=sapply(cl[['...']], deparse)
 		ddd = list(...)
 		nObj=length(ddd)
@@ -69,7 +69,7 @@ function (object, ..., test = c("KR", 'Satterthwaite'), L)
 					 check.names=FALSE
 					)
 	if(missing(L)){
-		warning("Current implementation will test each fixed effect parameter separately when only one `varComp` object is provided.")
+		message("Current implementation will test each fixed effect parameter separately when only one `varComp` object is provided.")
 		X=model.matrix(object)
 		n = nobs(object)
 		if('model'%in%names(object)){

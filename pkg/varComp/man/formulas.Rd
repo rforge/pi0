@@ -27,7 +27,7 @@ sortTerm(term, priority)
 }
 }
 \details{
-	The main use of \code{sortTerm} is to transform an interaction term like "B:A" into ordered form "A:B" such that redundent terms are easier to be identified. 
+	The main use of \code{sortTerm} is to transform an interaction term like "B:A" into ordered form "A:B" such that redundent terms are easier to be identified. The results will depend on the locale.
 }
 \value{
 	\code{callList2terms} returns a character vector of individual terms (possibly with duplicates). \code{splitTerm} returns a character vector of unique individual components in the \code{term}. \code{sortTerm} returns a character scalar with individual components sorted. 
