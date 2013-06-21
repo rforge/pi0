@@ -12,10 +12,10 @@ get.seed()
 }
 %- maybe also 'usage' for other objects documented here.
 \details{
-This function obtain the '.Random.seed' object in the global environment. If it is absent, \code{runif(1L)} is called and then the seed is obtained. 
+This function obtain the \code{.Random.seed} object in the global environment. If it is absent, \code{runif(1L)} is called and then the seed is obtained. 
 }
 \value{
-	A numeric vector of '.Random.seed'. 
+	A numeric vector of \code{.Random.seed}, with \code{RNGkind} attribute being the result from calling \code{RNGkind()}.
 }
 \author{
 	Long Qu
@@ -25,6 +25,6 @@ This function obtain the '.Random.seed' object in the global environment. If it 
 }
 \examples{
 	set.seed(2034L)
-	identical(get.seed(), .Random.seed)
+	all.equal(get.seed(), .Random.seed, check.attributes = FALSE)
 }
 \keyword{ sysdata }

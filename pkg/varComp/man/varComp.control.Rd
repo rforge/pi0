@@ -86,7 +86,7 @@ varComp(Thickness~Source, Oxide, ~Lot/Wafer,
 ## Using Newton-Raphson algorithm: 
 varComp(Thickness~Source, Oxide, ~Lot/Wafer, 
   control=varComp.control(information='OI')) 
-## Computing MINQUE, residual contrasts, and marginal correlations of residual contrasts
+## Computing MINQUE0, residual contrasts, and marginal correlations of residual contrasts
 varComp(Thickness~Source, Oxide, ~Lot/Wafer, 
   control=varComp.control(nlminb=nlminb.control(iter.max=0L)))
  

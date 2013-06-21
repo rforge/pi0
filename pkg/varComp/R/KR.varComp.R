@@ -64,7 +64,7 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 	Rstar=0
 	Phi_A = Vbet + 2 * LambdaTilde - Rstar
 
-	if(ell==0L) return(structure(NA_real_, names='denominator.df', numerator.df = ell, scale=NA_real_, raw.F=NA_real_, `p.value`=NA_real_, vcov.beta = Phi_A))
+	if(ell==0L) return(structure(NA_real_, names='denDF', numDF = ell, scale=NA_real_, raw.F=NA_real_, `p.value`=NA_real_, vcov.beta = Phi_A))
 	
 	Lmat=t(Lmat)
 	F=drop( crossprod(bhat, Lmat%*%solve(crossprod(Lmat, Phi_A%*%Lmat))%*%crossprod(Lmat, bhat))) / ell
@@ -81,6 +81,6 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 	rhoTilde=Vstar/2/Estar/Estar
 	m=4+(2+ell)/(ell*rhoTilde-1); lambda=m/Estar/(m-2)
 	
-	structure(m, names='denominator.df', numerator.df = ell, scale=lambda, raw.F=F, `p.value`=pf(lambda*F, ell, m, lower.tail=FALSE), vcov.beta = Phi_A)
+	structure(m, names='denDF', numDF = ell, scale=lambda, raw.F=F, `p.value`=pf(lambda*F, ell, m, lower.tail=FALSE), vcov.beta = Phi_A)
 }
 

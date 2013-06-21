@@ -61,6 +61,6 @@ function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
   E=sum(vs/(vs-2)*(vs>2))
   ans=if(E>q) 2*E/(E-q) else 0
   attr(ans, 'individual.df')=vs  
-  names(ans)='denominator.df'
+  names(ans)='denDF'
   ans
 }

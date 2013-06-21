@@ -12,7 +12,6 @@ function(object, what=c('fixed','random', 'varcov', 'X', 'K', 'Z'), ...)
 	if('X'%in%names(object)) object$X else stop("X matrix is not recored")
   }else if (what=='K' || what=='Z'){
 	if(!('K'%in%names(object))) stop("K matrices are not recored")
-	if(what=='Z') lapply(object$K, cholRoot)
-	object$K
+	if(what=='Z') lapply(object$K, cholRoot) else object$K
   } 
 }

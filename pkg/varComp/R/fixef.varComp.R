@@ -69,7 +69,7 @@ function(object, Lmat, alpha=.05, test=c('KR', 'Satterthwaite'), ...)
 		scale.overall = attr(tmp, 'scale')
 		Fstat = attr(tmp, 'raw.F')
 		F.ddf = tmp[[1L]]
-		F.ndf = attr(tmp, 'numerator.df') 
+		F.ndf = attr(tmp, 'numDF') 
 		if(F.ndf != rk) warning("numerical instability detected on the rank of `Lmat`")
 		F.p = attr(tmp, 'p.value')
 	}
@@ -81,7 +81,7 @@ function(object, Lmat, alpha=.05, test=c('KR', 'Satterthwaite'), ...)
 
   ans = est
   attrs = cbind(se=ses, lower=ll, upper=ul, `raw.t`=tstats, `scale.t` = sqrt(scaleF), df=t.dfs, `Pr(>|t|)`=t.pval)
-  attr(attrs, 'Overall')=cbind(`raw.F`=drop(Fstat), `scale.F` = scale.overall, df1=rk, df2=F.ddf, `Pr(>F)`=drop(F.p))
+  attr(attrs, 'Overall')=cbind(`raw.F`=drop(Fstat), `scale.F` = scale.overall, numDF=rk, denDF=F.ddf, `Pr(>F)`=drop(F.p))
   names(est) = rownames(attrs)=rownames(Lmat)
   rownames(attr(attrs, 'Overall')) = 'Overall'
   attr(ans, 'anova') = attrs

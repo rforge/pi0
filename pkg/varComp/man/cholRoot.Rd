@@ -2,7 +2,7 @@
 \alias{cholRoot}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-	Lower Choleski Root
+	Lower Cholesky Root
 }
 \description{
 	This function is similar to \code{\link[base]{chol}}, but it returns the lower root and possibly remove unnecessary columns. 
@@ -12,7 +12,7 @@ cholRoot(x)
 }
 \arguments{
   \item{x}{
-	A positive semidifinet matrix. 
+	A positive semidefinite matrix. 
 }
 }
 \details{

@@ -1,11 +1,11 @@
 Package: varComp
 Type: Package
 Title: Variance component models
-Version: 0.1-308
-Date: 2013-06-20
+Version: 0.1-309
+Date: 2013-06-21
 Author: Long Qu (longor@iastate.edu)
 Maintainer: Long Qu <longor@iastate.edu>
-Description: Variance component models (fitting and testing functions)
+Description: Variance component models: REML estimation, testing fixed effect contrasts through Satterthwaite or Kenward-Roger methods, testing the nullity of variance components through score (linear or quadratic) or likeliohod ratio tests.
 Imports: quadprog, Matrix, MASS, CompQuadForm, RLRsim, SPA3G, mvtnorm, nlme, stats
 Enhances: nlme, stats
 LazyData: no

@@ -40,8 +40,8 @@ For \code{anova.varComp}, this is a data frame with the following columns:
 \itemize{
 	\item \code{raw.F}: The usual F-statistic; 
 	\item \code{scale.F}: The multiplicative factor for F-statistic;
-	\item \code{df1}: The numerator degrees of freedeom;
-	\item \code{df2}: The denominator degrees of freedom;
+	\item \code{numDF}: The numerator degrees of freedeom;
+	\item \code{denDF}: The denominator degrees of freedom;
 	\item \code{Pr(>F)}: The p-value.
 }
 When \code{\dots} is missing but \code{L} is given, each row of \code{L} matrix will have a corresponding row in the result, testing the nullity of linear contrasts specified by that row of \code{L}. Additionally, an "Overall" row will be the last row, testing the nullity of linear contrasts of all rows of \code{L}. 

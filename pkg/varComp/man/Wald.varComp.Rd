@@ -50,7 +50,7 @@ KR.varComp(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 \value{
 A numeric scalar of denominator degree of freedom. For \code{satterth.varComp}, the \code{'individual.df'} attribute will contain a vector of numerator degrees of freedom for each row of \code{Lmat}. For \code{KR.varComp}, the result will contain the following attributes: 
 \itemize{
-\item \code{numerator.df}:  The numerator degree of freedom, i.e., the rank of \code{Lmat}. 
+\item \code{numDF}:  The numerator degree of freedom, i.e., the rank of \code{Lmat}. 
 \item \code{scale}: A positive numeric scalar, to be multiplied to raw F-statistics before calculating p-values. 
 \item \code{raw.F}: The F-statistic, after adjusting for the variance estimate of fixed effect parameter estimates, but not multiplied by the scaling factor. 
 \item \code{p.value}: A numeric scalar of Kenward-Roger p-value. 

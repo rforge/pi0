@@ -11,15 +11,15 @@ This package includes functions for fitting and testing variance component model
 \tabular{ll}{
 Package: \tab varComp\cr
 Type: \tab Package\cr
-Version: \tab 0.1-308\cr
-Date: \tab 2013-06-20\cr
+Version: \tab 0.1-309\cr
+Date: \tab 2013-06-21\cr
 License: \tab GPL3\cr
 }
 
 \itemize{
 	\item \code{\link{varComp}}: fitting variance component models.
 	\item \code{\link{varComp.test}}: testing variance components. 
-%	\item \code{\link{satterth}}: testing fixed-effect parameters by the Satterthwaite type method. 
+	\item \code{\link{fixef.varComp}}: testing fixed-effect parameters by the Satterthwaite or Kenward-Roger method. 
 %	\item \code{\link{KR}}: testing fixed-effect parameters by the Kenward-Roger method. 
 }
 }
@@ -44,6 +44,12 @@ lmef = lme(Thickness~Source, Oxide, ~1|Lot/Wafer)
 vcf = varComp(Thickness~Source, Oxide, ~Lot/Wafer)
 VarCorr(lmef)
 coef(vcf, 'varComp') ## same values as above
+
+vcf0 = varComp(Thickness~1, Oxide, ~Lot/Wafer)
+fixef(vcf)
+anova(vcf, vcf0)
+anova(vcf)
+anova(vcf, L=diag(1,2)) ## notice the difference in the last row
 
 ### Genetics example	
 trt=gl(2, 15)
