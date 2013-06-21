@@ -1,4 +1,3 @@
-fix syslocale problem in sortTerm;
 Fixed effect model: double check;
 update/add1/drop1;
 anova interface with add1/drop1; 

@@ -39,9 +39,9 @@ sortTerm(term, priority)
 	\code{formula}
 }
 \examples{
-sortTerm("Sex:ibs(SNP)")  ## ibs(SNP) is moved to the front
-sortTerm("Sex:ibs(SNP)", "Sex")  ## the same as input
-splitTerm("Sex:ibs(SNP)")	## two components
+sortTerm("sex:ibs(SNP)")  ## ibs(SNP) is moved to the front in most locales
+sortTerm("sex:ibs(SNP)", "sex")  ## the same as input
+splitTerm("sex:ibs(SNP)")	## two components
 sortTerm("ns(x, df=3):a:b:ibs(SNP)", "b")  
 
 }

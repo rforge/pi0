@@ -1,7 +1,7 @@
 Package: varComp
 Type: Package
 Title: Variance component models
-Version: 0.1-310
+Version: 0.1-311
 Date: 2013-06-21
 Author: Long Qu (longor@iastate.edu)
 Maintainer: Long Qu <longor@iastate.edu>
