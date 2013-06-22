@@ -9,7 +9,7 @@
 }
 
 \description{
-\code{satterth.varComp} computes the denominator degrees of freedom for testing fixed-effect parameters under the variance component model using the Satterthwaite-type method. \code{KR.varComp} computes the denominator degrees offreedom and tests fixed-effect parameters under the variance component model using the Kenward-Roger method. These functions are most conveniently used by \code{\link{fixef.varComp}} and \code{\link{anova.varComp}}. 
+\code{satterth.varComp} computes the denominator degrees of freedom for testing fixed-effect parameters under the variance component model using the Satterthwaite-type method. \code{KR.varComp} computes the denominator degrees of freedom and tests fixed-effect parameters under the variance component model using the Kenward-Roger method. These functions are most conveniently used by \code{\link{fixef.varComp}} and \code{\link{anova.varComp}}. 
 }
 
 \usage{

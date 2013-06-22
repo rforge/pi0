@@ -5,7 +5,7 @@
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Functions controling the model fitting of varComp
+Functions controlling the model fitting of varComp
 }
 \description{
 \code{varComp.control} provides detailed control of model fitting for \code{\link{varComp}}. \code{nlminb.control} provides detailed control of the optimization procedure. \code{informationTypes} is a character vector containing the types of information matrices.
@@ -52,7 +52,7 @@ informationTypes
 \details{
 The objective function is always the profiled restricted log likelihood function, where the error variance is profiled out from the REML function. The parameterization being used is the ratio of each variance component to the error variance. Non-negativity constraints are imposed on such ratios. 
 
-The \code{information} argument specifies the (approximate) Hessian matrix to be used during optimization. Available choices are \code{"EI"} (expected information), \code{"OI"} (observed information), \code{"AEI"} (approximate expected information), \code{"AOI"} (approximate observed information), and \code{"WAI"} (weighted avearge information). The approximate versions of \code{"EI"} and \code{"OI"} replace the more computationally demanding trace terms by their realized counter-parts that are unbiased for the trace, and the \code{"WAI"} is similar to the average-information of Gilmour (1995) that cancels such terms, except that the latter reference is based on unprofiled REML function rather than profiled REML. The choice of information only affects the speed and the stability of fitting. As long as the objective function is well behaved, the parameter estimates should not be affected by which information matrix is used during fitting. 
+The \code{information} argument specifies the (approximate) Hessian matrix to be used during optimization. Available choices are \code{"EI"} (expected information), \code{"OI"} (observed information), \code{"AEI"} (approximate expected information), \code{"AOI"} (approximate observed information), and \code{"WAI"} (weighted average information). The approximate versions of \code{"EI"} and \code{"OI"} replace the more computationally demanding trace terms by their realized counter-parts that are unbiased for the trace, and the \code{"WAI"} is similar to the average-information of Gilmour (1995) that cancels such terms, except that the latter reference is based on unprofiled REML function rather than profiled REML. The choice of information only affects the speed and the stability of fitting. As long as the objective function is well behaved, the parameter estimates should not be affected by which information matrix is used during fitting. 
 
 Both \code{varComp.control} and \code{nlminb.control} are simply a wrapper of the input arguments. 
 }

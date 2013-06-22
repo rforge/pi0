@@ -24,7 +24,7 @@ Summary and printing functions of \code{varComp} objects.
 \details{
 \code{print.varComp} will print the fixed effect estimates, variance parameter estimates, and the number of observations. 
 
-\code{summary.varComp} will expand the \code{fixef} compnent by calling \code{\link{fixef.varComp}}. 
+\code{summary.varComp} will expand the \code{fixef} component by calling \code{\link{fixef.varComp}}. 
 }
 \value{
 \code{invisible(x)} for \code{print.varComp}. 

@@ -1,10 +1,10 @@
 \name{model.matrix.varComp}
 \alias{model.matrix.varComp}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Extrating model matrices
+\title{Extracting model matrices
 }
 \description{
-This function extracts the fixed-effect design matrix, random-effect design matrix, or the list of variance-covairance matrices whose weighted sum being the variance-covariance matrix of the response variable. 
+This function extracts the fixed-effect design matrix, random-effect design matrix, or the list of variance-covariance matrices whose weighted sum being the variance-covariance matrix of the response variable. 
 }
 \usage{
 \method{model.matrix}{varComp}(object, what = c("fixed", "random", "varcov", "X", "K", "Z"), ...)

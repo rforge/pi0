@@ -45,7 +45,7 @@ LinScoreWeightingMethods
 	A large positive integer, specifying the number of simulations used to approximate the null, when \code{VM03.method[1]} is set to \code{'pboot'}).
 }
   \item{SS95.method}{
-  A vector of two components for the SS95 test, each component being a character string. The first component specifies the method for obtaining null distributions when the null hypothesis contains no variance components other than the error variance; the second component specifies the method for obtaining null distributions when the null hypothesis contains additional variance parameters other than the error variance. Currently available chioces are \code{"ChiBarSq"} (Chi-bar-square asymptotic null; c.f., \code{\link{pchibarsq}}) and \code{"pboot"} (parametric bootstrap, i.e., the Monte Carlo approximation to the finite-samle null distribution; c.f., Qu et al [2013+])
+  A vector of two components for the SS95 test, each component being a character string. The first component specifies the method for obtaining null distributions when the null hypothesis contains no variance components other than the error variance; the second component specifies the method for obtaining null distributions when the null hypothesis contains additional variance parameters other than the error variance. Currently available chioces are \code{"ChiBarSq"} (Chi-bar-square asymptotic null; c.f., \code{\link{pchibarsq}}) and \code{"pboot"} (parametric bootstrap, i.e., the Monte Carlo approximation to the finite-sample null distribution; c.f., Qu et al [2013+])
 }
   \item{SS95.nsim}{
 	A large positive integer, specifying the number of simulations used to approximate the null, when \code{SS95.method[1]} is set to \code{'pboot'}).
@@ -75,7 +75,7 @@ A list of class \code{varCompTest.control} with length equal to the length \code
 	
 	Daniel B. Hall and Jens T. Praestgaard (2001) Order-restricted tests for homogeneity in generalised linear and nonlinear mixed models. \emph{Biometrika} 88, 739--751. 
 	
-	Mervyn J. Silvapulle and Paramsothy Silvapulle (1995) A score test against one-sided alternatives. \emph{Journal of the Americal Statistical Association} 90, 342--349.
+	Mervyn J. Silvapulle and Paramsothy Silvapulle (1995) A score test against one-sided alternatives. \emph{Journal of the American Statistical Association} 90, 342--349.
 	
 	Geert Verbeke and Geert Molenberghs (2003) The use of score tests for inference on variance components. \emph{Biometrics} 59, 254--262. 
 	

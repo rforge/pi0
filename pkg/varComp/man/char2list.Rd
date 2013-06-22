@@ -2,10 +2,10 @@
 \alias{char2list}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-	Create a list with componenets given by their names
+	Create a list with components given by their names
 }
 \description{
-	For a given vector of object names, \code{char2list} creates a named list with all these objects as componenets. 
+	For a given vector of object names, \code{char2list} creates a named list with all these objects as components. 
 }
 \usage{
 char2list(Names)

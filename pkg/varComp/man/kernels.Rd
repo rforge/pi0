@@ -45,7 +45,7 @@ Polyk(x,c=0,d=1)
 }
 }
 \details{
-These functions compute the pairwise similarities among rows of \code{x}. Lower-case versions are more useful in the formula interface to specify random genetic effects. Uppser-case versions can be used to directly compute the genetic similarity matrix. 
+These functions compute the pairwise similarities among rows of \code{x}. Lower-case versions are more useful in the formula interface to specify random genetic effects. Upper-case versions can be used to directly compute the genetic similarity matrix. 
 
 \code{am} and \code{AM} calculate the allele-matching kernel, and \code{AM} is based on \code{\link[SPA3G:KERNEL]{SPA3G:::KERNEL}}. 
 
@@ -56,7 +56,7 @@ These functions compute the pairwise similarities among rows of \code{x}. Lower-
 
 \code{quad1} and \code{Quad1} compute the quadratic kernel with offset 1. \code{Qaud1} is computed as \cr  \code{normalizeTrace((base::tcrossprod(x)+1)^2)}. 
 
-\code{minkowski} and \code{Minkowski} compute the similarity based on the Minskowski distance. \code{Minkowski} is computed as \code{1-as.matrix(dist(x, method='minkowski', p=p)) * .5 / max(1, ncol(x))^(1/p) }. 
+\code{minkowski} and \code{Minkowski} compute the similarity based on the Minkowski distance. \code{Minkowski} is computed as \code{1-as.matrix(dist(x, method='minkowski', p=p)) * .5 / max(1, ncol(x))^(1/p) }. 
 
 }
 \value{

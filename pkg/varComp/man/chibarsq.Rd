@@ -52,7 +52,6 @@ Akio Kudo (1963) A multivariate analogue of the one-sided test.
 	\code{\link[stats:pchisq]{stats::pchisq}}
 }
 \examples{
-\dontshow{library(quadprog)}
 set.seed(203490L)
   V=crossprod(matrix(rnorm(25),5))
   VI=solve(V)

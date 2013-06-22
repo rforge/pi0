@@ -20,7 +20,7 @@ Extracting maximized profiled restricted log likelihood (PREML) from a \code{var
 }
 }
 \details{
-	The likelihood value is the profiled restricted log likelihood. The acutal value depends on the residual contrast being chosen, but the \emph{location} of maximum does not. Thus it is only comparable when the same residual constrast is used. This value is not to be compared to results reported using functions in other packages, e.g., \code{\link[nlme:lme]{nlme::lme}} or \code{SAS}. The degree of freedom reported is the number of variance components not on the boundary of parameter space, whereas the desicion is based on \code{object$control$boundary.eps}. 
+	The likelihood value is the profiled restricted log likelihood. The actual value depends on the residual contrast being chosen, but the \emph{location} of maximum does not. Thus it is only comparable when the same residual contrast is used. This value is not to be compared to results reported using functions in other packages, e.g., \code{\link[nlme:lme]{nlme::lme}} or \code{SAS}. The degree of freedom reported is the number of variance components not on the boundary of parameter space, whereas the decision is based on \code{object$control$boundary.eps}. 
 }
 \value{
 	A numeric value of class \code{logLik}.

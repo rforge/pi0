@@ -36,7 +36,7 @@ doFit.varComp(object)
 }
   \item{subset}{An optional vector specifying a subset of observations to be used in the fitting process.
 }
-  \item{family}{The same as the \code{family} argument of \code{\link[stats:glm]{stats::glm}}. However, only \code{gaussian('identity')} is suppported currently. 
+  \item{family}{The same as the \code{family} argument of \code{\link[stats:glm]{stats::glm}}. However, only \code{gaussian('identity')} is supported currently. 
 }
   \item{na.action}{The same as in \code{\link[stats:lm]{stats::lm}}.
 }
@@ -77,13 +77,13 @@ In the \code{varComp} formula interface, the \eqn{\mathbf{X}}{X} matrix and resp
 
 Note that in \code{random}, kernel functions are allowed. For example, \code{random = ~ ibs(SNP)} is allowed to specify the similarities contributed by a matrix \code{SNP} through the identity-by-descent (\code{\link{IBS}}) kernel. 
 
-Fixed-by-random interactions are allowed in \code{random}. If \code{F} is a fixed factor with 2 levels, and \code{F} has already appeared in the \code{fixed} argument, then \code{random = ~ ibs(SNP) + F:ibs(SNP)} will specify two random effects. The first contributes to the marginal variance-covariance matrix through \code{IBS(SNP)}; the other contributes to the marginal variance-covariance matrix through \code{tcrossprod(X_F2) * IBS(SNP)},  where \code{X_F2} is the 2nd column of the fixed-effect design matrix of factor \code{F} under the sum-to-zero contrast. Note that sum-to-zero constrast will be used even if another contrast is used for \code{F} in the \code{fixed} arugmement. This behavior corresponds to what we usually mean by fixed-by-random interaction. If one indeeds needs to avoid sum-to-zero contrast in this case, it is only possible to do so by providing \code{varcov} directly without specifying \code{random}.  
+Fixed-by-random interactions are allowed in \code{random}. If \code{F} is a fixed factor with 2 levels, and \code{F} has already appeared in the \code{fixed} argument, then \code{random = ~ ibs(SNP) + F:ibs(SNP)} will specify two random effects. The first contributes to the marginal variance-covariance matrix through \code{IBS(SNP)}; the other contributes to the marginal variance-covariance matrix through \code{tcrossprod(X_F2) * IBS(SNP)},  where \code{X_F2} is the 2nd column of the fixed-effect design matrix of factor \code{F} under the sum-to-zero contrast. Note that sum-to-zero contrast will be used even if another contrast is used for \code{F} in the \code{fixed} argument. This behavior corresponds to what we usually mean by fixed-by-random interaction. If one indeed needs to avoid sum-to-zero contrast in this case, it is only possible to do so by providing \code{varcov} directly without specifying \code{random}.  
 
 Additionally, the fixed-by-random interactions in \code{random} specified by the ``\code{:}'' symbol are actually treated as if they are specified by ``\code{*}''. In other words, \code{random = ~ ibs(SNP) + F:ibs(SNP)}, \code{random = ~ F:ibs(SNP)}, and \code{random = ~ F*ibs(SNP)} are actually treated as equivalent when \code{F} has already appeared on the right-side of \code{fixed}. Again this corresponds to the usual notion of fixed-by-random interaction. If such behavior is not wanted, one can directly give the intended \code{varcov} and leave \code{random} as missing. 
 
 Finally, intercept is not included in the \code{random} interface.
 
-The model fitting process uses profiled restricted maximum likelihood (PREML), where the error variance is always profiled out of the REML likelihood. The non-negativity constraints of variance components are always imposed. See \code{\link{varComp.control}} for arguments controling the modeling fitting. 
+The model fitting process uses profiled restricted maximum likelihood (PREML), where the error variance is always profiled out of the REML likelihood. The non-negativity constraints of variance components are always imposed. See \code{\link{varComp.control}} for arguments controlling the modeling fitting. 
 }
 \value{The value of any of the three functions is a list with class \code{varComp}. Depending on whether \code{doFit} is \code{TRUE} or \code{FALSE}, the components in the list might differ. 
 In either case, the result from \code{varComp} always contains the following elements: 
@@ -104,7 +104,7 @@ In either case, the result from \code{varComp} always contains the following ele
 In the case where \code{doFit} is \code{TRUE}, the following components will also be present in the result of \code{varComp} and \code{doFit}: 
 \itemize{
 	\item {\code{parms}}: a named numeric vector of parameter estimates. These are the estimated ratio of each variance component relative to the error variance. 
-	\item {\code{gradients}}: a named numeric vector of gradient of the PREML function at the final parameter estimate. Because of non-negativity contraints, the gradients are not necessarily all zero at convergence. 
+	\item {\code{gradients}}: a named numeric vector of gradient of the PREML function at the final parameter estimate. Because of non-negativity constraints, the gradients are not necessarily all zero at convergence. 
 	\item {\code{hessian}}: a numeric matrix of Hessian matrix at parameter estimate. This is always computed through the observed information, no matter how the \code{information} argument of \code{\link{varComp.control}} is set. 
 	\item {\code{sigma2}}: the estimated error variance. 
 	\item {\code{varComps}}: a named numeric vector of variance components. These are the same as \code{parms} times \code{sigma2}. 
@@ -124,12 +124,12 @@ For the \code{varComp} interface, if any of \code{model}, \code{X}, \code{Y} or 
 	Currently, available S3 methods for the \code{varComp} class are: 
 \itemize{
 	\item {\code{coef}}: retrieving fixed-effect estimates, variance component estimates, or estimates of the ratios of variance components to the error variance. 
-	\item {\code{model.matrix}}: retriveing the fixed-effect design matrix, equivalent random-effect design matrix, or the list of individual variance-covariance matrices. 
+	\item {\code{model.matrix}}: retrieving the fixed-effect design matrix, equivalent random-effect design matrix, or the list of individual variance-covariance matrices. 
 	\item {\code{vcov}}: computing variance-covariance matrix of fixed-effect parameters, variance parameters, or the response variable. 
-	\item {\code{fixef}}: retrieving fixed-effect parameter estimates with standard errors and default hypothesis tests against zero. See also \code{\link{satterth.varComp}} and \code{\link{KR.varComp}} for computing approximate denominator of degrees of freedom for the F-staistics.
+	\item {\code{fixef}}: retrieving fixed-effect parameter estimates with standard errors and default hypothesis tests against zero. See also \code{\link{satterth.varComp}} and \code{\link{KR.varComp}} for computing approximate denominator of degrees of freedom for the \eqn{F}-statistics.
 	\item {\code{anova}}: similar to \code{fixef}, but returning a data frame. 
 	\item {\code{varComp.test}}: testing for nullity of random components (other than the error variance). 
-	\item {\code{logLik}}: retriveing the maximized PREML value with degrees of freedom. 
+	\item {\code{logLik}}: retrieving the maximized PREML value with degrees of freedom. 
 	\item {\code{print}}: showing the object. 
 	\item {\code{summary}}: summarize the object by providing standard errors and default tests against zero. 
 }

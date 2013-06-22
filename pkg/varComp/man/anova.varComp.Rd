@@ -40,7 +40,7 @@ For \code{anova.varComp}, this is a data frame with the following columns:
 \itemize{
 	\item \code{F value}: The scaled \eqn{F}-statistic; 
 	\item \code{Scale}: The multiplicative factor in the scaled \eqn{F}-statistic;
-	\item \code{numDF}: The numerator degrees of freedeom;
+	\item \code{numDF}: The numerator degrees of freedom;
 	\item \code{denDF}: The denominator degrees of freedom;
 	\item \code{Pr(>F)}: The \eqn{p}-value.
 }
@@ -48,7 +48,7 @@ When \code{\dots} is missing but \code{L} is given, each row of \code{L} matrix 
 
 When \code{\dots} is not missing, \code{L} will be ignored and the result will have the same number of rows as the number of \code{varComp} objects given (including the first \code{object} argument). The order of rows is such that the rank of the fixed effect design matrix is non-decreasing, i.e., smaller models first. The results will be the comparison between the current model vs. the model in the preceding row, except for the first row. For the first row, the model being compared is a null model. If the fixed effect design matrix for the model in first row includes the intercept in its column space, the null model includes only an intercept. If the intercept is not in the column space of the first model, the null model will contain no fixed effects. 
 
-When both \code{\dots} and \code{L} are missing, \code{anova.varComp} will test each fixed effect paramters together with a last "Overall" row. However, this last row will remove the intercept from the model, if there is one. See example below. 
+When both \code{\dots} and \code{L} are missing, \code{anova.varComp} will test each fixed effect parameters together with a last "Overall" row. However, this last row will remove the intercept from the model, if there is one. See example below. 
 
 For \code{fixef.varComp}, the result is an object with class \code{varCompFixEf}. This is a named numeric vector, providing estimates of  fixed effect contrasts specified by \code{Lmat}. The name will be the row names of \code{Lmat}. It has the \code{anova} attribute, a numeric matrix with the following columns: 
 \itemize{
@@ -81,8 +81,8 @@ Long Qu
 \section{Warning }{
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 \enumerate{
-\item When neither \code{\dots} nor \code{L} is given for \code{anova.varComp}, the current implementation will test each fixed effect parameter separately. This behavior might be changed in futrure releases. 
-\item When \code{L} is not explictely given, the current implementation will rely on \code{getOption("digits")} when trying to find the \code{L} matrix that test the difference between adjacent models.  
+\item When neither \code{\dots} nor \code{L} is given for \code{anova.varComp}, the current implementation will test each fixed effect parameter separately. This behavior might be changed in future releases. 
+\item When \code{L} is not explicitly given, the current implementation will rely on \code{getOption("digits")} when trying to find the \code{L} matrix that test the difference between adjacent models.  
 }
 }
 

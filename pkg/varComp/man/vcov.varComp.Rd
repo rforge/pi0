@@ -31,7 +31,7 @@ Extracting (approximate) variance-covariance matrices for fixed-effect parameter
 For fixed-effect parameters, the results is the plug-in estimate variance of generalized least squares estimates when \code{beta.correction=FALSE}; Otherwise, the Kackar and Harville (1984) correction will be used (default).  For ratios of variance components to error variance, the result is the Hessian matrix. For response variable, the result is the plug-in estimate of the marginal variance. For variance components, the result is the plug-in estimate of inverse expected information matrix from the restricted likelihood.
 }
 \value{
-A numeric matrix of the requested variance-covariances.
+A numeric matrix of the requested variance-covariance.
 }
 \references{
 Raghu N. Kackar and David A. Harville (1984) Approximations for standard errors of estimators of fixed and random effect in mixed linear models. \emph{Journal of the American Statistical Association}  79, 853--862
