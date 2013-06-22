@@ -30,3 +30,11 @@ function(x)
   names(p)=cn(x)
   p
 }
+
+p.value.varCompFixEf=function(x)
+{
+	Aov=attr(x, 'anova')
+	ans=Aov[, 'Pr(>|t|)']
+	attr(ans, 'Overall') = attr(Aov, 'Overall')[,'Pr(>F)']
+	ans
+}

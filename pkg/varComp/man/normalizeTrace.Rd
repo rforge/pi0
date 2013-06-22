@@ -2,7 +2,7 @@
 \alias{normalizeTrace}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-	Rescales a square matrix such that the trace is the same as the dimension. 
+	Rescales a square matrix such that the trace is the same as the dimension
 }
 \description{
 	Rescales a square matrix such that the trace is the same as the dimension. 
@@ -15,7 +15,7 @@ normalizeTrace(x)
 	A square numeric matrix to be rescaled. 
 }
 }
-\details{This is computed as \code{local({x=as.matrix(x); x/mean(diag(x))})}. 
+\details{This is computed as \code{{x=as.matrix(x); x/mean(diag(x))}}. 
 }
 \value{
 	A numeric matrix. 
@@ -24,7 +24,7 @@ normalizeTrace(x)
 	Long Qu
 }
 \seealso{
-	\code{\link[base]{diag}}
+	\code{\link[base:diag]{base::diag}}
 }
 \examples{
 	set.seed(3456L)

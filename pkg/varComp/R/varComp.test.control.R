@@ -1,8 +1,8 @@
 varCompTest.control <-
 function(
   test="LinScore", 
-  LinScore.wt="MinVar", 
-  LinScore.acc=1e-5, LinScore.lim=1e5,
+  LinScore.wt="InvSTD", 
+  LinScore.acc=1e-8, LinScore.lim=1e6L,
   LinScore.method=c('AS155', 'SSAS155'), 
   VM03.method=c('SSChiBarSq', 'pboot'),
   VM03.nsim=1e4L,

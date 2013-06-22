@@ -19,7 +19,7 @@ test = "LinScore", control = varCompTest.control(test), ...)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object, object2}{
-	An R object. In \code{\link{varComp.test.formula}}, this is the fixed-effect formula. In \code{\link{varComp.test.varComp}} these are the \code{\link{varComp}} objects specifying the null model and the alternative models. \code{object2} could be missing, but then either \code{additional.varcov} or \code{null} needs to be given.
+	An R object. In \code{varComp.test.formula}, this is the fixed-effect formula. In \code{varComp.test.varComp} these are the \code{\link{varComp}} objects specifying the null model and the alternative models. \code{object2} could be missing, but then either \code{additional.varcov} or \code{null} needs to be given.
 }
   \item{data}{
 	The same as in \code{\link{varComp}}.
@@ -40,10 +40,10 @@ test = "LinScore", control = varCompTest.control(test), ...)
 	An optional list of variance-covariance matrices. It is only used when \code{object2} is missing. When this is given, \code{object} will be treated as the null model. And the test of interest is the nullity of variance components correspoding to these \code{additional.varcov}.  \code{null} needs to be missing when \code{additional.varcov} is given. 
 }
   \item{null}{
-	An optional integer vector, indicating the variance components in the null model. It is only used when \code{boject2} is missing, and is incompatible wtih \code{additional.varcov}. When \code{null} is given, \code{object} is treated as the alternative model. And the test of interest is the nullity of variance components \emph{not} include in \code{null}. For example, if \code{object} has two variance components (other than the error variance). Setting \code{null=1L} will test the nullity of the second components, whereas setting \code{null=integer(0L)} (the default) will test the simultaneous nullity of both components. 
+	An optional integer vector, indicating the variance components in the null model. It is only used when \code{object2} is missing, and is incompatible with \code{additional.varcov}. When \code{null} is given, \code{object} is treated as the alternative model. And the test of interest is the nullity of variance components \emph{not} included in \code{null}. For example, if \code{object} has two variance components (other than the error variance). Setting \code{null=1L} will test the nullity of the second components, whereas setting \code{null=integer(0L)} (the default) will test the simultaneous nullity of both components. 
 }
   \item{test}{
-	A character vector, specifying the tests to be performed. This does not need to be a vector of length 1. Available choices are given in \code{\link{varCompTests}}. Currently, this includes "LinScore", "VM03", "SS95", "HP01", and "RLRT". However, not all test methods are applicable to all models/hypotheses. 
+	A character vector, specifying the tests to be performed. This does not need to be a vector of length 1. Available choices are given in \code{\link{varCompTests}}. Currently, this includes \code{"LinScore"}, \code{"VM03"}, \code{"SS95"}, \code{"HP01"}, and \code{"RLRT"}. However, not all test methods are applicable to all models/hypotheses. 
 }
   \item{\dots}{
 	Place holder.
@@ -93,7 +93,7 @@ varComp.test(vcf, null=1)  ## test against model with only Lot random effect
 ### Genetics example	
 trt=gl(2, 15)
 set.seed(2340)
-dat=data.frame(trt=trt, id=as.factor(1))
+dat=data.frame(trt=trt)
 dat$SNP=matrix(sample(0:2, 120, replace=TRUE), 30)
 dat$Y  = as.numeric(trt)+rnorm(30) + dat$SNP\%*\%rnorm(4)
 (vcf0 = varComp(Y~trt, dat, ~ibs(SNP)))

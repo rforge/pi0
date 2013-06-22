@@ -6,7 +6,7 @@
 \title{	Defunct functions
 }
 \description{
-Functions removed from current release. 
+Functions to be removed from future release. 
 }
 \usage{
 varComp.LinScore.LC12(null.fit, X, Y, K, null, w, ...)

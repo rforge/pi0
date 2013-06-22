@@ -8,7 +8,7 @@
 	Obtaining parameter estimates from a varComp object
 }
 \description{
-\code{coef} computes and/or extracts fixed-effect parameters, variance-component parameters, for ratios of variance component paraemeters to the error variance. %\code{fixef} and \code{fixed.effects} are equivalent to \code{coef} with \code{what='fixed'}.
+\code{coef} computes and/or extracts fixed-effect parameters, variance-component parameters, or ratios of variance component paraemeters to the error variance. %\code{fixef} and \code{fixed.effects} are equivalent to \code{coef} with \code{what='fixed'}.
 }
 \usage{
 \method{coef}{varComp}(object, what = c("fixed", "beta", "random", "varComp", "var.ratio", "tau"), ...)

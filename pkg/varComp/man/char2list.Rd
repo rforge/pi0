@@ -2,10 +2,10 @@
 \alias{char2list}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-	Create a list with given element names
+	Create a list with componenets given by their names
 }
 \description{
-	For a given vector of object names, \code{char2list} creates a list with all these objects as elements. 
+	For a given vector of object names, \code{char2list} creates a named list with all these objects as componenets. 
 }
 \usage{
 char2list(Names)
@@ -13,7 +13,7 @@ char2list(Names)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{Names}{
-	A character vector of object names
+	A character vector of object names.
 }
 }
 \value{
@@ -23,7 +23,7 @@ char2list(Names)
 	Long Qu
 }
 \seealso{
-	\code{\link{get}}
+	\code{\link[base:get]{base::get}}
 }
 \examples{
 char2list( c('letters', 'c') )

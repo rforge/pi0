@@ -12,23 +12,23 @@ Extracting (approximate) variance-covariance matrices for fixed-effect parameter
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{object}{
-  An object of class \code{varComp}
+  An object of class \code{varComp}.
 }
   \item{what}{
-	A character vector (only the first element will be used) specifying what variance-covariance matrices are requested. "fixed" or "beta" request approximate variance-covariance of fixed-effect parameters. "random" or "varComp" request the approximate variance-covariance matrix of variance components. "var.ratio" or "tau" requests approximate variance-covariance matrix of ratio of variance components to the error variance. "response" or "Y" request the marginal variance of the response variable.
+	A character vector (only the first element will be used) specifying what variance-covariance matrices are requested. \code{"fixed"} or \code{"beta"} request approximate variance-covariance of fixed-effect parameters (see details). \code{"random"} or \code{"varComp"} request the approximate variance-covariance matrix of variance components computed from the expected information matrix. \code{"var.ratio"} or \code{"tau"} requests approximate variance-covariance matrix of ratio of variance components to the error variance computed from the observed information matrix. \code{"response"} or \code{"Y"} request the marginal variance of the response variable computed from the plug-in estimate. 
 }
   \item{drop}{
 	A logical scalar, indicating whether zero variance components should be dropped from the results. 
 }
 	\item{beta.correction}{
-	A logical scalar, only applicable when \code{what='beta'}, indicating whether the variance-covariance matrix for fixed effect estimates is corrected according to Kackar and Harville~(1984).
+	A logical scalar, only applicable when \code{what='beta'}, indicating whether the variance-covariance matrix for fixed effect estimates is corrected according to Kackar and Harville (1984).
 }
   \item{\dots}{
 	Place holder.
 }
 }
 \details{
-For fixed-effect parameters, the results is the plug-in estimate variance of generalized least squares estimates. For ratios of variance components to error variance, the result is the Hessian matrix. For response variable, the result is the plug-in estimate of the marginal variance. For variance components, the result is the plug-in estimate of inverse information matrix from the restricted likleihood.
+For fixed-effect parameters, the results is the plug-in estimate variance of generalized least squares estimates when \code{beta.correction=FALSE}; Otherwise, the Kackar and Harville (1984) correction will be used (default).  For ratios of variance components to error variance, the result is the Hessian matrix. For response variable, the result is the plug-in estimate of the marginal variance. For variance components, the result is the plug-in estimate of inverse expected information matrix from the restricted likelihood.
 }
 \value{
 A numeric matrix of the requested variance-covariances.

@@ -8,7 +8,7 @@
 Functions controling the model fitting of varComp
 }
 \description{
-\code{varComp.control} provides detailed control of model fitting for \code{\link{varComp}}
+\code{varComp.control} provides detailed control of model fitting for \code{\link{varComp}}. \code{nlminb.control} provides detailed control of the optimization procedure. \code{informationTypes} is a character vector containing the types of information matrices.
 }
 \usage{
 varComp.control(verbose = FALSE, start = NULL, REML = TRUE, 
@@ -38,21 +38,21 @@ informationTypes
 	A small positive number. If the parameter estimates fall below this number, additional checking will be performed to examine if the parameter estimate hits the lower boundary (0) of the parameter space. 
 }
   \item{nlminb}{
-	A list of arguments to be passed to \code{\link[stats]{nlminb}}. This is most conveniently specified through \code{\link{nlminb.control}}. 
+	A list of arguments to be passed to \code{\link[stats:nlminb]{stats::nlminb}}. This is most conveniently specified through \code{\link{nlminb.control}}. 
 }
   \item{plot.it}{
 	A logical scalar, indicating whether the profiled REML function is plotted around the fitted maximum. This is only effective when the number of variance component is one (not counting the error variance). 
 }
   \item{keepXYK}{
-	A logical scalar, indicating whether the fixed-effect design matrix (X), response variable (Y) and the list of variance-covariance matrices (K) are included in the result. See \code{\link{varComp}} for notations. 
+	A logical scalar, indicating whether the fixed-effect design matrix (\eqn{\mathbf{X}}{X}), response variable (\eqn{\mathbf{Y}}{Y}) and the list of variance-covariance matrices (\eqn{\mathbf{K}}{K}) are included in the result. See \code{\link{varComp}} for notations. 
 }  
-  \item{eval.max, iter.max, trace, abs.tol, rel.tol, x.tol, xf.tol, step.min, step.max, sing.tol, \dots}{ The same as in \code{\link[stats]{nlminb}}. 
+  \item{eval.max, iter.max, trace, abs.tol, rel.tol, x.tol, xf.tol, step.min, step.max, sing.tol, \dots}{ The same as in \code{\link[stats:nlminb]{stats::nlminb}}. 
 }
 }
 \details{
 The objective function is always the profiled restricted log likelihood function, where the error variance is profiled out from the REML function. The parameterization being used is the ratio of each variance component to the error variance. Non-negativity constraints are imposed on such ratios. 
 
-The \code{information} argument specifies the (approximate) Hessian matrix to be used during optimization. Available choices are "EI" (expected information), "OI" (observed information), "AEI" (approximate expected information), "AOI" (approximate observed information), and "WAI" (weighted avearge information). The approximate versions of "EI" and "OI" replace the more computationally demanding trace terms by their realized counter-parts that are unbiased for the trace, and the "WAI" is similar to the average-information of Gilmour (1995) that cancels such terms, except that the latter reference is based on unprofiled REML function rather than profiled REML. The choice of information only affects the speed and the stability of fitting. As long as the objective function is well behaved, the parameter estimates should not be affected by which information matrix is used during fitting. 
+The \code{information} argument specifies the (approximate) Hessian matrix to be used during optimization. Available choices are \code{"EI"} (expected information), \code{"OI"} (observed information), \code{"AEI"} (approximate expected information), \code{"AOI"} (approximate observed information), and \code{"WAI"} (weighted avearge information). The approximate versions of \code{"EI"} and \code{"OI"} replace the more computationally demanding trace terms by their realized counter-parts that are unbiased for the trace, and the \code{"WAI"} is similar to the average-information of Gilmour (1995) that cancels such terms, except that the latter reference is based on unprofiled REML function rather than profiled REML. The choice of information only affects the speed and the stability of fitting. As long as the objective function is well behaved, the parameter estimates should not be affected by which information matrix is used during fitting. 
 
 Both \code{varComp.control} and \code{nlminb.control} are simply a wrapper of the input arguments. 
 }

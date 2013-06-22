@@ -1,8 +1,8 @@
 Package: varComp
 Type: Package
 Title: Variance component models
-Version: 0.1-313
-Date: 2013-06-21
+Version: 0.1-314
+Date: 2013-06-22
 Author: Long Qu (longor@iastate.edu)
 Maintainer: Long Qu <longor@iastate.edu>
 Description: Variance component models: REML estimation, testing fixed effect contrasts through Satterthwaite or Kenward-Roger methods, testing the nullity of variance components through (linear or quadratic) score tests or likelihood ratio tests.

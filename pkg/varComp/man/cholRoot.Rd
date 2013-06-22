@@ -5,7 +5,7 @@
 	Lower Cholesky Root
 }
 \description{
-	This function is similar to \code{\link[base]{chol}}, but it returns the lower root and possibly remove unnecessary columns. 
+	This function is similar to \code{\link[base:chol]{base::chol}}, but it returns the lower root and possibly remove unnecessary columns. 
 }
 \usage{
 cholRoot(x)
@@ -16,7 +16,7 @@ cholRoot(x)
 }
 }
 \details{
-	This function calls \code{\link{chol}} with pivoting and returns the lower root. In the case of less than full rank, unnecessary columns are removed. \code{tcrossprod(cholRoot(x))} will reproduce \code{x} (up to numerical errors). 
+	This function calls \code{\link[base:chol]{base::chol}} with pivoting and returns the lower root. In the case of less than full rank \code{x}, unnecessary columns are removed. \code{tcrossprod(cholRoot(x))} will reproduce \code{x} (up to numerical errors). 
 }
 \value{
 	A numeric matrix, not necessarily a square matrix. 
@@ -38,4 +38,3 @@ cholRoot(x)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ algebra }
-\keyword{ array }% __ONLY ONE__ keyword per line

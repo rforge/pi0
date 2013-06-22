@@ -11,8 +11,8 @@ This package includes functions for fitting and testing variance component model
 \tabular{ll}{
 Package: \tab varComp\cr
 Type: \tab Package\cr
-Version: \tab 0.1-313\cr
-Date: \tab 2013-06-21\cr
+Version: \tab 0.1-314\cr
+Date: \tab 2013-06-22\cr
 License: \tab GPL3\cr
 }
 
@@ -34,7 +34,7 @@ Maintainer: Long Qu <longor@iastate.edu>
 }
 \keyword{ package }
 \seealso{
- \code{\link[nlme]{lme}} 
+ \code{\link[nlme:lme]{nlme::lme}} 
 }
 \examples{
 ### Oxide/Semiconductor example
@@ -54,7 +54,7 @@ anova(vcf, L=diag(1,2)) ## notice the difference in the last row
 ### Genetics example	
 trt=gl(2, 15)
 set.seed(2340)
-dat=data.frame(trt=trt, id=as.factor(1))
+dat=data.frame(trt=trt)
 dat$SNP=matrix(sample(0:2, 120, replace=TRUE), 30)
 dat$Y  = as.numeric(trt)+rnorm(30) + dat$SNP\%*\%rnorm(4)
 (vcf0 = varComp(Y~trt, dat, ~ibs(SNP)))

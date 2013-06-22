@@ -21,7 +21,7 @@ is.formula(x)
 	Long Qu
 }
 \seealso{
-	\code{\link{formula}}
+	\code{\link[stats:formula]{stats::formula}}
 }
 \examples{
 is.formula(~a+b+a:b)

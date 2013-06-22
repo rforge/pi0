@@ -24,9 +24,9 @@ This function extracts the fixed-effect design matrix, random-effect design matr
 \details{
 \code{"fixed"} and \code{"X"} are equivalent, requesting the fixed effect design matrix.
 
-\code{"random"} and \code{"Z"} are equivalent, requesting the random effect design matrix. Note that this is an equivalent version of the design matrices such that the \code{\link{tcrossprod}} will be the contribution to the marginal variance-covariance. This is not necessarily the one computed directly from the \code{random} argument passed to \code{\link{varComp}}. These are actually computed from \code{\link{cholRoot}} of \code{K} matrices. 
+\code{"random"} and \code{"Z"} are equivalent, requesting the random effect design matrix. Note that this is an equivalent version of the design matrices such that the \code{\link{tcrossprod}} will be the contribution to the marginal variance-covariance. This is not necessarily the one computed directly from the \code{random} argument passed to \code{\link{varComp}}. These are actually computed from \code{\link{cholRoot}} of \eqn{\mathbf{K}}{K} matrices. 
 
-\code{"varcov"} and code{"K"} are equivalent, requesting the contribution of each random effect to the marginal correlation matrix. These are not necessarily the same value passed to the \code{varcov} argument of \code{\link{varComp}}, because the input value will be treated as the "G" matrices when \code{random} is not missing, but the result here will always be "K" matrices. See \code{\link{varComp}} for notations. 
+\code{"varcov"} and \code{"K"} are equivalent, requesting the contribution of each random effect to the marginal correlation matrix. These are not necessarily the same value passed to the \code{varcov} argument of \code{\link{varComp}}, because the input value will be treated as the "\eqn{G}" matrices when \code{random} is not missing, but the result here will always be "\eqn{\mathbf{K}}{K}" matrices. See \code{\link{varComp}} for notations. 
 
 }
 \value{

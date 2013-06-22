@@ -5,7 +5,7 @@
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-	Chi-bar-square distribution with nonnegativity cone constrants
+	Chi-bar-square distribution with nonnegativity cone constraints
 }
 \description{
 \code{pchibarsq} is the distribution function of chi-bar-square distribution with nonnegativity cone constraint. 
@@ -21,13 +21,13 @@ wchibarsq(V)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-	\item{q}{ A vector of quantiles, as in \code{\link{pchisq}}.
+	\item{q}{ A vector of quantiles, as in \code{\link[stats:pchisq]{stats::pchisq}}.
 }
   \item{V}{ A positive-definite matrix, defining the distance measure used when projecting onto the cone. 
 }
-	\item{lower.tail}{logical, the same as in \code{\link{pchisq}}. 
+	\item{lower.tail}{logical, the same as in \code{\link[stats:pchisq]{stats::pchisq}}. 
 }
-	\item{log.p}{logical, the same as in \code{\link{pchisq}}. 
+	\item{log.p}{logical, the same as in \code{\link[stats:pchisq]{stats::pchisq}}. 
 }
   \item{order}{
 	A positive integer vector of the order of moments to be computed.
@@ -49,7 +49,7 @@ Akio Kudo (1963) A multivariate analogue of the one-sided test.
 }
 
 \seealso{
-	\code{\link{pchisq}}
+	\code{\link[stats:pchisq]{stats::pchisq}}
 }
 \examples{
 \dontshow{library(quadprog)}

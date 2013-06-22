@@ -19,16 +19,16 @@
 }
 \arguments{
   \item{object,x}{
-	An object of class \code{varComp}
+	An object of class \code{varComp}.
 }
   \item{Lmat,L}{
-	A matrix specifying the linear combinations of fixed effect parameters to be tested for nullity. Each row is a linear combination. 
+	A matrix specifying the linear combinations of fixed effect parameters to be tested for nullity. Each row is a linear combination. If the column names are non-null, the columns will be re-ordered according to the column names of \code{model.matrix(object)}. In case of a single row matrix, it may also be given as a vector. 
 }
   \item{alpha}{
 	The requested level of test. 
 }
   \item{test}{
-	A character scalar requesting the type of the tests to be performed. Currently, only \code{"Satterthwaite"} is supported. 
+	A character scalar requesting the type of the tests to be performed. 
 }
   \item{\dots}{
 	For \code{anova.varComp}, this may be optional additional \code{varComp} objects. For \code{fixef.varComp} and \code{print.varCompFixEf}, this is not used.
@@ -38,27 +38,27 @@
 \value{
 For \code{anova.varComp}, this is a data frame with the following columns: 
 \itemize{
-	\item \code{F value}: The scaled F-statistic; 
-	\item \code{Scale}: The multiplicative factor for in the scaled F-statistic;
+	\item \code{F value}: The scaled \eqn{F}-statistic; 
+	\item \code{Scale}: The multiplicative factor in the scaled \eqn{F}-statistic;
 	\item \code{numDF}: The numerator degrees of freedeom;
 	\item \code{denDF}: The denominator degrees of freedom;
-	\item \code{Pr(>F)}: The p-value.
+	\item \code{Pr(>F)}: The \eqn{p}-value.
 }
 When \code{\dots} is missing but \code{L} is given, each row of \code{L} matrix will have a corresponding row in the result, testing the nullity of linear contrasts specified by that row of \code{L}. Additionally, an "Overall" row will be the last row, testing the nullity of linear contrasts of all rows of \code{L}. 
 
-When \code{\dots} is not missing, \code{L} will be ignored and the result will have the same number of rows as the number of \code{varComp} objects given (including the first \code{object} argument). The order of rows is such that the rank of the fixed effect design matrix is non-decreasing, i.e., smaller models first. The results will be the comparison between the current model vs. the model in the preceding row, except for the first row. For the first row, the model being compared is the null model. If the fixed effect design matrix for the model in first row includes intercept in its column space, the null model includes only an intercept. If the intercept is not in the column space of the first model, the null model will contain no fixed effects. 
+When \code{\dots} is not missing, \code{L} will be ignored and the result will have the same number of rows as the number of \code{varComp} objects given (including the first \code{object} argument). The order of rows is such that the rank of the fixed effect design matrix is non-decreasing, i.e., smaller models first. The results will be the comparison between the current model vs. the model in the preceding row, except for the first row. For the first row, the model being compared is a null model. If the fixed effect design matrix for the model in first row includes the intercept in its column space, the null model includes only an intercept. If the intercept is not in the column space of the first model, the null model will contain no fixed effects. 
 
 When both \code{\dots} and \code{L} are missing, \code{anova.varComp} will test each fixed effect paramters together with a last "Overall" row. However, this last row will remove the intercept from the model, if there is one. See example below. 
 
-For \code{fixef.varComp}, the result is an object with class \code{varCompFixEf}. This is named numeric vector, providing estimates of  fixed effect contrasts specified by \code{Lmat}. The name will be the row name of \code{Lmat}. The \code{anova} attribute is a numeric matrix with the following columns: 
+For \code{fixef.varComp}, the result is an object with class \code{varCompFixEf}. This is a named numeric vector, providing estimates of  fixed effect contrasts specified by \code{Lmat}. The name will be the row names of \code{Lmat}. It has the \code{anova} attribute, a numeric matrix with the following columns: 
 \itemize{
 \item \code{Std. Error}: the standard error of estimate. If \code{test='KR'}, this is the adjusted standard error. If \code{test='Satterthwaite'}, this is the plug-in estimate. 
 \item \code{Lower}: the lower limit of the \code{1-alpha} confidence interval. 
 \item \code{Upper}: the upper limit of the \code{1-alpha} confidence interval. 
-\item \code{t value}: the scaled t-statistic testing nullity of this contrast. 
-\item \code{Scale}: a multiplicative factor in the scaled t-statistic. 
-\item \code{Df}: the degrees of freedom for the t-statistic. 
-\item \code{Pr(>|t|)}: the p-value.
+\item \code{t value}: the scaled \eqn{t}-statistic testing nullity of this contrast. 
+\item \code{Scale}: a multiplicative factor in the scaled \eqn{t}-statistic. 
+\item \code{Df}: the degrees of freedom for the \eqn{t}-statistic. 
+\item \code{Pr(>|t|)}: the \eqn{p}-value.
 }
 Additionally, the \code{anova} attribute also has the \code{Overall} attribute, which is a single-row matrix with the same columns as the results of \code{anova.varComp}, testing for the overall nullity of linear contrasts specified by \code{Lmat}.
 
@@ -69,10 +69,10 @@ Additionally, the \code{anova} attribute also has the \code{Overall} attribute, 
 
 Michael G. Kenward and James H. Roger (1997) Small sample inference for fixed effects from restricted maximum likelihood. \emph{Biometrics} 53, 983--997
 
-Waseem S. Alnosaier (2007) Kenward-Roger Approximate F Test for Fixed Effects in Mixed Linear Models. \emph{Oregon State University Department of Statistics Ph.D. Thesis}
+Waseem S. Alnosaier (2007) Kenward-Roger Approximate \eqn{F} Test for Fixed Effects in Mixed Linear Models. \emph{Oregon State University Department of Statistics Ph.D. Thesis}
 
 
-Fai and Cornelius (1996) Approximate F-tests of multiple degree of freedom hypotheses in generalized least squares analyses of unbalanced split-plot experiments. \emph{Journal of Statistical Computation and Simulation} 54, 363-378
+Fai and Cornelius (1996) Approximate \eqn{F}-tests of multiple degree of freedom hypotheses in generalized least squares analyses of unbalanced split-plot experiments. \emph{Journal of Statistical Computation and Simulation} 54, 363-378
 }
 
 \author{
@@ -104,4 +104,5 @@ anova(vcf, L=diag(1,2)) ## notice the difference in the last row
 % R documentation directory.
 \keyword{ htest }
 \keyword{ regression }
+\keyword{ print}
 

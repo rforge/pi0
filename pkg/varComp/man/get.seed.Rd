@@ -2,7 +2,7 @@
 \alias{get.seed}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-	Pseudo-random number seeds
+	Recording pseudo-random number seeds
 }
 \description{
 \code{get.seed} obtains current pseudo-random number seeds. 
@@ -21,10 +21,10 @@ This function obtain the \code{.Random.seed} object in the global environment. I
 	Long Qu
 }
 \seealso{
-	\code{\link{.Random.seed}}
+	\code{\link[base:Random]{base::.Random.seed}}
 }
 \examples{
 	set.seed(2034L)
 	all.equal(get.seed(), .Random.seed, check.attributes = FALSE)
 }
-\keyword{ sysdata }
+\keyword{ distribution }

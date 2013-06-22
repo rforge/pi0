@@ -37,7 +37,7 @@ Polyk(x,c=0,d=1)
 \arguments{
   \item{x}{ A numeric matrix encoding genotypes. Each row corresponds to an individual and each column corresponds to a genetic marker. Usually, allele-counting coding is used, but others are allowed. 
 }  
-  \item{p}{ The exponent defining the Minkowski distance. The same as in \code{\link[stats]{dist}}.
+  \item{p}{ The exponent defining the Minkowski distance. The same as in \code{\link[stats:dist]{stats::dist}}.
 }
   \item{c}{ The constant added to cross-products before raising to the power of \code{d}.
 }
@@ -47,19 +47,20 @@ Polyk(x,c=0,d=1)
 \details{
 These functions compute the pairwise similarities among rows of \code{x}. Lower-case versions are more useful in the formula interface to specify random genetic effects. Uppser-case versions can be used to directly compute the genetic similarity matrix. 
 
-\code{am} and \code{AM} calculate the allele-matching kernel, and \code{AM} is based on \code{\link[SPA3G]{KERNEL}}. 
+\code{am} and \code{AM} calculate the allele-matching kernel, and \code{AM} is based on \code{\link[SPA3G:KERNEL]{SPA3G:::KERNEL}}. 
 
-\code{ibs} and \code{IBS} compute the identity-by-descent (IBS) kernel. \code{IBS} is computed as \code{1 - as.matrix(dist(x, method='manhattan') * .5 /max(1, ncol(x)) )}. 
+\code{ibs} and \code{IBS} compute the identity-by-descent (IBS) kernel. \code{IBS} is computed as \cr
+\code{1 - as.matrix(dist(x, method='manhattan') * .5 /max(1, ncol(x)) )}. 
 
-\code{lin0} and \code{Lin0} compute the linear kernel with zero intercept. \code{Lin0} is computed as \code{normalizeTrace(tcrossprod(x)/max(1,ncol(x)))}. 
+\code{lin0} and \code{Lin0} compute the linear kernel with zero intercept. \code{Lin0} is computed as \cr \code{normalizeTrace(tcrossprod(x)/max(1,ncol(x)))}. 
 
-\code{quad1} and \code{Quad1} compute the quadratic kernel with offset 1. \code{Qaud1} is computed as \code{normalizeTrace((base::tcrossprod(x)+1)^2)}. 
+\code{quad1} and \code{Quad1} compute the quadratic kernel with offset 1. \code{Qaud1} is computed as \cr  \code{normalizeTrace((base::tcrossprod(x)+1)^2)}. 
 
 \code{minkowski} and \code{Minkowski} compute the similarity based on the Minskowski distance. \code{Minkowski} is computed as \code{1-as.matrix(dist(x, method='minkowski', p=p)) * .5 / max(1, ncol(x))^(1/p) }. 
 
 }
 \value{
-The functions starting with an upper-case letter returns and \code{n}-by-\code{n} symmetric similarity matrix, where \code{n} equals \code{nrow(x)}. The corresponding functions starting with a lower-case letter returns a matrix \code{L} such that \code{tcrossprod(L)} equals the value from their upper-case counterparts. The number of rows is \code{n}, but the number of columns is the rank of the similarity matrix. 
+The functions starting with an upper-case letter returns an \code{n}-by-\code{n} symmetric similarity matrix, where \code{n} equals \code{nrow(x)}. The corresponding functions starting with a lower-case letter returns a matrix \code{L} such that \code{tcrossprod(L)} equals the value from their upper-case counterparts. The number of rows is \code{n}, but the number of columns is the rank of the similarity matrix. 
 }
 % \references{
 % ~put references to the literature/web site here ~
@@ -74,7 +75,7 @@ Long Qu
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{cholRoot}}, \code{\link{normalizeTrace}}, \code{\link[stats]{dist}}, \code{\link[SPA3G]{KERNEL}}, \code{varComp}
+\code{\link{cholRoot}}, \code{\link{normalizeTrace}}, \code{\link[stats:dist]{stats::dist}}, \code{\link[SPA3G:KERNEL]{SPA3G:::KERNEL}}, \code{\link{varComp}}
 }
 \examples{
 set.seed(2345432L)
