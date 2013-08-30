@@ -25,10 +25,10 @@ Li, Y. and Ruppert, D. (2008). on the asymptotics of penalized splines. Biometri
 
 Ruppert, D. (2002). Selecting the number of knots for penalized splines. Journal of Computational and Graphical Statistics 11, 735--757.
 
-Qu, L., Nettleton, D., and Dekkers J. C. M. (2012) A hierarchical semiparametric model for incorporating inter-gene information for analysis of genomic data. Biometrics (to appear).
+Qu, L., Nettleton, D., and Dekkers J. C. M. (2012) A hierarchical semiparametric model for incorporating inter-gene information for analysis of genomic data. Biometrics, 68(4):1168-1177.
 
 }
-\author{ Long Qu \email{longorognol@hotmail.com}
+\author{ Long Qu \email{long.qu@wright.edu}
 }
 %\note{ 
 %}

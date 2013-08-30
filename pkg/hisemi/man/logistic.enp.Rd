@@ -30,7 +30,7 @@ A numeric vector of fitted effective number of parameters, with attributes
 \item{mode}{ The model of enps from a isotonic fit}
 }
 %\references{ }
-\author{ Long Qu \email{longorognol@hotmail.com} }
+\author{ Long Qu \email{long.qu@wright.edu} }
 %\note{ 
 %}
 \seealso{ \code{\link{nls}} }

@@ -28,7 +28,7 @@ scaledTMix.psat(tstat, df, upper0 = 2)
   \item{pi0}{ A numeric vector of 0 or 1, which are the maximum likelihood estimate of \code{pi0}}
 }
 %\references{ }
-\author{ Long Qu \email{longorognol@hotmail.com}
+\author{ Long Qu \email{long.qu@wright.edu}
 }
 %\note{}
 \seealso{ \code{\link{scaledTMix.null}}, \code{\link{scaledTMix.sat}}}

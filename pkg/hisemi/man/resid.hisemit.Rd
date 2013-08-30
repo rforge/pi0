@@ -23,9 +23,9 @@
         A numeric vector residuals. 
 }
 \references{ 
-Qu, Nettleton, Dekkers (2012) A Hierarchical Semiparametric Model for Incorporating Inter-gene Information for Analysis of Genomic Data. Biometrics (to appear)
+Qu, Nettleton, Dekkers (2012) A Hierarchical Semiparametric Model for Incorporating Inter-gene Information for Analysis of Genomic Data. Biometrics, 68(4):1168-1177
 }
-\author{ Long Qu \email{longorognol@hotmail.com} }
+\author{ Long Qu \email{long.qu@wright.edu} }
 %\note{ 
 %}
 \seealso{ \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, \code{\link{vcov.hisemit}}, \code{\link{residuals.hisemit}}, \code{\link{logLik.hisemit}}, \code{\link{confint.hisemit}}, \code{\link{print.hisemit}},

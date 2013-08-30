@@ -80,8 +80,8 @@ tPoly.newton(tstat, x, df, starts,
         \item{penalty:}{ Penalty term}
         \item{saturated.ll:}{ Saturated log likelihood}}}
 }
-\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012) A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics (to appear)}
-\author{ Long Qu \email{longorognol@hotmail.com} }
+\references{ Long Qu, Dan Nettleton, Jack Dekkers (2012) A hierarchical semiparametric model for incorporating inter-gene relationship information for analysis of genomic data. Biometrics, 68(4):1168-1177}
+\author{ Long Qu \email{long.qu@wright.edu} }
 %\note{ 
 %}
 \seealso{ \code{\link{penLik.EMNewton}}, \code{\link{plot.hisemit}}, \code{\link{fitted.hisemit}}, \code{\link{coef.hisemit}}, 
