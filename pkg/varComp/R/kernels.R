@@ -10,7 +10,8 @@ Quad1=function(x) normalizeTrace((base::tcrossprod(x)+1)^2/max(1,ncol(x)))
 # Intxn2=function(K1, K2) normalizeTrace(K1*K2)
 Polyk=function(x,c=0,d=1) normalizeTrace((base::tcrossprod(x)+c)^d)
 
-AM=function(x) SPA3G:::KERNEL(x, rep(1,max(1,ncol(x)))) ## this is not IBS kernel! The difference is 1 vs 1 comparison: IBS treat this as 2 (out of 2) but AM treat this as 2 (out of 4).
+AM=function(x) SPA3G::KERNEL(x, rep(1,max(1,ncol(x)))) ## this is not IBS kernel! The difference is 1 vs 1 comparison: IBS treat this as 2 (out of 2) but AM treat this as 2 (out of 4).
+
 
 cholRoot=function(x)
 {

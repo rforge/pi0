@@ -174,3 +174,15 @@ updateNegHess=evalq(function(){
 	negHess <<- infoFunc()
 }, refugeEnvironment)
 
+ToDoList=c(
+"update/add1/drop1",
+"anova interface with add1/drop1",
+"anova / fixef : printing significance code",
+"logLik",
+"fitted",
+"residual",
+"BLUP",
+"kernel prediction",
+"lme conversion",
+"bartlett"
+)
