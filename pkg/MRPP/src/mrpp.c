@@ -2,7 +2,7 @@
 #include <Rinternals.h>
 #include <Rdefines.h>
 
-#define DEBUG
+#undef DEBUG
 
 #ifdef DEBUG
 	int debug_i, debug_j, debug_k, debug_n, debug_m, debug_N;
