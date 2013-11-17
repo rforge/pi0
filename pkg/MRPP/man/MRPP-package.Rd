@@ -13,8 +13,8 @@ Implements multiresponse permutation procedure (MRPP), variable importance measu
 \tabular{ll}{
 Package: \tab MRPP\cr
 Type: \tab Package\cr
-Version: \tab 1.0-298\cr
-Date: \tab 2012-12-30\cr
+Version: \tab 1.0-320\cr
+Date: \tab 2013-11-17\cr
 License: \tab GPL version 2 or newer\cr
 LazyLoad: \tab yes\cr
 }
@@ -35,7 +35,7 @@ LazyLoad: \tab yes\cr
 \author{
 Long Qu
 
-Maintainer: Long Qu <longor@iastate.edu>
+Maintainer: Long Qu <long.qu@wright.edu>
 }
 \references{
 Long Qu, Dan Nettleton, and Jack C. M. Dekkers. Relative Variable Importance and Backward Variable Selection for the Multiresponse

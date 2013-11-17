@@ -162,6 +162,13 @@ function(trt, B=100L, idxOnly = FALSE) ## permutation matrices for one way desig
           warning("The first permutaiton may not be the original assignment.")
         }
         for(i in seq(ntrts)) {tmp=ans[[i]][,b]; ans[[i]][,b]=ans[[i]][,1L]; ans[[i]][,1L]=tmp} 
+
+        if(isTRUE(idxOnly)){
+			warning("'idxOnly=TRUE' has not been implemented yet. Full results are returned.")			
+        }#else{
+            attr(ans, 'idx') = NA_character_
+    		class(ans)='permutedTrt'
+        #}
     }else{   #sample from all permutations using factoradic number. Ideally, a sample from 1:SP should work, but how to do this without enumerating all SP possibilities using setparts?
 
         decfr=HSEL.bigz(factorialZ(N), B)
@@ -177,15 +184,15 @@ function(trt, B=100L, idxOnly = FALSE) ## permutation matrices for one way desig
 			return(ans)
 		}
 		
-        ans=lapply(sapply(part0,length), matrix, data=NA_integer_, ncol=B)
-			buff = integer(N); buff[1L]
-        for(b in seq(B)){
+       ans=lapply(sapply(part0,length), matrix, data=NA_integer_, ncol=B)
+		buff = integer(N); buff[1L]
+       for(b in seq(B)){
             # perm=dec2permvec(decfr[b],N)  ## This subsetting decfr[b] is the slowest part!
             perm=dec2permvec(decfrCC[b],N)  ## This change speeds up for about 8~9X.
             # for(i in seq(ntrts)) ans[[i]][,b]=sort.int(perm[part0[[i]]])
 			 for(i in seq(ntrts)) ans[[i]][,b]=.Call(radixSort_prealloc, perm[part0[[i]]], buff)  ## radix sort with pre-allocated buffer space
-        }
-        names(ans)=names(part0)
+       }
+       names(ans)=names(part0)
 		attr(ans, 'idx') = NA_character_
 		class(ans)='permutedTrt'
     }
@@ -207,6 +214,6 @@ ntrt.permutedTrt=function(permutedTrt)
 trt.permutedTrt=function(permutedTrt)
 {
 	ans=factor(rep(1L, sum(sapply(permutedTrt,nrow))), levels=names(permutedTrt))
-	for(i in seq_along(permutedTrt)) ans[permutedTrt[[i]]] = i
+	for(i in seq_along(permutedTrt)) ans[permutedTrt[[i]][,1L]] = i
 	ans
 }
