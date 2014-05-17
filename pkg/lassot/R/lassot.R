@@ -57,10 +57,9 @@ lassot.fit=function(x,y,lambdas=10^seq(1,5,length=10),alphas=1.5^seq(1,17,length
     if(method=='Coordinate'){
         ans=.C("lassot", as.double(x.std), ym, length(ym), p, 
                     b=rep(0.0, length=p*lambda.n), #rep(beta0,length=p*lambda.n), 
-                    as.double(lambdas), as.double(alphas), length(lambdas), as.double(eps),
+                    lambda=as.double(lambdas), as.double(alphas), length(lambdas), as.double(eps),
                     as.integer(niter), as.integer(verbose))
-#        ret=rbind(mean(y),matrix(ans$b,p,length(lambdas))/xnorm)
-#        return(ans$b)
+		attr(ans$b, 'df')=ans$lambda
     }else if(method=='R') {
 		ans=lassot.fitR(x.std, ym, lambdas, alphas, continuity, eps, niter,verbose)
 		ans=list(b=ans)
@@ -282,6 +281,10 @@ if(FALSE) {
 	plot(beta0, lasso.bet)
 		points(beta0, lars.bet, col=2, pch=2)
 		points(beta0, lassot1.bet, col=4, pch=3)
+    lassot1c=lassot.fit(x,y, lambdas=10^seq(log10(lambda.max), log10(lambda.max)-2, length=100), alphas=1000,eps=1e-7*p); 
+		lassot1c.bet=attr(lassot1c, 'betas')[,which.min(abs(attr(lassot1c, 'dfs')-tmp.df))]
+		points(beta0, lassot1c.bet, col=5, pch=5)
+	
 	
     lassotall=lassot.fit(x[,1],y,method='R')
     lassotall=lassot.fit(x,y, lambdas=10^seq(-2,1,length=10),alphas=1.5^seq(1,17,length=20),method='R')

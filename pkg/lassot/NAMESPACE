@@ -5,7 +5,10 @@ importFrom(hypergeo, hypergeo)
 
 export(
 	dlassot, 
-	lassot.fit
+	lassot.fit, 
+	cubeRoot, 
+	continuityFactor,
+	lassotFactor
 )
 
 useDynLib(lassot)
