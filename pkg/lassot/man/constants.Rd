@@ -1,13 +1,24 @@
-\name{log2}
+\name{Constants}
+\alias{continuityFactor}
+\alias{oneThird}
+\alias{ffp1}
+\alias{ffp1df}
+\alias{lassotFactor}
+\alias{log1pff}
 \alias{log2}
 \docType{data}
-\title{
-%%   ~~ data name/kind ... ~~
+\title{Constants used at various places
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of the dataset. ~~
+Precomputed constants that are used frequently. 
 }
 \usage{data(log2)}
+\usage{data(log1pff)}
+\usage{data(lassotFactor)}
+\usage{data(ffp1df)}
+\usage{data(ffp1)}
+\usage{data(oneThird)}
+\usage{data(continuityFactor)}
 \format{
   The format is:
  num 0.693

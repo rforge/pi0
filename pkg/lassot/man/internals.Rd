@@ -1,14 +1,18 @@
-\name{lassot.fit1R}
+\name{Internals}
 \alias{lassot.fit1R}
+\alias{lassot.fitR}
+\alias{dlassot1}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Internal or Defunct Functions 
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Obsoleted or developmental stage functions. 
 }
 \usage{
 lassot.fit1R(beta.hat, lambda, alpha, df = FALSE)
+lassot.fitR(x.std, ym, lambdas, alphas, continuity = TRUE, eps = .Machine$double.eps^0.25 * ncol(x.std), niter = 1000L, verbose = TRUE)
+dlassot1(x, a, m, df = 2 * m - 1, s = a/sqrt(df), log = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

@@ -2,31 +2,27 @@
 \alias{dlassot}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-%%  ~~function to do ... ~~
+Density function for the lassot prior distribution
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Density function for the lassot prior distribution
 }
 \usage{
 dlassot(x, rate = 1/continuityFactor/ffp1df, alpha = 2/ffp1df, log = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{x}{Numeric vector of quantiles.
 }
-  \item{rate}{
-%%     ~~Describe \code{rate} here~~
+  \item{rate}{Numeric vector of rates (lambda).
 }
-  \item{alpha}{
-%%     ~~Describe \code{alpha} here~~
+  \item{alpha}{Numeric vector of alpha values.
 }
-  \item{log}{
-%%     ~~Describe \code{log} here~~
+  \item{log}{Logical; if \code{TRUE}, probabilities p are given as log(p).
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Lassot distribution has a central similar to double-exponential distribution and tails similar to scaled central t distribution.
 }
 \value{
 %%  ~Describe the value returned
@@ -38,8 +34,7 @@ dlassot(x, rate = 1/continuityFactor/ffp1df, alpha = 2/ffp1df, log = FALSE)
 \references{
 %% ~put references to the literature/web site here ~
 }
-\author{
-%%  ~~who you are~~
+\author{Long Qu
 }
 \note{
 %%  ~~further notes~~
@@ -78,5 +73,4 @@ function (x, rate = 1/continuityFactor/ffp1df, alpha = 2/ffp1df,
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ distribution }
