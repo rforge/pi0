@@ -33,12 +33,16 @@ void lassot(double *xstd, double *ym, int *n, int *p, double *beta,
 // Assuming continuity condition (convexness) met and alpha and lambda all being positive
 // upon return, lambda will contain sum of coordinate-wise degrees of freedom
 {	
-	double thisdiff, maxdiff, maxreldiff;
-	double lastbeta, *resid, *dfs;
-	int i,j, thisjN, lastj, lastjN, ilambda, thislambdaN, lastlambda, iter, tmpint, tmpint1, tmpint2;
-	double lsb, A, B, C, K, Mterm, Nterm, sqrtNterm, tmpp, tmpq, aa, lastaa, 
-			sqrtK, theta, root1, root2, root3, tmproot, tmpDouble, tmpDouble1, tmpDouble2,
-			alphaFactor, lambdaprime, lastLambda, lastAlpha;
+	double  maxdiff;
+	double  *resid, *dfs;
+	int j, ilambda, iter, tmpint, tmpint1;
+	double A, B, C, K, Mterm,  sqrtNterm, tmpp, tmpq,
+			tmpDouble, tmpDouble1, tmpDouble2,
+			alphaFactor, lastLambda, lastAlpha;
+	char cN='n';
+	double negOne=-1.0;
+	double done=1.0;
+	int ione=1;
 
 	// initialization
 	lastLambda = -1.0; lastAlpha = -1.0;
@@ -68,16 +72,16 @@ void lassot(double *xstd, double *ym, int *n, int *p, double *beta,
 		
 		// init resid
 		memcpy(resid, ym, sizeof(double)*(*n));
-		F77_CALL(DGEMV) ( 'n', *n, *p, -1.0, xstd, *n, beta+(*p)*ilambda, 1, 1.0, resid, 1 ); // resid=ym-xstd%*%beta[,ilambda]
+		F77_CALL(dgemv) ( &cN, n, p, &negOne, xstd, n, beta+(*p)*ilambda, &ione, &done, resid, &ione ); // resid=ym-xstd%*%beta[,ilambda]
 
 		// iterate
 		maxdiff=0.0;
 		for(iter=0; iter<*niter; ++iter){
 			for(j=0; j<*p; ++j){
-				tmpDouble = lassotFit1(F77_CALL(DDOT)(*n, xstd+(*n)*j, 1, resid, 1) + mat0(beta, j, ilambda, *p), lastLambda, lastAlpha); 
+				tmpDouble = lassotFit1(F77_CALL(ddot)(n, xstd+(*n)*j, &ione, resid, &ione) + mat0(beta, j, ilambda, *p), lastLambda, lastAlpha); 
 				tmpDouble1 = mat0(beta, j, ilambda, *p) - tmpDouble ;
 				if( tmpDouble1 != 0.0 ){
-					F77_CALL(DAXPY)(*n, tmpDouble1, xstd+(*n)*j, 1, resid, 1);
+					F77_CALL(daxpy)(n, &tmpDouble1, xstd+(*n)*j, &ione, resid, &ione);
 					if(fabs(tmpDouble1) > maxdiff) maxdiff = fabs(tmpDouble1);
 					mat0(beta, j, ilambda, *p) = tmpDouble; 
 				}
@@ -96,7 +100,7 @@ void lassot(double *xstd, double *ym, int *n, int *p, double *beta,
 			tmpDouble=mat0(beta, j, ilambda, *p); // beta[j,i]
 			if(tmpDouble == 0.0) continue;
 			if(tmpDouble <= alphaFactor) {dfs[ilambda]+=1.0;  continue;}
-			tmpDouble2 = F77_CALL(DDOT)(*n, xstd+(*n)*j, 1, resid, 1) + tmpDouble; //  bhat
+			tmpDouble2 = F77_CALL(ddot)(n, xstd+(*n)*j, &ione, resid, &ione) + tmpDouble; //  bhat
 			A = -tmpDouble2; B=lastAlpha*lastAlpha+lastLambda*lastAlpha*ffp1df; C=-lastAlpha*lastAlpha*tmpDouble2;
 			tmpp=2.0*tmpDouble2*tmpDouble2 - 3.0*lastAlpha*lastLambda*ffp1df + 6.0*lastAlpha*lastAlpha;
 			tmpq=8.0*tmpDouble2*tmpDouble2 -R_pow(ffp1df*lastLambda,2.0)-20.0*lastAlpha*lastLambda*ffp1df+8.0*lastAlpha*lastAlpha;

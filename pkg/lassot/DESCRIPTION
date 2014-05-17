@@ -1,7 +1,7 @@
 Package: lassot
 Type: Package
 Title: Hybrid of lasso and t-regularization
-Version: 0.1-323
+Version: 0.1-324
 Date: 2014-05-17
 Author: Long Qu 
 Maintainer: Long Qu <long.qu@wright.edu>
