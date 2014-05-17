@@ -8,7 +8,7 @@ Cube Root
 Cube root function defined as \code{sign(x) * abs(x)^oneThird}.
 }
 \usage{
-cubRoot(x)
+cubeRoot(x)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

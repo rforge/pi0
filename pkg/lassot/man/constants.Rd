@@ -12,13 +12,15 @@
 \description{
 Precomputed constants that are used frequently. 
 }
-\usage{data(log2)}
-\usage{data(log1pff)}
-\usage{data(lassotFactor)}
-\usage{data(ffp1df)}
-\usage{data(ffp1)}
-\usage{data(oneThird)}
-\usage{data(continuityFactor)}
+\usage{
+data(log2)
+data(log1pff)
+data(lassotFactor)
+data(ffp1df)
+data(ffp1)
+data(oneThird)
+data(continuityFactor)
+}
 \format{
   The format is:
  num 0.693

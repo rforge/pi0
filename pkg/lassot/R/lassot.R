@@ -5,7 +5,7 @@ log1pff=log(ffp1)
 continuityFactor=(lassotFactor^2-1)/lassotFactor/(lassotFactor^2+1)
 log2=log(2)
 oneThird=1/3
-cubRoot=function(x)sign(x)*abs(x)^oneThird
+cubeRoot=function(x)sign(x)*abs(x)^oneThird
 
 dlassot1=function(x,a,m,df=2*m-1,s=a/sqrt(df), log=FALSE) {  ## only when lambda=1
     half.const=pt(-lassotFactor*sqrt(df),df)*a*beta(df/2,.5)+a*lassotFactor/m/log1pff*(1-(1+lassotFactor*lassotFactor)^-m)

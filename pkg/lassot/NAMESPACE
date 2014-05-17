@@ -5,7 +5,7 @@ importFrom(hypergeo, hypergeo)
 
 export(
 	dlassot, 
-	lassot
+	lassot.fit
 )
 
 useDynLib(lassot)
