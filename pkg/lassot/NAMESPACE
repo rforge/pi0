@@ -1,0 +1,11 @@
+importFrom(varComp, safeseq)
+importFrom(hypergeo, hypergeo)
+
+
+
+export(
+	dlassot, 
+	lassot
+)
+
+useDynLib(lassot)
