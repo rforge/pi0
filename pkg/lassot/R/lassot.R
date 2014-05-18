@@ -89,7 +89,7 @@ lassot.fit=function(x,y,lambdas=10^seq(1,5,length=10),alphas=1.5^seq(1,17,length
 	sse=colSums((ym-x.std%*%betas)^2)
 	if(tuning.method=='gcv') {
 		criterion=sse/n/(1-attr(ans$b, 'df')/n)^2
-	}else if9tuning.method=='sure') {
+	}else if(tuning.method=='sure') {
 		criterion = sse + 2*sse/n*attr(ans$b, 'df')
 	}else stop('unknown `tuning.method`')
 	
