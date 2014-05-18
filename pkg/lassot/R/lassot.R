@@ -34,10 +34,11 @@ dlassot=function(x, rate=1/continuityFactor/ffp1df, alpha=2/ffp1df, log=FALSE)
 	if(isTRUE(log)) logans else exp(logans)
 }
 
-lassot.fit=function(x,y,lambdas=10^seq(1,5,length=10),alphas=1.5^seq(1,17,length=10), 
+lassot.fit=function(x,y,lambdas=10^seq(1,5,length=10),alphas=1.5^seq(1,17,length=10), tuning.method=c('sure','gcv'),
     method=c('Coordinate','Newton','R'), eps=.Machine$double.eps^.25*ncol(x), niter=1000L, verbose=TRUE)
 {
 	continuity=TRUE  ## FALSE case not fully implemented
+	tuning.method=match.arg(tuning.method)
 	
     x=as.matrix(x); p=ncol(x);     n=length(y)
     ym=as.double(y-mean(y))/sd(y)
@@ -86,8 +87,13 @@ lassot.fit=function(x,y,lambdas=10^seq(1,5,length=10),alphas=1.5^seq(1,17,length
     # ibest=which.max(pll) # this never return NaN/NA :)
 	
 	sse=colSums((ym-x.std%*%betas)^2)
-	gcv=sse/n/(1-attr(ans$b, 'df')/n)^2
-	ibest=which.min(gcv)
+	if(tuning.method=='gcv') {
+		criterion=sse/n/(1-attr(ans$b, 'df')/n)^2
+	}else if9tuning.method=='sure') {
+		criterion = sse + 2*sse/n*attr(ans$b, 'df')
+	}else stop('unknown `tuning.method`')
+	
+	ibest=which.min(criterion)
     ret=c(mean(y),betas[,ibest]/xnorm*sd(y))
     attr(ret,'alpha')=alphas[ibest]
     attr(ret,'lambda')=lambdas[ibest]
@@ -96,7 +102,7 @@ lassot.fit=function(x,y,lambdas=10^seq(1,5,length=10),alphas=1.5^seq(1,17,length
     # attr(ret,'dfs')=attr(ans$b, 'dfs')
     # attr(ret,'t.df')=alphas[ibest]*ffp1df-1
     # attr(ret,'s')=alphas[ibest]/sqrt(attr(ret,'t.df'))
-    attr(ret,'gcv')=gcv
+    attr(ret,'criterion')=criterion
     attr(ret,'betas')=betas/xnorm*sd(y)
     attr(ret,'dfs')=attr(ans$b, 'df')
 	attr(ret,'lambdas')=lambdas
@@ -281,10 +287,11 @@ if(FALSE) {
 	plot(beta0, lasso.bet)
 		points(beta0, lars.bet, col=2, pch=2)
 		points(beta0, lassot1.bet, col=4, pch=3)
-    lassot1c=lassot.fit(x,y, lambdas=10^seq(log10(lambda.max), log10(lambda.max)-2, length=100), alphas=1000,eps=1e-7*p); 
+    lassot1c=lassot.fit(x,y, lambdas=10^seq(log10(lambda.max), log10(lambda.max)-2, length=100), alphas=1000,eps=1e-7*p,verbose=FALSE); 
 		lassot1c.bet=attr(lassot1c, 'betas')[,which.min(abs(attr(lassot1c, 'dfs')-tmp.df))]
 		points(beta0, lassot1c.bet, col=5, pch=5)
-	
+	all.equal(lassot1, lassot1c)
+
 	
     lassotall=lassot.fit(x[,1],y,method='R')
     lassotall=lassot.fit(x,y, lambdas=10^seq(-2,1,length=10),alphas=1.5^seq(1,17,length=20),method='R')
