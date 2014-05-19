@@ -90,7 +90,7 @@ void lassot(double *xstd, double *ym, int *n, int *p, double *beta,
 			
 			if(maxdiff <= *eps) break;
 			maxdiff=0.0;
-			R_CheckUserInterrupt();
+			if(iter % 10==0) R_CheckUserInterrupt();
 		} // of iter
 		
 		// computing coordinate-wise degrees of freedom

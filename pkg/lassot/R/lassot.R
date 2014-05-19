@@ -34,20 +34,25 @@ dlassot=function(x, rate=1/continuityFactor/ffp1df, alpha=2/ffp1df, log=FALSE)
 	if(isTRUE(log)) logans else exp(logans)
 }
 
-lassot.fit=function(x,y,lambdas=10^seq(1,5,length=10),alphas=1.5^seq(1,17,length=10), tuning.method=c('sure','gcv'),
-    method=c('Coordinate','Newton','R'), eps=.Machine$double.eps^.25*ncol(x), niter=1000L, verbose=TRUE)
-{
+lassot.fit=function(x,y,lambdas=NULL, nlambda=100L, lambda.min.ratio=0.01,alphas=c(seq(1,29,length=9)/ffp1df, 1e6), tuning.method=c('sure','gcv'),
+    method=c('Coordinate','Newton','R'), eps=min(0.01,.Machine$double.eps^.5*ncol(x)), niter=1000L, verbose=FALSE)
+{## FIXME: fix the scale of lambda to the equivalent value before data standardization
 	continuity=TRUE  ## FALSE case not fully implemented
 	tuning.method=match.arg(tuning.method)
 	
-    x=as.matrix(x); p=ncol(x);     n=length(y)
+    x=as.matrix(x); y=as.vector(y)
+	p=ncol(x);     n=length(y)
     ym=as.double(y-mean(y))/sd(y)
     xm=sweep(x,2L,colMeans(x),'-')
     xnorm=sqrt(colSums(xm*xm))
     x.std=sweep(xm,2L,xnorm,'/')
-    beta0=drop(crossprod(x.std,ym))
+    beta0=drop(crossprod(x.std,ym)); lambda.max=max(abs(beta0))
     beta0=beta0*drop(crossprod(beta0)/crossprod(x.std%*%beta0))
 
+	if(is.null(lambdas)){
+		stopifnot(lambda.min.ratio<1 && lambda.min.ratio>0)
+		lambdas=10^(log10(lambda.max) + seq(log10(lambda.min.ratio), 1, length=nlambda))
+	}
     grids=expand.grid(rev(sort(alphas)),rev(sort(lambdas)) )
     lambdas=grids[,2]
     alphas=grids[,1]
@@ -81,30 +86,31 @@ lassot.fit=function(x,y,lambdas=10^seq(1,5,length=10),alphas=1.5^seq(1,17,length
         # m=lambda/sig2
         # sum(dnorm(ym,x.std%*%betas,sqrt(sig2),log=TRUE))+sum(dlassot(betas,lambda,a,log=TRUE))
     # }
-    betas=matrix(ans$b,p,lambda.n)
+    betas=matrix(ans$b,p,lambda.n)/xnorm*sd(y)
     # pll=numeric(lambda.n)
     # for(i in 1:lambda.n)pll[i]=plogLik(betas[,i],alphas[i],lambdas[i])
     # ibest=which.max(pll) # this never return NaN/NA :)
 	
-	sse=colSums((ym-x.std%*%betas)^2)
+	sse=colSums((y-x%*%betas-mean(y))^2)
 	if(tuning.method=='gcv') {
-		criterion=sse/n/(1-attr(ans$b, 'df')/n)^2
+		criterion=sse/n/(1-(attr(ans$b, 'df')+1)/n)^2
 	}else if(tuning.method=='sure') {
-		criterion = sse + 2*sse/n*attr(ans$b, 'df')
+		criterion = sse + 2*sse/n*(attr(ans$b, 'df')+1)
 	}else stop('unknown `tuning.method`')
 	
-	ibest=which.min(criterion)
-    ret=c(mean(y),betas[,ibest]/xnorm*sd(y))
+	good.df.idx=which(attr(ans$b, 'df')<=n)
+	ibest=good.df.idx[which.min(criterion[good.df.idx])]
+    ret=c(mean(y),betas[,ibest])
     attr(ret,'alpha')=alphas[ibest]
     attr(ret,'lambda')=lambdas[ibest]
-    attr(ret,'sig2e')=crossprod(y-x%*%ret[-1]-mean(y))/(n-min(n-1,attr(ans$b,'df')[ibest]))
-    attr(ret, 'df')=attr(ans$b,'df')[ibest]
+    attr(ret,'sig2e')=sse/(n-min(n-1,1+attr(ans$b,'df')[ibest]))
+    attr(ret, 'df')=attr(ans$b,'df')[ibest]+1
     # attr(ret,'dfs')=attr(ans$b, 'dfs')
     # attr(ret,'t.df')=alphas[ibest]*ffp1df-1
     # attr(ret,'s')=alphas[ibest]/sqrt(attr(ret,'t.df'))
-    attr(ret,'criterion')=criterion
-    attr(ret,'betas')=betas/xnorm*sd(y)
-    attr(ret,'dfs')=attr(ans$b, 'df')
+    attr(ret,'criterion')=structure(criterion, tuning.method=tuning.method)
+    attr(ret,'betas')=betas
+    attr(ret,'dfs')=attr(ans$b, 'df')+1
 	attr(ret,'lambdas')=lambdas
     attr(ret,'alphas')=alphas
     ret

@@ -8,7 +8,7 @@ Fitting function for lassot regularized regression
 The workhorse function for estimating the regression coefficients
 }
 \usage{
-lassot.fit(x, y, lambdas = 10^seq(1, 5, length = 10), alphas = 1.5^seq(1, 17, length = 10), tuning.method=c('sure','gcv'), method = c("Coordinate", "Newton", "R"), eps = .Machine$double.eps^0.25 * ncol(x), niter = 1000L, verbose = TRUE)
+lassot.fit(x, y, lambdas = NULLL, nlambda=50L, lambda.min.ratio=0.01, alphas = alphas=c(seq(1,29,length=9)/ffp1df, 1e6), tuning.method=c('sure','gcv'), method = c("Coordinate", "Newton", "R"), eps = min(.01, .Machine$double.eps^0.5 * ncol(x)), niter = 1000L, verbose = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,6 +19,12 @@ lassot.fit(x, y, lambdas = 10^seq(1, 5, length = 10), alphas = 1.5^seq(1, 17, le
 %%     ~~Describe \code{y} here~~
 }
   \item{lambdas}{
+%%     ~~Describe \code{lambdas} here~~
+}
+  \item{nlambda}{
+%%     ~~Describe \code{lambdas} here~~
+}
+  \item{lambda.min.ratio}{
 %%     ~~Describe \code{lambdas} here~~
 }
   \item{alphas}{
