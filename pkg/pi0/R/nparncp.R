@@ -8,12 +8,19 @@ nparncpt=function(tstat, df, ...)
         nparncpt.sqp(tstat, df, ...)
     }
 }
-nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), starts, IC=c('BIC','CAIC','HQIC','AIC'),
+nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), starts, IC=c('BIC','CAIC','HQIC','AIC'),
                         K=100, bounds=quantile(tstat,c(.01,.99)), solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 {
 #   source("int.nct.R"); source("laplace.nct.R"); source("saddlepoint.nct.R"); source("dtn.mix.R")
     solver=match.arg(solver)
-    penalty=match.arg(penalty)
+    if(is.character(penalty)){
+		penalty.choices=c('1st.deriv','2nd.deriv','3rd.deriv','4th.deriv','5th.deriv')
+		penalty=match.arg(penalty, penalty.choices)
+		penalty=which(penalty==penalty.choices)
+	}else if(is.numeric(penalty)) {
+		penalty=as.integer(penalty)
+		if(penalty<1 || penalty>5) stop('"penalty" should be an integer among 1 through 5.')
+	}else stop('"penalty" should be an integer among 1 through 5.')
     solver.package=switch(solver, solve.QP='limSolve', ipop='kernlab', lsei='limSolve',LowRankQP='LowRankQP'
     )
     #loadOrInstall(solver.package)
@@ -47,20 +54,20 @@ nparncpt.sqp = function (tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv
     }
     b.i=b.i-h0.i
 
-    if(penalty=='1st.deriv'){
-#        Omega=diag(0,K,K)                   ### 1st order derivative
-#        for(j in 1:K) for(k in 1:j) {
-#                tmp=(mus[j]-mus[k])^2/(sigs[j]^2+sigs[k]^2); 
-#                Omega[j,k]=Omega[k,j]=(1-tmp)/sqrt(2*pi*(sigs[j]^2+sigs[k]^2)^3)*exp(-tmp/2)
-#        }
-            diffmu=outer(mus,mus,'-'); sumsig2=outer(sigs^2, sigs^2, '+')
+	diffmu=outer(mus,mus,'-'); sumsig2=outer(sigs^2, sigs^2, '+')
+    if(penalty==1L){
             Omega=exp(-diffmu^2/2/sumsig2)/sqrt(2*pi*sumsig2^5)*(sumsig2-diffmu^2)
-    }else if(penalty=='2nd.deriv'){
-            diffmu=outer(mus,mus,'-'); sumsig2=outer(sigs^2, sigs^2, '+')
+    }else if(penalty==2L){
             Omega=exp(-diffmu^2/2/sumsig2)/sqrt(2*pi*sumsig2^9)*(3*sumsig2^2-6*sumsig2*diffmu^2+diffmu^4)
-    }else if(penalty=='3rd.deriv'){
-            diffmu=outer(mus,mus,'-'); sumsig2=outer(sigs^2, sigs^2, '+')
+    }else if(penalty==3L){
             Omega=exp(-diffmu^2/2/sumsig2)/sqrt(2*pi*sumsig2^13)*(15*sumsig2^3-45*sumsig2^2*diffmu^2+15*sumsig2*diffmu^4-diffmu^6)
+    }else if(penalty == 4L) {
+        Omega = exp(-diffmu^2/2/sumsig2)/sqrt(2 * pi * sumsig2^17) * 
+            (105 * sumsig2^4 -420* sumsig2^3 * diffmu^2 +210 * sumsig2^2 * diffmu^4 -28 * 
+                 sumsig2 * diffmu^6 + diffmu^8)
+    }else if(penalty == 5L) {
+        Omega = exp(-diffmu^2/2/sumsig2)/sqrt(2 * pi * sumsig2^21) * 
+            (945 * sumsig2^5 -4725 * sumsig2^4 *diffmu^2 + 3150 * sumsig2^3 * diffmu^4 - 630 * sumsig2^2 * diffmu^6 + 45 * sumsig2 * diffmu^8 - diffmu^10)
     }
 
     NPLL=function(thetas, take.sum=TRUE ){ ### depends on h0.i, b.i, lambda, Omega, G

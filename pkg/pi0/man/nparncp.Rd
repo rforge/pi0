@@ -10,7 +10,7 @@
 }
 \usage{
 nparncpt(tstat, df, ...)
-nparncpt.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=10^seq(-1,5,by=1), 
+nparncpt.sqp(tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), 
         starts, IC=c('BIC','CAIC','HQIC','AIC'), K=100, bounds=quantile(tstat,c(.01,.99)), 
         solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 }
@@ -20,8 +20,7 @@ nparncpt.sqp(tstat, df, penalty=c('3rd.deriv','2nd.deriv','1st.deriv'), lambdas=
 }
   \item{df}{ Numeric vector of degrees of freedom
 }
-  \item{penalty}{ Character vector. Penalty on either integrated squared first-order derivatives (\code{1st.deriv}) or second-order derivatives (\code{2nd.deriv}) 
-  of the estimated density function of ncp. Note that only the first element is used. 
+  \item{penalty}{ An integer scalar among 1 through 5, indicating the order of derivatives of the estimated density funciton of ncp. The integral of square of such derivatives is the penalty to the log likelihood function. A character value among \code{c('1st.deriv','2nd.deriv','3rd.deriv','4th.deriv','5th.deriv')} is also accepted but deprecated.  
 }
   \item{lambdas}{Numeric vector of smoothness tuning parameter \code{lambda} to be tried. The one that minimizes NIC will be chosen. 
 }
@@ -88,7 +87,7 @@ of the basis Gaussian density functions.
 %% ...
 }
 \references{
-Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
+Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics, 68, 1178--1187.
 %% ~put references to the literature/web site here ~
 }
 \author{Long Qu 

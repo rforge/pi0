@@ -12,8 +12,8 @@ This package implements method(s) to (approximately unbiasedly) estimate the pro
 \tabular{ll}{
 Package: \tab pi0\cr
 Type: \tab Package\cr
-Version: \tab 1.3-318\cr
-Date: \tab 2013-08-30\cr
+Version: \tab 1.3-331\cr
+Date: \tab 2014-08-12\cr
 License: \tab GPL version 2 or newer\cr
 }
 \itemize{
@@ -39,7 +39,7 @@ Maintainer: Long Qu \email{long.qu@wright.edu}
 }
 \references{
 
-Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
+Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics, 68, 1178--1187.
 
 Ruppert D, Nettleton D, Hwang JT. (2007) Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 

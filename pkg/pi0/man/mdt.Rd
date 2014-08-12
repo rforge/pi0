@@ -30,7 +30,7 @@ with mixing proportion based on that of \code{obj$data$df}.
  A function of one argument (\code{x}), i.e., the marginal density function. 
 }
 \references{ 
-Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
+Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics, 68, 1178--1187.
 
 }
 \author{ Long Qu 
