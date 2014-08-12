@@ -3,7 +3,7 @@ function(x,y,rgl=TRUE,...)
 {
     if(missing(y)) y=rgl else rgl=y
     if(rgl)rgl=suppressWarnings(loadOrInstall("rgl"))
-    if(!rgl) {x11(width=14,height=7);par(mfrow=c(1,2))}
+    if(!rgl) {dev.new(width=14,height=7);par(mfrow=c(1,2))}
     op=par( mar=c(5.1,4.1,4.1,4.1))
     hs=hist(x$pvalues,probability=TRUE,breaks=30,xlab='p-value',ylab='',
            ,border=4,axes=FALSE,main='Subsampling-Extrapolation based\np-value and q-value summary')

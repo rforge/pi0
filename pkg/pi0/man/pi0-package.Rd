@@ -75,7 +75,7 @@ data(simulatedSubex); print(simulatedSubex)
 ## parametric, nonparametric, semiparametric estimate of 
 ## noncentrality parameter distribution from t-statistics
 data(simulatedTstat)
-(npfit=nparncpt(tstat=simulatedTstat, df=8, plotit=FALSE)); 
+(npfit=nparncpt(tstat=simulatedTstat, df=8, plotit=FALSE, lambdas=10^(0:3))); 
 (pfit=parncpt(tstat=simulatedTstat, df=8, zeromean=FALSE)); 
 (pfit0=parncpt(tstat=simulatedTstat, df=8, zeromean=TRUE)); 
 (spfit=sparncpt(npfit,pfit));

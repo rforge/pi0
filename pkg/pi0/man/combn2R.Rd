@@ -113,7 +113,8 @@ combn2R(4,2,R=10) ### only 6 combinations possible
 combn2R(4,2,5,1,R=8)
 combn2R(1:4*2,2,5,1,R=50) ### only 30 combinations possible
 combn2R(1:4*2,2,5,1,R=5) ### when considering only one group, there are several common samples.
-combn2R(1:4*2,2,5,1,R=5, sample.method="diff2") ### no common samples, even considering only one group
+### no common samples, even considering only one group
+combn2R(1:4*2,2,5,1,R=5, sample.method="diff2") 
 combn2R(1:3*3,1,3,1,R=5, sample.method="replace") ### two pairs of exactly common samples
 combn2R(100,3,100,3,R=5, sample.method="all") ### 'all' combinations not feasible (~3e10)
 }

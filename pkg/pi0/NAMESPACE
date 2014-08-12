@@ -1,4 +1,5 @@
 import(Matrix)
+import(LowRankQP)
 importFrom(stats, coef, coefficients, fitted, fitted.values, vcov, logLik)
 importFrom(graphics, plot)
 importFrom(numDeriv, grad, hessian)

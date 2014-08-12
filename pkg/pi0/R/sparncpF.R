@@ -59,7 +59,7 @@ summary.sparncpF=function(object,...)
 }
 plot.sparncpF=function(x,...)
 {
-#    x11(width=8, height=4)
+#    dev.new(width=8, height=4)
     op=par(mfrow=c(1,2))
     hist(x$parfit$data$Fstat, pr=TRUE, br=min(c(max(c(20, length(x$parfit$data$Fstat)/100)), 200)), xlab='t',main='t-statistics')
     ord=order(x$parfit$data$Fstat)
@@ -386,7 +386,7 @@ plot.sparncpF=function(x,...)
 #}
 #plot.sparncpF=function(x,...)
 #{
-#    x11(width=7,heigh=7)
+#    dev.new(width=7,heigh=7)
 #    op=par(mfrow=c(2,2))
 ##    attach(x)
 #    n.lambda=length(x$all.lambdas)
@@ -646,7 +646,7 @@ if( 1-sum(thetas)<eps) {## pi0=0, i.e. sum(thetas)==1; ## this needs reparameter
 #curve(d.ncp(x, co.fit$par/sum(co.fit$par)), -5,5,100,add=TRUE)
 
 
-x11(); 
+dev.new(); 
 strt=rep(1/K,K); strt=strt/sum(strt)*.5
 #strt=runif(K); strt=strt/sum(strt)*.5
 sqp.fit=sqp(strt,1e-10)

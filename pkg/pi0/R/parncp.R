@@ -193,7 +193,7 @@ print.parncpt=function(x,...)
 }
 plot.parncpt=function(x,...)
 {
-#    x11(width=8, height=4)
+#    dev.new(width=8, height=4)
     op=par(mfrow=c(1,2))
     hist(x$data$tstat, pr=TRUE, br=min(c(max(c(20, length(x$data$tstat)/100)), 200)), xlab='t',main='t-statistics')
     ord=order(x$data$tstat)

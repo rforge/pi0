@@ -37,7 +37,7 @@ Storey, J.D.,  Tibshirani, R. (2003) Statistical significance for genomewide stu
 \seealso{ \code{\link[qvalue:qvalue]{qvalue}}, \code{\link[multtest:mt.rawp2adjp]{mt.rawp2adjp}}}
 \examples{
 set.seed(9992722)
-pvals=runif(5e5)^1.5 ## simulate some fake 'p-values'
+pvals=runif(5e4)^1.5 ## simulate some fake 'p-values'
 library(qvalue)
 qvalObj=qvalue(pvals)  ## warning: this may be slow! 
 fdrObj=fdr(pvals,qvalObj$pi0)

@@ -9,7 +9,8 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-dt.sad(x, df, ncp = 0, log = FALSE, normalize = c("approximate", "derivative", "integral", "none"), epsilon = 1e-04)
+dt.sad(x, df, ncp = 0, log = FALSE, 
+	normalize = c("approximate", "derivative", "integral", "none"), epsilon = 1e-04)
 pt.sad(q, df, ncp = 0, log = FALSE, epsilon = 1e-04)
 }
 %- maybe also 'usage' for other objects documented here.

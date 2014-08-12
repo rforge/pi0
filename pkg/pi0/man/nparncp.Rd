@@ -10,9 +10,11 @@
 }
 \usage{
 nparncpt(tstat, df, ...)
-nparncpt.sqp(tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), 
-        starts, IC=c('BIC','CAIC','HQIC','AIC'), K=100, bounds=quantile(tstat,c(.01,.99)), 
-        solver=c('solve.QP','lsei','ipop','LowRankQP'),plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
+nparncpt.sqp(tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), starts, 
+		IC=c('BIC','CAIC','HQIC','AIC'), K=100, 
+		bounds=quantile(tstat,c(.01,.99)), 
+        solver=c('solve.QP','lsei','ipop','LowRankQP'),
+		plotit=FALSE, verbose=FALSE, approx.hess=TRUE, ... )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
