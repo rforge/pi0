@@ -39,7 +39,7 @@ See \link[limma:08.Tests]{08.Tests} for other functions for producing or interpr
 
 \examples{
 set.seed(9992722)
-convest(runif(1e4)^1.5, niter=100,doplot=interactive())
+convest(runif(1e4)^1.5, niter=50)
 }
 \keyword{htest}
 

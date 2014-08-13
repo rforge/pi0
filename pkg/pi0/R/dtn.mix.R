@@ -2,7 +2,9 @@ dtn.mix=function(t,df,mu.ncp, sd.ncp, log=FALSE, approximation=c('int2','saddlep
 {
     approximation=match.arg(approximation)
     if(all(is.infinite(df))) return( dnorm(t, mu.ncp, sqrt(1+sd.ncp*sd.ncp), log=log) )
-    df[is.infinite(df)]=500
+    if(approximation!='none' && approximation!='int2' ) df[is.infinite(df)]=500 
+	
+	if(approximation=='none' && all(df==round(df))) approximation='int2'
     if(approximation=='none'){
         scale.fact=sqrt(1+sd.ncp*sd.ncp)
         ncp=mu.ncp/scale.fact

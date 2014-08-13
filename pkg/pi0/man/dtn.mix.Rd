@@ -14,28 +14,21 @@ dtn.mix(t, df, mu.ncp, sd.ncp, log = FALSE, approximation = c("int2",
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{t}{A numeric vector of quantiles
-%%     ~~Describe \code{t} here~~
 }
   \item{df}{A numeric vector of degrees of freedom
-%%     ~~Describe \code{df} here~~
 }
   \item{mu.ncp}{A numeric vector of normal mean of NCP
-%%     ~~Describe \code{mu.ncp} here~~
 }
   \item{sd.ncp}{A numeric vector of normal SD of NCP
-%%     ~~Describe \code{sd.ncp} here~~
 }
   \item{log}{logical; if \code{TRUE}, log density is returned. 
-%%     ~~Describe \code{log} here~~
 }
   \item{approximation}{character; Method of approximation. \code{int2} computes exact denstiy for \code{int}eger \code{df} and polynomially \code{int}erpolate to non-integer degrees of freedom. 
   \code{saddlepoint} computes the saddle point approximation of the noncentral t-density. 
   \code{laplace} computes the laplacian approximation of the noncentral t-density. 
-  \code{none} uses the (sort of) true noncentral t-density \code{\link{dt}} function. 
-%%     ~~Describe \code{approximation} here~~
+  \code{none} uses the (sort of) true noncentral t-density \code{\link{dt}} function. However, if all degrees of freedom are integers, \code{int2} will be used even if \code{none} is specified, both of which being exact. 
 }
   \item{\dots}{other arguments passed to \code{\link{dt.int2}} or \code{\link{dt.sad}}. 
-%%     ~~Describe \code{\dots} here~~
 }
 }
 \details{Mathematically, this is equivalent to \code{dt(t/s, df, mu.ncp/s)/s} where \code{s=sqrt(1+sd.ncp*sd.ncp)}. But the various approximations are usually sufficient for large problems where speed is more important than precision. 

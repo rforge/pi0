@@ -61,10 +61,16 @@ dt.int2=function(x, df, ncp, log=FALSE, ndiv=8 ) ## pretty fast computation of n
     ## when df is fractional, this is divided difference polynomial interpolation using ndiv points with nearest integer dfs
     if (missing(ncp)) 
         return(dt(x, df, ,log))
-
-    n=max(c(length(x),length(df),length(ncp)))
+	n=max(c(length(x),length(df),length(ncp)))
     x=rep(as.double(x),length=n); df=rep(df,length=n); ncp=rep(as.double(ncp),length=n)
 
+	if(any(finIdx<-is.infinite(df))){
+		ans=rep(NA_real_, n)
+		ans[finIdx]=dnorm(x[finIdx], ncp[finIdx], , log)
+		ans[!finIdx]=Recall(x[!finIdx], df[!finIdx], ncp[!finIdx], log, ndiv)
+		return(ans)
+	}
+    
     integer.df.idx=(df==round(df))
     n.int=as.integer(sum(integer.df.idx))
 
