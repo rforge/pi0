@@ -71,7 +71,11 @@ parncpt2.constrOptim=function(tstat,df,starts, grids, approximation='int2',...)
 			if(sum(parms[1:2])>1) Inf else
 				obj(c(parms[1],parms[2],parms[3],parms[4],parms[3]*-1,parms[4]))
 		}
-        starts=grid.search(obj.restricted, default.grids$lower, default.grids$upper, default.grids$ngrid)
+        starts=suppressWarnings(grid.search(obj.restricted, default.grids$lower, default.grids$upper, default.grids$ngrid))
+		if(starts[3]>0){
+			starts[2]=1-starts[1]-starts[2]; starts[3]=-starts[3]
+		}else if(starts[3]==0) starts[3]=-1e-3
+		starts=c(starts[1:4], starts[3]*-1, starts[4])
     }
 	ui=rbind(diag(1,6)[-c(3,5),], rep(-1:0, c(2,4)), c(0,0,-1,0,1,0))
 	ci=rep(0,6); ci[5]=-1
@@ -114,10 +118,10 @@ function(object, ...)
 
 summary.parncpt2=function(object,...)
 {
-    cat("pi0 (proportion of null hypotheses) =", object$pi0, fill=TRUE)
-    cat("mu.ncp (mean of noncentrality parameters) =", object$mu.ncp, fill=TRUE)
-    cat("sd.ncp (SD of noncentrality parameters) =", object$sd.ncp, fill=TRUE)
-	 cat(sprintf("tau.ncp=%.5f; mu1.ncp=%.3f; sd1.ncp=%.2f; mu2.ncp=%.3f; sd2.ncp=%.2f",object$tau,object$mu1.ncp,object$sd1.ncp,object$mu2.ncp,object$sd2.ncp), filel=TRUE)
+    cat("pi0 (proportion of null hypotheses) =", object$pi0, "\n")
+    cat("mu.ncp (mean of noncentrality parameters) =", object$mu.ncp, "\n")
+    cat("sd.ncp (SD of noncentrality parameters) =", object$sd.ncp, "\n")
+	 cat(sprintf("tau.ncp=%.5f; mu1.ncp=%.3f; sd1.ncp=%.2f; mu2.ncp=%.3f; sd2.ncp=%.2f",object$tau,object$mu1.ncp,object$sd1.ncp,object$mu2.ncp,object$sd2.ncp),"\n")
     invisible(object)
 }
 print.parncpt2=function(x,...)
