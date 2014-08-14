@@ -5,6 +5,7 @@
 \alias{fitted.nparncpp}
 %\alias{fitted.values.nparncpp}
 \alias{fitted.parncpt}
+\alias{fitted.parncpt2}
 %\alias{fitted.values.parncpt}
 \alias{fitted.sparncpt}
 %\alias{fitted.values.sparncpt}
@@ -18,6 +19,7 @@
 \method{fitted}{nparncpt}(object, ...)
 %\method{fitted.values}{nparncpt}(object, ...)
 \method{fitted}{parncpt}(object, ...)
+\method{fitted}{parncpt2}(object, ...)
 %\method{fitted.values}{parncpt}(object, ...)
 \method{fitted}{sparncpt}(object, ...)
 %\method{fitted.values}{sparncpt}(object, ...)
@@ -44,7 +46,7 @@
 %% ...
 }
 \references{
-Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of \eqn{t}-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
+Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of \eqn{t}-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics. 68. 1178-1187.
 }
 \author{Long Qu 
 %%  ~~who you are~~
@@ -55,7 +57,7 @@ Functions for \code{nparncpp} are not yet implemented.
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
-\seealso{\code{\link{sparncpt}}, \code{\link{parncpt}}, \code{\link{nparncpt}}, \code{\link{nparncpp}}
+\seealso{\code{\link{sparncpt}}, \code{\link{parncpt}}, \code{\link{parncpt2}}, \code{\link{nparncpt}}, \code{\link{nparncpp}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 %\examples{

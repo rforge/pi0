@@ -1,6 +1,7 @@
 \name{dncp}
 \alias{dncp}
 \alias{dncp.parncpt}
+\alias{dncp.parncpt2}
 \alias{dncp.nparncpt}
 \alias{dncp.sparncpt}
 \alias{dncp.nparncpp}
@@ -12,6 +13,7 @@ These functions return the density function of noncentrality parameters, from \c
 \usage{
 dncp(obj, ...)
 \method{dncp}{parncpt}(obj, fold=FALSE, ...)
+\method{dncp}{parncpt2}(obj, fold=FALSE, ...)
 \method{dncp}{nparncpt}(obj, fold=FALSE, ...)
 \method{dncp}{sparncpt}(obj, fold=FALSE, ...)
 \method{dncp}{nparncpp}(obj, reflect=TRUE, ...)
@@ -34,7 +36,7 @@ dncp(obj, ...)
 \references{ 
 Ruppert D, Nettleton D, Hwang JT. (2007) Exploring the Information in $p$-values for the Analysis and Planning of Multiple-test Experiments. Biometrics. 63. 483-495.
 
-Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics (in press).
+Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality Parameter Distribution from a Large Number of $t$-statistics, with Applications to False Discovery Rate Estimation in Microarray Data Analysis. Biometrics. 68. 1178-1187.
 }
 \author{ Long Qu 
 %~~who you are~~ 
@@ -42,7 +44,7 @@ Qu L, Nettleton D, Dekkers JCM. (2012) Improved Estimation of the Noncentrality 
 \note{ 
 \code{dncp.nparncpp} is not yet implemented. 
 }
-\seealso{ \code{\link{parncpt}}. \code{\link{nparncpt}} ,\code{\link{sparncpt}}. \code{\link{nparncpp}}
+\seealso{ \code{\link{parncpt}}, \code{\link{parncpt2}}, \code{\link{nparncpt}} ,\code{\link{sparncpt}}. \code{\link{nparncpp}}
 }
 %\examples{
 %%##---- Should be DIRECTLY executable !! ----

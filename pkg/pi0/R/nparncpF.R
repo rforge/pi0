@@ -342,7 +342,7 @@ plot.nparncpF=function(x,...)
         qx=outer(1:(length(x$all.mus)-2), xx,  z)
         drop(x$beta %*% qx)
     }
-    curve(d.ncp, min(x$all.mus),max(x$all.mus),100,col=4,lwd=2, xlab='delta',ylab='density')
+    curve(d.ncp, min(x$all.mus),max(x$all.mus),100,col=4,lwd=2, xlab=expression(delta),ylab='density')
 #    detach(x)
     rug(x$all.mus)
     par(op)

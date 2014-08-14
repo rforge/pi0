@@ -1,6 +1,7 @@
 \name{plot.parncpt}
 \Rdversion{1.1}
 \alias{plot.parncpt}
+\alias{plot.parncpt2}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{plot an object of class parncpt, i.e., parametric estiamte of noncentrality parameters
 }
@@ -9,6 +10,7 @@
 }
 \usage{
 \method{plot}{parncpt}(x,...)
+\method{plot}{parncpt2}(x,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

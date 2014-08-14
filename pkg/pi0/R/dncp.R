@@ -6,6 +6,12 @@ dncp.parncpt=function(obj, fold=FALSE, ...)
     if(fold) fold(ans) else ans
 }
 
+dncp.parncpt2=function(obj, fold=FALSE, ...)
+{
+    ans=function(x) rho*dnorm(x, obj$mu1.ncp, obj$sd1.ncp)+(1-rho)*dnorm(x, obj$mu2.ncp, obj$sd2.ncp)
+    if(fold) fold(ans) else ans
+}
+
 dncp.nparncpt=function(obj, fold=FALSE, ...) {
     d.ncp = function(xx) {
         xx = outer(xx, obj$all.mus, "-")

@@ -71,7 +71,7 @@ plot.sparncpt=function(x,...)
     lines(x$parfit$data$tstat[ord], fitted(x)[ord], col='red', lwd=2)
     d.ncp=function(d) dncp(x)(d)
     curve(d.ncp, quantile(x$parfit$data$tstat,.001), quantile(x$parfit$data$tstat,.999), 500, 
-        xlab='delta', ylab='density',main='noncentrality parameters')
+        xlab=expression(delta), ylab='density',main='noncentrality parameters')
     abline(v=c(0, x$mu.ncp), lty=1:2)
     par(op)
     invisible(x)

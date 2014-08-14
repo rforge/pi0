@@ -202,7 +202,7 @@ plot.parncpF=function(x,...)
     ord=order(x$data$Fstat)
     lines(x$data$Fstat[ord], fitted.parncpF(x)[ord], col='red', lwd=2)
     d.ncp=function(d) dchisq(d/x$gamma2, x$data$df1, x$delta0/x$gamma2)/x$gamma2
-    curve(d.ncp, 0, max(x$data$Fstat), 500, xlab='delta', ylab='density',main='noncentrality parameters')
+    curve(d.ncp, 0, max(x$data$Fstat), 500, xlab=expression(delta), ylab='density',main='noncentrality parameters')
 #    abline(v=c(0, x$delta0), lty=1:2)
     par(op)
     invisible(x)
