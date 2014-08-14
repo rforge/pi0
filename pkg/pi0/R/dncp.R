@@ -8,7 +8,7 @@ dncp.parncpt=function(obj, fold=FALSE, ...)
 
 dncp.parncpt2=function(obj, fold=FALSE, ...)
 {
-    ans=function(x) rho*dnorm(x, obj$mu1.ncp, obj$sd1.ncp)+(1-rho)*dnorm(x, obj$mu2.ncp, obj$sd2.ncp)
+    ans=function(x) obj$tau*dnorm(x, obj$mu1.ncp, obj$sd1.ncp)+(1-obj$tau)*dnorm(x, obj$mu2.ncp, obj$sd2.ncp)
     if(fold) fold(ans) else ans
 }
 

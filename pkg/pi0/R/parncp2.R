@@ -1,8 +1,8 @@
 parncpt2=function(tstat, df,  ...)
 {   stopifnot(all(df>0))
-    if(!zeromean && any(is.infinite(df)) && !all(is.infinite(df)) ) {
-        df[is.infinite(df)]=500
-    }
+    # if(any(is.infinite(df)) && !all(is.infinite(df)) ) {
+        # df[is.infinite(df)]=500
+    # }
      method=c('constrOptim')
 #     method=match.arg(method)
     if       (method=='EM') {
@@ -76,7 +76,7 @@ parncpt2.constrOptim=function(tstat,df,starts, grids, approximation='int2',...)
 	ui=rbind(diag(1,6)[-c(3,5),], rep(-1:0, c(2,4)), c(0,0,-1,0,1,0))
 	ci=rep(0,6); ci[5]=-1
     names(starts)=c('pi0','pi1','mu1.ncp','sd1.ncp','mu2.ncp','sd2.ncp')
-    optimFit=try(constrOptim(starts,obj,gr=deriv.obj, ui=ui,ci=ci,hessian=FALSE,...))
+    optimFit=try(constrOptim(starts,obj,grad=deriv.obj, ui=ui,ci=ci,hessian=FALSE,...))
     # if(class(optimFit)=='try-error'){
         # optimFit=try(nlminb(starts,obj,deriv.non0mean,lower=c(0,-Inf,0),upper=c(1,Inf,Inf), ...))
     # }
@@ -90,10 +90,10 @@ parncpt2.constrOptim=function(tstat,df,starts, grids, approximation='int2',...)
 	attr(ll,'nobs')=G
     class(ll)='logLik'
 
-	tau=object$pi1/(1-object$pi0)
-	mu=tau*object$mu1.ncp+(1-tau)*object$mu2.ncp
-	Var=tau*((object$mu1.ncp-mu)^2+object$sd1.ncp^2)+
-	(1-tau)*((object$mu2.ncp-mu)^2+object$sd2.ncp^2)
+	tau=optimFit$par[2L]/(1-optimFit$par[1L])
+	mu=tau*optimFit$par[3L]+(1-tau)*optimFit$par[5L]
+	Var=tau*((optimFit$par[3L]-mu)^2+optimFit$par[4L]^2)+
+	(1-tau)*((optimFit$par[5L]-mu)^2+optimFit$par[6L]^2)
 	
     ans=list(pi0=optimFit$par[1], mu.ncp=mu, sd.ncp=sqrt(Var), tau.ncp=tau, pi1=optimFit$par[2], mu1.ncp=optimFit$par[3], sd1.ncp=optimFit$par[4], 
 		mu2.ncp=optimFit$par[5], sd2.ncp=optimFit$par[6], 
@@ -115,8 +115,8 @@ function(object, ...)
 summary.parncpt2=function(object,...)
 {
     cat("pi0 (proportion of null hypotheses) =", object$pi0, fill=TRUE)
-    cat("mu.ncp (mean of noncentrality parameters) =", mu, fill=TRUE)
-    cat("sd.ncp (SD of noncentrality parameters) =", sqrt(Var), fill=TRUE)
+    cat("mu.ncp (mean of noncentrality parameters) =", object$mu.ncp, fill=TRUE)
+    cat("sd.ncp (SD of noncentrality parameters) =", object$sd.ncp, fill=TRUE)
 	 cat(sprintf("tau.ncp=%.5f; mu1.ncp=%.3f; sd1.ncp=%.2f; mu2.ncp=%.3f; sd2.ncp=%.2f",object$tau,object$mu1.ncp,object$sd1.ncp,object$mu2.ncp,object$sd2.ncp), filel=TRUE)
     invisible(object)
 }
