@@ -2,7 +2,6 @@
 \Rdversion{1.1}
 \alias{parncpt}
 \alias{parncpt2}
-\alias{parncpt2.constrOptim}
 \alias{parncpt.bfgs.0mean}
 \alias{parncpt.bfgs.non0mean}
 \alias{parncpt.momeff}
@@ -16,8 +15,7 @@ parncpt(tstat, df, zeromean = TRUE, ...)
 parncpt.bfgs.0mean(tstat, df, starts, grids, approximation = "int2", ...)
 parncpt.bfgs.non0mean(tstat, df, starts, grids, approximation = "int2", ...)
 parncpt.momeff(tstat,n1,n2=n1,zeromean,gamma2,lower.df=6.1,upper.df=100,approx=TRUE)
-parncpt2(tstat, df,  ...)
-parncpt2.constrOptim(tstat,df,starts, grids, approximation='int2',...)
+parncpt2(tstat, df, common=c('mean','sd'), ...)
 }
 \arguments{
   \item{tstat}{numeric vector of t-statistics
@@ -26,6 +24,7 @@ parncpt2.constrOptim(tstat,df,starts, grids, approximation='int2',...)
 }
   \item{zeromean}{logical; if \code{TRUE}, then mean of noncentrality parameters is assumed to be zero and is \emph{not} estimated. 
 }
+  \item{common}{character vector. Allowed values are \code{'mean', 'sd', 'none'}. If \code{'none'} is present, \code{common} must be a scalar, and an unrestricted 2-component normal mixture is fit to ncp distribution. \code{NULL} is treated the same as \code{'none'}.  If \code{mean} is present, the means of the two normal components of the ncp distribution are assumed to be negative of each other. If \code{sd} is present, the sandard deviations of the two normal components of the ncp distribution are assumed to be common. }
   \item{\dots}{Other arguments to \code{\link{optim}}.
 }
   \item{starts}{An optional vector of starting values. If missing, a grid search will be performed to get a good starting value. 

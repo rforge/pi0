@@ -1,9 +1,16 @@
-parncpt2=function(tstat, df,  ...)
+parncpt2=function(tstat, df, common=c('mean','sd'), ...)
 {   stopifnot(all(df>0))
     # if(any(is.infinite(df)) && !all(is.infinite(df)) ) {
         # df[is.infinite(df)]=500
     # }
      method=c('constrOptim')
+	 if(length(common)>0L){
+		common=tolower(common)
+		common=match.arg(common, c('mean','sd','none'), several.ok=TRUE)
+		if('none'%in%common && length(common)>1L) stop('"common" argument incompatible.')
+		common=sort(common)
+		if('none'%in%common)common=NULL
+	 }
 #     method=match.arg(method)
     if       (method=='EM') {
         stop("EM algorithm not implemented")
@@ -12,10 +19,336 @@ parncpt2=function(tstat, df,  ...)
         stop("Newton-Raphson algorithm not implemented")
 #        parncpt.nr(tstat,df,zeromean,...)
     }else if (method=='constrOptim') {
-        parncpt2.constrOptim(tstat,df,...)
+		if(is.null(common)){
+			parncpt2.constrOptim(tstat,df,...)
+		}else if(all(common==c('mean','sd'))) {
+			parncpt2.constrOptim.CMD(tstat,df,...) 
+		}else if(common=='mean'){
+			parncpt2.constrOptim.CM(tstat,df,...) 
+		}else if(common=='sd'){
+			parncpt2.constrOptim.CD(tstat,df,...) 
+		}else stop('something wrong with "common" arg.')
     }
 }
 
+parncpt2.constrOptim.CM=function(tstat,df,starts, grids, approximation='int2',...)
+{
+    G=max(c(length(tstat),length(df)))
+
+    dt.null=dt(tstat,df)
+    obj=function(parms){
+            pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=-parms[3]; sd2.ncp=parms[5]; 
+			 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
+            Lik=pi0*dt.null+pi1*dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)+(1-pi0-pi1)*dtn.mix(tstat,df,mu2.ncp,sd2.ncp,FALSE,approximation)
+#            Lik=pi0*dt.null+(1-pi0)*dt.int(tstat/scale.fact,df,mu.ncp/scale.fact)/scale.fact  
+            ans=-sum(log(Lik))
+            if(!is.finite(ans)){ ans=-sum(log(pi0*dt.null+pi1*dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation='none')+(1-pi0-pi1)*dtn.mix(tstat,df,mu2.ncp,sd2.ncp,FALSE,approximation='none')))  }
+            ans
+        }
+        
+    deriv.obj=function(parms) {#FIXME
+		pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[6]; 
+		 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
+        s2_1=scale.fact1*scale.fact1; s2_2=scale.fact2*scale.fact2
+        dt.alt1=dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)
+        dt.alt2=dtn.mix(tstat, df, mu2.ncp, sd2.ncp, FALSE, approximation)
+#        dt.alt=dt.int(tstat/scale.fact,df,mu.ncp/scale.fact)/scale.fact
+        f=(pi0*dt.null+pi1*dt.alt1+(1-pi0-pi1)*dt.alt2)
+
+        der.pi0=sum( (dt.alt2-dt.null) / f )  ## correct
+        der.pi1=sum( (dt.alt2-dt.alt1) / f )  ## correct
+
+        if(all(is.infinite(df))){
+            z.std1=(tstat-mu1.ncp)/scale.fact1
+            der.mu1=-pi1*sum( dt.alt1*z.std1/scale.fact1 / f)
+            der.scale1=pi1*sum( dt.alt1*(1-z.std1*z.std1)/scale.fact1 / f)
+			
+            z.std2=(tstat-mu2.ncp)/scale.fact2
+            der.mu2=-(1-pi0-pi1)*sum( dt.alt2*z.std2/scale.fact2 / f)
+            der.scale2=(1-pi0-pi1)*sum( dt.alt2*(1-z.std2*z.std2)/scale.fact2 / f)
+        }else{ df[is.infinite(df)]=500
+            df.half=df/2; t2=tstat*tstat; 
+            logK2=df.half*log(df.half)-.5*log(pi/2)-lgamma(df.half)
+			
+			 t2vs2_1=t2+df*s2_1
+            logC1=logK2-(df.half+.5)*log(t2/s2_1+df)- df.half*mu1.ncp*mu1.ncp/t2vs2_1
+            integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu1.ncp/scale.fact1/sqrt(t2vs2_1),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+            der.mu1=-sum(pi1/f/s2_1*(tstat*exp(logC1)/sqrt(t2vs2_1)*integral.xv1-mu1.ncp*dt.alt1))    ## correct
+            der.scale1=-sum(pi1/f        /s2_1/scale.fact1/t2vs2_1*(#*dhs.ds)
+                dt.alt1*(s2_1*df*(t2-s2_1)+mu1.ncp*mu1.ncp*t2vs2_1)-exp(logC1)*mu1.ncp*tstat*(t2vs2_1+df*s2_1)/sqrt(t2vs2_1)*integral.xv1)
+            )
+			
+			
+			 t2vs2_2=t2+df*s2_2
+            logC2=logK2-(df.half+.5)*log(t2/s2_2+df)- df.half*mu2.ncp*mu2.ncp/t2vs2_2
+            integral.xv2=mTruncNorm.int2(r=df+1, mu=tstat*mu2.ncp/scale.fact2/sqrt(t2vs2_2),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+            der.mu2=-sum((1-pi0-pi1)/f/s2_2*(tstat*exp(logC2)/sqrt(t2vs2_2)*integral.xv2-mu2.ncp*dt.alt2))    ## correct
+            der.scale2=-sum((1-pi0-pi1)/f        /s2_2/scale.fact2/t2vs2_2*(#*dhs.ds)
+                dt.alt2*(s2_2*df*(t2-s2_2)+mu2.ncp*mu2.ncp*t2vs2_2)-exp(logC2)*mu2.ncp*tstat*(t2vs2_2+df*s2_2)/sqrt(t2vs2_2)*integral.xv2)
+            )
+		}
+        der.sd1=sd1.ncp/scale.fact1*der.scale1
+        der.sd2=sd2.ncp/scale.fact2*der.scale2
+		
+        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1, sd1.ncp=der.sd1, mu2.ncp=der.mu2, sd2.ncp=der.sd2)
+    }
+	deriv.obj=function(parms)numDeriv::grad(obj,parms)
+	
+    if(missing(starts)) {
+        default.grids=list(lower=c(1e-3, 1e-3, -3, 1e-3), upper=c(1-1e-3, 1-1e-3, -1e-3, 2), ngrid=c(5,5,5))
+        if(!missing(grids)) for(nn in names(grids)) default.grids[[nn]]=grids[[nn]]
+		obj.restricted=function(parms){
+			if(sum(parms[1:2])>1) Inf else
+				obj(c(parms[1],parms[2],parms[3],parms[4],parms[3]*-1,parms[4]))
+		}
+        starts=suppressWarnings(grid.search(obj.restricted, default.grids$lower, default.grids$upper, default.grids$ngrid))
+		starts=c(starts[1:4], starts[4])
+    }
+	ui=rbind(diag(c(1,1,-1,1,1)), rep(-1:0, 2:3))
+	ci=rep(0,6); ci[6]=-1
+    names(starts)=c('pi0','pi1','mu1.ncp','sd1.ncp','sd2.ncp')
+    optimFit=try(constrOptim(starts,obj,grad=deriv.obj, ui=ui,ci=ci,hessian=FALSE,...))
+    # if(class(optimFit)=='try-error'){
+        # optimFit=try(nlminb(starts,obj,deriv.non0mean,lower=c(0,-Inf,0),upper=c(1,Inf,Inf), ...))
+    # }
+    if(class(optimFit)=='try-error'){
+        return(NA_real_)
+    }
+	optimFit$hessian=numDeriv::hessian(obj, optimFit$par)
+
+    ll=-optimFit$value
+    attr(ll,'df')=5
+	attr(ll,'nobs')=G
+    class(ll)='logLik'
+
+	tau=optimFit$par[2L]/(1-optimFit$par[1L])
+	mu=tau*optimFit$par[3L]-(1-tau)*optimFit$par[3L]
+	Var=tau*((optimFit$par[3L]-mu)^2+optimFit$par[4L]^2)+
+	(1-tau)*((-optimFit$par[3L]-mu)^2+optimFit$par[5L]^2)
+	
+    ans=list(pi0=optimFit$par[1], mu.ncp=mu, sd.ncp=sqrt(Var), tau.ncp=tau, pi1=optimFit$par[2], mu1.ncp=optimFit$par[3], sd1.ncp=optimFit$par[4], 
+		mu2.ncp=-optimFit$par[3], sd2.ncp=optimFit$par[5], 
+		data=list(tstat=tstat, df=df), 
+             logLik=ll, enp=5, par=optimFit$par,
+             obj=obj, gradiant=deriv.obj(optimFit$par), hessian=optimFit$hessian,nobs=G)
+    class(ans)=c('parncpt2','parncpt','ncpest')
+    ans
+}
+
+parncpt2.constrOptim.CD=function(tstat,df,starts, grids, approximation='int2',...)
+{
+    G=max(c(length(tstat),length(df)))
+
+    dt.null=dt(tstat,df)
+    obj=function(parms){
+            pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[4]; 
+			 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
+            Lik=pi0*dt.null+pi1*dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)+(1-pi0-pi1)*dtn.mix(tstat,df,mu2.ncp,sd2.ncp,FALSE,approximation)
+#            Lik=pi0*dt.null+(1-pi0)*dt.int(tstat/scale.fact,df,mu.ncp/scale.fact)/scale.fact  
+            ans=-sum(log(Lik))
+            if(!is.finite(ans)){ ans=-sum(log(pi0*dt.null+pi1*dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation='none')+(1-pi0-pi1)*dtn.mix(tstat,df,mu2.ncp,sd2.ncp,FALSE,approximation='none')))  }
+            ans
+        }
+        
+    deriv.obj=function(parms) {#FIXME
+		pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[6]; 
+		 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
+        s2_1=scale.fact1*scale.fact1; s2_2=scale.fact2*scale.fact2
+        dt.alt1=dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)
+        dt.alt2=dtn.mix(tstat, df, mu2.ncp, sd2.ncp, FALSE, approximation)
+#        dt.alt=dt.int(tstat/scale.fact,df,mu.ncp/scale.fact)/scale.fact
+        f=(pi0*dt.null+pi1*dt.alt1+(1-pi0-pi1)*dt.alt2)
+
+        der.pi0=sum( (dt.alt2-dt.null) / f )  ## correct
+        der.pi1=sum( (dt.alt2-dt.alt1) / f )  ## correct
+
+        if(all(is.infinite(df))){
+            z.std1=(tstat-mu1.ncp)/scale.fact1
+            der.mu1=-pi1*sum( dt.alt1*z.std1/scale.fact1 / f)
+            der.scale1=pi1*sum( dt.alt1*(1-z.std1*z.std1)/scale.fact1 / f)
+			
+            z.std2=(tstat-mu2.ncp)/scale.fact2
+            der.mu2=-(1-pi0-pi1)*sum( dt.alt2*z.std2/scale.fact2 / f)
+            der.scale2=(1-pi0-pi1)*sum( dt.alt2*(1-z.std2*z.std2)/scale.fact2 / f)
+        }else{ df[is.infinite(df)]=500
+            df.half=df/2; t2=tstat*tstat; 
+            logK2=df.half*log(df.half)-.5*log(pi/2)-lgamma(df.half)
+			
+			 t2vs2_1=t2+df*s2_1
+            logC1=logK2-(df.half+.5)*log(t2/s2_1+df)- df.half*mu1.ncp*mu1.ncp/t2vs2_1
+            integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu1.ncp/scale.fact1/sqrt(t2vs2_1),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+            der.mu1=-sum(pi1/f/s2_1*(tstat*exp(logC1)/sqrt(t2vs2_1)*integral.xv1-mu1.ncp*dt.alt1))    ## correct
+            der.scale1=-sum(pi1/f        /s2_1/scale.fact1/t2vs2_1*(#*dhs.ds)
+                dt.alt1*(s2_1*df*(t2-s2_1)+mu1.ncp*mu1.ncp*t2vs2_1)-exp(logC1)*mu1.ncp*tstat*(t2vs2_1+df*s2_1)/sqrt(t2vs2_1)*integral.xv1)
+            )
+			
+			
+			 t2vs2_2=t2+df*s2_2
+            logC2=logK2-(df.half+.5)*log(t2/s2_2+df)- df.half*mu2.ncp*mu2.ncp/t2vs2_2
+            integral.xv2=mTruncNorm.int2(r=df+1, mu=tstat*mu2.ncp/scale.fact2/sqrt(t2vs2_2),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+            der.mu2=-sum((1-pi0-pi1)/f/s2_2*(tstat*exp(logC2)/sqrt(t2vs2_2)*integral.xv2-mu2.ncp*dt.alt2))    ## correct
+            der.scale2=-sum((1-pi0-pi1)/f        /s2_2/scale.fact2/t2vs2_2*(#*dhs.ds)
+                dt.alt2*(s2_2*df*(t2-s2_2)+mu2.ncp*mu2.ncp*t2vs2_2)-exp(logC2)*mu2.ncp*tstat*(t2vs2_2+df*s2_2)/sqrt(t2vs2_2)*integral.xv2)
+            )
+		}
+        der.sd1=sd1.ncp/scale.fact1*der.scale1
+        der.sd2=sd2.ncp/scale.fact2*der.scale2
+		
+        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1, sd1.ncp=der.sd1, mu2.ncp=der.mu2, sd2.ncp=der.sd2)
+    }
+	deriv.obj=function(parms)numDeriv::grad(obj, parms)
+	
+    if(missing(starts)) {
+        default.grids=list(lower=c(1e-3, 1e-3, -2, 1e-3), upper=c(1-1e-3, 1-1e-3, 2, 2), ngrid=c(5,5,5))
+        if(!missing(grids)) for(nn in names(grids)) default.grids[[nn]]=grids[[nn]]
+		obj.restricted=function(parms){
+			if(sum(parms[1:2])>1) Inf else
+				obj(c(parms[1],parms[2],parms[3],parms[4],parms[3]*-1,parms[4]))
+		}
+        starts=suppressWarnings(grid.search(obj.restricted, default.grids$lower, default.grids$upper, default.grids$ngrid))
+		if(starts[3]>0){
+			starts[2]=1-starts[1]-starts[2]; starts[3]=-starts[3]
+		}else if(starts[3]==0) starts[3]=-1e-3
+		starts=c(starts[1:4], starts[3]*-1)
+    }
+	ui=rbind(diag(1,5)[c(1,2,4),], rep(-1:0, 2:3), c(0,0,-1,0,1))
+	ci=rep(0,5); ci[4]=-1
+    names(starts)=c('pi0','pi1','mu1.ncp','sd1.ncp','mu2.ncp')
+    optimFit=try(constrOptim(starts,obj,grad=deriv.obj, ui=ui,ci=ci,hessian=FALSE,...))
+    # if(class(optimFit)=='try-error'){
+        # optimFit=try(nlminb(starts,obj,deriv.non0mean,lower=c(0,-Inf,0),upper=c(1,Inf,Inf), ...))
+    # }
+    if(class(optimFit)=='try-error'){
+        return(NA_real_)
+    }
+	optimFit$hessian=numDeriv::hessian(obj, optimFit$par)
+
+    ll=-optimFit$value
+    attr(ll,'df')=5
+	attr(ll,'nobs')=G
+    class(ll)='logLik'
+
+	tau=optimFit$par[2L]/(1-optimFit$par[1L])
+	mu=tau*optimFit$par[3L]+(1-tau)*optimFit$par[5L]
+	Var=tau*((optimFit$par[3L]-mu)^2+optimFit$par[4L]^2)+
+	(1-tau)*((optimFit$par[5L]-mu)^2+optimFit$par[4L]^2)
+	
+    ans=list(pi0=optimFit$par[1], mu.ncp=mu, sd.ncp=sqrt(Var), tau.ncp=tau, pi1=optimFit$par[2], mu1.ncp=optimFit$par[3], sd1.ncp=optimFit$par[4], 
+		mu2.ncp=optimFit$par[5], sd2.ncp=optimFit$par[4], 
+		data=list(tstat=tstat, df=df), 
+             logLik=ll, enp=5, par=optimFit$par,
+             obj=obj, gradiant=deriv.obj(optimFit$par), hessian=optimFit$hessian,nobs=G)
+    class(ans)=c('parncpt2','parncpt','ncpest')
+    ans
+}
+
+
+
+parncpt2.constrOptim.CMD=function(tstat,df,starts, grids, approximation='int2',...)
+{
+    G=max(c(length(tstat),length(df)))
+
+    dt.null=dt(tstat,df)
+    obj=function(parms){
+            pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=-parms[3]; sd2.ncp=parms[4]; 
+			 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
+            Lik=pi0*dt.null+pi1*dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)+(1-pi0-pi1)*dtn.mix(tstat,df,mu2.ncp,sd2.ncp,FALSE,approximation)
+#            Lik=pi0*dt.null+(1-pi0)*dt.int(tstat/scale.fact,df,mu.ncp/scale.fact)/scale.fact  
+            ans=-sum(log(Lik))
+            if(!is.finite(ans)){ ans=-sum(log(pi0*dt.null+pi1*dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation='none')+(1-pi0-pi1)*dtn.mix(tstat,df,mu2.ncp,sd2.ncp,FALSE,approximation='none')))  }
+            ans
+        }
+        
+    deriv.obj=function(parms) {#FIXME
+		pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[6]; 
+		 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
+        s2_1=scale.fact1*scale.fact1; s2_2=scale.fact2*scale.fact2
+        dt.alt1=dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)
+        dt.alt2=dtn.mix(tstat, df, mu2.ncp, sd2.ncp, FALSE, approximation)
+#        dt.alt=dt.int(tstat/scale.fact,df,mu.ncp/scale.fact)/scale.fact
+        f=(pi0*dt.null+pi1*dt.alt1+(1-pi0-pi1)*dt.alt2)
+
+        der.pi0=sum( (dt.alt2-dt.null) / f )  ## correct
+        der.pi1=sum( (dt.alt2-dt.alt1) / f )  ## correct
+
+        if(all(is.infinite(df))){
+            z.std1=(tstat-mu1.ncp)/scale.fact1
+            der.mu1=-pi1*sum( dt.alt1*z.std1/scale.fact1 / f)
+            der.scale1=pi1*sum( dt.alt1*(1-z.std1*z.std1)/scale.fact1 / f)
+			
+            z.std2=(tstat-mu2.ncp)/scale.fact2
+            der.mu2=-(1-pi0-pi1)*sum( dt.alt2*z.std2/scale.fact2 / f)
+            der.scale2=(1-pi0-pi1)*sum( dt.alt2*(1-z.std2*z.std2)/scale.fact2 / f)
+        }else{ df[is.infinite(df)]=500
+            df.half=df/2; t2=tstat*tstat; 
+            logK2=df.half*log(df.half)-.5*log(pi/2)-lgamma(df.half)
+			
+			 t2vs2_1=t2+df*s2_1
+            logC1=logK2-(df.half+.5)*log(t2/s2_1+df)- df.half*mu1.ncp*mu1.ncp/t2vs2_1
+            integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu1.ncp/scale.fact1/sqrt(t2vs2_1),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+            der.mu1=-sum(pi1/f/s2_1*(tstat*exp(logC1)/sqrt(t2vs2_1)*integral.xv1-mu1.ncp*dt.alt1))    ## correct
+            der.scale1=-sum(pi1/f        /s2_1/scale.fact1/t2vs2_1*(#*dhs.ds)
+                dt.alt1*(s2_1*df*(t2-s2_1)+mu1.ncp*mu1.ncp*t2vs2_1)-exp(logC1)*mu1.ncp*tstat*(t2vs2_1+df*s2_1)/sqrt(t2vs2_1)*integral.xv1)
+            )
+			
+			
+			 t2vs2_2=t2+df*s2_2
+            logC2=logK2-(df.half+.5)*log(t2/s2_2+df)- df.half*mu2.ncp*mu2.ncp/t2vs2_2
+            integral.xv2=mTruncNorm.int2(r=df+1, mu=tstat*mu2.ncp/scale.fact2/sqrt(t2vs2_2),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+            der.mu2=-sum((1-pi0-pi1)/f/s2_2*(tstat*exp(logC2)/sqrt(t2vs2_2)*integral.xv2-mu2.ncp*dt.alt2))    ## correct
+            der.scale2=-sum((1-pi0-pi1)/f        /s2_2/scale.fact2/t2vs2_2*(#*dhs.ds)
+                dt.alt2*(s2_2*df*(t2-s2_2)+mu2.ncp*mu2.ncp*t2vs2_2)-exp(logC2)*mu2.ncp*tstat*(t2vs2_2+df*s2_2)/sqrt(t2vs2_2)*integral.xv2)
+            )
+		}
+        der.sd1=sd1.ncp/scale.fact1*der.scale1
+        der.sd2=sd2.ncp/scale.fact2*der.scale2
+		
+        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1, sd1.ncp=der.sd1, mu2.ncp=der.mu2, sd2.ncp=der.sd2)
+    }
+	deriv.obj=function(parms)numDeriv::grad(obj, parms)
+	
+    if(missing(starts)) {
+        default.grids=list(lower=c(1e-3, 1e-3, -2, 1e-3), upper=c(1-1e-3, 1-1e-3, 0, 2), ngrid=c(5,5,5))
+        if(!missing(grids)) for(nn in names(grids)) default.grids[[nn]]=grids[[nn]]
+		 tmp=function(parms)if(sum(parms[1:2])>1) Inf else obj(parms)
+        starts=suppressWarnings(grid.search(tmp, default.grids$lower, default.grids$upper, default.grids$ngrid))
+    }
+	ui=rbind(diag(1,4), rep(-1:0, each=2)); ui[3L,3L]=-1
+	ci=rep(0,5); ci[5]=-1
+    names(starts)=c('pi0','pi1','mu1.ncp','sd1.ncp')
+    optimFit=try(constrOptim(starts,obj,grad=deriv.obj, ui=ui,ci=ci,hessian=FALSE,...))
+    # if(class(optimFit)=='try-error'){
+        # optimFit=try(nlminb(starts,obj,deriv.non0mean,lower=c(0,-Inf,0),upper=c(1,Inf,Inf), ...))
+    # }
+    if(class(optimFit)=='try-error'){
+        return(NA_real_)
+    }
+	optimFit$hessian=numDeriv::hessian(obj, optimFit$par)
+
+    ll=-optimFit$value
+    attr(ll,'df')=4
+	attr(ll,'nobs')=G
+    class(ll)='logLik'
+
+	tau=optimFit$par[2L]/(1-optimFit$par[1L])
+	mu=tau*optimFit$par[3L]-(1-tau)*optimFit$par[3L]
+	Var=tau*((optimFit$par[3L]-mu)^2+optimFit$par[4L]^2)+
+	(1-tau)*((-optimFit$par[3L]-mu)^2+optimFit$par[4L]^2)
+	
+    ans=list(pi0=optimFit$par[1], mu.ncp=mu, sd.ncp=sqrt(Var), tau.ncp=tau, pi1=optimFit$par[2], mu1.ncp=optimFit$par[3], sd1.ncp=optimFit$par[4], 
+		mu2.ncp=-optimFit$par[3], sd2.ncp=optimFit$par[4], 
+		data=list(tstat=tstat, df=df), 
+             logLik=ll, enp=4, par=optimFit$par,
+             obj=obj, gradiant=deriv.obj(optimFit$par), hessian=optimFit$hessian,nobs=G)
+    class(ans)=c('parncpt2','parncpt','ncpest')
+    ans
+}
 
 parncpt2.constrOptim=function(tstat,df,starts, grids, approximation='int2',...)
 {
@@ -32,37 +365,54 @@ parncpt2.constrOptim=function(tstat,df,starts, grids, approximation='int2',...)
             ans
         }
         
-    deriv.obj=function(parms) {#FIXME
-        pi0=parms[1]; mu.ncp=parms[2]; sd.ncp=parms[3]; scale.fact=sqrt(1+sd.ncp*sd.ncp); s2=scale.fact*scale.fact
-        dt.alt=dtn.mix(tstat, df, mu.ncp, sd.ncp, FALSE, approximation)
+    deriv.obj=function(parms) {
+		pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[6]; 
+		 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
+        s2_1=scale.fact1*scale.fact1; s2_2=scale.fact2*scale.fact2
+        dt.alt1=dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)
+        dt.alt2=dtn.mix(tstat, df, mu2.ncp, sd2.ncp, FALSE, approximation)
 #        dt.alt=dt.int(tstat/scale.fact,df,mu.ncp/scale.fact)/scale.fact
-        f=(pi0*dt.null+(1-pi0)*dt.alt)
+        f=(pi0*dt.null+pi1*dt.alt1+(1-pi0-pi1)*dt.alt2)
 
-        der.pi0=sum( (dt.alt-dt.null) / f )  ## correct
+        der.pi0=sum( (dt.alt2-dt.null) / f )  ## correct
+        der.pi1=sum( (dt.alt2-dt.alt1) / f )  ## correct
 
         if(all(is.infinite(df))){
-            z.std=(tstat-mu.ncp)/scale.fact
-            der.mu=-(1-pi0)*sum( dt.alt*z.std/scale.fact / f)
-            der.scale=(1-pi0)*sum( dt.alt*(1-z.std*z.std)/scale.fact / f)
+            z.std1=(tstat-mu1.ncp)/scale.fact1
+            der.mu1=-pi1*sum( dt.alt1*z.std1/scale.fact1 / f)
+            der.scale1=pi1*sum( dt.alt1*(1-z.std1*z.std1)/scale.fact1 / f)
+			
+            z.std2=(tstat-mu2.ncp)/scale.fact2
+            der.mu2=-(1-pi0-pi1)*sum( dt.alt2*z.std2/scale.fact2 / f)
+            der.scale2=(1-pi0-pi1)*sum( dt.alt2*(1-z.std2*z.std2)/scale.fact2 / f)
         }else{ df[is.infinite(df)]=500
-            df.half=df/2; t2=tstat*tstat; t2vs2=t2+df*s2
+            df.half=df/2; t2=tstat*tstat; 
             logK2=df.half*log(df.half)-.5*log(pi/2)-lgamma(df.half)
-            logC=logK2-(df.half+.5)*log(t2/s2+df)- df.half*mu.ncp*mu.ncp/t2vs2
-    #        integral.xv1=.C('intTruncNormVec',n=as.integer(G),r=rep(as.integer(df+1),length=G), mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
-    #                                    sd=rep(as.double(1),length=G), lower=numeric(G), upper=rep(Inf,length=G), ans=numeric(G),NAOK=TRUE)$ans
-            integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu.ncp/scale.fact/sqrt(t2vs2),
+			
+			 t2vs2_1=t2+df*s2_1
+            logC1=logK2-(df.half+.5)*log(t2/s2_1+df)- df.half*mu1.ncp*mu1.ncp/t2vs2_1
+            integral.xv1=mTruncNorm.int2(r=df+1, mu=tstat*mu1.ncp/scale.fact1/sqrt(t2vs2_1),
                                         sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
-            
-            der.mu=-sum((1-pi0)/f/s2*(tstat*exp(logC)/sqrt(t2vs2)*integral.xv1-mu.ncp*dt.alt))    ## correct
-
-            der.scale=-sum((1-pi0)/f        /s2/scale.fact/t2vs2*(#*dhs.ds)
-                dt.alt*(s2*df*(t2-s2)+mu.ncp*mu.ncp*t2vs2)-exp(logC)*mu.ncp*tstat*(t2vs2+df*s2)/sqrt(t2vs2)*integral.xv1)
+            der.mu1=-sum(pi1/f/s2_1*(tstat*exp(logC1)/sqrt(t2vs2_1)*integral.xv1-mu1.ncp*dt.alt1))    ## correct
+            der.scale1=-sum(pi1/f        /s2_1/scale.fact1/t2vs2_1*(#*dhs.ds)
+                dt.alt1*(s2_1*df*(t2-s2_1)+mu1.ncp*mu1.ncp*t2vs2_1)-exp(logC1)*mu1.ncp*tstat*(t2vs2_1+df*s2_1)/sqrt(t2vs2_1)*integral.xv1)
             )
-        }
-        der.sd=sd.ncp/scale.fact*der.scale
-        c(pi0=der.pi0, mu.ncp=der.mu, sd.ncp=der.sd)
+			
+			
+			 t2vs2_2=t2+df*s2_2
+            logC2=logK2-(df.half+.5)*log(t2/s2_2+df)- df.half*mu2.ncp*mu2.ncp/t2vs2_2
+            integral.xv2=mTruncNorm.int2(r=df+1, mu=tstat*mu2.ncp/scale.fact2/sqrt(t2vs2_2),
+                                        sd=1, lower=0, upper=Inf, takeLog=TRUE, ndiv=8)
+            der.mu2=-sum((1-pi0-pi1)/f/s2_2*(tstat*exp(logC2)/sqrt(t2vs2_2)*integral.xv2-mu2.ncp*dt.alt2))    ## correct
+            der.scale2=-sum((1-pi0-pi1)/f        /s2_2/scale.fact2/t2vs2_2*(#*dhs.ds)
+                dt.alt2*(s2_2*df*(t2-s2_2)+mu2.ncp*mu2.ncp*t2vs2_2)-exp(logC2)*mu2.ncp*tstat*(t2vs2_2+df*s2_2)/sqrt(t2vs2_2)*integral.xv2)
+            )
+		}
+        der.sd1=sd1.ncp/scale.fact1*der.scale1
+        der.sd2=sd2.ncp/scale.fact2*der.scale2
+		
+        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1, sd1.ncp=der.sd1, mu2.ncp=der.mu2, sd2.ncp=der.sd2)
     }
-	deriv.obj=function(parms)numDeriv::grad(obj, parms)
 	
     if(missing(starts)) {
         default.grids=list(lower=c(1e-3, 1e-3, -2, 1e-3), upper=c(1-1e-3, 1-1e-3, 2, 2), ngrid=c(5,5,5))
@@ -103,7 +453,7 @@ parncpt2.constrOptim=function(tstat,df,starts, grids, approximation='int2',...)
 		mu2.ncp=optimFit$par[5], sd2.ncp=optimFit$par[6], 
 		data=list(tstat=tstat, df=df), 
              logLik=ll, enp=6, par=optimFit$par,
-             obj=obj, gradiant=numDeriv::grad(obj, optimFit$par), hessian=optimFit$hessian,nobs=G)
+             obj=obj, gradiant=deriv.obj(optimFit$par), hessian=optimFit$hessian,nobs=G)
     class(ans)=c('parncpt2','parncpt','ncpest')
     ans
 }
