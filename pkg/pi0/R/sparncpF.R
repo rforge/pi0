@@ -26,13 +26,15 @@ sparncpF.parncpF=function(obj1, obj2, ...)
     propar=round(propar.fit$maximum,3)
     ll=propar.fit$objective
     attr(ll,'df')=ifelse(propar==1 || propar==0, 0,1)+propar*parfit$enp+(1-propar)*nparfit$enp
+	attr(ll,'nobs')=nobs(obj1)
+	class(ll)='logLik'
 
     ans=list(pi0=propar*parfit$pi0+(1-propar)*nparfit$pi0,
              mu.ncp=propar*parfit$mu.ncp+(1-propar)*nparfit$mu.ncp,
              sd.ncp=sqrt((propar*parfit$sd.ncp)^2+((1-propar)*nparfit$sd.ncp)^2),
              logLik=ll, enp=attr(ll,'df'), par=propar, 
              gradient=NULL,      hessian=NULL,      ## TO BE ADDED LATER
-             parfit=parfit, nparfit=nparfit
+             parfit=parfit, nparfit=nparfit, nobs=nobs(obj1)
              )
     class(ans)=c('sparncpF','ncpest')
     ans

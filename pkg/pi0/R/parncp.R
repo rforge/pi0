@@ -77,6 +77,7 @@ parncpt.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
 
     ll=-optimFit$value
     attr(ll,'df')=3
+	attr(ll,'nobs')=G
     class(ll)='logLik'
 
 #    loadOrInstall("numDeriv")
@@ -87,7 +88,7 @@ parncpt.bfgs.non0mean=function(tstat,df,starts, grids, approximation='int2',...)
 #
     ans=list(pi0=optimFit$par[1], mu.ncp=optimFit$par[2], sd.ncp=optimFit$par[3], data=list(tstat=tstat, df=df), 
              logLik=ll, enp=3, par=optimFit$par,
-             obj=obj, gradiant=deriv.non0mean(optimFit$par), hessian=optimFit$hessian)
+             obj=obj, gradiant=deriv.non0mean(optimFit$par), hessian=optimFit$hessian,nobs=G)
     class(ans)=c('parncpt','ncpest')
     ans
 }
@@ -141,6 +142,7 @@ parncpt.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
 
     ll=-optimFit$value
     attr(ll,'df')=2
+	attr(ll,'nobs')=G
     class(ll)='logLik'
     
 #    loadOrInstall("numDeriv")
@@ -151,7 +153,7 @@ parncpt.bfgs.0mean=function(tstat,df, starts, grids, approximation='int2',...)
 #
     ans=list(pi0=optimFit$par[1], mu.ncp=0, sd.ncp=optimFit$par[2], data=list(tstat=tstat, df=df), 
              logLik=ll, enp=2, par=optimFit$par,
-             obj=obj, gradiant=deriv.0mean(optimFit$par), hessian=optimFit$hessian)
+             obj=obj, gradiant=deriv.0mean(optimFit$par), hessian=optimFit$hessian,nobs=G)
     class(ans)=c('parncpt','ncpest')
     ans
 }

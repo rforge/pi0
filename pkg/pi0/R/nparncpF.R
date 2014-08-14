@@ -264,6 +264,7 @@ nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.de
 
     ll=-NPLL(sqp.fit[i.final,])
     attr(ll, 'df')=enps[i.final]
+	attr(ll, 'nobs')=G
     class(ll)='logLik'
 
     ans=list(pi0=pi0s[i.final], mu.ncp=beta.final%*%mus[1:K], sd.ncp= sqrt(beta.final%*%(mus[1:K]^2+2*gam2s^2*(2*mus[1:K]/gam2s-df1))-(beta.final%*%mus[1:K])^2), 
@@ -272,25 +273,25 @@ nparncpF.sqp = function (Fstat, df1,df2, penalty=c('sqrt.3rd.deriv','sqrt.2nd.de
 
              beta=beta.final, IC=IC, 
              all.mus=mus, all.gam2s=gam2s, data=list(Fstat=Fstat, df1=df1, df2=df2), i.final=i.final, all.pi0s=pi0s,
-             all.enps=enps, all.thetas=sqp.fit, all.nics=nics, all.nic.sd=nic.sd, all.lambdas=lambdas)
+             all.enps=enps, all.thetas=sqp.fit, all.nics=nics, all.nic.sd=nic.sd, all.lambdas=lambdas,nobs=G)
     class(ans)=c('nparncpF','ncpest')
     if(plotit) plot.nparncpF(ans)
     ans
 }
 
-vcov.ncpest=function(object,...)
-{
-    solve(object$hessian)
-}
-logLik.ncpest=function(object,...)
-{
-    object$logLik
-}
-coef.ncpest=#coefficients.ncpest=
-function(object,...)
-{
-    object$par
-}
+# vcov.ncpest=function(object,...)
+# {
+    # solve(object$hessian)
+# }
+# logLik.ncpest=function(object,...)
+# {
+    # object$logLik
+# }
+# coef.ncpest=#coefficients.ncpest=
+# function(object,...)
+# {
+    # object$par
+# }
 fitted.nparncpF=#fitted.values.nparncpF=
 function(object, ...)
 {

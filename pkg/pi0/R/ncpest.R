@@ -325,7 +325,8 @@ nparncpp=function(p,
                 weights=weights,
                 solver=solver, 
                 par=thetahat, 
-                data=list(p=p)
+                data=list(p=p),
+                nobs=nobs
              )
         if(isTRUE(debugging))rslt=c(rslt,list(
                   thetahat=thetahat,

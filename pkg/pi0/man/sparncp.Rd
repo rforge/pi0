@@ -39,6 +39,7 @@ are made and their results are used in combination.
         \item{hessian}{analytic hessian at the estimate (not implemented) }
         \item{parfit}{ the fitted \code{\link{parncpt}} object}
         \item{nparfit}{the fitted \code{\link{nparncpt}} object}
+		\item{nobs}{the number of test statistics}
 }
 \references{ 
 I. Olkin and C. H. Spiegelman. (1987) A Semiparametric Approach to Density Estimation. Journal of the American Statistical Association. 82,399,858--865

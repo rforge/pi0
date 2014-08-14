@@ -82,6 +82,7 @@ of the basis Gaussian density functions.
         \item{all.nics}{Network information criterion (NIC) for each lambda}
         \item{all.nic.sd}{SD of NIC for each lambda}
         \item{all.lambdas}{the \code{lambdas} argument itself}
+		\item{nobs}{the number of test statistics}
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}

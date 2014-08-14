@@ -45,12 +45,13 @@ parncpF.lbfgsb.noncentral=function(Fstat,df1,df2,starts, grids, approximation='n
 
     ll=-optimFit$value
     attr(ll,'df')=3
+	attr(ll,'nobs')=G
     class(ll)='logLik'
 
     ans=list(pi0=optimFit$par[1], mu.ncp=optimFit$par[2]+df1*optimFit$par[3], sd.ncp=sqrt(2*optimFit$par[3]^2*(2*optimFit$par[2]/optimFit$par[3]+df1)), 
             delta0=optimFit$par[2], gamma2=optimFit$par[3], data=list(Fstat=Fstat, df1=df1, df2=df2), 
              logLik=ll, enp=3, par=optimFit$par,
-             obj=obj, gradiant=deriv.noncentral(optimFit$par), hessian=optimFit$hessian)
+             obj=obj, gradiant=deriv.noncentral(optimFit$par), hessian=optimFit$hessian, nobs=G)
     class(ans)=c('parncpF','ncpest')
     ans
 }
@@ -114,6 +115,7 @@ parncpF.lbfgsb.central=function(Fstat,df1, df2, starts, grids, approximation='no
 
     ll=-optimFit$value
     attr(ll,'df')=2
+	attr(ll,'nobs')=G
     class(ll)='logLik'
     
 #    loadOrInstall("numDeriv")
@@ -125,7 +127,7 @@ parncpF.lbfgsb.central=function(Fstat,df1, df2, starts, grids, approximation='no
     ans=list(pi0=optimFit$par[1], mu.ncp=df1*optimFit$par[2], sd.ncp=sqrt(2*optimFit$par[2]^2*df1), 
             delta0=0, gamma2=optimFit$par[2], data=list(Fstat=Fstat, df1=df1, df2=df2), 
              logLik=ll, enp=2, par=optimFit$par,
-             obj=obj, gradiant=deriv.central(optimFit$par), hessian=optimFit$hessian)
+             obj=obj, gradiant=deriv.central(optimFit$par), hessian=optimFit$hessian, nobs=G)
     class(ans)=c('parncpF','ncpest')
     ans
 }

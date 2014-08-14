@@ -67,6 +67,7 @@ for \code{parncpt.bfgs.non0mean} the middle parameter is the mean of noncentrali
         \item{obj}{the negative loglikelihood function that is minimized}
         \item{gradiant}{analytic gradiant at the estimate}
         \item{hessian}{numeric hessian at the estimate}
+		\item{nobs}{the number of test statistics}
 %%  ~Describe the value returned
 %%  If it is a LIST, use
 %%  \item{comp1 }{Description of 'comp1'}

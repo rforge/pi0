@@ -282,6 +282,7 @@ nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), start
 
     ll=-NPLL(sqp.fit[i.final,])
     attr(ll, 'df')=enps[i.final]
+	attr(ll, 'nobs')=G
     class(ll)='logLik'
 
     ans=list(pi0=pi0s[i.final], mu.ncp=beta.final%*%mus, sd.ncp= sqrt(beta.final%*%(mus^2+sigs^2)-(beta.final%*%mus)^2), 
@@ -290,7 +291,7 @@ nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), start
 
              beta=beta.final, IC=IC, 
              all.mus=mus, all.sigs=sigs, data=list(tstat=tstat, df=df), i.final=i.final, all.pi0s=pi0s,
-             all.enps=enps, all.thetas=sqp.fit, all.nics=nics, all.nic.sd=nic.sd, all.lambdas=lambdas)
+             all.enps=enps, all.thetas=sqp.fit, all.nics=nics, all.nic.sd=nic.sd, all.lambdas=lambdas, nobs=G)
     class(ans)=c('nparncpt','ncpest')
     if(plotit) plot.nparncpt(ans)
     ans
