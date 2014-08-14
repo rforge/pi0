@@ -299,7 +299,7 @@ nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), start
 
 vcov.ncpest=function(object,...)
 {
-    sovle(object$hessian)
+    solve(object$hessian)
 }
 logLik.ncpest=function(object,...)
 {
