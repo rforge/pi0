@@ -80,7 +80,6 @@ export(
     parncpt.bfgs.non0mean,
     parncpt.momeff, 
     parncpt2,
-    parncpt2.constrOptim,
     pavaf1,
     pdf.dist, 
     ppee, 
