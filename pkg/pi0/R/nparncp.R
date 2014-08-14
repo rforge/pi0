@@ -366,7 +366,7 @@ plot.nparncpt=function(x,...)
         d=sweep(dnorm(xx),2,x$all.sigs,'/')
         drop(d%*%x$beta)
     }
-    curve(d.ncp, min(x$data$tstat,x$all.mus),max(x$data$tstat,x$all.mus),100,col=4,lwd=2, xlab='delta',ylab='density')
+    curve(d.ncp, min(x$all.mus),max(x$all.mus),100,col=4,lwd=2, xlab='delta',ylab='density')
 #    detach(x)
     rug(x$all.mus)
     title(sub=paste("mean =",round(x$mu.ncp,3),"; sd =",round(x$sd.ncp,3),sep=''))
