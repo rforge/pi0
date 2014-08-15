@@ -46,8 +46,8 @@ parncpt2.constrOptim.CM=function(tstat,df,starts, grids, approximation='int2',..
             ans
         }
         
-    deriv.obj=function(parms) {#FIXME
-		pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[6]; 
+    deriv.obj=function(parms) {names(parms)=NULL
+       pi0=parms[[1]]; pi1=parms[[2]]; mu1.ncp=parms[[3]]; sd1.ncp=parms[[4]]; mu2.ncp=-parms[[3]]; sd2.ncp=parms[[5]]; 
 		 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
         s2_1=scale.fact1*scale.fact1; s2_2=scale.fact2*scale.fact2
         dt.alt1=dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)
@@ -92,9 +92,9 @@ parncpt2.constrOptim.CM=function(tstat,df,starts, grids, approximation='int2',..
         der.sd1=sd1.ncp/scale.fact1*der.scale1
         der.sd2=sd2.ncp/scale.fact2*der.scale2
 		
-        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1, sd1.ncp=der.sd1, mu2.ncp=der.mu2, sd2.ncp=der.sd2)
+        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1-der.mu2, sd1.ncp=der.sd1, sd2.ncp=der.sd2)
     }
-	deriv.obj=function(parms)numDeriv::grad(obj,parms)
+	#deriv.obj=function(parms)numDeriv::grad(obj,parms)
 	
     if(missing(starts)) {
         default.grids=list(lower=c(1e-3, 1e-3, -3, 1e-3), upper=c(1-1e-3, 1-1e-3, -1e-3, 2), ngrid=c(5,5,5))
@@ -152,8 +152,8 @@ parncpt2.constrOptim.CD=function(tstat,df,starts, grids, approximation='int2',..
             ans
         }
         
-    deriv.obj=function(parms) {#FIXME
-		pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[6]; 
+    deriv.obj=function(parms) {
+        pi0=parms[[1]]; pi1=parms[[2]]; mu1.ncp=parms[[3]]; sd1.ncp=parms[[4]]; mu2.ncp=parms[[5]]; sd2.ncp=parms[[4]]; 
 		 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
         s2_1=scale.fact1*scale.fact1; s2_2=scale.fact2*scale.fact2
         dt.alt1=dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)
@@ -198,9 +198,9 @@ parncpt2.constrOptim.CD=function(tstat,df,starts, grids, approximation='int2',..
         der.sd1=sd1.ncp/scale.fact1*der.scale1
         der.sd2=sd2.ncp/scale.fact2*der.scale2
 		
-        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1, sd1.ncp=der.sd1, mu2.ncp=der.mu2, sd2.ncp=der.sd2)
+        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1, sd1.ncp=der.sd1+der.sd2, mu2.ncp=der.mu2)
     }
-	deriv.obj=function(parms)numDeriv::grad(obj, parms)
+	#deriv.obj=function(parms)numDeriv::grad(obj, parms)
 	
     if(missing(starts)) {
         default.grids=list(lower=c(1e-3, 1e-3, -2, 1e-3), upper=c(1-1e-3, 1-1e-3, 2, 2), ngrid=c(5,5,5))
@@ -263,8 +263,8 @@ parncpt2.constrOptim.CMD=function(tstat,df,starts, grids, approximation='int2',.
             ans
         }
         
-    deriv.obj=function(parms) {#FIXME
-		pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[6]; 
+    deriv.obj=function(parms) {
+        pi0=parms[[1]]; pi1=parms[[2]]; mu1.ncp=parms[[3]]; sd1.ncp=parms[[4]]; mu2.ncp=-parms[[3]]; sd2.ncp=parms[[4]]; 
 		 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
         s2_1=scale.fact1*scale.fact1; s2_2=scale.fact2*scale.fact2
         dt.alt1=dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)
@@ -309,9 +309,9 @@ parncpt2.constrOptim.CMD=function(tstat,df,starts, grids, approximation='int2',.
         der.sd1=sd1.ncp/scale.fact1*der.scale1
         der.sd2=sd2.ncp/scale.fact2*der.scale2
 		
-        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1, sd1.ncp=der.sd1, mu2.ncp=der.mu2, sd2.ncp=der.sd2)
+        c(pi0=der.pi0, pi1=der.pi1, mu1.ncp=der.mu1-der.mu2, sd1.ncp=der.sd1+der.sd2)
     }
-	deriv.obj=function(parms)numDeriv::grad(obj, parms)
+	#deriv.obj=function(parms)numDeriv::grad(obj, parms)
 	
     if(missing(starts)) {
         default.grids=list(lower=c(1e-3, 1e-3, -2, 1e-3), upper=c(1-1e-3, 1-1e-3, 0, 2), ngrid=c(5,5,5))
@@ -366,7 +366,7 @@ parncpt2.constrOptim=function(tstat,df,starts, grids, approximation='int2',...)
         }
         
     deriv.obj=function(parms) {
-		pi0=parms[1]; pi1=parms[2]; mu1.ncp=parms[3]; sd1.ncp=parms[4]; mu2.ncp=parms[5]; sd2.ncp=parms[6]; 
+		pi0=parms[[1]]; pi1=parms[[2]]; mu1.ncp=parms[[3]]; sd1.ncp=parms[[4]]; mu2.ncp=parms[[5]]; sd2.ncp=parms[[6]]; 
 		 scale.fact1=sqrt(1+sd1.ncp*sd1.ncp); scale.fact2=sqrt(1+sd2.ncp*sd2.ncp); 
         s2_1=scale.fact1*scale.fact1; s2_2=scale.fact2*scale.fact2
         dt.alt1=dtn.mix(tstat, df, mu1.ncp, sd1.ncp, FALSE, approximation)
