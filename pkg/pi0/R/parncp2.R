@@ -104,6 +104,7 @@ parncpt2.constrOptim.CM=function(tstat,df,starts, grids, approximation='int2',..
 				obj(c(parms[1],parms[2],parms[3],parms[4],parms[3]*-1,parms[4]))
 		}
         starts=suppressWarnings(grid.search(obj.restricted, default.grids$lower, default.grids$upper, default.grids$ngrid))
+		if(sum(starts[1:2])==1) starts[1:2]=starts[1:2]*.999
 		starts=c(starts[1:4], starts[4])
     }
 	ui=rbind(diag(c(1,1,-1,1,1)), rep(-1:0, 2:3))
@@ -210,6 +211,7 @@ parncpt2.constrOptim.CD=function(tstat,df,starts, grids, approximation='int2',..
 				obj(c(parms[1],parms[2],parms[3],parms[4],parms[3]*-1,parms[4]))
 		}
         starts=suppressWarnings(grid.search(obj.restricted, default.grids$lower, default.grids$upper, default.grids$ngrid))
+		if(sum(starts[1:2])==1) starts[1:2]=starts[1:2]*.999
 		if(starts[3]>0){
 			starts[2]=1-starts[1]-starts[2]; starts[3]=-starts[3]
 		}else if(starts[3]==0) starts[3]=-1e-3
@@ -318,6 +320,7 @@ parncpt2.constrOptim.CMD=function(tstat,df,starts, grids, approximation='int2',.
         if(!missing(grids)) for(nn in names(grids)) default.grids[[nn]]=grids[[nn]]
 		 tmp=function(parms)if(sum(parms[1:2])>1) Inf else obj(parms)
         starts=suppressWarnings(grid.search(tmp, default.grids$lower, default.grids$upper, default.grids$ngrid))
+		if(sum(starts[1:2])==1) starts[1:2]=starts[1:2]*.999
     }
 	ui=rbind(diag(1,4), rep(-1:0, each=2)); ui[3L,3L]=-1
 	ci=rep(0,5); ci[5]=-1
@@ -422,6 +425,7 @@ parncpt2.constrOptim=function(tstat,df,starts, grids, approximation='int2',...)
 				obj(c(parms[1],parms[2],parms[3],parms[4],parms[3]*-1,parms[4]))
 		}
         starts=suppressWarnings(grid.search(obj.restricted, default.grids$lower, default.grids$upper, default.grids$ngrid))
+		if(sum(starts[1:2])==1) starts[1:2]=starts[1:2]*.999
 		if(starts[3]>0){
 			starts[2]=1-starts[1]-starts[2]; starts[3]=-starts[3]
 		}else if(starts[3]==0) starts[3]=-1e-3
