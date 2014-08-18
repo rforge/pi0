@@ -168,15 +168,25 @@ nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), start
                         limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
                              Wx=NULL, Wa=NULL, type=1)$X
                    }else if (solver=='ipop') {  ## not working well ## the R translation of the LOQO code is not very honest
-                        tmpA=ipop(c=-dvec, H=Dmat, A=t(Amat), b=bvec, l=rep(-1,K), u=rep(1,K), r=rep(1e6,K+1),verb=verbose)
-                        if(tmpA@how!='converged'){warning('ipop not converged')}
-                        tmpA@primal
+                        tmpA=try(ipop(c=-dvec, H=Dmat, A=t(Amat), b=bvec, l=rep(-1,K), u=rep(1,K), r=rep(1e6,K+1),verb=verbose))
+	                    if(class(tmpA)=='try-error'){ # solver='lsei'
+                            tmpA=chol(Dmat); tmpB=.5*drop(forwardsolve(t(tmpA), dvec)); 
+                            limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
+                                 Wx=NULL, Wa=NULL, type=1)$X
+                        }else{
+							if(tmpA@how!='converged'){warning('ipop not converged')}
+							tmpA@primal
+						  }
                    }else if (solver=='LowRankQP') { ## not working well
                         tmpTransform=solve(tcrossprod(Amat),Amat)
                         Hmat=crossprod(tmpTransform, Dmat%*%tmpTransform)
-                        tmpAns=LowRankQP(Vmat=Hmat,dvec=Hmat%*%bvec-crossprod(tmpTransform,dvec),
-                                        Amat=matrix(0,0,K+1),bvec=numeric(0),uvec=rep(1e6,K+1),method='LU',niter=2000)
-                        drop(tmpTransform%*%(bvec+tmpAns$alpha))
+                        tmpAns=try(LowRankQP(Vmat=Hmat,dvec=Hmat%*%bvec-crossprod(tmpTransform,dvec),
+                                        Amat=matrix(0,0,K+1),bvec=numeric(0),uvec=rep(1e6,K+1),method='LU',niter=2000))
+	                    if(class(tmpAns)=='try-error'){ # solver='lsei'
+                            tmpA=chol(Dmat); tmpB=.5*drop(forwardsolve(t(tmpA), dvec)); 
+                            limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
+                                 Wx=NULL, Wa=NULL, type=1)$X
+                        }else drop(tmpTransform%*%(bvec+tmpAns$alpha))
                    }
             thetas.new=thetas+qp.sol
             repeat{
