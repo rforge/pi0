@@ -285,6 +285,8 @@ nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), start
 	attr(ll, 'nobs')=G
     class(ll)='logLik'
 
+	if(mean(beta.final<.01)<.5) warning("Less than half of the estimated coefficients (betas) are less than 0.01. Your might want to try enlarging the `bounds` argument.")
+	
     ans=list(pi0=pi0s[i.final], mu.ncp=beta.final%*%mus, sd.ncp= sqrt(beta.final%*%(mus^2+sigs^2)-(beta.final%*%mus)^2), 
              logLik=ll, enp=enps[i.final], par=sqp.fit[i.final,],lambda=lambdas[i.final],
              gradiant=grad.NPLL(sqp.fit[i.final,]), hessian=hess.NPLL(sqp.fit[i.final,]),

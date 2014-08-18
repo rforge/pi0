@@ -1,4 +1,4 @@
-sparncpt=function(obj1, obj2, ...) UseMethod('sparncpt')
+sparncpt=function(obj1, obj2, ...) 	UseMethod('sparncpt')
 
 sparncpt.nparncpt=function(obj1, obj2,...)
 {   tmp=obj1;
@@ -8,9 +8,22 @@ sparncpt.nparncpt=function(obj1, obj2,...)
 }
 
 sparncpt.numeric=function(obj1, obj2, ...)
-{   tstat=obj1; df=obj2
-    obj1=parncpt(tstat,df, zeromean=FALSE, ...)
-    obj2=nparncpt(tstat,df, ...)
+{
+	ddd=list(...); dnames=names(ddd)
+	if('df'%in%dnames && !('tstat'%in%dnames)){
+		ddd$tstat=obj1
+		if(!missing(obj2)) ddd=c(obj2, ddd)
+	}else if('tstat'%in%dnames && !('df'%in%dnames)){
+		ddd$df=obj1
+		if(!missing(obj2)) ddd=c(obj2, ddd)
+	}else if('tstat'%in%dnames && 'df'%in%dnames){
+		if(!missing(obj2)) ddd=c(obj2, ddd)
+		if(!missing(obj1)) ddd=c(obj1, ddd)
+	} else {
+		ddd$tstat=obj1; ddd$df=obj2
+	}
+	obj1=do.call('parncpt', c(zeromean=FALSE, ddd))
+    obj2=do.call('nparncpt', ddd)
     sparncpt.parncpt(obj1, obj2, ...)
 }
 
@@ -38,6 +51,18 @@ sparncpt.parncpt=function(obj1, obj2, ...)
              )
     class(ans)=c('sparncpt','ncpest')
     ans
+}
+
+sparncpt.default=function(obj1, obj2, ...)
+{
+	if(missing(obj1) && !missing(obj2)) return(sparncpt(obj2, , ...))
+	ddd=list(...); dnames=names(ddd)
+	if(missing(obj1) && missing(obj2)) {
+		ddd$obj1=ddd$tstat; ddd$obj2=ddd$df; 
+		ddd$tstat=ddd$df=NULL
+		return(do.call('sparncpt', ddd))
+	}
+	stop('Please refer to "sparncpt" syntax.')
 }
 
 fitted.sparncpt=#fitted.values.sparncpt=
