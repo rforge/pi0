@@ -168,7 +168,7 @@ nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), start
                         limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
                              Wx=NULL, Wa=NULL, type=1)$X
                    }else if (solver=='ipop') {  ## not working well ## the R translation of the LOQO code is not very honest
-                        tmpA=try(ipop(c=-dvec, H=Dmat, A=t(Amat), b=bvec, l=rep(-1,K), u=rep(1,K), r=rep(1e6,K+1),verb=verbose))
+                        tmpA=try(ipop(c=-dvec, H=Dmat, A=t(Amat), b=bvec, l=rep(-1,K), u=rep(1,K), r=rep(1e6,K+1),verb=verbose), silent=TRUE)
 	                    if(class(tmpA)=='try-error'){ # solver='lsei'
                             tmpA=chol(Dmat); tmpB=.5*drop(forwardsolve(t(tmpA), dvec)); 
                             limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
@@ -181,8 +181,8 @@ nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), start
                         tmpTransform=solve(tcrossprod(Amat),Amat)
                         Hmat=crossprod(tmpTransform, Dmat%*%tmpTransform)
                         tmpAns=try(LowRankQP(Vmat=Hmat,dvec=Hmat%*%bvec-crossprod(tmpTransform,dvec),
-                                        Amat=matrix(0,0,K+1),bvec=numeric(0),uvec=rep(1e6,K+1),method='LU',niter=2000))
-	                    if(class(tmpAns)=='try-error'){ # solver='lsei'
+                                        Amat=matrix(0,0,K+1),bvec=numeric(0),uvec=rep(1e6,K+1),method='LU',niter=2000), silent=TRUE)
+	                    if(class(tmpAns)=='try-error' || any(is.na(tmpAns$alpha))){ # solver='lsei'
                             tmpA=chol(Dmat); tmpB=.5*drop(forwardsolve(t(tmpA), dvec)); 
                             limSolve::lsei(A=tmpA, B=tmpB, E=matrix(0,0,K), F=numeric(0), G=t(Amat), H=bvec, 
                                  Wx=NULL, Wa=NULL, type=1)$X
@@ -295,7 +295,7 @@ nparncpt.sqp = function (tstat, df, penalty=3L, lambdas=10^seq(-1,5,by=1), start
 	attr(ll, 'nobs')=G
     class(ll)='logLik'
 
-	if(mean(beta.final<.01)<.5) warning("Less than half of the estimated coefficients (betas) are less than 0.01. Your might want to try enlarging the `bounds` argument.")
+	if(!all(is.na(beta.final)) && mean(beta.final<.01)<.5) warning("Less than half of the estimated coefficients (betas) are less than 0.01. Your might want to try enlarging the `bounds` argument.")
 	
     ans=list(pi0=pi0s[i.final], mu.ncp=beta.final%*%mus, sd.ncp= sqrt(beta.final%*%(mus^2+sigs^2)-(beta.final%*%mus)^2), 
              logLik=ll, enp=enps[i.final], par=sqp.fit[i.final,],lambda=lambdas[i.final],
