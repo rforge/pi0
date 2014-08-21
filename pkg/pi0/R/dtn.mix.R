@@ -9,9 +9,9 @@ dtn.mix=function(t,df,mu.ncp, sd.ncp, log=FALSE, approximation=c('int2','saddlep
 	scale.fact=sqrt(1+sd.ncp*sd.ncp)
 	ncp=mu.ncp/scale.fact
 	
-	fname=paste('dt', switch(approximation, int2='.int2',saddlepoint='.sad',laplace='.lap', none=''))
+	fname=paste('dt', switch(approximation, int2='.int2',saddlepoint='.sad',laplace='.lap', none=''), sep='')
 	
-	lst=list(x=t/scale.fact, df=df, ncp=ncp, log=log,,,)
+	lst=list(x=t/scale.fact, df=df, ncp=ncp, log=log, ...)
 	
 	ans=do.call(fname, lst)
 	if(isTRUE(log)) ans-log(scale.fact) else ans/scale.fact
