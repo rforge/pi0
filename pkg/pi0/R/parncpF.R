@@ -23,6 +23,7 @@ parncpF.lbfgsb.noncentral=function(Fstat,df1,df2,starts, grids, approximation='n
     dF.null=df(Fstat,df1,df2)
     obj=function(parms){
             pi0=parms[1]; delta0=parms[2]; gamma2=parms[3]; scale.fact=(1+gamma2)
+			if(pi0<0 || pi0>1 || delta0<0 || gamma2<0) return(sqrt(.Machine$double.xmax))  ##  numDeriv::grad might get into negative range
             Lik=pi0*dF.null+(1-pi0)*dFsnc.mix(Fstat,df1, df2,delta0,gamma2,FALSE,approximation)
 #            Lik=pi0*dF.null+(1-pi0)*dt.int(Fstat/scale.fact,df,delta0/scale.fact)/scale.fact  
             ans=-sum(log(Lik))
@@ -97,6 +98,7 @@ parncpF.lbfgsb.central=function(Fstat,df1, df2, starts, grids, approximation='no
 
     obj=function(parms){
                 pi0=parms[1]; delta0=0; gamma2=parms[2]; scale.fact=1+gamma2
+				if(pi0<0 || pi0>1 || delta0<0 || gamma2<0) return(sqrt(.Machine$double.xmax))
                 Lik=pi0*dF.null+(1-pi0)*df(Fstat/scale.fact,df1,df2)/scale.fact
                 -sum(log(Lik))
     }
