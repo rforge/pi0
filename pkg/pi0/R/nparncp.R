@@ -331,11 +331,11 @@ function(object, ...)
     object$pi0*dt(object$data$tstat, object$data$df)+(1-object$pi0)*drop(nonnull.mat%*%object$beta)
 }
 #lfdr.nparncpt=ppee.nparncpt=lfdr.parncpt
-summary.nparncpt=function(object,...)
+summary.nparncpt=summary.nparncpF=function(object,...)
 {
-    print.nparncpt(object,...)
+    print(object,...)
 }
-print.nparncpt=function(x,...)
+print.nparncpt=print.nparncpF=function(x,...)
 {
     cat('pi0=',x$pi0, fill=TRUE)
     cat('mu.ncp=', x$mu.ncp, fill=TRUE)
@@ -367,6 +367,8 @@ plot.nparncpt=function(x,...)
         ylim=c(0,max(x$all.enps[i.2se]))); 
         abline(v=log10(x$all.lambdas[c(x$i.final)]), xlab='log10(lambda)', ylab='ENP', lty=1)
     title(sub=paste('df =', round(x$enp,3),sep=''))
+	
+	
     plot(log10(x$all.lambdas), x$all.pi0s, xlab='log10(lambda)', ylab='pi0',ylim=0:1); 
         abline(v=log10(x$all.lambdas[c(x$i.final)]), xlab='log10(lambda)', ylab='pi0', lty=1)
     title(sub=paste('pi0 =', round(x$pi0,3),sep=''))
@@ -378,7 +380,9 @@ plot.nparncpt=function(x,...)
         d=sweep(dnorm(xx),2,x$all.sigs,'/')
         drop(d%*%x$beta)
     }
-    curve(d.ncp, min(x$all.mus),max(x$all.mus),100,col=4,lwd=2, xlab=expression(delta),ylab='density')
+	lb=if(min(x$all.mus)<=0) min(x$all.mus)*1.1 else min(x$all.mus)/1.1
+	ub=if(max(x$all.mus)>=0) min(x$all.mus)*1.1 else max(x$all.mus)/1.1
+    curve(d.ncp, lb,ub,col=4,lwd=2, xlab=expression(delta),ylab='density')
 #    detach(x)
     rug(x$all.mus)
     title(sub=paste("mean =",round(x$mu.ncp,3),"; sd =",round(x$sd.ncp,3),sep=''))

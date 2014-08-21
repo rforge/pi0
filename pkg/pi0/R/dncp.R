@@ -42,10 +42,16 @@ dncp.parncpF=function(obj,...)
 
 dncp.nparncpF=function(obj,...)        # p in the paper
 {   ## depends on mus, sigs
-    d.ncp=function(xx){
-        z=function(k, u) dchisq(u/obj$all.gam2s[k], obj$data$df1, obj$all.mus[k]/obj$all.gam2s[k]-obj$data$df1)/obj$all.gam2s[k]
-        qx=outer(1:(length(obj$all.mus)-2), xx,  z)
-        drop(obj$beta %*% qx)
+	mu2s=sort(unique(obj$all.mus^2))
+	gam2=obj$gam2
+    d.ncp=function(xx)        # p in the paper
+    {   ## depends on mu2s, gam2, obj
+		schisq.x=outer(xx/gam2, mu2s/gam2, dchisq, df=obj$data$df1)/gam2
+		ans=drop(schisq.x %*% obj$beta)
+		if(any(xx==0) && obj$data$df1<2){
+			ans[xx==0]=Inf
+		}
+		ans
     }
     d.ncp
 }

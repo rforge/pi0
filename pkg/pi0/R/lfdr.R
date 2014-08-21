@@ -9,7 +9,13 @@ function(object, ...)
     NA
 }
 
-
+lfdr.parncpF=
+lfdr.nparncpF=
+function(object, ...)
+{
+	if(any(is.na(object))) return (NA)
+    pmin(pmax(object$pi0*df(object$data$tstat, object$data$df1, object$data$df2)/fitted(object), 0), 1)
+}
 lfdr.parncpt=#ppee.parncpt=
 lfdr.nparncpt=#ppee.nparncpt=
 lfdr.discTMix=#ppee.discTMix=
@@ -22,6 +28,11 @@ lfdr.sparncpt=#ppee.sparncpt=
 function(object, ...)
 {
     pmin(pmax(object$pi0*dt(object$parfit$data$tstat, object$parfit$data$df)/fitted(object), 0), 1)
+}
+lfdr.sparncpF=#ppee.sparncpt=
+function(object, ...)
+{
+    pmin(pmax(object$pi0*df(object$parfit$data$Fstat, object$parfit$data$df1, object$parfit$data$df2)/fitted(object), 0), 1)
 }
 
 lfdr.nparncpp=#ppee.nparncpp=
