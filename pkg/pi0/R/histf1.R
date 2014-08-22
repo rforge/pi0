@@ -1,5 +1,5 @@
 histf1=function(p,max.bins=20,bin.method=c("max","nmse","bootstrap","Sturges","Scott","FD"),
-        discrete=FALSE,seq.perm=FALSE,nboots=200,plotit=FALSE,perm.n,perm.h,...)
+        discrete=FALSE,seq.perm=FALSE,nboots=200,rightBoundary=FALSE, plotit=FALSE,perm.n,perm.h,...)
 {
     if(seq.perm){
         if(missing(perm.h) || missing(perm.n)){
@@ -78,7 +78,7 @@ histf1=function(p,max.bins=20,bin.method=c("max","nmse","bootstrap","Sturges","S
         dens=histobj$density
     }
     tailmean=rev(cumsum(rev(cts))/cumsum(rev(wids)))/length(p)
-    f1=tailmean[which.max(dens<=tailmean)]
+    f1=tailmean[min(which.max(c(dens<=tailmean, TRUE))+rightBoundary, length(cts))]
     if(plotit)abline(h=f1)
     drop(f1)
 }

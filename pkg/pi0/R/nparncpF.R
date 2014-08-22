@@ -226,10 +226,11 @@ nparncpF.sqp = function (Fstat, df1,df2, penalty=3, lambdas=10^seq(-1,8,by=1), s
     }
 
     if(missing(starts)) {
-        tmp=parncpF(Fstat,df1,df2,central=FALSE,method='BFGS')
+        tmp=parncpF(Fstat,df1,df2,central=FALSE,method='L-BFGS-B')
         starts=rep(coef(tmp)['pi0']/(K+1L),(K+1L))
-        if(sum(starts)>1-1e-6) starts=starts/sum(starts)*(1-1e-6)
     }
+	if(sum(starts)>1-1e-6) starts=starts/sum(starts)*(1-1e-6)
+	starts=pmax(1e-6, starts)
 
     n.lambda=length(lambdas)
     nics=enps=nic.sd=pi0s=numeric(n.lambda)

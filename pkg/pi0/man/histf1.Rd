@@ -10,7 +10,7 @@
 \usage{
 histf1(p,max.bins=20,bin.method=c("max","nmse","bootstrap",
       "Sturges","Scott","FD"),discrete=FALSE,seq.perm=FALSE,
-      nboots=200,plotit=FALSE,perm.n,perm.h,...)
+      nboots=200,rightBoundary=FALSE,plotit=FALSE,perm.n,perm.h,...)
 
 }
 %- maybe also 'usage' for other objects documented here.
@@ -21,6 +21,7 @@ histf1(p,max.bins=20,bin.method=c("max","nmse","bootstrap",
   \item{discrete}{Whether p-values are discrete}
   \item{seq.perm}{Whether p-values come from sequential permutation tests}
   \item{nboots}{bootstrap sample size}
+  \item{rightBoundary}{Logical; if \code{TRUE}, then the tail mean is computed from the right boundary of the chosen bin. }
   \item{plotit}{Whether to plot the histogram}
   \item{perm.n}{\code{n} for sequential permutation tests}
   \item{perm.h}{\code{h} for sequential permutation tests}
@@ -33,7 +34,7 @@ histf1(p,max.bins=20,bin.method=c("max","nmse","bootstrap",
 %
 %
 %}
-\value{Numeric scalar
+\value{A numeric scalar value of estimated p-value density at 1. 
 %  \item{}{              }
 %  \item{}{              }
 %  \item{}{              }
@@ -46,8 +47,9 @@ Bancroft and Nettleton. 2009. Estimation of False Discovery Rate Using Permutati
 
 Bancroft and Nettleton. 2009. Computationally Efficient Estimation of False Discovery Rate Using Sequential Permutation P-values. Iowa State University Department of Statistics Preprint Series, #2009-04.
 
+Liang and Nettleton. 2012. Adaptive and dynamic adaptive procedures for false discovery rate control and estimation, Journal of the Royal Statistical Society, Series B. 74. 163-182
 }
-\author{ Long Qu  }
+\author{ Long Qu, Kun Liang  }
 %\note{
 %
 %
