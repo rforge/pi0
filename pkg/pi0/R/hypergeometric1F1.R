@@ -13,7 +13,7 @@
 	df1.2=df1/2; df2.2=df2/2
 	fact=x^(1/2*(-2 + df1))*df1^(df1.2)*df2^(df2.2)*(x*df1 + df2)^(1/2*(-df1 - df2))*exp(-ncp/2) / beta(df1.2, df2.2)
  
-	stopifnot(x>0 && df1>0 && df2>0 && ncp>0)
+	stopifnot(x>=0 && df1>0 && df2>0 && ncp>=0)
 	df(x, df1, df2, ncp)/fact
  }
  
