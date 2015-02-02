@@ -7,7 +7,8 @@ KR.varComp=function(object, Lmat, Vbet, svd.VLbet, X, K, V, ...)
 	if(length(bhat)== 0L){
 		return(structure(numeric(0L), names=character(0L), numDF = numeric(0L), Scale=numeric(0L), `F value`=numeric(0L), `Pr(>F)`=numeric(0L), vcov.beta = matrix(NA_real_, 0L, 0L)))
 	}
-	if(missing(K)) K= model.matrix(object, what='K')
+	#if(missing(K)) 
+		K= model.matrix(object, what='K')
 	if(missing(X)) X= model.matrix(object, what='X')
   if(missing(Lmat)) {Lmat=diag(1, ncol(X)); rownames(Lmat)=colnames(X)}
   if(!is.matrix(Lmat))	Lmat = matrix(Lmat, 1L, dimnames = list("", names(Lmat)))

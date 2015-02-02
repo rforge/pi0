@@ -126,12 +126,13 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
         X <- model.matrix(mt.fixed, mf.fixed, contrasts)
     }
 	
-	if(missing(random)){
+	#if(missing(random)){	
 		if(missing(varcov)) varcov=list()
 		K=varcov
 		nK=length(K)
-	}else{
-		## preparing a vector of all random terms
+	#}else{
+	if(!missing(random)){
+	## preparing a vector of all random terms
 		mf$formula=random
 		# if(m[2L]>0L) mf$data = cl$data
 		mf.random=eval(mf, parent.frame())
@@ -141,7 +142,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 		rterms = setdiff(rterms, -1:1) ## removing all terms invoving intercept(s)
 		rterms = sapply(rterms, sortTerm, priority=fixedVars)
 		rterms = setdiff(rterms, fixedTerms)
-		rterms = local({  ## expand all fixed-by-random interactions to ensure that later when fixed-by-random interactions are encounted, the marginal random effect does not need to be added. 
+		rterms = local({  ## expand all fixed-by-random interactions to ensure that later when fixed-by-random interactions are encountered, the marginal random effect does not need to be added. 
 			ans=rterms
 			for(iz in seq_along(rterms)){
 				this.form=update.formula(random, as.formula(paste('~', rterms[iz], '+0', collapse='')))
@@ -159,7 +160,7 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 		mf.random=eval(mf, parent.frame())
 		mt.random=attr(mf.random, 'terms')
 		rterms = attr(mt.random, 'term.labels')
-		rterms = setdiff(rterms, -1:1) ## removing all terms invoving intercept(s)
+		rterms = setdiff(rterms, -1:1) ## removing all terms involving intercept(s)
 		rterms = sapply(rterms, sortTerm, priority=fixedVars)
 		rterms = setdiff(rterms, fixedTerms)
 
@@ -218,8 +219,15 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 		  K=vector('list', nK)
 		  for(j in seq_len(nK))  K[[j]]=tcrossprod(Z[[j]])
 		}else{
-		  if(nRterms!=nK) stop('The number of matrices in "varcov" needs to equal the nubmer of random effect terms in "random", when both are provided.')
-		  for(j in 1:nK)  K[[j]]=tcrossprod(Z[[j]]%*%K[[j]], Z[[j]])
+		  if(nRterms!=nK) stop('The number of matrices in "varcov" needs to equal the number of random effect terms in "random", when both are provided.')
+		  ## match the order of elements in Z with that in K the same way as matching arguments in function calls
+			tmpf=function(){mget(ls())}
+			tmpz=seq_along(Z); namesZ=names(tmpz)=names(Z)
+			formals(tmpf)=as.pairlist(tmpz)
+			tmpk=as.list(seq_along(K)); names(tmpk)=names(K)
+			zk.idx=do.call('tmpf', tmpk)
+			K.bak=K
+		  for(j in 1:nK)  K[[j]]=tcrossprod(Z[[j]]%*%K.bak[[ zk.idx[[ namesZ[j] ]] ]], Z[[j]])
 		}
  	    names(K)=names(Z)
  	}
