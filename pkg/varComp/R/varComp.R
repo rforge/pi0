@@ -126,12 +126,11 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
         X <- model.matrix(mt.fixed, mf.fixed, contrasts)
     }
 	
-	#if(missing(random)){	
+	if(missing(random)){	
 		if(missing(varcov)) varcov=list()
 		K=varcov
 		nK=length(K)
-	#}else{
-	if(!missing(random)){
+	}else{
 	## preparing a vector of all random terms
 		mf$formula=random
 		# if(m[2L]>0L) mf$data = cl$data
@@ -219,6 +218,8 @@ varComp=function(fixed, data, random, varcov, weights, subset, family = stats::g
 		  K=vector('list', nK)
 		  for(j in seq_len(nK))  K[[j]]=tcrossprod(Z[[j]])
 		}else{
+			K=varcov
+			nK=length(K)
 		  if(nRterms!=nK) stop('The number of matrices in "varcov" needs to equal the number of random effect terms in "random", when both are provided.')
 		  ## match the order of elements in Z with that in K the same way as matching arguments in function calls
 			tmpf=function(){mget(ls())}
