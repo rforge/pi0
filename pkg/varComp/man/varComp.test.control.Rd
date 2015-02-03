@@ -71,7 +71,7 @@ LinScoreWeightingMethods
 A list of class \code{varCompTest.control} with length equal to the length \code{test} argument. This can be passed as the \code{control} or \code{fit.control} arguments to \code{\link{varComp.test}}
 }
 \references{
-	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883–892. 
+	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883--892. 
 	
 	Daniel B. Hall and Jens T. Praestgaard (2001) Order-restricted tests for homogeneity in generalised linear and nonlinear mixed models. \emph{Biometrika} 88, 739--751. 
 	

@@ -11,7 +11,7 @@ This package includes functions for fitting and testing variance component model
 \tabular{ll}{
 Package: \tab varComp\cr
 Type: \tab Package\cr
-Version: \tab 0.1-356\cr
+Version: \tab 0.1-357\cr
 Date: \tab 2015-02-02\cr
 License: \tab GPL3\cr
 }
@@ -29,7 +29,7 @@ Long Qu
 Maintainer: Long Qu <long.qu@wright.edu>
 }
 \references{
-	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883–892. 
+	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883--892. 
 	
 }
 \keyword{ package }

@@ -1,7 +1,7 @@
 Package: varComp
 Type: Package
 Title: Variance component models
-Version: 0.1-356
+Version: 0.1-357
 Date: 2015-02-02
 Author: Long Qu (long.qu@wright.edu)
 Maintainer: Long Qu <long.qu@wright.edu>

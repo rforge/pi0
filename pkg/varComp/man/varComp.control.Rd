@@ -62,7 +62,7 @@ A named list of the input arguments.
 \references{
 Arthur R. Gilmour, Robin Thompson, Brian R. Cullis (1995) Average Information REML: An Efficient Algorithm for Variance Parameter Estimation in Linear Mixed Models.  \emph{Biometrisc} 51, 1440--1450. 
 
-	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883–892. 
+	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883--892. 
 }
 \author{
 Long Qu

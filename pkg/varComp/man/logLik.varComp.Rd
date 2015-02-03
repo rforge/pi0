@@ -26,7 +26,7 @@ Extracting maximized profiled restricted log likelihood (PREML) from a \code{var
 	A numeric value of class \code{logLik}.
 }
 \references{
-	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883–892. 
+	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883--892. 
 }
 \author{
 	Long Qu

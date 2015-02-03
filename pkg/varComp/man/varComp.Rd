@@ -29,7 +29,7 @@ doFit.varComp(object)
 }
   \item{random}{An optional one-sided formula specifying additive random effects, of the form \code{~ z1 + z2 + z3}. Interactions are allowed. The error variance component should not be included. A warning will be given when \code{environment(fixed)} and \code{environment(random)} do not match. See details.
 }
-  \item{varcov}{An optional list of symmetric positive semidefinite matrices. If \code{random} is non-missing, these matrices represent the correlation matrix of each random effect. Thus the number of the random effects must match the length of \code{varcov}. If \code{random} is missing, the weighted sum of these matrices represent the contribution of random effects to the marginal variance of the response variable, with unknown weights representing variance components. 
+  \item{varcov}{An optional list of symmetric positive semidefinite matrices. If \code{random} is non-missing, these matrices represent the correlation matrix of each random effect. Thus the number of the random effects in \code{random} must be equal to the length of \code{varcov}. If \code{varcov} is named, the names will be matched to those used in \code{random}, following the same rule of arguments matching in function calls. If \code{varcov} is unnamed, it is assumed that the order is the same as in \code{random}. If \code{random} is missing, the weighted sum of these matrices represent the contribution of random effects to the marginal variance of the response variable, with unknown weights representing variance components. 
 }
   \item{weights}{
 	An optional nonnegative vector of the same length as the response variable specified in \code{fixed}. When it is given, it is inversely proportional to the error variances not captured by \code{random} and \code{varcov}. This is similar to the \code{weights} argument in \code{\link[stats:lm]{stats::lm}}. 
@@ -137,7 +137,7 @@ For the \code{varComp} interface, if any of \code{model}, \code{X}, \code{Y} or 
 
 
 \references{
-	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883–892. 
+	Qu L, Guennel T, Marshall SL. (2013) Linear Score Tests for Variance Components in Linear Mixed Models and Applications to Genetic Association Studies. \emph{Biometrics}, Volume 69, Issue 4,  pages 883--892. 
 }
 \author{
 Long Qu
