@@ -218,7 +218,7 @@ varComp.test.Common = evalq(function()  ## not to be called directly!
 				 SS95 = c('infoMat', 'all.scores', 'tr1','n','LIkLI','LIy'),
 				 RLRT = c('alt.fit', 'null.fit'),
 				 VM03 = c('infoMat', 'all.scores', 'tr1','n','LIkLI','LIy'))
-	environment(char2list) = sys.frame(sys.nframe())
+	#environment(char2list) = sys.frame(sys.nframe())
 	
 	if(any(test%in%varCompScoreTests)){
 		{
@@ -306,7 +306,7 @@ varComp.test.Common = evalq(function()  ## not to be called directly!
     # test.list[[i.test]]=eval(thisToCall)
 	test.list[[i.test]] = do.call(
 		what = paste('varComp', test[i.test], 'test', sep='.'),
-		args = c(char2list(call.lists[[test[i.test]]]), list(tau.idx = tau.idx, control=control[[test[i.test]]]))
+		args = c(mget(call.lists[[test[i.test]]], inherits=TRUE), list(tau.idx = tau.idx, control=control[[test[i.test]]]))
     )
   }
   class(test.list)='varComp.test'

@@ -17,6 +17,7 @@ safeseq=function(from=1L, to=1L, by=1L,...)
   }else seq(from=from, to=to, by=by, ...)
 }
 
+if(FALSE){# mget replaces this
 char2list=function(Names)
 {
 	pfm=parent.frame(); pfm
@@ -25,3 +26,4 @@ char2list=function(Names)
 	ans
 }
 
+}

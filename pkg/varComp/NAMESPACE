@@ -35,7 +35,7 @@ export(
 #	KR,
 	am,
 	AM,
-	char2list,
+#	char2list,
 	cholRoot,
 	colon,
 	get.seed,
