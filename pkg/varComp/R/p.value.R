@@ -8,7 +8,7 @@ p.value.varComp.test <-
 function(x)
 {
 #Extracting p-values from objects from varComp.test. 
-#i.	x: an object of class 憊arComp.test?
+#i.	x: an object of class varComp.test
   f=function(zz){
     if(inherits(zz, 'htest')) return(zz$p.value)
     if(is.list(zz)) return(unlist(sapply(zz, f)))

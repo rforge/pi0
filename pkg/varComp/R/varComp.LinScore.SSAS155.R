@@ -11,11 +11,11 @@ function(	#null.fit,
 #vi.	w: vector of weights. 
 #vii.	tr1: vector of traces.
 #viii.	n: residual sample size
-#ix.	LIkLI: list of matrices, each being sqrt(V^{-1})’ K_i sqrt(V ^{-1})
+#ix.	LIkLI: list of matrices, each being sqrt(V^{-1})' K_i sqrt(V ^{-1})
 #x.	tau.idx: complement of null.
-#xi.	non.pd: A logical indicating that the infoMat is not positive definite. This only applies when the information argument of varComp.test is not ‘EI’. 
+#xi.	non.pd: A logical indicating that the infoMat is not positive definite. This only applies when the information argument of varComp.test is not `EI`. 
 #control: Optional control object, primarily for getting extremely small p-values
-#xii.	…: place holder for unused arguments.
+#xii.	...: place holder for unused arguments.
   nK=length(all.scores)
   nonNull=seq_len(nK)[-null]
   Phi=infoMat[null, nonNull, drop=FALSE]  

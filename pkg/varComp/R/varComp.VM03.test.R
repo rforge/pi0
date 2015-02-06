@@ -4,13 +4,13 @@ function(control, infoMat, tau.idx, LIkLI, tr1, n, LIy, all.scores)# , ...)
 #i.	control: the control object from varCompTest.control. 
 #ii.	infoMat: Negative expected Hessian matrix.
 #iii.	tau.idx: Integer vector that indexes the additional variance components of the alternative hypothesis compared to the null. That is, this is the complement of the null argument of varComp.test.
-#iv.	LIkLI: A list of matrices being  sqrt(V^{-1})’ K_i sqrt(V ^{-1})
+#iv.	LIkLI: A list of matrices being  sqrt(V^{-1})' K_i sqrt(V ^{-1})
 #v.	tr1: Vector of trace terms. 
 #vi.	n: residual sample size. 
-#vii.	LIy: sqrt(V^{-1})’y
+#vii.	LIy: sqrt(V^{-1})'y
 #viii.	null: the same as in varComp.test. 
 #ix.	all.scores: vector of all score statistics. 
-#x.	…: place holder for unused arguments. 
+#x.	...: place holder for unused arguments. 
   null = seq_along(all.scores)[-tau.idx]
   nNull=length(null)
   n.tau=length(tau.idx)

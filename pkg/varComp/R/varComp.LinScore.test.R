@@ -13,7 +13,7 @@ function(control, n, tau.idx, LIkLI, tr1, infoMat, all.scores, non.pd)  #, ...)
 #viii.	obs.score: observed score vector for the alternative\null
 #ix.	infoMat: the same as varComp.VM03.test
 #x.	all.scores: all scores
-#xi.	…: place holder for unused arguments. 
+#xi.	...: place holder for unused arguments. 
   null = seq_along(all.scores)[-tau.idx]
   nNull=length(null)
   wts=control$wt

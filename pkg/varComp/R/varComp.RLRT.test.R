@@ -9,7 +9,7 @@ function(control,negHess, alt.fit, null.fit, tau.idx)  #, k,null,...)
 #v.	tau.idx: complement of null. 
 #vi.	k: list of corrected correlation matrices. 
 #vii.	null: the same as the null in varComp.test. 
-#viii.	…: place holder for unused arguments. 
+#viii.	...: place holder for unused arguments. 
 	
   nNull=length(null.fit$random.labels); 
   null = seq_along(alt.fit$random.labels)[-tau.idx]
