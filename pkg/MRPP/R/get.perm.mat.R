@@ -208,12 +208,14 @@ nperms.permutedTrt=function(permutedTrt)
 
 ntrt.permutedTrt=function(permutedTrt)
 {
-	sapply(permutedTrt, nrow)
+	sapply(permutedTrt, NROW)
 }
 
 trt.permutedTrt=function(permutedTrt)
-{
-	ans=factor(rep(1L, sum(sapply(permutedTrt,nrow))), levels=names(permutedTrt))
+{ ## previous implementation was bugged; this is the corrected version. 
+	ans=rep(NA_integer_, sum(sapply(permutedTrt,NROW)))#, levels=seq_along(permutedTrt))
 	for(i in seq_along(permutedTrt)) ans[permutedTrt[[i]][,1L]] = i
+	class(ans)='factor'
+	levels(ans)=names(permutedTrt)
 	ans
 }
